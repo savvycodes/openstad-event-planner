@@ -1,0 +1,92 @@
+"use strict";
+var helpers = require("../example/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+  var React = require('react');
+  var wouter = require('wouter');
+  var formik = require('formik');
+  var Yup = require('yup');
+  var schema = /*#__PURE__*/Yup.object().shape({
+    name: /*#__PURE__*/Yup.string().required(),
+    street: /*#__PURE__*/Yup.string().required(),
+    zip: /*#__PURE__*/Yup.string().required(),
+    phoneNumber: /*#__PURE__*/Yup.number().min(10).max(10).required(),
+    mailAddress: /*#__PURE__*/Yup.string().email().required(),
+    website: /*#__PURE__*/Yup.string().url(),
+    facebook: /*#__PURE__*/Yup.string().url(),
+    instagram: /*#__PURE__*/Yup.string().url()
+  });
+  function ProviderDetailsForm() {
+    return React.createElement(formik.Formik, {
+      initialValues: {
+        name: '',
+        street: '',
+        zip: '',
+        phoneNumber: '',
+        mailAddress: '',
+        website: '',
+        facebook: '',
+        instagram: ''
+      },
+      onSubmit: console.log,
+      validationSchema: schema
+    }, function (form) {
+      return React.createElement("form", {
+        onSubmit: form.handleSubmit
+      }, React.createElement("input", {
+        type: "text",
+        name: "name",
+        onChange: form.handleChange,
+        onBlur: form.handleBlur,
+        value: form.values.name
+      }), React.createElement("button", {
+        type: "submit"
+      }, "Volgende"));
+    });
+  }
+  _c = ProviderDetailsForm;
+  // returns the current hash location in a normalized form
+  // (excluding the leading '#' symbol)
+  // const currentLocation = () => {
+  // return window.location.hash.replace(/^#/, "") || "/";
+  // };
+  // const navigate = (path: Path) => (window.location.hash = path);
+  // function useHashLocation() {
+  // const [loc, setLoc] = React.useState<string | string[]>(currentLocation());
+  // React.useEffect(() => {
+  // // this function is called whenever the hash changes
+  // const handler = () => setLoc(currentLocation());
+  // // subscribe to hash changes
+  // window.addEventListener("hashchange", handler);
+  // return () => window.removeEventListener("hashchange", handler);
+  // }, []);
+  // return [loc, navigate];
+  // };
+  var HashRouter = function HashRouter(props) {
+    return React.createElement(wouter.Router, null, props.children);
+  };
+  _c2 = HashRouter;
+  function App() {
+    return React.createElement(HashRouter, null, React.createElement(wouter.Link, {
+      href: "/aanbieder/contact-details"
+    }, React.createElement("a", null, "Test 123")), React.createElement(wouter.Route, {
+      path: "/aanbieder/contact-details",
+      component: ProviderDetailsForm
+    }));
+  }
+  _c3 = App;
+  exports.App = App;
+  var _c, _c2, _c3;
+  $RefreshReg$(_c, "ProviderDetailsForm");
+  $RefreshReg$(_c2, "HashRouter");
+  $RefreshReg$(_c3, "App");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
