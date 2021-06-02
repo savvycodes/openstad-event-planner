@@ -3,4 +3,12 @@
     "target": "http://localhost:4444",
     "changeOrigin": true
   }
+  "/image": {
+    "target": "http://localhost:4444",
+    "changeOrigin": true
+  }
+  "/images": {
+    "target": "http://localhost:4444",
+    "changeOrigin": true
+  }
 }
