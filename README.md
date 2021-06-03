@@ -4,7 +4,7 @@ _**Openstad-event-planner** — Event planner for Openstad_
 
 As seen on [Midzomer Mokum](https://midzomermokum.nl)
 
-## Usage
+## Installation
 
 > **IMPORTANT** This package requires [API](https://github.com/savvycodes/openstad-api/tree/feat/event-planner) changes.
 
