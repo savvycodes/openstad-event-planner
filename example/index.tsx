@@ -3,4 +3,18 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { App } from '../.';
 
-ReactDOM.render(<App />, document.querySelector('.openstad-events'));
+const config = {
+  jwt:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYyMjY1MjAyMCwiZXhwIjoxNjM4Mzc2ODIwfQ.WKHZjv6UVe-25vE0HmXgBInrOJMgy1SdUEHH8ATMPxw',
+  siteId: 2,
+  apiUrl: 'http://localhost:8111',
+  user: {
+    isEventProvider: true,
+    role: 'admin',
+  },
+};
+
+ReactDOM.render(
+  <App config={config} />,
+  document.querySelector('.openstad-events')
+);
