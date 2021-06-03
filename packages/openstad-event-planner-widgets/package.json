@@ -1,5 +1,6 @@
 {
   "name": "@savvycodes/openstad-event-planner-widgets",
+  "version": "0.0.1",
   "main": "index.js",
   "dependencies": {
     "@savvycodes/event-manager": "^0.1.0",
