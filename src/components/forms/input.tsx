@@ -8,10 +8,9 @@ type InputProps = {
 };
 
 export const Main = styled('div')`
-  
   @media (max-width: 1023px) {
-  padding: 12px 4px;
-  background-color: #f3f3f3;
+    padding: 12px 4px;
+    background-color: #f3f3f3;
   }
   @media (min-width: 1024px) {
     background-color: #f3f3f3;
@@ -62,7 +61,7 @@ export const Label = styled('label')`
 `;
 export const ListLabel = styled('label')`
   padding: 0 8px;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-family: 'Noto Sans', sans-serif;
 `;
 

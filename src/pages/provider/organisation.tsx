@@ -51,8 +51,7 @@ export function ProviderOrganisationPage(): JSX.Element {
   const [, navigate] = useHashLocation();
 
   return (
-    <Main
-    >
+    <Main>
       <Header>
         <Paragraph>Welkom Aanbieder X,</Paragraph>
         <Paragraph>
