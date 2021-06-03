@@ -46,7 +46,8 @@ module.exports = {
     const superPushAssets = self.pushAssets;
     self.pushAssets = function() {
       superPushAssets();
-      self.pushAsset('script', 'event-manager', { when: 'always' });
+      // Drawback to this approach is that event-manager is loaded when users don't have access to it
+      self.pushAsset('script', 'event-manager', { when: 'user' });
     };
 
     const superLoad = self.load;
