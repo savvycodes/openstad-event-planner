@@ -1,12 +1,22 @@
-import { createContext, useContext } from 'react';
+import React, { createContext, useContext } from 'react';
 
-type iTheme = {
-  primary: string;
-};
+interface Theme {
+  primary?: string;
+}
 
-// @todo: fetch this from somewhere
-const theme: iTheme = { primary: 'blue' };
-const ThemeContext = createContext(theme);
+const defaultTheme: Theme = { primary: 'blue' };
+const ThemeContext = createContext(defaultTheme);
 const useTheme = () => useContext(ThemeContext);
 
-export { useTheme, iTheme };
+function ThemeProvider(props: {
+  children: React.ReactNode;
+  theme: Theme;
+}): JSX.Element {
+  return (
+    <ThemeContext.Provider value={props.theme}>
+      {props.children}
+    </ThemeContext.Provider>
+  );
+}
+
+export { useTheme, Theme, ThemeProvider, defaultTheme };

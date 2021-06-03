@@ -1,7 +1,7 @@
 import React, { createElement } from 'react';
 import { setup } from 'goober';
 
-import { iTheme, useTheme } from './theme/theme';
+import { defaultTheme, Theme, ThemeProvider, useTheme } from './theme/theme';
 import { UserProvider } from './context/user-context';
 import { Router } from './routes';
 import { ConfigProvider } from './context/config-context';
@@ -21,7 +21,7 @@ export type AppConfig = {
 };
 
 type AppProps = {
-  theme?: iTheme;
+  theme?: Theme;
   config: AppConfig;
 };
 
@@ -29,22 +29,26 @@ type AppProps = {
  * Todo's
  *
  * - [x] Setup basic config including siteId, jwt and apiUrl
- * - [ ] Check if user is authenticated?
+ * - [-] Check if user is authenticated?
  * - [ ] Create 3 step form and submit to /api/site
  */
 
 export function App(props: AppProps): JSX.Element {
+  const theme = { ...defaultTheme, ...props.theme };
+
   return (
-    <ConfigProvider value={props.config}>
-      <UserProvider
-        value={{
-          jwt: props.config.jwt,
-          role: props.config.user?.role,
-          isEventProvider: props.config.user?.isEventProvider || false,
-        }}
-      >
-        <Router />
-      </UserProvider>
-    </ConfigProvider>
+    <ThemeProvider theme={theme}>
+      <ConfigProvider value={props.config}>
+        <UserProvider
+          value={{
+            jwt: props.config.jwt,
+            role: props.config.user?.role,
+            isEventProvider: props.config.user?.isEventProvider || false,
+          }}
+        >
+          <Router />
+        </UserProvider>
+      </ConfigProvider>
+    </ThemeProvider>
   );
 }

@@ -8,7 +8,7 @@ type InputProps = {
 };
 export const Input = styled('input')<InputProps>`
   padding: 8px 10px;
-  border-color: ${props => props.error && 'red'};
+  border-color: ${props => props.error};
 `;
 export const Label = styled('label')`
   font-weight: bold;

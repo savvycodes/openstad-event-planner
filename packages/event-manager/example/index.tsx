@@ -14,7 +14,9 @@ const config = {
   },
 };
 
+const theme = {};
+
 ReactDOM.render(
-  <App config={config} />,
+  <App config={config} theme={theme} />,
   document.querySelector('.openstad-events')
 );
