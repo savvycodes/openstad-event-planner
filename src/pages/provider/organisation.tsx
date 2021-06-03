@@ -8,7 +8,6 @@ import {
   FormItem,
   List,
   Form,
-  CheckBox,
   Select,
   Label,
   ListLabel,
@@ -256,7 +255,7 @@ export function ProviderOrganisationPage(): JSX.Element {
               <Label>Actief in type activiteit</Label>
               <List>
                 <CheckboxItem>
-                  <CheckBox type="checkbox" id="sports" name="sports" />
+                  <input type="checkbox" id="sports" name="sports" />
                   <span className="checkmark"></span>
                   <ListLabel htmlFor="sports">Sport en spel</ListLabel>
                 </CheckboxItem>

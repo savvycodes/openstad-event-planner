@@ -40,14 +40,6 @@ export const Input = styled('input')<InputProps>`
   margin-top: 8px;
 `;
 
-export const CheckBox = styled('input')<InputProps>`
-  padding: 8px 10px;
-  border-color: ${props => props.error && 'red'};
-  border: ${props => !props.error && 'none'};
-  box-shadow: 0 6px 9px 0px #ccc;
-  margin-top: 8px;
-`;
-
 export const Select = styled('select')<InputProps>`
   padding: 8px 10px;
   border-color: ${props => props.error && 'red'};
