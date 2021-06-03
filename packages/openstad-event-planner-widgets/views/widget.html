@@ -1,0 +1,25 @@
+{% if data.widget.canView %}
+<script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
+<div id="{{ data.widget.containerId }}">
+  <div class="openstad-event-manager"></div>
+</div>
+
+<pre>{{ data.widget.config | safe }}</pre>
+
+<script>
+  window.addEventListener('load', function() {
+    const config = {{ data.widget.config | safe }};
+    const elem = document.querySelector('#{{ data.widget.containerId }} .openstad-event-manager');
+
+    OpenstadEventManager.renderElement(config, elem);
+  })
+</script>
+
+{% else %}
+
+<h1>Sorry, je bent geen aanbieder</h1>
+<a href="{{ data.widget.loginUrl }}">Login</a>
+
+{% endif %}
