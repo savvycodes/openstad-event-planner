@@ -1,24 +1,13 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import {
-  BaseLocationHook,
-  HookReturnValue,
-  Path,
-  Router,
-  // useLocation,
-} from 'wouter';
+import { BaseLocationHook, HookReturnValue, Path, Router } from 'wouter';
 
-// @todo: implement hash router
 // returns the current hash location in a normalized form
 // (excluding the leading '#' symbol)
-
-// export type HashLocationHook = () => [Path, (to: Path) => void];
 export type HashLocationTuple = HookReturnValue<BaseLocationHook>;
 
 function useHashLocation(): HashLocationTuple {
   const [path, update] = useState<Path>(currentPathname());
   const prevPath = useRef(path);
-
-  // useEffect(() => console.log('path changed', path, prevPath.current), [path]);
 
   useEffect((): any => {
     // this function checks if the location has been changed since the
@@ -47,7 +36,6 @@ function useHashLocation(): HashLocationTuple {
   // the function reference should stay the same between re-renders, so that
   // it can be passed down as an element prop without any performance concerns.
   const navigate = useCallback((to: Path) => {
-    // console.log('navigating to', to);
     location.hash = to;
     dispatchEvent(new Event('replaceHash'));
   }, []);
@@ -59,10 +47,7 @@ const currentPathname = (): Path => location.hash.replace('#', '');
 
 /**
  * Custom Hash router so we can include this in apostrophecms later on
- *
- * @todo: This needs to implement a custom useHashLocation hook which uses location.hash instead of the default useLocation hook.
  */
-// @ts-ignore
 const HashRouter = (props: {
   children:
     | boolean
