@@ -1,0 +1,22 @@
+{
+  "name": "@savvycodes/openstad-event-planner-widgets",
+  "main": "index.js",
+  "dependencies": {
+    "@savvycodes/event-manager": "^0.1.0",
+    "lodash.get": "^4.4.2"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.2.2",
+    "typescript": "^4.3.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "react-dom": ">=16"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "prepare": "webpack --mode production"
+  }
+}
