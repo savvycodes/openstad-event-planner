@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { ErrorMessage, Formik } from 'formik';
+import { ErrorMessage, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { useHashLocation } from '../../components/hash-router';
-import { Input, Label } from '../../components/forms/input';
+import { Button, FormItem, Header, Input, Label, Main, Paragraph } from '../../components/forms/input';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Naam is verplicht'),
@@ -26,26 +26,36 @@ export function ProviderMainContactPage(): JSX.Element {
   const [, navigate] = useHashLocation();
 
   return (
-    <>
-      <p>Welkom Aanbieder X,</p>
-      <p>Vul hieronder uw gegevens in. Vragen? Neem contact op met Y.</p>
-      <p>
+    <Main>
+      <Header>
+      <Paragraph>Welkom Aanbieder X,</Paragraph>
+      <Paragraph>Vul hieronder uw gegevens in. Vragen? Neem contact op met Y.</Paragraph>
+      <Paragraph>
         Deze informatie is zichbaar als de algemene contactinformatie op het
         platform. Ingevoerde content is uiteindelijk zichtbaar voor alle
         bezoekers op het platform.
-      </p>
+      </Paragraph>
+
+
+      </Header>
       <Formik
         initialValues={{
-          name: 'Jante Beton',
-          position: 'Directeur',
-          email: 'midzomermokum@amsterdam.nl',
-          phone: '0612345678',
+          // name: 'Jante Beton',
+          // position: 'Directeur',
+          // email: 'midzomermokum@amsterdam.nl',
+          // phone: '0612345678',
+          name: '',
+          position: '',
+          email: '',
+          phone: '',
         }}
         onSubmit={() => navigate('/')}
         validationSchema={schema}
       >
         {form => (
-          <form onSubmit={form.handleSubmit}>
+          <Form onSubmit={form.handleSubmit}>
+            <FormItem>
+
             <Label htmlFor="name">
               Naam contactpersoon
               <Input
@@ -59,11 +69,17 @@ export function ProviderMainContactPage(): JSX.Element {
                 error={form.errors.name}
                 tabIndex={1}
               />
+              <Paragraph>
+
               <ErrorMessage name="name" />
+              </Paragraph>
             </Label>
+            </FormItem>
+
+            <FormItem>
 
             <Label htmlFor="position">
-              Naam contactpersoon
+              Functie contactpersoon
               <Input
                 id="position"
                 type="text"
@@ -75,8 +91,15 @@ export function ProviderMainContactPage(): JSX.Element {
                 error={form.errors.position}
                 tabIndex={2}
               />
+              <Paragraph>
+
               <ErrorMessage name="position" />
+              </Paragraph>
             </Label>
+            </FormItem>
+
+
+<FormItem>
 
             <Label htmlFor="email">
               Mail contactpersoon
@@ -91,8 +114,14 @@ export function ProviderMainContactPage(): JSX.Element {
                 error={form.errors.email}
                 tabIndex={3}
               />
+              <Paragraph>
+
               <ErrorMessage name="email" />
+              </Paragraph>
             </Label>
+</FormItem>
+
+<FormItem>
 
             <Label htmlFor="phone">
               Telefoon contactpersoon
@@ -107,19 +136,25 @@ export function ProviderMainContactPage(): JSX.Element {
                 error={form.errors.phone}
                 tabIndex={4}
               />
+              <Paragraph>
+                
               <ErrorMessage name="phone" />
+              </Paragraph>
             </Label>
+</FormItem>
 
-            <button
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button
               type="submit"
               tabIndex={5}
               disabled={!form.isValid || form.isSubmitting}
             >
               Volgende
-            </button>
-          </form>
+            </Button>
+            </div>
+          </Form>
         )}
       </Formik>
-    </>
+    </Main>
   );
 }
