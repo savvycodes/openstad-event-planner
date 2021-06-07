@@ -73,11 +73,10 @@ module.exports = {
 
         // Check if user can view this widget
         widget.canView =
-          req.data.openstadUser &&
-          (req.data.openstadUser.isEventProvider ||
-            ['admin', 'moderator', 'editor'].includes(
-              req.data.openstadUser.role
-            ));
+          get(req, 'data.openstadUser.isEventProvider', false) ||
+          ['admin', 'moderator', 'editor'].includes(
+            get(req, 'data.openstadUser.role', '')
+          );
 
         widget.loginUrl =
           req.data.siteUrl +
