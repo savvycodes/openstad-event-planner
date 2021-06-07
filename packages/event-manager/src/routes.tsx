@@ -24,7 +24,7 @@ export function Router(): JSX.Element {
 
     if (isEmpty(organisation)) {
       navigate('/signup');
-    } else if (organisation.status === 'verified') {
+    } else if (organisation.status === 'VERIFIED') {
       // navigate to events overview
       navigate('/events');
     } else {
