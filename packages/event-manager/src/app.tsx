@@ -1,12 +1,11 @@
 import React, { createElement } from 'react';
-import { setup } from 'goober';
+import { DefaultTheme, setup } from 'goober';
 
-import { defaultTheme, Theme, ThemeProvider, useTheme } from './theme/theme';
+import { defaultTheme, ThemeProvider, useTheme } from './theme/theme';
 import { UserProvider } from './context/user-context';
 import { Router } from './routes';
 import { ConfigProvider } from './context/config-context';
 
-// @todo: Theme needs to be fetched from external config/location
 setup(createElement, undefined, useTheme);
 
 export type AppConfig = {
@@ -21,7 +20,7 @@ export type AppConfig = {
 };
 
 type AppProps = {
-  theme?: Theme;
+  theme?: DefaultTheme;
   config: AppConfig;
 };
 

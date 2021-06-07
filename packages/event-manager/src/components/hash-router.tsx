@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { BaseLocationHook, HookReturnValue, Path, Router } from 'wouter';
+import {
+  BaseLocationHook,
+  HookReturnValue,
+  Path,
+  Router,
+  RouterProps,
+} from 'wouter';
 
 // returns the current hash location in a normalized form
 // (excluding the leading '#' symbol)
@@ -48,14 +54,13 @@ const currentPathname = (): Path => location.hash.replace('#', '');
 /**
  * Custom Hash router so we can include this in apostrophecms later on
  */
-const HashRouter = (props: {
-  children:
-    | boolean
-    | React.ReactChild
-    | React.ReactFragment
-    | React.ReactPortal
-    | null
-    | undefined;
-}) => <Router hook={useHashLocation}>{props.children}</Router>;
+type HashRouterProps = Partial<RouterProps> & {
+  children: React.ReactNode;
+};
+const HashRouter = (props: HashRouterProps) => (
+  <Router hook={useHashLocation} {...props}>
+    {props.children}
+  </Router>
+);
 
 export { HashRouter, useHashLocation };

@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'wouter';
+import isEmpty from 'lodash.isempty';
 
 import { HashRouter, useHashLocation } from './components/hash-router';
 import { Spinner } from './components/spinner';
-import { useUser } from './context/user-context';
 import { useApi } from './hooks/use-api';
 import { EventOverviewPage } from './pages/events/event-overview';
-import { ProviderMainContactPage } from './pages/provider/main-contact';
-import { ProviderOrganisationPage } from './pages/provider/organisation';
+import { ErrorBanner } from './components/error-banner';
+import { SignupPage } from './pages/signup';
+import { WaitingOnVerificationPage } from './pages/waiting-on-verification';
 
 /**
  * @todo: fix the routing to check where to navigate to
  */
 export function Router(): JSX.Element {
-  const user = useUser();
   const [, navigate] = useHashLocation();
   const { data: organisation, loading, error } = useApi('/organisation/me');
 
@@ -22,37 +22,38 @@ export function Router(): JSX.Element {
       return;
     }
 
-    if (!organisation || !Object.keys(organisation).length) {
-      navigate('/provider/organisation');
-    } else if (organisation && organisation.status === 'verified') {
+    if (isEmpty(organisation)) {
+      navigate('/signup');
+    } else if (organisation.status === 'verified') {
       // navigate to events overview
       navigate('/events');
     } else {
       console.log('waiting on verification');
+      navigate('/pending-verification');
     }
   }, [organisation, loading, navigate]);
-
-  if (!user.jwt) {
-    return <p>Niet ingelogd: (Show login button)</p>;
-  }
 
   if (loading) {
     return <Spinner />;
   }
 
   if (error) {
-    return <p>Oops, something went wrong {JSON.stringify(error)}</p>;
+    return (
+      <ErrorBanner>
+        Oops, something went wrong {JSON.stringify(error)}
+      </ErrorBanner>
+    );
   }
 
   return (
     <HashRouter>
       <Switch>
-        <Route
-          path="/provider/organisation"
-          component={ProviderOrganisationPage}
-        />
-        <Route path="/provider/contact" component={ProviderMainContactPage} />
+        <Route path="/signup" component={SignupPage} />
         <Route path="/events" component={EventOverviewPage} />
+        <Route
+          path="/pending-verification"
+          component={WaitingOnVerificationPage}
+        />
         <Route component={() => <p>Geen pagina gevonden</p>} />
       </Switch>
     </HashRouter>
