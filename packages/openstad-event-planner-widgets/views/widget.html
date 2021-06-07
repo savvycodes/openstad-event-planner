@@ -6,7 +6,9 @@
   <div class="openstad-event-manager"></div>
 </div>
 
+{% if data.widget.isDebug %}
 <pre>{{ data.widget.config | safe }}</pre>
+{% endif %}
 
 <script>
   window.addEventListener('load', function() {

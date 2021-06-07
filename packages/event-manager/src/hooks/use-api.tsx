@@ -19,7 +19,15 @@ export function useApi(endpoint: string) {
         'X-Authorization': `Bearer ${user.jwt}`,
       },
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status >= 400) {
+          return res.json().then(data => {
+            throw new Error(`(${res.status}): ${JSON.stringify(data)}`);
+          });
+        }
+
+        return res.json();
+      })
       .then(res => setData(res))
       .catch(err => {
         setData(null);

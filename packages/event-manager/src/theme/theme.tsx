@@ -1,16 +1,26 @@
+import { DefaultTheme } from 'goober';
 import React, { createContext, useContext } from 'react';
 
-interface Theme {
-  primary?: string;
-}
+const defaultTheme: DefaultTheme = {
+  primary: 'blue',
+  danger: 'tomato',
+  sizes: {
+    sm: 6,
+    md: 8,
+    lg: 12,
+  },
+  font: {
+    size: 16,
+    family: "'Noto Sans', sans-serif",
+  },
+};
 
-const defaultTheme: Theme = { primary: 'blue' };
 const ThemeContext = createContext(defaultTheme);
 const useTheme = () => useContext(ThemeContext);
 
 function ThemeProvider(props: {
   children: React.ReactNode;
-  theme: Theme;
+  theme: DefaultTheme;
 }): JSX.Element {
   return (
     <ThemeContext.Provider value={props.theme}>
@@ -19,4 +29,4 @@ function ThemeProvider(props: {
   );
 }
 
-export { useTheme, Theme, ThemeProvider, defaultTheme };
+export { useTheme, DefaultTheme as Theme, ThemeProvider, defaultTheme };

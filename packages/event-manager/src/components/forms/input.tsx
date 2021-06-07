@@ -1,10 +1,12 @@
+import React from 'react';
 import { styled } from 'goober';
+import { FieldProps } from 'formik';
 
 /**
  * Form helpers
  */
 type InputProps = {
-  error?: string;
+  error?: boolean;
 };
 
 export const Main = styled('div')`
@@ -23,7 +25,7 @@ export const Header = styled('div')`
   margin: 12px;
 `;
 export const Paragraph = styled('p')`
-  font-size: 0.8rem;
+  font-size: 0.8em;
   font-family: 'Noto Sans', sans-serif;
 `;
 
@@ -31,19 +33,19 @@ export const Form = styled('form')`
   display: block;
 `;
 
-export const Input = styled('input')<InputProps>`
+export const StyledInput = styled('input')<InputProps>`
   padding: 8px 10px;
-  border-color: ${props => props.error && 'red'};
-  border: ${props => !props.error && 'none'};
+  border-color: ${props => (props.error ? 'red' : undefined)};
+  border: ${props => (!props.error ? 'none' : undefined)};
   display: block;
   box-shadow: 0 6px 9px 0px #ccc;
   margin-top: 8px;
 `;
 
-export const Select = styled('select')<InputProps>`
+export const StyledSelect = styled('select')<InputProps>`
   padding: 8px 10px;
-  border-color: ${props => props.error && 'red'};
-  border: ${props => !props.error && 'none'};
+  border-color: ${props => (props.error ? 'red' : undefined)};
+  border: ${props => (!props.error ? 'none' : undefined)};
   box-shadow: 0 6px 9px 0px #ccc;
   margin-top: 8px;
 `;
@@ -53,7 +55,7 @@ export const Label = styled('label')`
 `;
 export const ListLabel = styled('label')`
   padding: 0 8px;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   font-family: 'Noto Sans', sans-serif;
 `;
 
@@ -63,7 +65,7 @@ export const FormItem = styled('div')`
   justify-content: center;
   align-items: center;
 `;
-export const CheckboxItem = styled('div')`
+export const CheckboxItem = styled('label')`
   display: flex;
   align-items: center;
   padding: 4px 0;
@@ -81,8 +83,46 @@ export const Button = styled('button')`
   background-color: #c0bcbc;
   border: none;
   padding: 1em 2em;
-  font-size: 0.8rem;
+  font-size: 0.8em;
   font-weight: 700;
   border-radius: 100px;
   cursor: pointer;
 `;
+
+export const Input = ({
+  field,
+  form: { touched, errors },
+  ...props
+}: FieldProps | any) => (
+  <StyledInput
+    {...field}
+    {...props}
+    error={touched[field.name] && errors[field.name] ? true : false}
+  />
+);
+
+export const Select = ({
+  field,
+  form: { touched, errors },
+  ...props
+}: FieldProps | any) => (
+  <StyledSelect
+    {...field}
+    {...props}
+    error={touched[field.name] && errors[field.name] ? true : false}
+  />
+);
+
+const StyledTextarea = styled('textarea')``;
+
+export const Textarea = ({
+  field,
+  form: { touched, errors },
+  ...props
+}: FieldProps | any) => (
+  <StyledTextarea
+    {...field}
+    {...props}
+    error={touched[field.name] && errors[field.name] ? true : false}
+  />
+);
