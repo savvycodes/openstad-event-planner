@@ -5,7 +5,7 @@ import { App } from '../.';
 
 const config = {
   jwt:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYyMjY1MjAyMCwiZXhwIjoxNjM4Mzc2ODIwfQ.WKHZjv6UVe-25vE0HmXgBInrOJMgy1SdUEHH8ATMPxw',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYyMzA1NDk2MywiZXhwIjoxNjM4Nzc5NzYzfQ.BwfPQFJquY370iYO2lckiR19JsXGf9NuIIt5_xLFeMs',
   siteId: 2,
   apiUrl: 'http://localhost:8111',
   user: {
@@ -14,9 +14,13 @@ const config = {
   },
 };
 
-const theme = {};
+const theme = {
+  // danger: 'blue',
+};
 
 ReactDOM.render(
-  <App config={config} theme={theme} />,
+  <React.StrictMode>
+    <App config={config} theme={theme} />
+  </React.StrictMode>,
   document.querySelector('.openstad-events')
 );
