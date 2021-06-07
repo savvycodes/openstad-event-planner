@@ -93,7 +93,7 @@ export function SignupPage() {
       const data = await res.json();
       if (res.status < 400) {
         // Success!
-        return navigate('/events');
+        return navigate('/pending-verification');
       }
       throw new Error(data.error || data.message);
     } catch (err) {
