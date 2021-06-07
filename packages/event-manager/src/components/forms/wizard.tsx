@@ -73,9 +73,6 @@ export function Wizard({
     >
       {formik => (
         <Form>
-          {/* <p>
-            Step {stepNumber + 1} of {totalSteps}
-          </p> */}
           {step}
           <div style={{ display: 'flex' }}>
             {stepNumber > 0 && (
