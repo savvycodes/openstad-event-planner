@@ -23,5 +23,9 @@
   "scripts": {
     "build": "webpack --mode production",
     "prepare": "webpack --mode production"
+  },
+  "gitHead": "8b41a6186d98118e4cf10292b5c53a858b97c667",
+  "publishConfig": {
+    "access": "public"
   }
 }
