@@ -1,9 +1,9 @@
 {
   "name": "@savvycodes/openstad-event-planner-widgets",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha.0",
   "main": "index.js",
   "dependencies": {
-    "@savvycodes/event-manager": "^0.1.0",
+    "@savvycodes/event-manager": "^0.0.1-alpha.0",
     "lodash.get": "^4.4.2"
   },
   "devDependencies": {
