@@ -45,9 +45,9 @@ Enable the module in the site config (enabled per site via the database) by addi
 - 🎉 [event-overview](packages/event-overview) – _React component to view events in the openstad frontend ("activiteiten overzicht")_
 - 🌍 [openstad-event-planner-widgets](packages/openstad-event-planner-widgets) – _Apostrophe CMS module that bundles the React components_
 
-### Publish
+### Publishing
 
-You can use lerna to publish a new version to npm
+You can use lerna to publish a new version to npm, for now this is done manually
 
 ```sh
 $ npx lerna publish
