@@ -3,15 +3,10 @@ import { ErrorMessage, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { useHashLocation } from '../../components/hash-router';
-import {
-  Button,
-  FormItem,
-  Header,
-  Input,
-  Label,
-  Main,
-  Paragraph,
-} from '../../components/forms/input';
+import { FormItem, Input } from '../../components/forms/input';
+import { Label, Paragraph } from '../../components/text/text';
+import { Header, Main } from '../../components/layout/layout';
+import { Button } from '../../components/button/button';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Naam is verplicht'),

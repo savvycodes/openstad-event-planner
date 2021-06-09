@@ -8,20 +8,19 @@ import {
   FormItem,
   List,
   Form,
-  Label,
-  ListLabel,
   TextArea,
   CheckboxItem,
-  Paragraph,
-  Header,
-  Button,
-  Main,
-  Title,
   Select,
-  DFlex,
-  Border,
   FileUpload,
 } from '../../components/forms/input';
+import {
+  BorderedTitle,
+  Label,
+  ListLabel,
+  Paragraph,
+} from '../../components/text/text';
+import { DFlex, Header, Main } from '../../components/layout/layout';
+import { Button } from '../../components/button/button';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Naam is verplicht'),
@@ -45,10 +44,7 @@ export function ProviderAddActivityPage(): JSX.Element {
   return (
     <Main>
       <Header>
-        <Title>
-          Kinderboerderij 't zwarte schaap
-          <Border />
-        </Title>
+        <BorderedTitle />
 
         <Paragraph>Nieuwe activiteit toevoegen</Paragraph>
       </Header>

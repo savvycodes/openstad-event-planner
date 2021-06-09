@@ -9,14 +9,11 @@ import {
   List,
   Form,
   Select,
-  Label,
-  ListLabel,
   CheckboxItem,
-  Paragraph,
-  Header,
-  Button,
-  Main,
 } from '../../components/forms/input';
+import { Label, ListLabel, Paragraph } from '../../components/text/text';
+import { Header, Main } from '../../components/layout/layout';
+import { Button } from '../../components/button/button';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Naam is verplicht'),
@@ -35,7 +32,7 @@ const schema = Yup.object().shape({
   facebook: Yup.string()
     .url()
     .matches(
-      /(?:(?:http|https):\/\/)?(?:www.)?(?:m.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/,
+      /(?:(?:http|https):\/\/)?(?:www.)?(?:m.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\\-]*)?/,
       'Geen geldige facebook URL'
     ),
   instagram: Yup.string().url(),
