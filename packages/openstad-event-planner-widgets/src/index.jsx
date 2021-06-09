@@ -9,6 +9,3 @@ const OpenstadEventManager = {
 };
 
 export { OpenstadEventManager };
-
-// const _global = (window /* browser */ || global) /* node */ as any;
-// _global.OpenstadEventManager = OpenstadEventManager;
