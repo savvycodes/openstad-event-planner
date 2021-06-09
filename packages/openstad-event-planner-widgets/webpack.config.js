@@ -1,18 +1,23 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.tsx',
+  target: ['web', 'es2015'],
+  entry: './src/index.jsx',
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
+        test: /\.jsx?$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.jsx', '.js'],
   },
   externals: {
     react: 'React',
@@ -21,5 +26,11 @@ module.exports = {
   output: {
     filename: 'event-manager.js',
     path: path.resolve(__dirname, 'public/js'),
+    library: 'savvycodes',
+    libraryTarget: 'window',
+    environment: {
+      arrowFunction: false,
+      const: false,
+    },
   },
 };

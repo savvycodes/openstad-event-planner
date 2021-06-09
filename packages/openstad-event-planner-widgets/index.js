@@ -56,6 +56,11 @@ module.exports = {
         const containerId = self.apos.utils.generateId();
         widget.containerId = containerId;
 
+        // Check for API support
+        widget.isSupported = get(req, 'data.openstadUser', {}).hasOwnProperty(
+          'isEventProvider'
+        );
+
         // Create the config for the react component
         widget.config = JSON.stringify({
           siteId: req.data.global.siteId,
