@@ -1,13 +1,8 @@
 import * as React from 'react';
 import { ErrorMessage, Field } from 'formik';
 
-import {
-  Input,
-  FormItem,
-  Label,
-  Paragraph,
-  Textarea,
-} from '../../../components/forms/input';
+import { Input, FormItem, Textarea } from '../../../components/forms/input';
+import { Label, Paragraph } from '../../../components/text/text';
 
 export function MunicipalityContactForm() {
   return (

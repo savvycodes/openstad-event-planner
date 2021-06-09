@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Paragraph } from '../components/forms/input';
+import { Paragraph } from '../components/text/text';
 
 export function WaitingOnVerificationPage() {
   return (

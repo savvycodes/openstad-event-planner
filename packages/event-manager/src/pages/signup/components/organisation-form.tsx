@@ -1,16 +1,17 @@
 import * as React from 'react';
 import { ErrorMessage, Field } from 'formik';
-import { useApi } from '../../../hooks/use-api';
+
 import { Spinner } from '../../../components/spinner';
 import {
   Input,
   FormItem,
   List,
-  Label,
-  Paragraph,
   Select,
   CheckboxItem,
 } from '../../../components/forms/input';
+import { Label, Paragraph } from '../../../components/text/text';
+
+import { useApi } from '../../../hooks/use-api';
 import { useDistricts } from '../../../hooks/use-districts';
 
 export function OrganisationForm() {

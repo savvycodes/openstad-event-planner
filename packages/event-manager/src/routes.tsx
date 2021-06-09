@@ -4,12 +4,15 @@ import isEmpty from 'lodash.isempty';
 
 import { HashRouter, useHashLocation } from './components/hash-router';
 import { Spinner } from './components/spinner';
-import { useApi } from './hooks/use-api';
-import { EventOverviewPage } from './pages/events/event-overview';
 import { ErrorBanner } from './components/error-banner';
+
+import { EventOverviewPage } from './pages/events/event-overview';
 import { SignupPage } from './pages/signup';
 import { WaitingOnVerificationPage } from './pages/waiting-on-verification';
+import { ProviderAddActivityPage } from './pages/provider/add-activity';
+import { ProviderActivityOverviewPage } from './pages/provider/activity-overview';
 
+import { useApi } from './hooks/use-api';
 /**
  * @todo: fix the routing to check where to navigate to
  */
@@ -53,6 +56,14 @@ export function Router(): JSX.Element {
         <Route
           path="/pending-verification"
           component={WaitingOnVerificationPage}
+        />
+        <Route
+          path="/aanbieder/activiteit-toevoegen"
+          component={ProviderAddActivityPage}
+        />
+        <Route
+          path="/aanbieder/activiteiten"
+          component={ProviderActivityOverviewPage}
         />
         <Route component={() => <p>Geen pagina gevonden</p>} />
       </Switch>

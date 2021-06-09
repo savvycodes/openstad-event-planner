@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as Yup from 'yup';
 
-import { Paragraph, Header, Main } from '../../components/forms/input';
+import { Paragraph } from '../../components/text/text';
+import { Header, Main } from '../../components/layout/layout';
 import { Wizard, WizardStep } from '../../components/forms/wizard';
 import { OrganisationForm } from './components/organisation-form';
 import { ContactForm } from './components/contact-form';

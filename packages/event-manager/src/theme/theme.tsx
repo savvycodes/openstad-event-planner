@@ -1,9 +1,20 @@
 import { DefaultTheme } from 'goober';
 import React, { createContext, useContext } from 'react';
 
+/**
+ * Default theme values, these should be overrideable via the AppConfig.theme prop
+ */
 const defaultTheme: DefaultTheme = {
-  primary: 'blue',
-  danger: 'tomato',
+  colors: {
+    primary: '#009af0',
+    danger: '#CF1919',
+    white: '#fff',
+    black: '#0D0D0D',
+    background: '#f3f3f3',
+    lightGray: '#ccc',
+    darkGray: '#c0bcbc',
+    darkestGray: '#darkestGray',
+  },
   sizes: {
     sm: 6,
     md: 8,
@@ -12,6 +23,10 @@ const defaultTheme: DefaultTheme = {
   font: {
     size: 16,
     family: "'Noto Sans', sans-serif",
+  },
+  effects: {
+    // @todo: this color is not dynamic, boxShadowPrimary should be a function composing shadow size (don't think that should be configurable) and color together
+    boxShadowPrimary: '0 6px 9px 0px #ccc',
   },
 };
 

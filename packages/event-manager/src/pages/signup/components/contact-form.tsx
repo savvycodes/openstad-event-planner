@@ -1,12 +1,8 @@
 import * as React from 'react';
 import { ErrorMessage, Field } from 'formik';
 
-import {
-  Input,
-  FormItem,
-  Label,
-  Paragraph,
-} from '../../../components/forms/input';
+import { Input, FormItem } from '../../../components/forms/input';
+import { Paragraph, Label } from '../../../components/text/text';
 
 export function ContactForm() {
   return (

@@ -6,7 +6,7 @@ import {
   FormikConfig,
   FormikHelpers,
 } from 'formik';
-import { Button } from './input';
+import { Button } from '../button/button';
 import { Spinner } from '../spinner';
 
 // Wizard is a single Formik instance whose children are each page of the
