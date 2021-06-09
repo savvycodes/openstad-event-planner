@@ -19,6 +19,7 @@ import { Header, HeaderNavigation, Main } from '../../components/layout/layout';
 const styles = {
   Header: styled(Header)`
     display: flex;
+    justify-content: space-between;
     position: relative;
   `,
   SubHeader: styled(Header)`
