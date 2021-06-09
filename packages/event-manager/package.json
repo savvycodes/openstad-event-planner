@@ -1,0 +1,78 @@
+{
+  "version": "0.0.4-alpha.1",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "@savvycodes/event-manager",
+  "author": "Savvy.codes",
+  "module": "dist/openstad-events.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/openstad-events.cjs.production.min.js",
+      "limit": "50 KB"
+    },
+    {
+      "path": "dist/openstad-events.esm.js",
+      "limit": "50 KB"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-react": "^7.13.13",
+    "@size-limit/preset-small-lib": "^4.11.0",
+    "@types/lodash.isempty": "^4.4.6",
+    "@types/react": "^17.0.8",
+    "@types/react-dom": "^17.0.5",
+    "husky": "^6.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "size-limit": "^4.11.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.2.0",
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "feather-icons": "^4.28.0",
+    "react-feather": "^2.0.9",
+    "formik": "^2.2.8",
+    "goober": "^2.0.37",
+    "lodash.isempty": "^4.4.0",
+    "polished": "^4.1.3",
+    "wouter": "^2.7.4",
+    "yup": "^0.32.9"
+  },
+  "gitHead": "8b41a6186d98118e4cf10292b5c53a858b97c667",
+  "publishConfig": {
+    "access": "public"
+  }
+}

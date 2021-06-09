@@ -1,0 +1,35 @@
+{% if not data.widget.isSupported %}
+<h1>Geen API ondersteuning</h1>
+<p>
+  <a
+    href="https://github.com/savvycodes/openstad-event-planner#installation"
+    target="_blank"
+    >Update</a
+  >
+  de API zodat deze de event-planner ondersteunt
+</p>
+{% endif %} {% if data.widget.canView %}
+<script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
+<div id="{{ data.widget.containerId }}">
+  <div class="openstad-event-manager"></div>
+</div>
+
+<script>
+  window.addEventListener('load', function() {
+    const config = {{ data.widget.config | safe }};
+    const elem = document.querySelector('#{{ data.widget.containerId }} .openstad-event-manager');
+
+    savvycodes.OpenstadEventManager.renderElement(config, elem);
+  })
+</script>
+
+{% if data.widget.isDebug %}
+<pre>{{ data.widget.config | safe }}</pre>
+{% endif %} {% else %}
+
+<h1>Sorry, je bent geen aanbieder</h1>
+<a href="{{ data.widget.loginUrl }}">Login</a>
+
+{% endif %}
