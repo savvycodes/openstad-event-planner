@@ -71,6 +71,12 @@ const styles = {
     text-overflow: ellipsis;
     white-space: nowrap;
   `,
+
+  Header: styled(Header)`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  `,
 };
 
 /**
@@ -81,9 +87,12 @@ export function ProviderOverviewPage(): JSX.Element {
   const [, navigate] = useHashLocation();
   return (
     <Main>
-      <Header>
+      <styles.Header>
         <BorderedTitle title="Aanbieders" />
-      </Header>
+        <Button onClick={() => navigate('/aanbieder/aanbieder-toevoegen')}>
+            Aanbieder toevoegen
+        </Button>
+      </styles.Header>
 
       {providers && providers.length > 0 ? (
         <List>
@@ -100,9 +109,9 @@ export function ProviderOverviewPage(): JSX.Element {
                   {provider.surname}
                 </styles.ListItemInformationParagraph>
               </ListItemInformation>
-              <ListItemIcons >
+              <ListItemIcons>
                 <Edit3
-                onClick={() => console.log('clicked')}
+                  onClick={() => console.log('clicked')}
                   stroke={'#7a7a7a'}
                   size={20}
                 />

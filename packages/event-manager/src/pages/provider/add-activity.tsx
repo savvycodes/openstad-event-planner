@@ -159,7 +159,14 @@ export function ProviderAddActivityPage(): JSX.Element {
                   <option value="" disabled hidden>
                     Stadsdeel
                   </option>
-                  <option value="1">1</option>
+                  <option value="centrum">centrum</option>
+                  <option value="oost">oost</option>
+                  <option value="noord">noord</option>
+                  <option value="west">west</option>
+                  <option value="zuid">zuid</option>
+                  <option value="zuid-oost">zuid-oost</option>
+                  <option value="nieuw-west">nieuw-west</option>
+                  <option value="weesp">weesp</option>
                 </Select>
                 <Paragraph>
                   <ErrorMessage name="district" />

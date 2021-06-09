@@ -3,11 +3,7 @@ import { ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { useHashLocation } from '../../components/hash-router';
-import {
-  Input,
-  FormItem,
-  Form,
-} from '../../components/forms/input';
+import { Input, FormItem, Form } from '../../components/forms/input';
 import { Label, Paragraph } from '../../components/text/text';
 import { Header, Main } from '../../components/layout/layout';
 import { Button } from '../../components/button/button';
@@ -22,10 +18,10 @@ const schema = Yup.object().shape({
 });
 
 const styles = {
-    Header: styled(Header)`
-        width: 60%;
-    `,
-}
+  Header: styled(Header)`
+    width: 60%;
+  `,
+};
 
 /**
  * Provider contact details form
@@ -38,7 +34,11 @@ export function ProviderNewProviderPage(): JSX.Element {
     <Main>
       <styles.Header>
         <Paragraph>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+          commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus
+          et magnis dis parturient montes, nascetur ridiculus mus. Donec quam
+          felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+          consequat massa quis enim.
         </Paragraph>
       </styles.Header>
       <Formik
@@ -52,7 +52,6 @@ export function ProviderNewProviderPage(): JSX.Element {
       >
         {form => (
           <Form onSubmit={form.handleSubmit}>
-
             <FormItem>
               <Label htmlFor="mailAddress">
                 Email aanbieder
@@ -110,8 +109,6 @@ export function ProviderNewProviderPage(): JSX.Element {
                 </Paragraph>
               </Label>
             </FormItem>
-
-        
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
