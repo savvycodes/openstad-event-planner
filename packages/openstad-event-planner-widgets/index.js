@@ -47,7 +47,7 @@ module.exports = {
     self.pushAssets = function() {
       superPushAssets();
       // Drawback to this approach is that event-manager is loaded when users don't have access to it
-      self.pushAsset('script', 'event-manager');
+      self.pushAsset('script', 'event-manager', { when: 'user' });
     };
 
     const superLoad = self.load;
@@ -55,6 +55,11 @@ module.exports = {
       widgets.forEach(widget => {
         const containerId = self.apos.utils.generateId();
         widget.containerId = containerId;
+
+        // Check for API support
+        widget.isSupported = get(req, 'data.openstadUser', {}).hasOwnProperty(
+          'isEventProvider'
+        );
 
         // Create the config for the react component
         widget.config = JSON.stringify({

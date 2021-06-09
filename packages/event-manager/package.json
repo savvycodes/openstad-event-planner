@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.0.4-alpha.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -68,5 +68,9 @@
     "polished": "^4.1.3",
     "wouter": "^2.7.4",
     "yup": "^0.32.9"
+  },
+  "gitHead": "8b41a6186d98118e4cf10292b5c53a858b97c667",
+  "publishConfig": {
+    "access": "public"
   }
 }
