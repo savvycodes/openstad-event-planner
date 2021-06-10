@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Yup from 'yup';
+import isEmpty from 'lodash.isempty';
 
 import { Paragraph } from '../../components/text/text';
 import { Header, Main } from '../../components/layout/layout';
@@ -15,6 +16,8 @@ import { createOrganisation } from '../../endpoints/organisation';
 import { useUser } from '../../context/user-context';
 import { Spinner } from '../../components/spinner';
 import { ErrorBanner } from '../../components/error-banner';
+
+import { useApi } from '../../hooks/use-api';
 
 const contactSchema = Yup.object().shape({
   contactName: Yup.string().required('Naam is verplicht'),
@@ -49,6 +52,7 @@ export function SignupPage() {
   const districts = useDistricts();
   const config = useConfig();
   const { user } = useUser();
+  const { data: organisation, loading } = useApi('/organisation/me');
 
   const [submitError, setSubmitError] = React.useState<Error | null>(null);
 
@@ -94,7 +98,7 @@ export function SignupPage() {
       const data = await res.json();
       if (res.status < 400) {
         // Success!
-        return navigate('/pending-verification');
+        return navigate('/events');
       }
       throw new Error(data.error || data.message);
     } catch (err) {
@@ -105,8 +109,13 @@ export function SignupPage() {
     }
   }
 
-  if (!user) {
+  if (!user || loading) {
     return <Spinner />;
+  }
+
+  if (!isEmpty(organisation)) {
+    navigate('/events');
+    return null;
   }
 
   return (

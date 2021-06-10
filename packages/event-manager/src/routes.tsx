@@ -8,31 +8,34 @@ import { ErrorBanner } from './components/error-banner';
 
 import { EventOverviewPage } from './pages/events/event-overview';
 import { SignupPage } from './pages/signup';
-import { WaitingOnVerificationPage } from './pages/waiting-on-verification';
 import { ProviderAddActivityPage } from './pages/provider/add-activity';
 import { ProviderActivityOverviewPage } from './pages/provider/activity-overview';
+import { UserListPage } from './pages/admin/users';
+import { CreateUserPage } from './pages/admin/user-create';
 
 import { useApi } from './hooks/use-api';
+import { useUser } from './context/user-context';
 /**
  * @todo: fix the routing to check where to navigate to
  */
 export function Router(): JSX.Element {
   const [, navigate] = useHashLocation();
   const { data: organisation, loading, error } = useApi('/organisation/me');
+  const { role } = useUser();
+  const isAdmin = role === 'admin';
 
   useEffect(() => {
     if (loading && !organisation) {
       return;
     }
 
-    if (isEmpty(organisation)) {
+    if (isAdmin) {
+      navigate('/admin/users');
+    } else if (isEmpty(organisation)) {
       navigate('/signup');
-    } else if (organisation.status === 'VERIFIED') {
+    } else {
       // navigate to events overview
       navigate('/events');
-    } else {
-      console.log('waiting on verification');
-      navigate('/pending-verification');
     }
   }, [organisation, loading, navigate]);
 
@@ -51,20 +54,25 @@ export function Router(): JSX.Element {
   return (
     <HashRouter>
       <Switch>
-        <Route path="/signup" component={SignupPage} />
-        <Route path="/events" component={EventOverviewPage} />
-        <Route
-          path="/pending-verification"
-          component={WaitingOnVerificationPage}
-        />
-        <Route
-          path="/aanbieder/activiteit-toevoegen"
-          component={ProviderAddActivityPage}
-        />
-        <Route
-          path="/aanbieder/activiteiten"
-          component={ProviderActivityOverviewPage}
-        />
+        {isAdmin ? (
+          <>
+            <Route path="/admin/users" component={UserListPage} />
+            <Route path="/admin/users/create" component={CreateUserPage} />
+          </>
+        ) : (
+          <>
+            <Route path="/signup" component={SignupPage} />
+            <Route path="/events" component={EventOverviewPage} />
+            <Route
+              path="/aanbieder/activiteit-toevoegen"
+              component={ProviderAddActivityPage}
+            />
+            <Route
+              path="/aanbieder/activiteiten"
+              component={ProviderActivityOverviewPage}
+            />
+          </>
+        )}
         <Route component={() => <p>Geen pagina gevonden</p>} />
       </Switch>
     </HashRouter>

@@ -25,7 +25,7 @@ function useHashLocation(): HashLocationTuple {
       prevPath.current !== pathname && update((prevPath.current = pathname));
     };
 
-    const events = ['replaceHash'];
+    const events = ['replaceHash', 'hashchange'];
     events.map(e => addEventListener(e, checkForUpdates));
 
     // it's possible that an update has occurred between render and the effect handler,

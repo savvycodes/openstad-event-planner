@@ -5,14 +5,25 @@ import { App } from '../.';
 
 const config = {
   jwt:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYyMzA1NDk2MywiZXhwIjoxNjM4Nzc5NzYzfQ.BwfPQFJquY370iYO2lckiR19JsXGf9NuIIt5_xLFeMs',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJpYXQiOjE2MjMzMTAyODYsImV4cCI6MTYzOTAzNTA4Nn0.U5nJqFRrHZ0DajEQEhmcqWS8axgx4L0aWJHGAf9Umlo',
   siteId: 2,
   apiUrl: 'http://localhost:8111',
   user: {
     isEventProvider: true,
-    role: 'admin',
+    role: 'member',
   },
 };
+
+// const config = {
+//   jwt:
+//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTYyMzMxMDE3NSwiZXhwIjoxNjM5MDM0OTc1fQ.H97xnpsJAOl01ASPw57_wJ020N8vmUnkQ8_JRv8JxQ0',
+//   siteId: 2,
+//   apiUrl: 'http://localhost:8111',
+//   user: {
+//     isEventProvider: false,
+//     role: 'admin',
+//   },
+// };
 
 const theme = {
   // danger: 'blue',
