@@ -5,7 +5,7 @@ import { Spinner } from '../../../components/spinner';
 import {
   Input,
   FormItem,
-  List,
+  CheckboxList,
   Select,
   CheckboxItem,
 } from '../../../components/forms/input';
@@ -158,7 +158,7 @@ export function OrganisationForm() {
 
       <FormItem>
         <Label>Actief in type activiteit</Label>
-        <List>
+        <CheckboxList>
           {tags.map((tag: any) => (
             <CheckboxItem key={tag.id}>
               <Field
@@ -172,7 +172,7 @@ export function OrganisationForm() {
               {tag.name}
             </CheckboxItem>
           ))}
-        </List>
+        </CheckboxList>
         <Paragraph>
           <ErrorMessage name="tagIds" />
         </Paragraph>

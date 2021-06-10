@@ -52,7 +52,7 @@ export const CheckboxItem = styled('label')`
   padding: 4px 0;
 `;
 
-export const List = styled('div')`
+export const CheckboxList = styled('div')`
   display: inline;
 `;
 

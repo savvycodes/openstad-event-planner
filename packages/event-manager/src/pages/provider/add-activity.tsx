@@ -6,12 +6,12 @@ import { useHashLocation } from '../../components/hash-router';
 import {
   Input,
   FormItem,
-  List,
   Form,
   Textarea,
   CheckboxItem,
   Select,
   FileUpload,
+  CheckboxList,
 } from '../../components/forms/input';
 import {
   BorderedTitle,
@@ -44,7 +44,7 @@ export function ProviderAddActivityPage(): JSX.Element {
   return (
     <Main>
       <Header>
-        <BorderedTitle />
+        <BorderedTitle title="Kinderboerderij 't zwarte schaap" />
 
         <Paragraph>Nieuwe activiteit toevoegen</Paragraph>
       </Header>
@@ -159,7 +159,14 @@ export function ProviderAddActivityPage(): JSX.Element {
                   <option value="" disabled hidden>
                     Stadsdeel
                   </option>
-                  <option value="1">1</option>
+                  <option value="centrum">centrum</option>
+                  <option value="oost">oost</option>
+                  <option value="noord">noord</option>
+                  <option value="west">west</option>
+                  <option value="zuid">zuid</option>
+                  <option value="zuid-oost">zuid-oost</option>
+                  <option value="nieuw-west">nieuw-west</option>
+                  <option value="weesp">weesp</option>
                 </Select>
                 <Paragraph>
                   <ErrorMessage name="district" />
@@ -227,7 +234,7 @@ export function ProviderAddActivityPage(): JSX.Element {
 
             <FormItem>
               <Label>Leeftijd</Label>
-              <List>
+              <CheckboxList>
                 <CheckboxItem>
                   <input type="checkbox" id="age04" name="age04" />
                   <span className="checkmark"></span>
@@ -258,12 +265,12 @@ export function ProviderAddActivityPage(): JSX.Element {
                   <span className="checkmark"></span>
                   <ListLabel htmlFor="age18">18 jaar en ouder</ListLabel>
                 </CheckboxItem>
-              </List>
+              </CheckboxList>
             </FormItem>
 
             <FormItem>
               <Label>Type activiteit</Label>
-              <List>
+              <CheckboxList>
                 <CheckboxItem>
                   <input type="checkbox" id="sports" name="sports" />
                   <span className="checkmark"></span>
@@ -292,12 +299,12 @@ export function ProviderAddActivityPage(): JSX.Element {
                   <input type="checkbox" id="other" name="other" />
                   <ListLabel htmlFor="other">...</ListLabel>
                 </CheckboxItem>
-              </List>
+              </CheckboxList>
             </FormItem>
 
             <FormItem>
               <Label>Kosten deelname</Label>
-              <List>
+              <CheckboxList>
                 <CheckboxItem>
                   <input type="radio" id="free" name="needToPay" />
                   <ListLabel htmlFor="free">Gratis</ListLabel>
@@ -316,7 +323,7 @@ export function ProviderAddActivityPage(): JSX.Element {
                     error={form.errors.amount}
                   />
                 </CheckboxItem>
-              </List>
+              </CheckboxList>
             </FormItem>
 
             <FormItem>

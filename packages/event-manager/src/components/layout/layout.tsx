@@ -2,6 +2,7 @@ import { styled } from 'goober';
 
 export const Main = styled('div')`
   background-color: ${props => props.theme.colors.background};
+  padding: 12px 0;
 `;
 export const Header = styled('div')`
   margin: 12px;
@@ -21,4 +22,11 @@ export const HeaderNavigation = styled('div')`
     align-items: center;
     justify-content: center;
   }
+`;
+
+export const EmptyState = styled('div')`
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
 `;
