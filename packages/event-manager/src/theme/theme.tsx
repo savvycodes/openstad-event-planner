@@ -22,7 +22,7 @@ const defaultTheme: DefaultTheme = {
   },
   font: {
     size: 16,
-    family: "'Noto Sans', sans-serif",
+    family: "'Roboto', sans-serif",
   },
   effects: {
     // @todo: this color is not dynamic, boxShadowPrimary should be a function composing shadow size (don't think that should be configurable) and color together
