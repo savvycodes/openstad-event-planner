@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { styled } from 'goober';
-import { useHashLocation } from '../../components/hash-router';
 import { Calendar, Grid, MapPin, Plus } from 'react-feather';
+
+import { useHashLocation } from '../../components/hash-router';
 import {
   BorderedTitle,
   NavItem,

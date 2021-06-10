@@ -24,14 +24,6 @@ type AppProps = {
   config: AppConfig;
 };
 
-/**
- * Todo's
- *
- * - [x] Setup basic config including siteId, jwt and apiUrl
- * - [-] Check if user is authenticated?
- * - [ ] Create 3 step form and submit to /api/site
- */
-
 export function App(props: AppProps): JSX.Element {
   const theme = { ...defaultTheme, ...props.theme };
 
