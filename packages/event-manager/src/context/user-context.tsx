@@ -20,7 +20,7 @@ type UserProviderProps = {
   value: UserContextType;
 };
 
-export const UserProvider = (props: UserProviderProps): JSX.Element => {
+export const UserProvider = (props: UserProviderProps): JSX.Element | null => {
   const config = useConfig();
 
   const [user, setUser] = useState(props.value.user);
@@ -40,6 +40,10 @@ export const UserProvider = (props: UserProviderProps): JSX.Element => {
         .catch(err => console.error('Could not fetch user', err));
     }
   }, [config]);
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <UserContext.Provider value={{ ...props.value, user }}>

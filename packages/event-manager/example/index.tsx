@@ -5,7 +5,7 @@ import { App } from '../.';
 
 const config = {
   jwt:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYyMzA1NDk2MywiZXhwIjoxNjM4Nzc5NzYzfQ.BwfPQFJquY370iYO2lckiR19JsXGf9NuIIt5_xLFeMs',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTYyMzI0Njc0MCwiZXhwIjoxNjM4OTcxNTQwfQ.SjfZnW1emhPpIw6mqhZDVvLAKBTKcfxx3mlBbnYU9hQ',
   siteId: 2,
   apiUrl: 'http://localhost:8111',
   user: {
