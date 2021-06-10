@@ -13,7 +13,7 @@ const defaultTheme: DefaultTheme = {
     background: '#f3f3f3',
     lightGray: '#ccc',
     darkGray: '#c0bcbc',
-    darkestGray: '#darkestGray',
+    darkestGray: '#7a7a7a',
   },
   sizes: {
     sm: 6,
