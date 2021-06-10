@@ -25,15 +25,35 @@ const contentWidgets = {
 };
 ```
 
-Enable the module in the site config (enabled per site via the database) by adding a modules key to the JSON:
+Enable the module in [openstad-frontend](https://github.com/savvycodes/openstad-frontend) by adding a `modules` key to `index.js` and `modules.js`:
 
-```json
-{
-  "modules": {
-    "@savvycodes/openstad-event-planner-widgets": {}
-  }
-}
+```diff
+// openstad-frontend/index.js
+var apos = openstadCms.site({
+  bundles: ['@openstad/cms'],
+  // See lib/modules for basic project-level configuration of our modules
+  // responsible for serving static assets, managing page templates and
+  // configuring user accounts.
+
+  modules: {
++    '@savvycodes/openstad-event-planner-widgets': {},
+  },
+});
+
+// openstad-frontend/modules.js
+module.exports.default = {
+  bundles: ['@openstad/cms'],
+  // See lib/modules for basic project-level configuration of our modules
+  // responsible for serving static assets, managing page templates and
+  // configuring user accounts.
+
+  modules: {
++    '@savvycodes/openstad-event-planner-widgets': {},
+  },
+};
 ```
+
+It's important to also add this declaration in `modules.js` for the apostrophe build system to pick up this module.
 
 ## Development
 
