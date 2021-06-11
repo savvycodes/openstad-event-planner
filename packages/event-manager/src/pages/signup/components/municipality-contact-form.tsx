@@ -61,8 +61,7 @@ export function MunicipalityContactForm() {
       </FormItem>
       <FormItem>
         <Label htmlFor="municipalityContactStatement">
-          Telefoonnummer contactpersoon van uw organisatie bij gemeente
-          Amsterdam
+          Toelichting contactpersoon van uw organisatie bij gemeente Amsterdam
           <Field
             name="municipalityContactStatement"
             id="municipalityContactStatement"

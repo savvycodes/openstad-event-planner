@@ -122,7 +122,7 @@ export function SignupPage() {
     <Main>
       <Header>
         {submitError ? <ErrorBanner>{submitError.message}</ErrorBanner> : null}
-        <Paragraph>Welkom Aanbieder {user.fullName || ''},</Paragraph>
+        <Paragraph>Welkom{' ' + user.fullName || ''},</Paragraph>
         <Paragraph>
           Vul hieronder uw gegevens in. Vragen? Neem contact op met Y.
         </Paragraph>

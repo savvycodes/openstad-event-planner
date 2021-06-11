@@ -7,7 +7,8 @@ import { FieldProps } from 'formik';
  */
 type InputProps = {
   error?: boolean;
-} & DefaultTheme;
+} & DefaultTheme &
+  any;
 
 export const Form = styled('form')`
   display: block;
