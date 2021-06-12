@@ -20,6 +20,8 @@ import { Spinner } from '../../components/spinner';
 import { ErrorBanner } from '../../components/error-banner';
 
 import { useApi } from '../../hooks/use-api';
+import { useConfig } from '../../context/config-context';
+import { removeEvent } from '../../endpoints/event';
 
 const styles = {
   Header: styled(Header)`
@@ -110,9 +112,21 @@ type ActivityListProps = {
 
 function ActivityList({ organisationId }: ActivityListProps) {
   const [, navigate] = useHashLocation();
-  const { data, loading, error } = useApi(
+  const config = useConfig();
+  const { data, loading, error, reload } = useApi(
     `/event?organisationId=${organisationId}`
   );
+  const [deleteError, setDeleteError] = React.useState<Error | null>(null);
+
+  async function handleDelete(id: number) {
+    setDeleteError(null);
+    try {
+      await removeEvent(config, id);
+      reload();
+    } catch (err) {
+      setDeleteError(err);
+    }
+  }
 
   if (loading || !data) {
     return <Spinner />;
@@ -124,10 +138,19 @@ function ActivityList({ organisationId }: ActivityListProps) {
     );
   }
 
+  if (deleteError) {
+    return <ErrorBanner>{deleteError.message}</ErrorBanner>;
+  }
+
   return (
     <>
       {data.records.map((event: any) => (
-        <ActivityCards key={event.id} src={event.image} title={event.name} />
+        <ActivityCards
+          key={event.id}
+          src={event.image}
+          title={event.name}
+          onDelete={() => handleDelete(event.id)}
+        />
       ))}
       <ActivityCard newactivity onClick={() => navigate('/events/create')}>
         <NewActivityCardTextContainer>

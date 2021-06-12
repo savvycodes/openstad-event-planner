@@ -185,7 +185,7 @@ export function ProviderAddActivityPage(): JSX.Element {
         validationSchema={schema}
       >
         {form => (
-          <Form onSubmit={form.handleSubmit}>
+          <Form>
             <FormItem>
               <Label htmlFor="name">
                 Naam organisatie
@@ -200,7 +200,7 @@ export function ProviderAddActivityPage(): JSX.Element {
                   type="text"
                   name="name"
                   placeholder="verplicht veld"
-                  tabIndex={2}
+                  tabIndex={1}
                   component={Input}
                 />
                 <Paragraph>
@@ -218,7 +218,7 @@ export function ProviderAddActivityPage(): JSX.Element {
                   style={{ width: '50%' }}
                   name="description"
                   placeholder="verplicht veld"
-                  tabIndex={4}
+                  tabIndex={2}
                   component={Textarea}
                 />
                 <Paragraph>
@@ -231,13 +231,14 @@ export function ProviderAddActivityPage(): JSX.Element {
               <Label htmlFor="location">
                 Locatie activiteit
                 <LocationFinder
+                  tabIndex={3}
                   placeholder="verplicht veld"
                   onSelect={(geo: any) => form.setFieldValue('location', geo)}
                 />
                 <Paragraph>
                   <ErrorMessage name="location" />
                 </Paragraph>
-                <Field name="district" tabIndex={3} component={Select}>
+                <Field name="district" tabIndex={4} component={Select}>
                   <option value="" disabled>
                     Stadsdeel
                   </option>
@@ -278,7 +279,7 @@ export function ProviderAddActivityPage(): JSX.Element {
                   <Field
                     name="startTime"
                     type="time"
-                    tabIndex={6}
+                    tabIndex={5}
                     component={Input}
                   />
                   <Paragraph>
@@ -292,7 +293,7 @@ export function ProviderAddActivityPage(): JSX.Element {
                   <Field
                     name="endTime"
                     type="time"
-                    tabIndex={7}
+                    tabIndex={6}
                     component={Input}
                   />
                   <Paragraph>
@@ -306,32 +307,47 @@ export function ProviderAddActivityPage(): JSX.Element {
               <Label>Leeftijd</Label>
               <CheckboxList>
                 <CheckboxItem>
-                  <Field type="checkbox" name="ages" value="0-4" />
+                  <Field type="checkbox" name="ages" value="0-4" tabIndex={7} />
                   <span className="checkmark"></span>
                   <ListLabel>0 - 4 jaar</ListLabel>
                 </CheckboxItem>
                 <CheckboxItem>
-                  <Field type="checkbox" name="ages" value="4-8" />
+                  <Field type="checkbox" name="ages" value="4-8" tabIndex={8} />
                   <span className="checkmark"></span>
                   <ListLabel htmlFor="age48">4 - 8 jaar</ListLabel>
                 </CheckboxItem>
                 <CheckboxItem>
-                  <Field type="checkbox" name="ages" value="8-12" />
+                  <Field
+                    type="checkbox"
+                    name="ages"
+                    value="8-12"
+                    tabIndex={9}
+                  />
                   <span className="checkmark"></span>
                   <ListLabel htmlFor="age812">8 - 12 jaar</ListLabel>
                 </CheckboxItem>
                 <CheckboxItem>
-                  <Field type="checkbox" name="ages" value="12-16" />
+                  <Field
+                    type="checkbox"
+                    name="ages"
+                    value="12-16"
+                    tabIndex={10}
+                  />
                   <span className="checkmark"></span>
                   <ListLabel htmlFor="age1216">12 - 16 jaar</ListLabel>
                 </CheckboxItem>
                 <CheckboxItem>
-                  <Field type="checkbox" name="ages" value="16-18" />
+                  <Field
+                    type="checkbox"
+                    name="ages"
+                    value="16-18"
+                    tabIndex={11}
+                  />
                   <span className="checkmark"></span>
                   <ListLabel htmlFor="age1618">16 - 18 jaar</ListLabel>
                 </CheckboxItem>
                 <CheckboxItem>
-                  <Field type="checkbox" name="ages" value="18" />
+                  <Field type="checkbox" name="ages" value="18" tabIndex={12} />
                   <span className="checkmark"></span>
                   <ListLabel htmlFor="age18">18 jaar en ouder</ListLabel>
                 </CheckboxItem>
@@ -365,16 +381,29 @@ export function ProviderAddActivityPage(): JSX.Element {
               <Label>Kosten deelname</Label>
               <CheckboxList>
                 <CheckboxItem htmlFor="free">
-                  <Field type="radio" id="free" name="needToPay" value="free" />
+                  <Field
+                    type="radio"
+                    id="free"
+                    name="needToPay"
+                    value="free"
+                    tabIndex={13}
+                  />
                   Gratis
                 </CheckboxItem>
                 <CheckboxItem htmlFor="paid">
-                  <Field type="radio" id="paid" name="needToPay" value="paid" />
+                  <Field
+                    type="radio"
+                    id="paid"
+                    name="needToPay"
+                    value="paid"
+                    tabIndex={14}
+                  />
                   <Field
                     name="price"
                     type="number"
                     placeholder="bedrag"
                     min={0}
+                    tabIndex={15}
                     disabled={form.values.needToPay === 'free'}
                   />
                 </CheckboxItem>
@@ -389,6 +418,7 @@ export function ProviderAddActivityPage(): JSX.Element {
                   name="attendees"
                   placeholder="verplicht veld"
                   component={Input}
+                  tabIndex={16}
                 />
                 <Paragraph>
                   <ErrorMessage name="attendees" />
@@ -403,6 +433,7 @@ export function ProviderAddActivityPage(): JSX.Element {
                   component={Textarea}
                   rows={6}
                   cols={40}
+                  tabIndex={17}
                   style={{ width: '50%' }}
                   name="information"
                   placeholder="optioneel"
@@ -417,6 +448,7 @@ export function ProviderAddActivityPage(): JSX.Element {
               <Label>
                 Upload foto
                 <ImageUpload
+                  tabIndex={18}
                   onUpload={image => form.setFieldValue('image', image.url)}
                 />
                 <FileUpload htmlFor="file-upload">browse</FileUpload>
@@ -427,7 +459,7 @@ export function ProviderAddActivityPage(): JSX.Element {
             </FormItem>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button type="submit" tabIndex={8} disabled={form.isSubmitting}>
+              <Button type="submit" tabIndex={19} disabled={form.isSubmitting}>
                 Voeg toe
               </Button>
             </div>

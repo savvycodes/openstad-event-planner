@@ -83,3 +83,25 @@ export async function createEvent(config: AppConfig, payload: EventInput) {
   const data: EventResponse = await res.json();
   return data;
 }
+
+export async function removeEvent(config: AppConfig, id: number) {
+  const res = await fetch(
+    `${config.apiUrl}/api/site/${config.siteId}/event/${id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Authorization': `Bearer ${config.jwt}`,
+      },
+    }
+  );
+
+  if (res.status >= 400) {
+    const error: EventResponseError = await res.json();
+    throw new Error(
+      `Kon activiteit niet verwijderen: ${res.status} ${error.message}`
+    );
+  }
+
+  return null;
+}

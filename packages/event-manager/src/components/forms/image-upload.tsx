@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, InputHTMLAttributes } from 'react';
 
 import { Spinner } from '../spinner';
 import { ErrorBanner } from '../error-banner';
@@ -6,13 +6,13 @@ import { useConfig } from '../../context/config-context';
 
 type ImageUploadProps = {
   onUpload: (data: ImageResponse) => void;
-};
+} & InputHTMLAttributes<HTMLInputElement>;
 
 type ImageResponse = {
   url: string;
 };
 
-export function ImageUpload({ onUpload }: ImageUploadProps) {
+export function ImageUpload({ onUpload, ...props }: ImageUploadProps) {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<Error | null>(null);
@@ -64,6 +64,7 @@ export function ImageUpload({ onUpload }: ImageUploadProps) {
             setFile(e.target.files[0]);
           }
         }}
+        {...props}
       />
     </>
   );
