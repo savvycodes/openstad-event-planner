@@ -12,6 +12,7 @@ export type AppConfig = {
   siteId: number;
   jwt: string;
   apiUrl: string;
+  imageUrl: string;
   user?: {
     isEventProvider?: boolean;
     // @todo: define all possible roles in a seperate type

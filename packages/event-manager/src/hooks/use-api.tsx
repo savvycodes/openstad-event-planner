@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { useConfig } from '../context/config-context';
 import { useUser } from '../context/user-context';
@@ -11,7 +11,7 @@ export function useApi(endpoint: string) {
   const config = useConfig();
   const user = useUser();
 
-  useEffect(() => {
+  const reload = useCallback(() => {
     setLoading(true);
     setError(null);
     fetch(`${config.apiUrl}/api/site/${config.siteId}${endpoint}`, {
@@ -30,11 +30,12 @@ export function useApi(endpoint: string) {
       })
       .then(res => setData(res))
       .catch(err => {
-        setData(null);
         setError(err);
       })
       .finally(() => setLoading(false));
-  }, [endpoint]);
+  }, [config, user, endpoint]);
 
-  return { loading, data, error };
+  useEffect(() => reload(), [endpoint]);
+
+  return { loading, data, error, reload };
 }

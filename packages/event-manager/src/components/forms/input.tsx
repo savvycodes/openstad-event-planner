@@ -1,15 +1,16 @@
 import React from 'react';
 import { DefaultTheme, styled } from 'goober';
-import { FieldProps } from 'formik';
+import { FieldProps, Form as FormikForm } from 'formik';
 
 /**
  * Form helpers
  */
 type InputProps = {
   error?: boolean;
-} & DefaultTheme;
+} & DefaultTheme &
+  any;
 
-export const Form = styled('form')`
+export const Form = styled(FormikForm)`
   display: block;
 `;
 

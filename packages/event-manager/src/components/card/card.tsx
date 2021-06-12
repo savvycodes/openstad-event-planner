@@ -1,5 +1,5 @@
 import { styled } from 'goober';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { Edit3, Trash2 } from 'react-feather';
 import { BorderedCardTitle } from '../text/text';
 
@@ -19,7 +19,7 @@ export const CardWrapper = styled('div')`
 
 export const ActivityCard = styled('div')<CardProps>`
   cursor: pointer;
-  width: ${100 / 3}%;
+  /* width: ${100 / 3}%; */
   height: 42.5vh;
   background-color: ${props =>
     props.newactivity
@@ -78,20 +78,38 @@ export const AddActivityButton = styled('button')`
   }
 `;
 
-export function ActivityCards(props: any) {
+type ActivityCardsProps = {
+  src: string;
+  title: string;
+  onDelete?: MouseEventHandler;
+  onEdit?: MouseEventHandler;
+};
+
+export function ActivityCards({
+  src,
+  title,
+  onDelete = () => null,
+  onEdit = () => null,
+}: ActivityCardsProps) {
   return (
     <ActivityCard newactivity>
-      <ActivityImage src={props.src} />
+      <ActivityImage src={src} />
       <CardTextContainer>
-        <BorderedCardTitle title={props.title} />
+        <BorderedCardTitle title={title} />
       </CardTextContainer>
       <CardIconContainer>
         <Trash2
           style={{ float: 'right', padding: '0 4px' }}
           size={18}
           stroke={'#7a7a7a'}
+          onClick={onDelete}
         />
-        <Edit3 style={{ float: 'right' }} stroke={'#7a7a7a'} size={18} />
+        <Edit3
+          style={{ float: 'right' }}
+          stroke={'#7a7a7a'}
+          size={18}
+          onClick={onEdit}
+        />
       </CardIconContainer>
     </ActivityCard>
   );

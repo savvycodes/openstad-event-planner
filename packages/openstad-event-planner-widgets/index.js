@@ -65,6 +65,7 @@ module.exports = {
         widget.config = JSON.stringify({
           siteId: req.data.global.siteId,
           apiUrl: self.apos.settings.getOption(req, 'apiUrl'),
+          imageUrl: req.data.siteUrl + '/image',
           jwt: req.session.jwt,
           user: {
             role: get(req, 'data.openstadUser.role', ''),

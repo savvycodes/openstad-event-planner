@@ -8,6 +8,7 @@ export function useDistricts() {
     'Noord',
     'Oost',
     'West',
+    'Weesp',
     'Zuid',
     'Zuidoost',
   ];

@@ -6,6 +6,7 @@ const ConfigContext = createContext<AppConfig>({
   siteId: 2,
   jwt: '',
   apiUrl: '',
+  imageUrl: '',
   user: {
     role: '',
     isEventProvider: false,
