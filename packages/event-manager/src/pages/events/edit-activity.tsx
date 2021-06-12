@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
 
 import { useHashLocation } from '../../components/hash-router';
 import { BorderedTitle, Paragraph } from '../../components/text/text';
@@ -12,43 +11,16 @@ import { ActivityForm } from './components/form';
 import { useApi } from '../../hooks/use-api';
 import { useDistricts } from '../../hooks/use-districts';
 import { useConfig } from '../../context/config-context';
-import { createEvent } from '../../endpoints/event';
+import { updateEvent } from '../../endpoints/event';
 
-export const schema = Yup.object().shape({
-  name: Yup.string().required('Naam is verplicht'),
-  description: Yup.string().required('Beschrijving is verplicht'),
-  location: Yup.object()
-    .shape({
-      type: Yup.string().required(),
-      coordinates: Yup.array()
-        .of(Yup.number())
-        .min(2),
-    })
-    .required('Locatie is verplicht'),
-  district: Yup.string().required('Stadsdeel is verplicht'),
-  price: Yup.number(),
-  attendees: Yup.number().required('Aantal beschikbare plekken is verplicht'),
-  information: Yup.string(),
-  dates: Yup.array()
-    .of(Yup.date())
-    .min(1, 'Kies minimaal 1 datum')
-    .required('Datum is verplicht'),
-  startTime: Yup.string().required('Aanvangsttijd is verplicht'),
-  endTime: Yup.string().required('Eindtijd is verplicht'),
-  tagIds: Yup.array()
-    .of(Yup.string())
-    .min(1, 'U moet minimaal 1 type activiteit selecteren'),
-  ages: Yup.array()
-    .of(Yup.string())
-    .min(1, 'U moet minimaal 1 leeftijd selecteren'),
-  needToPay: Yup.string(),
-});
+import { schema } from './add-activity';
+import { RouteComponentProps } from 'wouter';
 
 /**
- * Provider contact details form
+ * Edit event
  * @returns
  */
-export function ProviderAddActivityPage(): JSX.Element {
+export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
   const [, navigate] = useHashLocation();
   const config = useConfig();
   const districts = useDistricts();
@@ -60,12 +32,13 @@ export function ProviderAddActivityPage(): JSX.Element {
     error: organisationError,
   } = useApi('/organisation/me');
   const { data: tags, loading: tagsLoading } = useApi('/tag');
+  const { data: event, loading: eventLoading } = useApi(`/event/${params.id}`);
 
   const [submitError, setSubmitError] = React.useState<Error | null>(null);
-  const loading = organisationLoading || tagsLoading;
+  const loading = organisationLoading || tagsLoading || eventLoading;
 
   /**
-   * Form submit handler to create or update an event
+   * Form submit handler to update an event
    *
    * @param values
    * @param formHelpers
@@ -119,7 +92,7 @@ export function ProviderAddActivityPage(): JSX.Element {
         };
       });
 
-      await createEvent(config, payload);
+      await updateEvent(config, params.id, payload);
 
       navigate('/events');
     } catch (err) {
@@ -127,6 +100,53 @@ export function ProviderAddActivityPage(): JSX.Element {
     } finally {
       formHelpers.setSubmitting(false);
     }
+  }
+
+  function getInitialValues(event: any) {
+    const startDate = new Date(event.slots[0].startTime);
+    const endDate = new Date(event.slots[0].endTime);
+
+    const startTime = startDate
+      .toTimeString()
+      .split(' ')[0]
+      .split(':')
+      .slice(0, 2)
+      .join(':');
+    const endTime = endDate
+      .toTimeString()
+      .split(' ')[0]
+      .split(':')
+      .slice(0, 2)
+      .join(':');
+
+    const ages = ['0-4', '4-8', '8-12', '12-16', '16-18', '18-99'].filter(
+      ageGroup => {
+        const [min, max] = ageGroup.split('-').map(age => parseInt(age));
+
+        if (event.minAge <= min && event.maxAge >= max) {
+          return true;
+        }
+
+        return false;
+      }
+    );
+
+    return {
+      name: event.name,
+      description: event.description,
+      location: event.location,
+      district: event.district,
+      price: event.price / 100,
+      attendees: event.attendees,
+      information: event.information,
+      tagIds: event.tags.map((tag: any) => tag.id.toString()),
+      ages: ages,
+      image: event.image,
+      dates: event.slots.map((slot: any) => new Date(slot.startTime)),
+      startTime: startTime,
+      endTime: endTime,
+      needToPay: event.price > 0 ? 'paid' : 'free',
+    };
   }
 
   if (loading || !organisation || !tags) {
@@ -147,29 +167,11 @@ export function ProviderAddActivityPage(): JSX.Element {
       <Header>
         <BorderedTitle title={organisation.name} />
 
-        <Paragraph>Nieuwe activiteit toevoegen</Paragraph>
+        <Paragraph>Activiteit bewerken</Paragraph>
       </Header>
 
       <Formik
-        initialValues={{
-          name: '',
-          description: '',
-          location: {
-            type: 'Point',
-            coordinates: [],
-          },
-          district: '',
-          price: 0,
-          attendees: 0,
-          information: '',
-          tagIds: [],
-          ages: [],
-          image: '',
-          dates: [],
-          startTime: '',
-          endTime: '',
-          needToPay: 'free',
-        }}
+        initialValues={getInitialValues(event)}
         onSubmit={handleSubmit}
         validationSchema={schema}
       >

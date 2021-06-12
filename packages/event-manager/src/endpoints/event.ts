@@ -105,3 +105,31 @@ export async function removeEvent(config: AppConfig, id: number) {
 
   return null;
 }
+
+export async function updateEvent(
+  config: AppConfig,
+  id: string | number,
+  payload: any
+) {
+  const res = await fetch(
+    `${config.apiUrl}/api/site/${config.siteId}/event/${id}`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Authorization': `Bearer ${config.jwt}`,
+      },
+      body: JSON.stringify(payload),
+    }
+  );
+
+  if (res.status >= 400) {
+    const error: EventResponseError = await res.json();
+    throw new Error(
+      `Kon activiteit niet opslaan: ${res.status} ${error.message}`
+    );
+  }
+
+  const data: EventResponse = await res.json();
+  return data;
+}

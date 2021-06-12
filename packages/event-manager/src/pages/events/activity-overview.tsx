@@ -150,6 +150,7 @@ function ActivityList({ organisationId }: ActivityListProps) {
           src={event.image}
           title={event.name}
           onDelete={() => handleDelete(event.id)}
+          onEdit={() => navigate(`/events/${event.id}/edit`)}
         />
       ))}
       <ActivityCard newactivity onClick={() => navigate('/events/create')}>

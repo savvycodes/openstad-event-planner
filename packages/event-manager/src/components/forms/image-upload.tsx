@@ -12,7 +12,7 @@ type ImageResponse = {
   url: string;
 };
 
-export function ImageUpload({ onUpload, ...props }: ImageUploadProps) {
+export function ImageUpload({ onUpload, value, ...props }: ImageUploadProps) {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<Error | null>(null);
@@ -56,6 +56,7 @@ export function ImageUpload({ onUpload, ...props }: ImageUploadProps) {
       ) : null}
       {uploading ? <Spinner /> : null}
       {file ? <img src={URL.createObjectURL(file)} /> : null}
+      {!file && value ? <img src={value.toString()} /> : null}
       <input
         type="file"
         accept="image/jpeg,image/png"

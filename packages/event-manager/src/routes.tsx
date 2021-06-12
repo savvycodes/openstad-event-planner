@@ -14,6 +14,7 @@ import { CreateUserPage } from './pages/admin/user-create';
 
 import { useApi } from './hooks/use-api';
 import { useUser } from './context/user-context';
+import { EditActivityPage } from './pages/events/edit-activity';
 
 /**
  * @todo: fix the routing to check where to navigate to
@@ -61,6 +62,7 @@ export function Router(): JSX.Element {
           <Route path="/signup" component={SignupPage} />
           <Route path="/events" component={ProviderActivityOverviewPage} />
           <Route path="/events/create" component={ProviderAddActivityPage} />
+          <Route path="/events/:id/edit" component={EditActivityPage} />
           <Redirect to="/events" />
         </Switch>
       )}
