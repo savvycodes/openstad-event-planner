@@ -1,5 +1,5 @@
 {
-  "version": "0.0.4-alpha.10",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -33,7 +33,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "@savvycodes/event-manager",
+  "name": "@savvycodes/event-overview",
   "author": "Savvy.codes",
   "module": "dist/openstad-events.esm.js",
   "size-limit": [
@@ -62,7 +62,6 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
-    "@savvycodes/event-overview": "^0.0.1",
     "feather-icons": "^4.28.0",
     "formik": "^2.2.8",
     "goober": "^2.0.37",
@@ -73,7 +72,6 @@
     "wouter": "^2.7.4",
     "yup": "^0.32.9"
   },
-  "gitHead": "8b41a6186d98118e4cf10292b5c53a858b97c667",
   "publishConfig": {
     "access": "public"
   }
