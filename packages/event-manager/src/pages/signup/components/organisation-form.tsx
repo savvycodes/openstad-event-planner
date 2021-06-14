@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ErrorMessage, Field } from 'formik';
+import { ErrorMessage, Field, useFormikContext } from 'formik';
 
 import { Spinner } from '../../../components/spinner';
 import {
@@ -17,6 +17,7 @@ import { useDistricts } from '../../../hooks/use-districts';
 export function OrganisationForm() {
   const { data: tags, loading } = useApi('/tag');
   const districts = useDistricts();
+  const formik = useFormikContext<any>();
 
   if (loading || !tags || !districts) {
     return <Spinner />;
@@ -24,11 +25,6 @@ export function OrganisationForm() {
 
   return (
     <>
-      <Paragraph>
-        Deze informatie is zichbaar als de algemene contactinformatie op het
-        platform. Ingevoerde content is uiteindelijk zichtbaar voor alle
-        bezoekers op het platform.
-      </Paragraph>
       <FormItem>
         <Label htmlFor="name">
           Naam organisatie
@@ -164,9 +160,15 @@ export function OrganisationForm() {
               <Field
                 type="checkbox"
                 name="tagIds"
-                value={tag.id}
-                component={({ field, type, checked }: any) => (
-                  <input {...field} type={type} checked={checked} />
+                value={tag.id.toString()}
+                component={({ field, type }: any) => (
+                  <input
+                    {...field}
+                    type={type}
+                    checked={formik.values[field.name].includes(
+                      tag.id.toString()
+                    )}
+                  />
                 )}
               />
               {tag.name}
