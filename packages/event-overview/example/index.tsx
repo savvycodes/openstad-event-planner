@@ -1,4 +1,6 @@
 import 'react-app-polyfill/ie11';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { App } from '../.';

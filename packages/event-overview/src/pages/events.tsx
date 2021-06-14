@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import useSWR from 'swr';
 import { RouteComponentProps, Link } from 'wouter';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 import { Spinner } from '../components/spinner';
 import { ErrorBanner } from '../components/error-banner';
 import { FilterSidebar } from '../components/filters';
 
 export function EventsPage({}: RouteComponentProps) {
-  const { data, error } = useSWR('/event');
-  const [filters, setFilters] = useState(null);
+  const [filters, setFilters] = useState<any>(null);
   const [viewType, setViewType] = useState('tile');
+
+  const { data, error } = useSWR(`/event`);
 
   if (error) {
     return <ErrorBanner>{error.message}</ErrorBanner>;
@@ -90,20 +92,38 @@ export function EventsPage({}: RouteComponentProps) {
       <FilterSidebar onChange={setFilters} />
 
       <div>
-        <a href="#" onClick={() => setViewType('map')}>
+        <a
+          href="#"
+          onClick={e => {
+            e.preventDefault();
+            setViewType('map');
+          }}
+        >
           Kaart
         </a>
-        <a href="#" onClick={() => setViewType('calendar')}>
+        <a
+          href="#"
+          onClick={e => {
+            e.preventDefault();
+            setViewType('calendar');
+          }}
+        >
           Kalender
         </a>
-        <a href="#" onClick={() => setViewType('tile')}>
+        <a
+          href="#"
+          onClick={e => {
+            e.preventDefault();
+            setViewType('tile');
+          }}
+        >
           Tegels
         </a>
       </div>
 
       {viewType === 'tile' ? <EventTiles events={filteredEvents} /> : null}
       {viewType === 'calendar' ? <EventTiles events={filteredEvents} /> : null}
-      {viewType === 'map' ? <EventTiles events={filteredEvents} /> : null}
+      {viewType === 'map' ? <EventMap events={filteredEvents} /> : null}
     </div>
   );
 }
@@ -124,4 +144,33 @@ function EventTiles({ events }: any) {
       <p style={{ display: 'block' }}>{event.district}</p>
     </div>
   ));
+}
+
+function EventMap({ events }: any) {
+  return (
+    <div style={{ minHeight: '500px', width: '100%' }}>
+      <MapContainer
+        center={[51.505, -0.09]}
+        zoom={13}
+        scrollWheelZoom={false}
+        style={{ minHeight: '500px', width: '100%' }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {events.map((event: any) => (
+          <Marker
+            key={event.id}
+            position={[
+              event.location.coordinates[1],
+              event.location.coordinates[0],
+            ]}
+          >
+            <Popup>{event.name}</Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </div>
+  );
 }
