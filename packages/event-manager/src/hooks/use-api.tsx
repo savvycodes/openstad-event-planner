@@ -35,7 +35,7 @@ export function useApi(endpoint: string) {
       .finally(() => setLoading(false));
   }, [config, user, endpoint]);
 
-  useEffect(() => reload(), [endpoint]);
+  useEffect(() => reload(), [endpoint, reload]);
 
   return { loading, data, error, reload };
 }

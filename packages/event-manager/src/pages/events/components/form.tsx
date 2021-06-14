@@ -51,7 +51,7 @@ const styles = {
     font-weight: 500;
     font-style: italic;
   `,
-}
+};
 
 export function ActivityForm({
   organisation,
@@ -133,9 +133,7 @@ export function ActivityForm({
       <FormItem>
         <Label htmlFor="date">
           Datum activiteit
-          <styles.Paragraph>
-            Meerdere dagen mogelijk
-          </styles.Paragraph>
+          <styles.Paragraph>Meerdere dagen mogelijk</styles.Paragraph>
           <Calendar
             multiple
             minDate={new Date(Date.now() + 3600 * 1000 * 24)}
@@ -162,7 +160,6 @@ export function ActivityForm({
               tabIndex={5}
               component={Input}
               value={form.values.startTime}
-              
             />
             <Paragraph>
               <ErrorMessage name="startTime" />
@@ -172,7 +169,13 @@ export function ActivityForm({
         <FormItem>
           <Label htmlFor="endTime">
             Eind tijd
-            <Field name="endTime" type="time" tabIndex={6} component={Input} value={form.values.endTime} />
+            <Field
+              name="endTime"
+              type="time"
+              tabIndex={6}
+              component={Input}
+              value={form.values.endTime}
+            />
             <Paragraph>
               <ErrorMessage name="endTime" />
             </Paragraph>

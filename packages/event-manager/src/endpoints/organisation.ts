@@ -2,7 +2,7 @@ import { AppConfig } from '../app';
 
 export async function createOrganisation(config: AppConfig, payload: any) {
   // Remove empty keys from payload
-  Object.keys(payload).map(key => {
+  Object.keys(payload).forEach(key => {
     if (payload[key] === null) {
       delete payload[key];
     }

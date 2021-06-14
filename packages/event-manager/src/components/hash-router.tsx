@@ -26,14 +26,15 @@ function useHashLocation(): HashLocationTuple {
     };
 
     const events = ['replaceHash', 'hashchange'];
-    events.map(e => addEventListener(e, checkForUpdates));
+    events.map(e => window.addEventListener(e, checkForUpdates));
 
     // it's possible that an update has occurred between render and the effect handler,
     // so we run additional check on mount to catch these updates. Based on:
     // https://gist.github.com/bvaughn/e25397f70e8c65b0ae0d7c90b731b189
     checkForUpdates();
 
-    return () => events.map(e => removeEventListener(e, checkForUpdates));
+    return () =>
+      events.map(e => window.removeEventListener(e, checkForUpdates));
   }, []);
 
   // the 2nd argument of the `useLocation` return value is a function
@@ -42,14 +43,14 @@ function useHashLocation(): HashLocationTuple {
   // the function reference should stay the same between re-renders, so that
   // it can be passed down as an element prop without any performance concerns.
   const navigate = useCallback((to: Path) => {
-    location.hash = to;
+    window.location.hash = to;
     dispatchEvent(new Event('replaceHash'));
   }, []);
 
   return [path, navigate];
 }
 
-const currentPathname = (): Path => location.hash.replace('#', '');
+const currentPathname = (): Path => window.location.hash.replace('#', '');
 
 /**
  * Custom Hash router so we can include this in apostrophecms later on
