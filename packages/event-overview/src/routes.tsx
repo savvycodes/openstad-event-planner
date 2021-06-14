@@ -1,24 +1,18 @@
 import React from 'react';
-import useSWR from 'swr';
+import { Switch, Route, Redirect } from 'wouter';
 
 import { HashRouter } from './components/hash-router';
+import { EventDetailPage } from './pages/event-detail';
+import { EventsPage } from './pages/events';
 
 export function Router(): JSX.Element {
-  const { data, error } = useSWR('/event');
-
   return (
     <HashRouter>
-      <p>Evenementen overzicht</p>
-      <pre>
-        {JSON.stringify(
-          {
-            data,
-            error,
-          },
-          null,
-          2
-        )}
-      </pre>
+      <Switch>
+        <Route path={`/events`} component={EventsPage} />
+        <Route path={`/events/:id`} component={EventDetailPage} />
+        <Redirect to={`/events`} />
+      </Switch>
     </HashRouter>
   );
 }
