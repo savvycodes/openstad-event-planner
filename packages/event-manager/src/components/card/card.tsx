@@ -100,14 +100,14 @@ export function ActivityCards({
       <CardIconContainer>
         <Trash2
           style={{ float: 'right', padding: '0 4px' }}
-          size={18}
+          size={24}
           stroke={'#7a7a7a'}
           onClick={onDelete}
         />
         <Edit3
           style={{ float: 'right' }}
           stroke={'#7a7a7a'}
-          size={18}
+          size={24}
           onClick={onEdit}
         />
       </CardIconContainer>

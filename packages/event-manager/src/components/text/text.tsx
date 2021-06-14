@@ -10,12 +10,12 @@ type TextProps = {
 };
 
 export const Paragraph = styled('p')`
-  font-size: 0.8rem;
+  font-size: 14px;
   font-family: 'Noto Sans', sans-serif;
 `;
 
 export const Title = styled('h1')`
-  font-size: 1.5rem;
+  font-size: 24px;
   font-family: 'Noto Sans', sans-serif;
   display: inline-block;
 `;
@@ -26,18 +26,18 @@ export const Label = styled('label')`
 `;
 export const ListLabel = styled('label')`
   padding: 0 8px;
-  font-size: 0.9rem;
+  font-size: 14px;
   font-family: 'Noto Sans', sans-serif;
 `;
 
 export const CardTitle = styled('h1')`
-  font-size: 1.2rem;
+  font-size: 18px;
   font-family: 'Noto Sans', sans-serif;
   display: inline-block;
 `;
 export const NewActivityTitle = styled('h1')`
   @media (min-width: 1024px) {
-    font-size: 1.2rem;
+    font-size: 18px;
     font-family: 'Noto Sans', sans-serif;
     margin: 12px;
     color: ${props => props.theme.colors.darkestGray};

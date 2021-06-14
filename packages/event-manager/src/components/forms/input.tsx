@@ -62,13 +62,11 @@ export const FileUpload = styled('label')`
   display: block;
   padding: 6px 12px;
   margin: 24px 0;
-  width: 300px;
   box-shadow: ${props => props.theme.effects.boxShadowPrimary};
   cursor: pointer;
   color: grey;
   font-weight: 500;
-  font-size: 0.9rem;
-  width: 50%;
+  font-size: 16px;
 `;
 
 export const DisabledOption = styled('option')`
