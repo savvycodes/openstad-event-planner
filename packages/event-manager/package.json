@@ -1,5 +1,5 @@
 {
-  "version": "0.0.4-alpha.10",
+  "version": "0.0.4-alpha.11",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -62,7 +62,7 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
-    "@savvycodes/event-overview": "^0.0.1",
+    "@savvycodes/event-overview": "^0.0.4-alpha.11",
     "feather-icons": "^4.28.0",
     "formik": "^2.2.8",
     "goober": "^2.0.37",
