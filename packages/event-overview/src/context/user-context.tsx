@@ -41,10 +41,6 @@ export const UserProvider = (props: UserProviderProps): JSX.Element | null => {
     }
   }, [config]);
 
-  if (!user) {
-    return null;
-  }
-
   return (
     <UserContext.Provider value={{ ...props.value, user }}>
       {props.children}

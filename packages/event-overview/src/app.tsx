@@ -1,16 +1,18 @@
 import React, { createElement } from 'react';
 import { DefaultTheme, setup } from 'goober';
+import { SWRConfig } from 'swr';
 
 import { defaultTheme, ThemeProvider, useTheme } from './theme/theme';
 import { UserProvider } from './context/user-context';
 import { Router } from './routes';
 import { ConfigProvider } from './context/config-context';
+import { createFetcher } from './util/fetcher';
 
 setup(createElement, undefined, useTheme);
 
 export type AppConfig = {
   siteId: number;
-  jwt: string;
+  jwt?: string;
   apiUrl: string;
   imageUrl: string;
   user?: {
@@ -38,7 +40,14 @@ export function App(props: AppProps): JSX.Element {
             isEventProvider: props.config.user?.isEventProvider || false,
           }}
         >
-          <Router />
+          <SWRConfig
+            value={{
+              fetcher: (resource, init) =>
+                createFetcher(props.config, resource, init),
+            }}
+          >
+            <Router />
+          </SWRConfig>
         </UserProvider>
       </ConfigProvider>
     </ThemeProvider>
