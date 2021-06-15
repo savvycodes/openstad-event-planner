@@ -41,6 +41,22 @@ export const CardIconContainer = styled('div')`
   justify-content: center;
 `;
 
+export const CardTagsContainer = styled('div')`
+  position: absolute;
+  bottom: 12px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+`;
+
+export const CardTag = styled('p')`
+font-size: 8px;
+border: 1px solid ${props => props.theme.colors.primary};
+border-radius: 5px;
+padding: 0 8px;
+margin: 0 4px;
+`;
+
 export const NewActivityCardTextContainer = styled('div')`
   width: 100%;
   height: 100%;

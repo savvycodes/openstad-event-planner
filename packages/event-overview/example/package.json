@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "PORT=1235 node server.js",
+    "start": "node server.js",
     "build": "parcel build index.html"
   },
   "dependencies": {
