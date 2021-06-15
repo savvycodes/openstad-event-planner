@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useSWR from 'swr';
 import { RouteComponentProps, Link } from 'wouter';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Marker, Popup } from 'react-leaflet';
 
 import { Spinner } from '../components/spinner';
 import { ErrorBanner } from '../components/error-banner';
@@ -30,6 +30,7 @@ const styles = {
     justify-content: flex-end;
   `,
 };
+import { Map } from '../components/map';
 
 export function EventsPage({}: RouteComponentProps) {
   const [filters, setFilters] = useState<any>(null);
@@ -187,16 +188,7 @@ function EventTiles({ events }: any) {
 function EventMap({ events }: any) {
   return (
     <div style={{ minHeight: '500px', width: '100%' }}>
-      <MapContainer
-        center={[51.505, -0.09]}
-        zoom={13}
-        scrollWheelZoom={false}
-        style={{ minHeight: '500px', width: '100%' }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+      <Map>
         {events.map((event: any) => (
           <Marker
             key={event.id}
@@ -208,7 +200,7 @@ function EventMap({ events }: any) {
             <Popup>{event.name}</Popup>
           </Marker>
         ))}
-      </MapContainer>
+      </Map>
     </div>
   );
 }

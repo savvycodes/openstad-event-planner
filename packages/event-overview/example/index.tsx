@@ -15,6 +15,13 @@ const config = {
     isEventProvider: true,
     role: 'member',
   },
+  map: {
+    accessToken:
+      'pk.eyJ1IjoiYmFkbXV0cyIsImEiOiJja3B4eGxiZzYxYXpiMnFwOXY1bnF3OTQ1In0.eHLVPwsrmCLBb1GQWX9EJg',
+    id: 'badmuts/ckpxxn1kf0n6t17p3fgmdbgoa',
+    tileUrl:
+      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
+  },
 };
 
 // const config = {
