@@ -3,9 +3,9 @@ import { styled } from 'goober';
 /**
  * Form helpers
  */
- type InputProps = {
+type InputProps = {
   active?: boolean;
-}
+};
 
 export const Main = styled('div')`
   background-color: ${props => props.theme.colors.background};
@@ -23,7 +23,8 @@ export const NavigationItem = styled('div')<InputProps>`
   padding: 12px;
   margin-left: 12px;
   background-color: ${props => props.theme.colors.background};
-  box-shadow: ${props => props.active ? props.theme.effects.boxShadowPrimary : 'none'};
+  box-shadow: ${props =>
+    props.active ? props.theme.effects.boxShadowPrimary : 'none'};
   text-decoration: none;
   display: flex;
   align-items: center;

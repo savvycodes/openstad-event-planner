@@ -50,11 +50,11 @@ export const CardTagsContainer = styled('div')`
 `;
 
 export const CardTag = styled('p')`
-font-size: 8px;
-border: 1px solid ${props => props.theme.colors.primary};
-border-radius: 5px;
-padding: 0 8px;
-margin: 0 4px;
+  font-size: 8px;
+  border: 1px solid ${props => props.theme.colors.primary};
+  border-radius: 5px;
+  padding: 0 8px;
+  margin: 0 4px;
 `;
 
 export const NewActivityCardTextContainer = styled('div')`
