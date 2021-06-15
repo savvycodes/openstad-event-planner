@@ -156,9 +156,18 @@ export function EventsPage({}: RouteComponentProps) {
           </CardWrapper>
         ) : null}
         {viewType === 'calendar' ? (
-          <EventTiles events={filteredEvents} />
+          <CardWrapper>
+            <EventTiles events={filteredEvents} />
+          </CardWrapper>
         ) : null}
-        {viewType === 'map' ? <EventMap events={filteredEvents} /> : null}
+        {viewType === 'map' ? (
+          <div>
+            <EventMap events={filteredEvents} />
+            <CardWrapper>
+              <EventTiles events={filteredEvents} />
+            </CardWrapper>
+          </div>
+        ) : null}
       </DFlex>
     </Main>
   );
@@ -189,7 +198,7 @@ function EventTiles({ events }: any) {
 
 function EventMap({ events }: any) {
   return (
-    <div style={{ minHeight: '500px', width: '100%' }}>
+    <div style={{ minHeight: '500px', width: '100%', flexBasis: '100%' }}>
       <Map>
         {events.map((event: any) => (
           <Marker
