@@ -116,6 +116,7 @@ export function EventsPage({}: RouteComponentProps) {
     <Main>
       <styles.Header>
         <NavigationItem
+          active={viewType === 'map'}
           onClick={e => {
             e.preventDefault();
             setViewType('map');
@@ -125,6 +126,7 @@ export function EventsPage({}: RouteComponentProps) {
           Kaart
         </NavigationItem>
         <NavigationItem
+          active={viewType === 'calendar'}
           onClick={e => {
             e.preventDefault();
             setViewType('calendar');
@@ -134,7 +136,7 @@ export function EventsPage({}: RouteComponentProps) {
           Kalender
         </NavigationItem>
         <NavigationItem
-          active
+          active={viewType === 'tile'}
           onClick={e => {
             e.preventDefault();
             setViewType('tile');
