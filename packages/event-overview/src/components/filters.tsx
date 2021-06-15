@@ -8,10 +8,17 @@ import { Spinner } from './spinner';
 
 import { useDistricts } from '../hooks/use-districts';
 
-const Container = styled('div')`
-  margin: 0 20px;
-`;
-const Input = styled('input')``;
+const styles = {
+  Filter: styled(Filter)`
+    padding: 100px;
+  `,
+  Container: styled('div')`
+    margin: 0 48px;
+  `,
+  Input: styled('input')``,
+
+};
+
 
 function Filter({ name, children }: any) {
   const [isOpen, setOpen] = useState(false);
@@ -55,8 +62,8 @@ export function FilterSidebar({ onChange }: any) {
   }
 
   return (
-    <Container>
-      <Input
+    <styles.Container>
+      <styles.Input
         placeholder="Trefwoord"
         value={filters.q}
         onChange={e =>
@@ -66,7 +73,7 @@ export function FilterSidebar({ onChange }: any) {
           })
         }
       />
-      <Filter name="Leeftijd">
+      <styles.Filter name="Leeftijd">
         {ages.map((group: string, index) => {
           const range = group.split('-').map(a => parseInt(a));
 
@@ -104,7 +111,7 @@ export function FilterSidebar({ onChange }: any) {
             </label>
           );
         })}
-      </Filter>
+      </styles.Filter>
       <Filter name="Stadsdeel">
         {districts.map((district: any, index) => (
           <label style={{ display: 'block' }} key={index}>
@@ -173,6 +180,6 @@ export function FilterSidebar({ onChange }: any) {
         }
       />
       <button onClick={() => setFilters(initialFilters)}>Wissen</button>
-    </Container>
+    </styles.Container>
   );
 }

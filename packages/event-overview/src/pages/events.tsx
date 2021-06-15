@@ -6,6 +6,30 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Spinner } from '../components/spinner';
 import { ErrorBanner } from '../components/error-banner';
 import { FilterSidebar } from '../components/filters';
+import {
+  CardWrapper,
+  ActivityCard,
+  ActivityImage,
+  CardTextContainer,
+  CardTagsContainer,
+  CardTag,
+} from '../components/card/card';
+import { BorderedCardTitle } from '../components/text/text';
+import {
+  DFlex,
+  Header,
+  Main,
+  NavigationItem,
+} from '../components/layout/layout';
+import { styled } from 'goober';
+import { Calendar, Grid, MapPin } from 'react-feather';
+
+const styles = {
+  Header: styled(Header)`
+    display: flex;
+    justify-content: flex-end;
+  `,
+};
 
 export function EventsPage({}: RouteComponentProps) {
   const [filters, setFilters] = useState<any>(null);
@@ -88,61 +112,75 @@ export function EventsPage({}: RouteComponentProps) {
     .filter(filterDates(filters));
 
   return (
-    <div style={{ display: 'flex' }}>
-      <FilterSidebar onChange={setFilters} />
-
-      <div>
-        <a
-          href="#"
+    <Main>
+      <styles.Header>
+        <NavigationItem
           onClick={e => {
             e.preventDefault();
             setViewType('map');
           }}
         >
+          <MapPin style={{ padding: '0 4px' }} size={24} stroke={'black'} />
           Kaart
-        </a>
-        <a
-          href="#"
+        </NavigationItem>
+        <NavigationItem
           onClick={e => {
             e.preventDefault();
             setViewType('calendar');
           }}
         >
+          <Calendar style={{ padding: '0 4px' }} size={24} stroke={'black'} />
           Kalender
-        </a>
-        <a
-          href="#"
+        </NavigationItem>
+        <NavigationItem
+          active
           onClick={e => {
             e.preventDefault();
             setViewType('tile');
           }}
         >
+          <Grid style={{ padding: '0 4px' }} size={24} fill={'black'} />
           Tegels
-        </a>
-      </div>
+        </NavigationItem>
+      </styles.Header>
 
-      {viewType === 'tile' ? <EventTiles events={filteredEvents} /> : null}
-      {viewType === 'calendar' ? <EventTiles events={filteredEvents} /> : null}
-      {viewType === 'map' ? <EventMap events={filteredEvents} /> : null}
-    </div>
+      <DFlex>
+        <FilterSidebar onChange={setFilters} />
+
+        {viewType === 'tile' ? (
+          <CardWrapper>
+            <EventTiles events={filteredEvents} />
+          </CardWrapper>
+        ) : null}
+        {viewType === 'calendar' ? (
+          <EventTiles events={filteredEvents} />
+        ) : null}
+        {viewType === 'map' ? <EventMap events={filteredEvents} /> : null}
+      </DFlex>
+    </Main>
   );
 }
 
 function EventTiles({ events }: any) {
   return events.map((event: any) => (
-    <div key={event.id}>
-      <img src={event.image} alt={event.name} />
+    <ActivityCard key={event.id}>
       <Link to={`/events/${event.id}`}>
-        <h1>{event.name}</h1>
+        <ActivityImage src={event.image} alt={event.name} />
+        <CardTextContainer>
+          <BorderedCardTitle title={event.name} />
+        </CardTextContainer>
+
+        <CardTagsContainer>
+          <CardTag>
+            {event.minAge}-{event.maxAge} jaar
+          </CardTag>
+          <CardTag style={{ display: 'block' }}>
+            {event.tags.map((tag: any) => tag.name).join(', ')}
+          </CardTag>
+          <CardTag style={{ display: 'block' }}>{event.district}</CardTag>
+        </CardTagsContainer>
       </Link>
-      <p>
-        {event.minAge}-{event.maxAge} jaar
-      </p>
-      <p style={{ display: 'block' }}>
-        {event.tags.map((tag: any) => tag.name).join(', ')}
-      </p>
-      <p style={{ display: 'block' }}>{event.district}</p>
-    </div>
+    </ActivityCard>
   ));
 }
 
