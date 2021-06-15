@@ -8,31 +8,46 @@ module.exports = {
    * @todo: Add useful fields
    */
   beforeConstruct: function (self, options) {
-    // options.addFields = [
-    //   {
-    //     type: 'string',
-    //     name: 'account',
-    //     label: 'Twitter Account',
-    //   },
-    //   {
-    //     type: 'string',
-    //     name: 'hashtag',
-    //     label: 'Filter Tweets by Hashtag',
-    //   },
-    //   {
-    //     type: 'integer',
-    //     name: 'limit',
-    //     label: 'Limit Number of Tweets',
-    //     def: 3,
-    //   },
-    // ].concat(options.addFields || []);
-    // options.arrangeFields = [
-    //   {
-    //     name: 'basics',
-    //     label: 'Basics',
-    //     fields: ['account', 'hashtag', 'limit'],
-    //   },
-    // ].concat(options.arrangeFields || []);
+    options.addFields = [
+      {
+        type: 'string',
+        name: 'mapTileUrl',
+        label: 'Map tile url',
+        htmlHelp:
+          'This allows you to use the Mapbox Static Tiles API to customize the look of the map. Defaults to: <code>https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png</code>',
+        def: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      },
+      {
+        type: 'string',
+        name: 'mapAccessToken',
+        label: 'Map accessToken',
+        help: 'When your tile url requires an access token',
+      },
+      {
+        type: 'string',
+        name: 'mapId',
+        label: 'Style id',
+        htmlHelp: `<p>Required when using Mapbox, for example: <code>{username}/{styleId}</code></p>. This is your custom style id`,
+      },
+      {
+        type: 'boolean',
+        name: 'devDebug',
+        label: 'Enable debug',
+        def: false,
+      },
+    ].concat(options.addFields || []);
+    options.arrangeFields = [
+      {
+        name: 'map',
+        label: 'Map',
+        fields: ['mapTileUrl', 'mapAccessToken', 'mapId'],
+      },
+      {
+        name: 'developer',
+        label: 'Developer menu',
+        fields: ['devDebug'],
+      },
+    ].concat(options.arrangeFields || []);
   },
 
   /**
@@ -52,7 +67,6 @@ module.exports = {
       widgets.forEach((widget) => {
         const containerId = self.apos.utils.generateId();
         widget.containerId = containerId;
-
         // Create the config for the react component
         widget.config = JSON.stringify({
           siteId: req.data.global.siteId,
@@ -66,6 +80,11 @@ module.exports = {
               'data.openstadUser.isEventProvider',
               false
             ),
+          },
+          map: {
+            accessToken: widget.mapAccessToken || null,
+            tileUrl: widget.mapTileUrl || null,
+            id: widget.mapId || null,
           },
         });
 
@@ -82,8 +101,7 @@ module.exports = {
           encodeURIComponent(req.url);
 
         widget.isDebug =
-          get(req, 'data.openstadUser.role', '') === 'admin' &&
-          process.NODE_ENV !== 'production';
+          get(req, 'data.openstadUser.role', '') === 'admin' && widget.devDebug;
       });
 
       return superLoad(req, widgets, next);
