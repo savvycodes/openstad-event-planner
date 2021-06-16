@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { RouteComponentProps, Link } from 'wouter';
 import { Marker, Popup } from 'react-leaflet';
+import { styled } from 'goober';
+import { Calendar, Grid, MapPin } from 'react-feather';
+import qs from 'query-string';
 
 import { Spinner } from '../components/spinner';
 import { ErrorBanner } from '../components/error-banner';
@@ -21,8 +24,7 @@ import {
   Main,
   NavigationItem,
 } from '../components/layout/layout';
-import { styled } from 'goober';
-import { Calendar, Grid, MapPin } from 'react-feather';
+import { Map } from '../components/map';
 
 const styles = {
   Header: styled(Header)`
@@ -30,20 +32,33 @@ const styles = {
     justify-content: flex-end;
   `,
 };
-import { Map } from '../components/map';
 
+/**
+ * Page that shows events
+ *
+ * @returns
+ */
 export function EventsPage({}: RouteComponentProps) {
   const [filters, setFilters] = useState<any>(null);
   const [viewType, setViewType] = useState('tile');
+  const [queryString, setQueryString] = useState<string>('');
 
-  const { data, error } = useSWR(`/event`);
+  const { data, error } = useSWR(() => `/event?${queryString}`);
+
+  useEffect(() => {
+    const apiFilters = {
+      ...filters,
+      dates: filters
+        ? filters.dates.map((date: Date) => date.toISOString())
+        : null,
+    };
+    delete apiFilters.ageRanges;
+
+    setQueryString(qs.stringify(apiFilters));
+  }, [filters]);
 
   if (error) {
     return <ErrorBanner>{error.message}</ErrorBanner>;
-  }
-
-  if (!data) {
-    return <Spinner />;
   }
 
   function filterQuery(filter: any) {
@@ -59,15 +74,14 @@ export function EventsPage({}: RouteComponentProps) {
 
   function filterAge(filter: any) {
     if (filter && filter.ageRanges.length) {
-      const range = filter.ageRanges.flat();
-      const min = Math.min(...range);
-      const max = Math.max(...range);
-
+      const ranges = filter.ageRanges;
       return (event: any) => {
-        return event.minAge > min && event.maxAge < max;
+        return ranges.some(([rMin, rMax]: number[]) => {
+          if (rMax === 99) rMax++;
+          return event.minAge >= rMin && rMax > event.minAge;
+        });
       };
     }
-
     // skip
     return () => true;
   }
@@ -102,15 +116,14 @@ export function EventsPage({}: RouteComponentProps) {
     return () => true;
   }
 
-  // @todo: filter data locally
-  // @todo: build filter query for events
-  const { records: events } = data;
-  const filteredEvents = events
-    .filter(filterQuery(filters))
-    .filter(filterAge(filters))
-    .filter(filterDistrict(filters))
-    .filter(filterTags(filters))
-    .filter(filterDates(filters));
+  // Filter locally
+  const filteredEvents =
+    data?.records
+      .filter(filterQuery(filters))
+      .filter(filterAge(filters))
+      .filter(filterDistrict(filters))
+      .filter(filterTags(filters))
+      .filter(filterDates(filters)) ?? [];
 
   return (
     <Main>
@@ -148,7 +161,9 @@ export function EventsPage({}: RouteComponentProps) {
       </styles.Header>
 
       <DFlex>
-        <FilterSidebar onChange={setFilters} />
+        <FilterSidebar filters={filters} onChange={setFilters} />
+
+        {!data ? <Spinner /> : null}
 
         {viewType === 'tile' ? (
           <CardWrapper>

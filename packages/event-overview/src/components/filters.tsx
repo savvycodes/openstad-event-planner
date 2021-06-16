@@ -7,6 +7,7 @@ import { ChevronDown, ChevronUp } from 'react-feather';
 import { Spinner } from './spinner';
 
 import { useDistricts } from '../hooks/use-districts';
+import useDebounce from '../hooks/use-debounce';
 
 const styles = {
   Filter: styled(Filter)`
@@ -16,9 +17,7 @@ const styles = {
     margin: 0 48px;
   `,
   Input: styled('input')``,
-
 };
-
 
 function Filter({ name, children }: any) {
   const [isOpen, setOpen] = useState(false);
@@ -42,12 +41,22 @@ const initialFilters: any = {
   dates: [],
 };
 
-export function FilterSidebar({ onChange }: any) {
+export function FilterSidebar({ onChange, ...props }: any) {
   const { data: tags } = useSWR('/tag');
   const districts = useDistricts();
   const ages = ['0-4', '4-8', '8-12', '12-16', '16-18', '18-99'];
 
-  const [filters, setFilters] = useState(initialFilters);
+  const [filters, setFilters] = useState(props.filters || initialFilters);
+  const [query, setQuery] = useState(filters.q);
+
+  const debouncedQuery = useDebounce(query, 500);
+
+  useEffect(() => {
+    setFilters({
+      ...filters,
+      q: debouncedQuery,
+    });
+  }, [debouncedQuery]);
 
   useEffect(() => {
     onChange(filters);
@@ -65,13 +74,8 @@ export function FilterSidebar({ onChange }: any) {
     <styles.Container>
       <styles.Input
         placeholder="Trefwoord"
-        value={filters.q}
-        onChange={e =>
-          setFilters({
-            ...filters,
-            q: e.target.value,
-          })
-        }
+        value={query}
+        onChange={e => setQuery(e.target.value)}
       />
       <styles.Filter name="Leeftijd">
         {ages.map((group: string, index) => {
