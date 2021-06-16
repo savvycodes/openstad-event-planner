@@ -10,28 +10,17 @@ module.exports = {
   beforeConstruct: function (self, options) {
     options.addFields = [
       {
-        type: 'string',
-        name: 'account',
-        label: 'Twitter Account',
-      },
-      {
-        type: 'string',
-        name: 'hashtag',
-        label: 'Filter Tweets by Hashtag',
-      },
-      {
-        type: 'integer',
-        name: 'limit',
-        label: 'Limit Number of Tweets',
-        def: 3,
+        type: 'boolean',
+        name: 'devDebug',
+        label: 'Enable debug',
+        def: false,
       },
     ].concat(options.addFields || []);
-
     options.arrangeFields = [
       {
-        name: 'basics',
-        label: 'Basics',
-        fields: ['account', 'hashtag', 'limit'],
+        name: 'developer',
+        label: 'Developer menu',
+        fields: ['devDebug'],
       },
     ].concat(options.arrangeFields || []);
   },
@@ -89,7 +78,8 @@ module.exports = {
           '/oauth/login?returnTo=' +
           encodeURIComponent(req.url);
 
-        widget.isDebug = process.NODE_ENV !== 'production';
+        widget.isDebug =
+          get(req, 'data.openstadUser.role', '') === 'admin' && widget.devDebug;
       });
 
       return superLoad(req, widgets, next);
