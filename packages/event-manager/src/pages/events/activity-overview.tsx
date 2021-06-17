@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled } from 'goober';
 import { Calendar, Grid, MapPin, Plus } from 'react-feather';
+import { Route } from 'wouter';
 
 import { useHashLocation } from '../../components/hash-router';
 import {
@@ -22,6 +23,7 @@ import { ErrorBanner } from '../../components/error-banner';
 import { useApi } from '../../hooks/use-api';
 import { useConfig } from '../../context/config-context';
 import { removeEvent } from '../../endpoints/event';
+import { OrganisationSettingsPage } from '../organisation/settings';
 
 const styles = {
   Header: styled(Header)`
@@ -52,56 +54,90 @@ const styles = {
  * @returns
  */
 export function ProviderActivityOverviewPage(): JSX.Element {
-  const [, navigate] = useHashLocation();
+  const [location, navigate] = useHashLocation();
   const { data: organisation } = useApi('/organisation/me');
 
   return (
     <Main>
       <styles.Header>
         <BorderedTitle title={organisation ? organisation.name : ''} />
-        <AddActivityButton onClick={() => navigate('/events/create')}>
-          {' '}
-          <Plus
-            style={{ padding: '0 12px' }}
-            size={48}
-            strokeWidth={4}
-            stroke={'#7a7a7a'}
-          />
-          <NewActivityTitle>Voeg activiteit toe</NewActivityTitle>
-        </AddActivityButton>
+        <Route path="/events">
+          <AddActivityButton onClick={() => navigate('/events/create')}>
+            {' '}
+            <Plus
+              style={{ padding: '0 12px' }}
+              size={48}
+              strokeWidth={4}
+              stroke={'#7a7a7a'}
+            />
+            <NewActivityTitle>Voeg activiteit toe</NewActivityTitle>
+          </AddActivityButton>
+        </Route>
       </styles.Header>
 
       <styles.SubHeader>
         <HeaderNavigation>
-          <NavItem onClick={() => console.log('navigate')} active>
+          <NavItem
+            onClick={() => navigate('/events')}
+            active={location === '/events'}
+          >
             Activiteiten
           </NavItem>
-          <NavItem onClick={() => console.log('navigate')}>Uw gegevens</NavItem>
+          <NavItem
+            onClick={() => navigate('/events/settings')}
+            active={location === '/events/settings'}
+          >
+            Uw gegevens
+          </NavItem>
         </HeaderNavigation>
 
-        <HeaderNavigation>
-          <styles.RightNavItem onClick={() => console.log('navigate')} active>
-            <Grid style={{ padding: '0 4px' }} size={24} fill={'black'} />
-            Tegels
-          </styles.RightNavItem>
-          <styles.RightNavItem onClick={() => console.log('navigate')}>
-            <MapPin style={{ padding: '0 4px' }} size={24} stroke={'black'} />
-            Kaart
-          </styles.RightNavItem>
-          <styles.RightNavItem onClick={() => console.log('navigate')}>
-            <Calendar style={{ padding: '0 4px' }} size={24} stroke={'black'} />
-            Kalender
-          </styles.RightNavItem>
-        </HeaderNavigation>
+        <Route path="/events">
+          <HeaderNavigation>
+            <styles.RightNavItem onClick={() => console.log('navigate')} active>
+              <Grid style={{ padding: '0 4px' }} size={24} fill={'black'} />
+              Tegels
+            </styles.RightNavItem>
+            <styles.RightNavItem onClick={() => console.log('navigate')}>
+              <MapPin style={{ padding: '0 4px' }} size={24} stroke={'black'} />
+              Kaart
+            </styles.RightNavItem>
+            <styles.RightNavItem onClick={() => console.log('navigate')}>
+              <Calendar
+                style={{ padding: '0 4px' }}
+                size={24}
+                stroke={'black'}
+              />
+              Kalender
+            </styles.RightNavItem>
+          </HeaderNavigation>
+        </Route>
       </styles.SubHeader>
 
-      <CardWrapper>
-        {organisation && organisation.id ? (
-          <ActivityList organisationId={organisation.id} />
-        ) : (
-          <Spinner />
+      <Route
+        path="/events"
+        component={() => (
+          <CardWrapper>
+            {organisation && organisation.id ? (
+              <ActivityList organisationId={organisation.id} />
+            ) : (
+              <Spinner />
+            )}
+          </CardWrapper>
         )}
-      </CardWrapper>
+      />
+      <Route
+        path="/events/settings"
+        component={OrganisationSettingsPage}
+        // component={() => (
+        //   <CardWrapper>
+        //     {organisation && organisation.id ? (
+        //       <ActivityList organisationId={organisation.id} />
+        //     ) : (
+        //       <Spinner />
+        //     )}
+        //   </CardWrapper>
+        // )}
+      />
     </Main>
   );
 }

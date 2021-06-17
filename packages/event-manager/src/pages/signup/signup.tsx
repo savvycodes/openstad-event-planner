@@ -152,6 +152,11 @@ export function SignupPage() {
         >
           {/* First step: Organisation info */}
           <WizardStep validationSchema={organisationSchema}>
+            <Paragraph>
+              Deze informatie is zichbaar als de algemene contactinformatie op
+              het platform. Ingevoerde content is uiteindelijk zichtbaar voor
+              alle bezoekers op het platform.
+            </Paragraph>
             <OrganisationForm />
           </WizardStep>
 
