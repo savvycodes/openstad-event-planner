@@ -5,9 +5,10 @@ import { Calendar } from 'react-multi-date-picker';
 import { ChevronDown, ChevronUp } from 'react-feather';
 
 import { Spinner } from './spinner';
+import { Ages } from './ages';
 
-import { useDistricts } from '@hooks/use-districts';
-import useDebounce from '@hooks/use-debounce';
+import { useDistricts } from '../hooks/use-districts';
+import useDebounce from '../hooks/use-debounce';
 
 const styles = {
   Filter: styled(Filter)`
@@ -92,13 +93,13 @@ export function FilterSidebar({ onChange, ...props }: any) {
                   const checked = e.target.checked;
 
                   if (checked) {
-                    //   add
+                    // add
                     setFilters({
                       ...filters,
                       ageRanges: [...filters.ageRanges, range],
                     });
                   } else {
-                    //   remove
+                    // remove
                     setFilters({
                       ...filters,
                       ageRanges: [...filters.ageRanges].filter(([min, max]) => {
@@ -111,7 +112,11 @@ export function FilterSidebar({ onChange, ...props }: any) {
                   }
                 }}
               />
-              <p style={{ display: 'inline-block' }}>{group} jaar</p>
+              <Ages
+                style={{ display: 'inline-block' }}
+                minAge={range[0]}
+                maxAge={range[1]}
+              />
             </label>
           );
         })}

@@ -1,30 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import useSWR from 'swr';
-import { RouteComponentProps, Link } from 'wouter';
-import { Marker, Popup } from 'react-leaflet';
+import React, { useState } from 'react';
+import { RouteComponentProps } from 'wouter';
 import { styled } from 'goober';
 import { Calendar, Grid, MapPin } from 'react-feather';
-import qs from 'query-string';
 
 import { Spinner } from '../components/spinner';
 import { ErrorBanner } from '../components/error-banner';
 import { FilterSidebar } from '../components/filters';
-import {
-  CardWrapper,
-  ActivityCard,
-  ActivityImage,
-  CardTextContainer,
-  CardTagsContainer,
-  CardTag,
-} from '../components/card/card';
-import { BorderedCardTitle } from '../components/text/text';
+import { CardWrapper } from '../components/card/card';
 import {
   DFlex,
   Header,
   Main,
   NavigationItem,
 } from '../components/layout/layout';
-import { Map } from '../components/map';
+import { EventCalendar } from '../components/events/event-calendar';
+import { EventTiles } from '../components/events/event-tiles';
+import { EventMap } from '../components/events/event-map';
+
+import { useEvents } from '../hooks/use-events';
 
 const styles = {
   Header: styled(Header)`
@@ -39,91 +32,15 @@ const styles = {
  * @returns
  */
 export function EventsPage({}: RouteComponentProps) {
+  // @todo: store filters in query string and restore from there
   const [filters, setFilters] = useState<any>(null);
   const [viewType, setViewType] = useState('tile');
-  const [queryString, setQueryString] = useState<string>('');
 
-  const { data, error } = useSWR(() => `/event?${queryString}`);
-
-  useEffect(() => {
-    const apiFilters = {
-      ...filters,
-      dates: filters
-        ? filters.dates.map((date: Date) => date.toISOString())
-        : null,
-    };
-    delete apiFilters.ageRanges;
-
-    setQueryString(qs.stringify(apiFilters));
-  }, [filters]);
+  const { events, error, loading } = useEvents(filters);
 
   if (error) {
     return <ErrorBanner>{error.message}</ErrorBanner>;
   }
-
-  function filterQuery(filter: any) {
-    const fields = ['name', 'description'];
-    return (event: any) =>
-      filter && filter.q
-        ? fields
-            .map(field => event[field].toLowerCase())
-            .join(' ')
-            .includes(filter.q.toLowerCase())
-        : true;
-  }
-
-  function filterAge(filter: any) {
-    if (filter && filter.ageRanges.length) {
-      const ranges = filter.ageRanges;
-      return (event: any) => {
-        return ranges.some(([rMin, rMax]: number[]) => {
-          if (rMax === 99) rMax++;
-          return event.minAge >= rMin && rMax > event.minAge;
-        });
-      };
-    }
-    // skip
-    return () => true;
-  }
-
-  function filterDistrict(filter: any) {
-    return (event: any) =>
-      filter && filter.districts.length
-        ? filter.districts.includes(event.district)
-        : true;
-  }
-
-  function filterTags(filter: any) {
-    return (event: any) =>
-      filter && filter.tagIds.length
-        ? filter.tagIds.some((tagId: number) =>
-            event.tags.map((tag: any) => tag.id).includes(tagId)
-          )
-        : true;
-  }
-
-  function filterDates(filter: any) {
-    if (filter && filter.dates.length) {
-      return (event: any) => {
-        const dates = event.slots.map((slot: any) => new Date(slot.startTime));
-        return dates.some((date: Date) =>
-          filter.dates.some(
-            ($date: Date) => date.toDateString() === $date.toDateString()
-          )
-        );
-      };
-    }
-    return () => true;
-  }
-
-  // Filter locally
-  const filteredEvents =
-    data?.records
-      .filter(filterQuery(filters))
-      .filter(filterAge(filters))
-      .filter(filterDistrict(filters))
-      .filter(filterTags(filters))
-      .filter(filterDates(filters)) ?? [];
 
   return (
     <Main>
@@ -163,70 +80,27 @@ export function EventsPage({}: RouteComponentProps) {
       <DFlex>
         <FilterSidebar filters={filters} onChange={setFilters} />
 
-        {!data ? <Spinner /> : null}
+        {loading ? <Spinner /> : null}
 
         {viewType === 'tile' ? (
           <CardWrapper>
-            <EventTiles events={filteredEvents} />
+            <EventTiles events={events} />
           </CardWrapper>
         ) : null}
         {viewType === 'calendar' ? (
-          <CardWrapper>
-            <EventTiles events={filteredEvents} />
-          </CardWrapper>
+          <div>
+            <EventCalendar events={events} />
+          </div>
         ) : null}
         {viewType === 'map' ? (
           <div>
-            <EventMap events={filteredEvents} />
+            <EventMap events={events} />
             <CardWrapper>
-              <EventTiles events={filteredEvents} />
+              <EventTiles events={events} />
             </CardWrapper>
           </div>
         ) : null}
       </DFlex>
     </Main>
-  );
-}
-
-function EventTiles({ events }: any) {
-  return events.map((event: any) => (
-    <ActivityCard key={event.id}>
-      <Link to={`/events/${event.id}`}>
-        <ActivityImage src={event.image} alt={event.name} />
-        <CardTextContainer>
-          <BorderedCardTitle title={event.name} />
-        </CardTextContainer>
-
-        <CardTagsContainer>
-          <CardTag>
-            {event.minAge}-{event.maxAge} jaar
-          </CardTag>
-          <CardTag style={{ display: 'block' }}>
-            {event.tags.map((tag: any) => tag.name).join(', ')}
-          </CardTag>
-          <CardTag style={{ display: 'block' }}>{event.district}</CardTag>
-        </CardTagsContainer>
-      </Link>
-    </ActivityCard>
-  ));
-}
-
-function EventMap({ events }: any) {
-  return (
-    <div style={{ minHeight: '500px', width: '100%', flexBasis: '100%' }}>
-      <Map>
-        {events.map((event: any) => (
-          <Marker
-            key={event.id}
-            position={[
-              event.location.coordinates[1],
-              event.location.coordinates[0],
-            ]}
-          >
-            <Popup>{event.name}</Popup>
-          </Marker>
-        ))}
-      </Map>
-    </div>
   );
 }
