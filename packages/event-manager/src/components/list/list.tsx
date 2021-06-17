@@ -41,3 +41,10 @@ export const ListItemIcons = styled('div')`
     right: 24px;
   }
 `;
+
+export const LocationListItem = styled('div')`
+  padding: 0 4px;
+  margin-top: 4px;
+  box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+  background-color: white;
+`;

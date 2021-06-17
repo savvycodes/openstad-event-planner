@@ -4,6 +4,7 @@ import useDebounce from '../../hooks/use-debounce';
 import { StyledInput } from './input';
 import { Spinner } from '../spinner';
 import { Paragraph } from '../text/text';
+import { LocationListItem } from '../list/list';
 
 type LocationFinderProps = {
   onSelect: (point: Geometry) => void;
@@ -43,8 +44,8 @@ export function LocationFinder({ onSelect, ...props }: LocationFinderProps) {
       {locations &&
         locations.features &&
         locations.features.map((location: any, index: number) => (
+          <LocationListItem key={index}>
           <Paragraph
-            key={index}
             onClick={() => {
               onSelect(location.geometry);
               setLocations([]);
@@ -52,6 +53,7 @@ export function LocationFinder({ onSelect, ...props }: LocationFinderProps) {
           >
             {location.properties.display_name}
           </Paragraph>
+          </LocationListItem>
         ))}
       {!loading &&
       query &&

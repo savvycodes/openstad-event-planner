@@ -116,6 +116,10 @@ export function ActivityForm({
       <FormItem>
         <Label htmlFor="location">
           Locatie activiteit
+          {form.values.location.coordinates.length > 0 &&
+            <Paragraph>Coördinaten: {form.values.location.coordinates[0]} {form.values.location.coordinates[1]}</Paragraph>
+          }
+          {console.log(form.values.location.coordinates)}
           <LocationFinder
             tabIndex={3}
             placeholder="verplicht veld"
@@ -224,6 +228,16 @@ export function ActivityForm({
               tabIndex={13}
             />
             Gratis
+          </CheckboxItem>
+          <CheckboxItem htmlFor="citypass">
+            <Field
+              type="radio"
+              id="citypass"
+              name="needToPay"
+              value="citypass"
+              tabIndex={13}
+            />
+            Stadspas
           </CheckboxItem>
           <CheckboxItem htmlFor="paid">
             <Field
