@@ -293,7 +293,7 @@ export function ActivityForm({
 
       <FormItem>
         <Label htmlFor="information">
-          Meer informatie
+          Hoe kan je je aanmelden?
           <Field
             component={Textarea}
             rows={6}

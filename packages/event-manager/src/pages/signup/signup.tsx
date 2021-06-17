@@ -7,7 +7,7 @@ import { Header, Main } from '../../components/layout/layout';
 import { Wizard, WizardStep } from '../../components/forms/wizard';
 import { OrganisationForm } from './components/organisation-form';
 import { ContactForm } from './components/contact-form';
-import { MunicipalityContactForm } from './components/municipality-contact-form';
+// import { MunicipalityContactForm } from './components/municipality-contact-form';
 
 import { useHashLocation } from '../../components/hash-router';
 import { useDistricts } from '../../hooks/use-districts';
@@ -28,21 +28,22 @@ const contactSchema = Yup.object().shape({
   contactEmail: Yup.string()
     .email()
     .required('E-mailadres is verplicht'),
+  municipalityContactName: Yup.string().required('Naam is verplicht'),
 });
 
-const municipalitySchema = Yup.object().shape({
-  municipalityContactName: Yup.string().required('Naam is verplicht'),
-  municipalityContactPhone: Yup.string()
-    .min(10)
-    .max(10)
-    .required('Telefoonnummer is verplicht'),
-  municipalityContactEmail: Yup.string()
-    .email()
-    .required('E-mailadres is verplicht'),
-  municipalityContactStatement: Yup.string()
-    .min(20)
-    .required('Toelichting is verplicht'),
-});
+// const municipalitySchema = Yup.object().shape({
+//   municipalityContactName: Yup.string().required('Naam is verplicht'),
+//   municipalityContactPhone: Yup.string()
+//     .min(10)
+//     .max(10)
+//     .required('Telefoonnummer is verplicht'),
+//   municipalityContactEmail: Yup.string()
+//     .email()
+//     .required('E-mailadres is verplicht'),
+//   municipalityContactStatement: Yup.string()
+//     .min(20)
+//     .required('Toelichting is verplicht'),
+// });
 
 /**
  * Organisation signup wizard
@@ -59,10 +60,10 @@ export function SignupPage() {
   // This schema depends on districts and needs to update when districts change.
   const organisationSchema = Yup.object().shape({
     name: Yup.string().required('Naam is verplicht'),
-    street: Yup.string().required('Straat + huisnummer is verplicht'),
+    street: Yup.string().nullable(),
     zip: Yup.string()
       .matches(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-zA-Z]{2}$/, 'Ongeldige postcode')
-      .required('Postcode is verplicht'),
+      .nullable(),
     district: Yup.string()
       .oneOf(districts)
       .required('Stadsdeel is verplicht'),
@@ -74,7 +75,7 @@ export function SignupPage() {
       .required('E-mailadres is verplicht'),
     website: Yup.string()
       .url()
-      .required('Website is verplicht'),
+      .nullable(),
     facebook: Yup.string()
       .url()
       .matches(
@@ -131,12 +132,12 @@ export function SignupPage() {
           onSubmit={handleSubmit}
           initialValues={{
             name: '',
-            street: '',
-            zip: '',
+            street: null,
+            zip: null,
             email: '',
             phone: '',
             district: '',
-            website: '',
+            website: null,
             facebook: null,
             instagram: null,
             contactName: '',
@@ -144,9 +145,9 @@ export function SignupPage() {
             contactPhone: '',
             contactEmail: '',
             municipalityContactName: '',
-            municipalityContactPhone: '',
-            municipalityContactEmail: '',
-            municipalityContactStatement: '',
+            // municipalityContactPhone: '',
+            // municipalityContactEmail: '',
+            // municipalityContactStatement: '',
             tagIds: [],
           }}
         >
@@ -166,9 +167,9 @@ export function SignupPage() {
           </WizardStep>
 
           {/* Third step: Municipality contact */}
-          <WizardStep validationSchema={municipalitySchema}>
+          {/* <WizardStep validationSchema={municipalitySchema}>
             <MunicipalityContactForm />
-          </WizardStep>
+          </WizardStep> */}
         </Wizard>
       </Header>
     </Main>
