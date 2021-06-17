@@ -78,7 +78,7 @@ export function SignupPage() {
     facebook: Yup.string()
       .url()
       .matches(
-        /(?:(?:http|https):\/\/)?(?:www.)?(?:m.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/,
+        /(?:(?:http|https):\/\/)?(?:www.)?(?:m.)?facebook.com\/(?:(?:\)*#!\/)?(?:pages\/)?(?:[?\\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\\-]*)?/,
         'Geen geldige Facebook URL'
       )
       .nullable(),

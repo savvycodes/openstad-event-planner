@@ -51,7 +51,7 @@ export function OrganisationSettingsPage() {
     facebook: Yup.string()
       .url()
       .matches(
-        /(?:(?:http|https):\/\/)?(?:www.)?(?:m.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/,
+        /(?:(?:http|https):\/\/)?(?:www.)?(?:m.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\\-]*)?/,
         'Geen geldige Facebook URL'
       )
       .nullable(),
@@ -87,7 +87,7 @@ export function OrganisationSettingsPage() {
             const err = await res.json();
             return setError(new Error(err.message));
           }
-          location.reload();
+          window.location.reload();
         } catch (err) {
           return setError(err);
         } finally {
