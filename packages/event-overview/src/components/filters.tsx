@@ -6,8 +6,8 @@ import { ChevronDown, ChevronUp } from 'react-feather';
 
 import { Spinner } from './spinner';
 
-import { useDistricts } from '../hooks/use-districts';
-import useDebounce from '../hooks/use-debounce';
+import { useDistricts } from '@hooks/use-districts';
+import useDebounce from '@hooks/use-debounce';
 
 const styles = {
   Filter: styled(Filter)`

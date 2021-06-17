@@ -23,22 +23,22 @@ app.use(
     // },
   })
 );
-app.use(
-  createProxyMiddleware('/image', {
-    target: 'https://midzomermokum.openstad-staging.savvy.codes/image',
-    changeOrigin: true,
-    onProxyReq: function(proxyReq, req) {
-      // proxyReq.setHeader('cookie', req.headers.cookie);
-    },
-    onProxyRes: function(proxyRes, req, res) {
-      // const proxyCookie = proxyRes.headers['set-cookie'];
-      // if (proxyCookie) {
-      //   res.setHeader('cookie', proxyCookie);
-      //   // myappSessionValidationCookie = proxyCookie;
-      // }
-    },
-  })
-);
+// app.use(
+//   createProxyMiddleware('/image', {
+//     target: 'https://midzomermokum.openstad-staging.savvy.codes',
+//     changeOrigin: true,
+//     // onProxyReq: function(proxyReq, req) {
+//     //   proxyReq.setHeader('cookie', req.headers.cookie);
+//     // },
+//     // onProxyRes: function(proxyRes, req, res) {
+//     //   const proxyCookie = proxyRes.headers['set-cookie'];
+//     //   if (proxyCookie) {
+//     //     res.setHeader('cookie', proxyCookie);
+//     //     // myappSessionValidationCookie = proxyCookie;
+//     //   }
+//     // },
+//   })
+// );
 
 const bundler = new Bundler('index.html');
 app.use(bundler.middleware());
