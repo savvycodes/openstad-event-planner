@@ -19,7 +19,6 @@ export const CardWrapper = styled('div')`
 
 export const ActivityCard = styled('div')<CardProps>`
   cursor: pointer;
-  /* width: ${100 / 3}%; */
   height: 42.5vh;
   background-color: ${props =>
     props.newactivity

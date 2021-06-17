@@ -6,9 +6,9 @@ import * as ReactDOM from 'react-dom';
 import { App } from '../.';
 
 const config = {
-  // jwt:
-  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2MjM2NjA5MDEsImV4cCI6MTYzOTM4NTcwMX0.was9RUPDVplwGIQSyRBX3WHM4HziSxlx4GN8L3KGo90',
-  siteId: 2,
+  jwt:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2MjM5MzczMDcsImV4cCI6MTYzOTY2MjEwN30.VFt9Kfln_O_y28S1i0I5-08vQH7fweoxul5BlY2GuFU',
+  siteId: 3,
   apiUrl: '/api',
   imageUrl: '/image',
   user: {

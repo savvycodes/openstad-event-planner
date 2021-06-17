@@ -27,7 +27,19 @@ const s = {
     width: 100%;
   `,
   CalendarTitle: styled('h2')<any>`
-    color: ${props => (props.active ? props.theme.colors.primary : null)};
+    background-color: ${props => (props.active ? props.theme.colors.primary : props.theme.colors.darkGray)};
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+    padding: 4px 12px;
+  `,
+  ActivityCard: styled(ActivityCard)`
+    background-color: yellow;
+    margin: 0;
+  `,
+  CardDiv: styled('div')`
+    margin: 0;
+    padding: 0;
   `,
 };
 
@@ -139,6 +151,8 @@ export function EventCalendar({ events }: EventCalendarProps) {
                 {format(day, 'cccc d LLLL', { locale: nl })}
               </s.CalendarTitle>
 
+
+<s.ActivityCard>
               {eventsByDay.map((event: any) => {
                 const slot = event.slots.find((slot: any) =>
                   isSameDay(day, slot.startTime)
@@ -147,7 +161,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
                 if (!slot) return null;
 
                 return (
-                  <ActivityCard key={event.id}>
+                  <s.CardDiv key={event.id}>
                     <h3>{event.name}</h3>
                     <p>
                       {format(slot.startTime, 'HH:mm')} -{' '}
@@ -155,9 +169,10 @@ export function EventCalendar({ events }: EventCalendarProps) {
                     </p>
                     <Ages minAge={event.minAge} maxAge={event.maxAge} />
                     <a href="#">Locatie</a>
-                  </ActivityCard>
+                  </s.CardDiv>
                 );
               })}
+              </s.ActivityCard>
             </s.CalendarDay>
           );
         })}
