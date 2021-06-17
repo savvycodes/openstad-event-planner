@@ -52,7 +52,7 @@ export function DateTimeSelector() {
         <Label>
           <DatePicker
             placeholder="eind datum en tijd"
-            format="D MMMM  |  HH:mm"
+            format="D MMM - HH:mm"
             months={[
               'Januari',
               'Februari',

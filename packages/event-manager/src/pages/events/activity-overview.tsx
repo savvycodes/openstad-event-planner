@@ -90,8 +90,6 @@ export function ProviderActivityOverviewPage(): JSX.Element {
             Uw gegevens
           </NavItem>
         </HeaderNavigation>
-
-        
       </styles.SubHeader>
 
       <Route

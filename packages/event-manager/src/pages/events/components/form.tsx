@@ -36,6 +36,9 @@ const styles = {
   Label: styled(Label)`
     margin-left: 12px;
   `,
+  Paragraph: styled(Paragraph)`
+    font-weight: 500;
+  `,
 };
 
 type ActivityFormProps = {
@@ -116,8 +119,9 @@ export function ActivityForm({
       <FormItem>
         <Label htmlFor="location">
           Locatie activiteit
+          <styles.Paragraph>Vul een adres in en selecteer één van de beschikbare locaties</styles.Paragraph>
           {form.values.location.coordinates.length > 0 &&
-            <Paragraph>Coördinaten: {form.values.location.coordinates[0]} {form.values.location.coordinates[1]}</Paragraph>
+            <Paragraph>Coördinaten van geselecteerde locatie: {form.values.location.coordinates[0]} {form.values.location.coordinates[1]}</Paragraph>
           }
           {console.log(form.values.location.coordinates)}
           <LocationFinder
@@ -250,6 +254,7 @@ export function ActivityForm({
             <Field
               name="price"
               type="number"
+              step={0.01}
               placeholder="bedrag"
               min={0}
               tabIndex={15}

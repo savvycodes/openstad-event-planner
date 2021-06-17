@@ -124,7 +124,11 @@ export function SignupPage() {
         {submitError ? <ErrorBanner>{submitError.message}</ErrorBanner> : null}
         <Paragraph>Welkom{' ' + user.fullName || ''},</Paragraph>
         <Paragraph>
-          Vul hieronder uw gegevens in. Vragen? Neem contact op met <a href="mailto:midzomermokum@amsterdam.nl">midzomermokum@amsterdam.nl</a>.
+          Vul hieronder uw gegevens in. Vragen? Neem contact op met{' '}
+          <a href="mailto:midzomermokum@amsterdam.nl">
+            midzomermokum@amsterdam.nl
+          </a>
+          .
         </Paragraph>
 
         <Wizard
