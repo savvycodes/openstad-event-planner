@@ -166,8 +166,8 @@ export function ProviderAddActivityPage(): JSX.Element {
           ages: [],
           image: '',
           dates: [],
-          startTime: '11:00',
-          endTime: '17:00',
+          startDateTime: [],
+          endDateTime: [],
           needToPay: 'free',
         }}
         onSubmit={handleSubmit}

@@ -125,7 +125,11 @@ export function SignupPage() {
         {submitError ? <ErrorBanner>{submitError.message}</ErrorBanner> : null}
         <Paragraph>Welkom{' ' + user.fullName || ''},</Paragraph>
         <Paragraph>
-          Vul hieronder uw gegevens in. Vragen? Neem contact op met Y.
+          Vul hieronder uw gegevens in. Vragen? Neem contact op met{' '}
+          <a href="mailto:midzomermokum@amsterdam.nl">
+            midzomermokum@amsterdam.nl
+          </a>
+          .
         </Paragraph>
 
         <Wizard
@@ -153,11 +157,6 @@ export function SignupPage() {
         >
           {/* First step: Organisation info */}
           <WizardStep validationSchema={organisationSchema}>
-            <Paragraph>
-              Deze informatie is zichbaar als de algemene contactinformatie op
-              het platform. Ingevoerde content is uiteindelijk zichtbaar voor
-              alle bezoekers op het platform.
-            </Paragraph>
             <OrganisationForm />
           </WizardStep>
 

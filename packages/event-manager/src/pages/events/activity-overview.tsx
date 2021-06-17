@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled } from 'goober';
-import { Calendar, Grid, MapPin, Plus } from 'react-feather';
+import { Plus } from 'react-feather';
 import { Route } from 'wouter';
 
 import { useHashLocation } from '../../components/hash-router';
@@ -125,19 +125,7 @@ export function ProviderActivityOverviewPage(): JSX.Element {
           </CardWrapper>
         )}
       />
-      <Route
-        path="/events/settings"
-        component={OrganisationSettingsPage}
-        // component={() => (
-        //   <CardWrapper>
-        //     {organisation && organisation.id ? (
-        //       <ActivityList organisationId={organisation.id} />
-        //     ) : (
-        //       <Spinner />
-        //     )}
-        //   </CardWrapper>
-        // )}
-      />
+      <Route path="/events/settings" component={OrganisationSettingsPage} />
     </Main>
   );
 }
