@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "prettier": "prettier --write \"**/*.{js,ts,tsx,css,json,md}\"",
     "start": "node server.js",
     "build": "parcel build index.html"
   },

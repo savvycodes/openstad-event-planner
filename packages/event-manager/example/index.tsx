@@ -5,9 +5,9 @@ import { App } from '../.';
 
 const config = {
   jwt:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJpYXQiOjE2MjM2NjE1NjEsImV4cCI6MTYzOTM4NjM2MX0.K8ykvs80y0eZRUYvVx-5WmtbQx2Pu3Cw84ORqYEi0nY',
-  siteId: 2,
-  apiUrl: 'http://localhost:8111',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2MjM2NjA5MDEsImV4cCI6MTYzOTM4NTcwMX0.was9RUPDVplwGIQSyRBX3WHM4HziSxlx4GN8L3KGo90',
+  siteId: 3,
+  apiUrl: '/api',
   imageUrl: '/image',
   user: {
     isEventProvider: true,
@@ -17,9 +17,10 @@ const config = {
 
 // const config = {
 //   jwt:
-//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTYyMzMxMDE3NSwiZXhwIjoxNjM5MDM0OTc1fQ.H97xnpsJAOl01ASPw57_wJ020N8vmUnkQ8_JRv8JxQ0',
-//   siteId: 2,
-//   apiUrl: 'http://localhost:8111',
+//    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE2MjM2NTQ2ODEsImV4cCI6MTYzOTM3OTQ4MX0.nOEbuGQqztElsW28fvU2JTfCAhnuqOcarDYnxjGuf6M',
+//  siteId: 3,
+// apiUrl: '/api',
+// imageUrl: '/image',
 //   user: {
 //     isEventProvider: false,
 //     role: 'admin',

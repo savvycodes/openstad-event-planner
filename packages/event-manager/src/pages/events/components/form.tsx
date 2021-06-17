@@ -18,6 +18,7 @@ import { DFlex } from '../../../components/layout/layout';
 import { Button } from '../../../components/button/button';
 import { ImageUpload } from '../../../components/forms/image-upload';
 import { LocationFinder } from '../../../components/forms/location-finder';
+import { styled } from 'goober';
 
 type ActivityFormProps = {
   organisation: any;
@@ -44,6 +45,13 @@ interface FormValues {
   endTime: string;
   needToPay: string;
 }
+
+const styles = {
+  Paragraph: styled(Paragraph)`
+    font-weight: 500;
+    font-style: italic;
+  `,
+};
 
 export function ActivityForm({
   organisation,
@@ -125,6 +133,7 @@ export function ActivityForm({
       <FormItem>
         <Label htmlFor="date">
           Datum activiteit
+          <styles.Paragraph>Meerdere dagen mogelijk</styles.Paragraph>
           <Calendar
             multiple
             minDate={new Date(Date.now() + 3600 * 1000 * 24)}
@@ -150,6 +159,7 @@ export function ActivityForm({
               type="time"
               tabIndex={5}
               component={Input}
+              value={form.values.startTime}
             />
             <Paragraph>
               <ErrorMessage name="startTime" />
@@ -159,7 +169,13 @@ export function ActivityForm({
         <FormItem>
           <Label htmlFor="endTime">
             Eind tijd
-            <Field name="endTime" type="time" tabIndex={6} component={Input} />
+            <Field
+              name="endTime"
+              type="time"
+              tabIndex={6}
+              component={Input}
+              value={form.values.endTime}
+            />
             <Paragraph>
               <ErrorMessage name="endTime" />
             </Paragraph>
