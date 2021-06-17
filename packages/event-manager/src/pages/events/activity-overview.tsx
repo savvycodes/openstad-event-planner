@@ -66,8 +66,8 @@ export function ProviderActivityOverviewPage(): JSX.Element {
             {' '}
             <Plus
               style={{ padding: '0 12px' }}
+              size={48}
               strokeWidth={4}
-              size={28}
               stroke={'#7a7a7a'}
             />
             <NewActivityTitle>Voeg activiteit toe</NewActivityTitle>
@@ -94,17 +94,17 @@ export function ProviderActivityOverviewPage(): JSX.Element {
         <Route path="/events">
           <HeaderNavigation>
             <styles.RightNavItem onClick={() => console.log('navigate')} active>
-              <Grid style={{ padding: '0 4px' }} size={18} fill={'black'} />
+              <Grid style={{ padding: '0 4px' }} size={24} fill={'black'} />
               Tegels
             </styles.RightNavItem>
             <styles.RightNavItem onClick={() => console.log('navigate')}>
-              <MapPin style={{ padding: '0 4px' }} size={18} stroke={'black'} />
+              <MapPin style={{ padding: '0 4px' }} size={24} stroke={'black'} />
               Kaart
             </styles.RightNavItem>
             <styles.RightNavItem onClick={() => console.log('navigate')}>
               <Calendar
                 style={{ padding: '0 4px' }}
-                size={18}
+                size={24}
                 stroke={'black'}
               />
               Kalender

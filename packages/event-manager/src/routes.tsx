@@ -36,7 +36,7 @@ export function Router(): JSX.Element {
     } else if (isEmpty(organisation)) {
       navigate('/signup');
     }
-  }, [organisation, loading, navigate]);
+  }, [organisation, loading, navigate, isAdmin]);
 
   if (loading) {
     return <Spinner />;
