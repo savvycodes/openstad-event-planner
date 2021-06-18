@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import addDays from 'date-fns/addDays';
+import addHours from 'date-fns/addHours';
 
 import { useHashLocation } from '../../components/hash-router';
 import { BorderedTitle, Paragraph } from '../../components/text/text';
@@ -22,19 +24,27 @@ export const schema = Yup.object().shape({
       type: Yup.string().required(),
       coordinates: Yup.array()
         .of(Yup.number())
-        .min(2),
+        .min(2, 'Locatie is verplicht'),
     })
     .required('Locatie is verplicht'),
   district: Yup.string().required('Stadsdeel is verplicht'),
   price: Yup.number(),
   attendees: Yup.number().required('Aantal beschikbare plekken is verplicht'),
   information: Yup.string(),
-  dates: Yup.array()
-    .of(Yup.date())
-    .min(1, 'Kies minimaal 1 datum')
+  slots: Yup.array()
+    .of(
+      Yup.object().shape({
+        startTime: Yup.date().required('Startdatum en tijd zijn verplicht'),
+        endTime: Yup.date()
+          .min(
+            Yup.ref('startTime'),
+            'Einddatum en tijd moeten na startdatum en tijd zijn'
+          )
+          .required('Einddatum en tijd zijn verplicht'),
+      })
+    )
+    .min(1, 'Kies minimaal 1 start- en einddatum')
     .required('Datum is verplicht'),
-  startTime: Yup.string().required('Aanvangsttijd is verplicht'),
-  endTime: Yup.string().required('Eindtijd is verplicht'),
   tagIds: Yup.array()
     .of(Yup.string())
     .min(1, 'U moet minimaal 1 type activiteit selecteren'),
@@ -78,11 +88,17 @@ export function ProviderAddActivityPage(): JSX.Element {
         description: values.description,
         location: values.location,
         district: values.district,
-        price: values.needToPay === 'free' ? 0 : values.price * 100,
+        price:
+          values.needToPay === 'free'
+            ? 0
+            : values.needToPay === 'citypass'
+            ? -1
+            : values.price * 100,
         attendees: values.attendees,
         information: values.information,
         image: values.image,
         tagIds: values.tagIds,
+        slots: values.slots,
       };
 
       // Find min and max age
@@ -96,33 +112,11 @@ export function ProviderAddActivityPage(): JSX.Element {
       payload.minAge = minAge;
       payload.maxAge = maxAge;
 
-      // Merge time with date for each slot
-      const [startHour, startMin] = values.startTime
-        .split(':')
-        .map((v: string) => parseInt(v));
-      const [endHour, endMin] = values.endTime
-        .split(':')
-        .map((v: string) => parseInt(v));
-
-      payload.slots = values.dates.map((date: Date) => {
-        const start = new Date(date);
-        start.setHours(startHour);
-        start.setMinutes(startMin);
-        start.setSeconds(0);
-        const end = new Date(date);
-        end.setHours(endHour);
-        end.setMinutes(endMin);
-        end.setSeconds(0);
-        return {
-          startTime: start,
-          endTime: end,
-        };
-      });
-
       await createEvent(config, payload);
 
       navigate('/events');
     } catch (err) {
+      console.error('form submit error', err);
       setSubmitError(err);
     } finally {
       formHelpers.setSubmitting(false);
@@ -165,9 +159,12 @@ export function ProviderAddActivityPage(): JSX.Element {
           tagIds: [],
           ages: [],
           image: '',
-          dates: [],
-          startDateTime: [],
-          endDateTime: [],
+          slots: [
+            {
+              startTime: addDays(new Date(), 1),
+              endTime: addHours(addDays(new Date(), 1), 1),
+            },
+          ],
           needToPay: 'free',
         }}
         onSubmit={handleSubmit}

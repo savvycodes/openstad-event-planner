@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useDebounce from '../../hooks/use-debounce';
 
 import { StyledInput } from './input';
@@ -6,16 +6,7 @@ import { Spinner } from '../spinner';
 import { Paragraph } from '../text/text';
 import { LocationListItem } from '../list/list';
 
-type LocationFinderProps = {
-  onSelect: (point: Geometry) => void;
-} & InputHTMLAttributes<HTMLInputElement>;
-
-type Geometry = {
-  type: 'Point';
-  coordinates: [Number, Number];
-};
-
-export function LocationFinder({ onSelect, ...props }: LocationFinderProps) {
+export function LocationFinder({ onSelect, ...props }: any) {
   const [query, setQuery] = useState('');
   const [locations, setLocations] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -45,14 +36,14 @@ export function LocationFinder({ onSelect, ...props }: LocationFinderProps) {
         locations.features &&
         locations.features.map((location: any, index: number) => (
           <LocationListItem key={index}>
-          <Paragraph
-            onClick={() => {
-              onSelect(location.geometry);
-              setLocations([]);
-            }}
-          >
-            {location.properties.display_name}
-          </Paragraph>
+            <Paragraph
+              onClick={() => {
+                onSelect(location.geometry);
+                setLocations([]);
+              }}
+            >
+              {location.properties.display_name}
+            </Paragraph>
           </LocationListItem>
         ))}
       {!loading &&

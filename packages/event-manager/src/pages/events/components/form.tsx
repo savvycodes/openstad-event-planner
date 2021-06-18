@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { ErrorMessage, Field, useFormikContext } from 'formik';
-import { Plus } from 'react-feather';
+import { ErrorMessage, Field, FieldArray, useFormikContext } from 'formik';
+import { Plus, X } from 'react-feather';
 import { styled } from 'goober';
+import addDays from 'date-fns/addDays';
+import addHours from 'date-fns/addHours';
 
 import {
   Input,
@@ -18,29 +20,9 @@ import { Label, ListLabel, Paragraph } from '../../../components/text/text';
 import { AddDateTimeButton, Button } from '../../../components/button/button';
 import { ImageUpload } from '../../../components/forms/image-upload';
 import { LocationFinder } from '../../../components/forms/location-finder';
-
 import { DateTimeSelector } from './DateTimeComponent';
 
-const styles = {
-  DateTimeDiv: styled('div')`
-    @media (min-width: 1024px) {
-      position: relative;
-      width: 50%;
-      margin-bottom: 24px;
-    }
-    @media (max-width: 1023px) {
-      position: relative;
-      width: 100%;
-      margin-bottom: 24px;
-    }
-  `,
-  Label: styled(Label)`
-    margin-left: 12px;
-  `,
-  Paragraph: styled(Paragraph)`
-    font-weight: 500;
-  `,
-};
+import { useTheme } from '../../../theme/theme';
 
 type ActivityFormProps = {
   organisation: any;
@@ -62,15 +44,41 @@ interface FormValues {
   tagIds: number[];
   ages: string[];
   image: string;
-  startDateTime: [];
-  endDateTime: [];
+  slots: any[];
   needToPay: string;
 }
 
 const styles = {
   Paragraph: styled(Paragraph)`
     font-weight: 500;
-    font-style: italic;
+  `,
+  DateTimeDiv: styled('div')`
+    @media (min-width: 1024px) {
+      position: relative;
+      width: 50%;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 1023px) {
+      position: relative;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+  `,
+  Label: styled(Label)`
+    margin-left: 12px;
+  `,
+  CloseButton: styled(X)`
+    align-self: center;
+  `,
+  Plus: styled(Plus)`
+    float: right;
+  `,
+  SlotRow: styled('div')`
+    display: flex;
+  `,
+  Center: styled('div')`
+    display: flex;
+    justify-content: center;
   `,
 };
 
@@ -80,6 +88,7 @@ export function ActivityForm({
   tags,
 }: ActivityFormProps) {
   const form = useFormikContext<FormValues>();
+  const theme = useTheme();
 
   return (
     <Form>
@@ -130,21 +139,22 @@ export function ActivityForm({
           <styles.Paragraph>
             Vul een adres in en selecteer één van de beschikbare locaties
           </styles.Paragraph>
-          {form.values.location.coordinates.length > 0 && (
+          {form.values.location.coordinates.length > 0 ? (
             <Paragraph>
               Coördinaten van geselecteerde locatie:{' '}
-              {form.values.location.coordinates[0]}{' '}
+              {form.values.location.coordinates[0]}
+              {', '}
               {form.values.location.coordinates[1]}
             </Paragraph>
-          )}
-          {console.log(form.values.location.coordinates)}
+          ) : null}
           <LocationFinder
             tabIndex={3}
             placeholder="verplicht veld"
             onSelect={(geo: any) => form.setFieldValue('location', geo)}
+            error={form.errors?.location?.coordinates}
           />
           <Paragraph>
-            <ErrorMessage name="location" />
+            <ErrorMessage name="location.coordinates" />
           </Paragraph>
           <Field name="district" tabIndex={4} component={Select}>
             <option value="" disabled>
@@ -163,16 +173,40 @@ export function ActivityForm({
       </FormItem>
 
       <styles.DateTimeDiv>
-        <styles.Label>Datum en tijd</styles.Label>
-        <DateTimeSelector />
-        <AddDateTimeButton onClick={() => console.log('add')}>
-          <Plus
-            style={{ float: 'right' }}
-            strokeWidth={3}
-            size={20}
-            stroke={'#7a7a7a'}
-          />
-        </AddDateTimeButton>
+        <styles.Label>Startdatum en einddatum</styles.Label>
+        <FieldArray name="slots">
+          {arrayHelpers => (
+            <>
+              {form.values?.slots?.map((slot: any, index: number) => (
+                <styles.SlotRow key={slot.id || index}>
+                  <DateTimeSelector name={`slots[${index}]`} />
+                  {form.values.slots.length > 1 ? (
+                    <styles.CloseButton
+                      strokeWidth={3}
+                      size={20}
+                      stroke={theme.colors.darkestGray}
+                      onClick={() => arrayHelpers.remove(index)}
+                    />
+                  ) : null}
+                </styles.SlotRow>
+              ))}
+              <AddDateTimeButton
+                onClick={() =>
+                  arrayHelpers.push({
+                    startTime: addDays(new Date(), 1),
+                    endTime: addHours(addDays(new Date(), 1), 1),
+                  })
+                }
+              >
+                <styles.Plus
+                  strokeWidth={3}
+                  size={20}
+                  stroke={theme.colors.darkestGray}
+                />
+              </AddDateTimeButton>
+            </>
+          )}
+        </FieldArray>
       </styles.DateTimeDiv>
 
       <FormItem>
@@ -272,7 +306,7 @@ export function ActivityForm({
               placeholder="bedrag"
               min={0}
               tabIndex={15}
-              disabled={form?.values?.needToPay === 'free'}
+              disabled={['free', 'citypass'].includes(form?.values?.needToPay)}
             />
           </CheckboxItem>
         </CheckboxList>
@@ -327,11 +361,11 @@ export function ActivityForm({
         </Label>
       </FormItem>
 
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <styles.Center>
         <Button type="submit" tabIndex={19} disabled={form.isSubmitting}>
           Voeg toe
         </Button>
-      </div>
+      </styles.Center>
     </Form>
   );
 }
