@@ -119,7 +119,7 @@ export function OrganisationForm() {
             id="website"
             type="text"
             name="website"
-            placeholder="verplicht veld"
+            placeholder="https://www.example.com"
             component={Input}
           />
           <Paragraph>

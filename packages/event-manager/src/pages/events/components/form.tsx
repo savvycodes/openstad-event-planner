@@ -1,6 +1,9 @@
 import * as React from 'react';
-import { ErrorMessage, Field, useFormikContext } from 'formik';
-import { Calendar } from 'react-multi-date-picker';
+import { ErrorMessage, Field, FieldArray, useFormikContext } from 'formik';
+import { Plus, X } from 'react-feather';
+import { styled } from 'goober';
+import addDays from 'date-fns/addDays';
+import addHours from 'date-fns/addHours';
 
 import {
   Input,
@@ -14,11 +17,12 @@ import {
   StyledInput,
 } from '../../../components/forms/input';
 import { Label, ListLabel, Paragraph } from '../../../components/text/text';
-import { DFlex } from '../../../components/layout/layout';
-import { Button } from '../../../components/button/button';
+import { AddDateTimeButton, Button } from '../../../components/button/button';
 import { ImageUpload } from '../../../components/forms/image-upload';
 import { LocationFinder } from '../../../components/forms/location-finder';
-import { styled } from 'goober';
+import { DateTimeSelector } from './DateTimeComponent';
+
+import { useTheme } from '../../../theme/theme';
 
 type ActivityFormProps = {
   organisation: any;
@@ -40,16 +44,41 @@ interface FormValues {
   tagIds: number[];
   ages: string[];
   image: string;
-  dates: Date[];
-  startTime: string;
-  endTime: string;
+  slots: any[];
   needToPay: string;
 }
 
 const styles = {
   Paragraph: styled(Paragraph)`
     font-weight: 500;
-    font-style: italic;
+  `,
+  DateTimeDiv: styled('div')`
+    @media (min-width: 1024px) {
+      position: relative;
+      width: 50%;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 1023px) {
+      position: relative;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+  `,
+  Label: styled(Label)`
+    margin-left: 12px;
+  `,
+  CloseButton: styled(X)`
+    align-self: center;
+  `,
+  Plus: styled(Plus)`
+    float: right;
+  `,
+  SlotRow: styled('div')`
+    display: flex;
+  `,
+  Center: styled('div')`
+    display: flex;
+    justify-content: center;
   `,
 };
 
@@ -59,6 +88,7 @@ export function ActivityForm({
   tags,
 }: ActivityFormProps) {
   const form = useFormikContext<FormValues>();
+  const theme = useTheme();
 
   return (
     <Form>
@@ -106,13 +136,25 @@ export function ActivityForm({
       <FormItem>
         <Label htmlFor="location">
           Locatie activiteit
+          <styles.Paragraph>
+            Vul een adres in en selecteer één van de beschikbare locaties
+          </styles.Paragraph>
+          {form.values.location.coordinates.length > 0 ? (
+            <Paragraph>
+              Coördinaten van geselecteerde locatie:{' '}
+              {form.values.location.coordinates[0]}
+              {', '}
+              {form.values.location.coordinates[1]}
+            </Paragraph>
+          ) : null}
           <LocationFinder
             tabIndex={3}
             placeholder="verplicht veld"
             onSelect={(geo: any) => form.setFieldValue('location', geo)}
+            error={form.errors?.location?.coordinates}
           />
           <Paragraph>
-            <ErrorMessage name="location" />
+            <ErrorMessage name="location.coordinates" />
           </Paragraph>
           <Field name="district" tabIndex={4} component={Select}>
             <option value="" disabled>
@@ -130,58 +172,42 @@ export function ActivityForm({
         </Label>
       </FormItem>
 
-      <FormItem>
-        <Label htmlFor="date">
-          Datum activiteit
-          <styles.Paragraph>Meerdere dagen mogelijk</styles.Paragraph>
-          <Calendar
-            multiple
-            minDate={new Date(Date.now() + 3600 * 1000 * 24)}
-            hideYear
-            onChange={(dates: any[]) => {
-              dates = dates.map(date => new Date(date));
-              form.setFieldValue('dates', dates);
-            }}
-            value={form.values.dates}
-          />
-          <Paragraph>
-            <ErrorMessage name="dates" />
-          </Paragraph>
-        </Label>
-      </FormItem>
-
-      <DFlex>
-        <FormItem>
-          <Label htmlFor="startTime">
-            Aanvangsttijd
-            <Field
-              name="startTime"
-              type="time"
-              tabIndex={5}
-              component={Input}
-              value={form.values.startTime}
-            />
-            <Paragraph>
-              <ErrorMessage name="startTime" />
-            </Paragraph>
-          </Label>
-        </FormItem>
-        <FormItem>
-          <Label htmlFor="endTime">
-            Eind tijd
-            <Field
-              name="endTime"
-              type="time"
-              tabIndex={6}
-              component={Input}
-              value={form.values.endTime}
-            />
-            <Paragraph>
-              <ErrorMessage name="endTime" />
-            </Paragraph>
-          </Label>
-        </FormItem>
-      </DFlex>
+      <styles.DateTimeDiv>
+        <styles.Label>Startdatum en einddatum</styles.Label>
+        <FieldArray name="slots">
+          {arrayHelpers => (
+            <>
+              {form.values?.slots?.map((slot: any, index: number) => (
+                <styles.SlotRow key={slot.id || index}>
+                  <DateTimeSelector name={`slots[${index}]`} />
+                  {form.values.slots.length > 1 ? (
+                    <styles.CloseButton
+                      strokeWidth={3}
+                      size={20}
+                      stroke={theme.colors.darkestGray}
+                      onClick={() => arrayHelpers.remove(index)}
+                    />
+                  ) : null}
+                </styles.SlotRow>
+              ))}
+              <AddDateTimeButton
+                onClick={() =>
+                  arrayHelpers.push({
+                    startTime: addDays(new Date(), 1),
+                    endTime: addHours(addDays(new Date(), 1), 1),
+                  })
+                }
+              >
+                <styles.Plus
+                  strokeWidth={3}
+                  size={20}
+                  stroke={theme.colors.darkestGray}
+                />
+              </AddDateTimeButton>
+            </>
+          )}
+        </FieldArray>
+      </styles.DateTimeDiv>
 
       <FormItem>
         <Label>Leeftijd</Label>
@@ -255,6 +281,16 @@ export function ActivityForm({
             />
             Gratis
           </CheckboxItem>
+          <CheckboxItem htmlFor="citypass">
+            <Field
+              type="radio"
+              id="citypass"
+              name="needToPay"
+              value="citypass"
+              tabIndex={13}
+            />
+            Stadspas
+          </CheckboxItem>
           <CheckboxItem htmlFor="paid">
             <Field
               type="radio"
@@ -266,10 +302,11 @@ export function ActivityForm({
             <Field
               name="price"
               type="number"
+              step={0.01}
               placeholder="bedrag"
               min={0}
               tabIndex={15}
-              disabled={form?.values?.needToPay === 'free'}
+              disabled={['free', 'citypass'].includes(form?.values?.needToPay)}
             />
           </CheckboxItem>
         </CheckboxList>
@@ -293,7 +330,7 @@ export function ActivityForm({
 
       <FormItem>
         <Label htmlFor="information">
-          Meer informatie
+          Hoe kan je je aanmelden?
           <Field
             component={Textarea}
             rows={6}
@@ -324,11 +361,11 @@ export function ActivityForm({
         </Label>
       </FormItem>
 
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <styles.Center>
         <Button type="submit" tabIndex={19} disabled={form.isSubmitting}>
           Voeg toe
         </Button>
-      </div>
+      </styles.Center>
     </Form>
   );
 }

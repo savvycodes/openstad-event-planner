@@ -16,11 +16,12 @@ export const Form = styled(FormikForm)`
 
 export const StyledInput = styled('input')<InputProps>`
   padding: 8px 10px;
-  border-color: ${props => props.error && props.theme.colors.danger};
   border: ${props => !props.error && 'none'};
   display: block;
   box-shadow: ${props => props.theme.effects.boxShadowPrimary};
   margin-top: 8px;
+
+  ${props => props.error && `border-color: ${props.theme.colors.danger};`};
 `;
 
 export const StyledTextArea = styled('textarea')<InputProps>`

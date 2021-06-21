@@ -73,6 +73,21 @@ export function ContactForm() {
           </Paragraph>
         </Label>
       </FormItem>
+      <FormItem>
+        <Label htmlFor="municipalityContactName">
+          Naam contactpersoon van uw organisatie bij gemeente Amsterdam
+          <Field
+            name="municipalityContactName"
+            id="municipalityContactName"
+            type="text"
+            placeholder="verplicht veld"
+            component={Input}
+          />
+          <Paragraph>
+            <ErrorMessage name="municipalityContactName" />
+          </Paragraph>
+        </Label>
+      </FormItem>
     </>
   );
 }
