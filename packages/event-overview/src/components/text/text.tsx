@@ -31,7 +31,7 @@ export const ListLabel = styled('label')`
 `;
 
 export const CardTitle = styled('h1')`
-  font-size: 1.2rem;
+  font-size: 16px;
   font-family: 'Noto Sans', sans-serif;
   display: inline-block;
 `;
@@ -62,6 +62,10 @@ export const NavItem = styled('p')<TextProps>`
 const Border = styled('div')`
   width: 50%;
   border-bottom: 3px solid ${props => props.theme.colors.primary};
+`;
+
+export const SmallParagraph = styled('p')`
+    font-size: 12px;
 `;
 
 export function BorderedTitle(props: any) {

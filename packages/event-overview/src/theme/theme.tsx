@@ -27,6 +27,7 @@ const defaultTheme: DefaultTheme = {
   effects: {
     // @todo: this color is not dynamic, boxShadowPrimary should be a function composing shadow size (don't think that should be configurable) and color together
     boxShadowPrimary: '0 6px 9px 0px #ccc',
+    boxShadowSecondary: '0 3px 9px 0px #ccc',
   },
 };
 

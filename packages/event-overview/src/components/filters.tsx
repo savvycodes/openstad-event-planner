@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { styled } from 'goober';
 import useSWR from 'swr';
 import { Calendar } from 'react-multi-date-picker';
-import { ChevronDown, ChevronUp } from 'react-feather';
+import { ChevronDown, ChevronUp, Search } from 'react-feather';
 
 import { Spinner } from './spinner';
 import { Ages } from './ages';
 
 import { useDistricts } from '../hooks/use-districts';
 import useDebounce from '../hooks/use-debounce';
+import { StyledInput } from './forms/input';
+import { Button } from './button/button';
 
 const styles = {
   Filter: styled(Filter)`
@@ -17,20 +19,67 @@ const styles = {
   Container: styled('div')`
     margin: 0 48px;
   `,
-  Input: styled('input')``,
+  InputWithIcon: styled('div')`
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+  `,
+  StyledInput: styled(StyledInput)`
+  margin: 0;
+  `,
+  Search: styled(Search)`
+    background-color: ${props => props.theme.colors.background};
+    height: 40px;
+    width: 40px;
+    padding: 11px;
+    box-shadow: ${props => props.theme.effects.boxShadowSecondary};
+  `,
+  ChevronUp: styled(ChevronUp)`
+    background-color: ${props => props.theme.colors.background};
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    box-shadow: ${props => props.theme.effects.boxShadowSecondary};
+  `,
+  ChevronDown: styled(ChevronDown)`
+    background-color: ${props => props.theme.colors.background};
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    box-shadow: ${props => props.theme.effects.boxShadowSecondary};
+  `,
+
+  FilterItemName: styled('h2')`
+    background-color: ${props => props.theme.colors.white}; 
+    width: 100%;
+    padding: 12px;
+    box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+  `,
+  Button: styled(Button)`
+  margin: 24px 0;
+    padding: 8px 16px;
+    font-size: 14px;
+  `,
 };
 
 function Filter({ name, children }: any) {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <>
-      <h2 onClick={() => setOpen(!isOpen)}>
-        {name}
-        {isOpen ? <ChevronUp /> : <ChevronDown />}
-      </h2>
+
+<>
+<styles.InputWithIcon>
+        <styles.FilterItemName onClick={() => setOpen(!isOpen)}>
+          {name}
+        </styles.FilterItemName>
+        {isOpen ? <styles.ChevronUp onClick={() => setOpen(!isOpen)} size={24} strokeWidth={3} stroke={'#0D0D0D'} /> : <styles.ChevronDown onClick={() => setOpen(!isOpen)} size={24} strokeWidth={3} stroke={'#0D0D0D'} />}
+      
+      </styles.InputWithIcon>
       {isOpen ? children : null}
-    </>
+      </>
   );
 }
 
@@ -73,11 +122,15 @@ export function FilterSidebar({ onChange, ...props }: any) {
 
   return (
     <styles.Container>
-      <styles.Input
-        placeholder="Trefwoord"
-        value={query}
-        onChange={e => setQuery(e.target.value)}
-      />
+      <styles.InputWithIcon>
+        <styles.StyledInput
+          placeholder="Trefwoord"
+          value={query}
+          onChange={(e: { target: { value: string; }; }) => setQuery(e.target.value)}
+        />
+      <styles.Search size={24} strokeWidth={3} stroke={'#0D0D0D'} />
+      {/* <styles.Search size={24} strokeWidth={3} stroke={'#ccc'} /> */}
+      </styles.InputWithIcon>
       <styles.Filter name="Leeftijd">
         {ages.map((group: string, index) => {
           const range = group.split('-').map(a => parseInt(a));
@@ -188,7 +241,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
           })
         }
       />
-      <button onClick={() => setFilters(initialFilters)}>Wissen</button>
+      <styles.Button onClick={() => setFilters(initialFilters)}>Wissen</styles.Button>
     </styles.Container>
   );
 }

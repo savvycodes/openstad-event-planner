@@ -1,13 +1,14 @@
 import React from 'react';
+import { SmallParagraph } from './text/text';
 
 export function Ages({ minAge, maxAge, ...props }: any) {
   if (maxAge === 99) {
-    return <p {...props}>{minAge} jaar en ouder</p>;
+    return <SmallParagraph {...props}>{minAge} jaar en ouder</SmallParagraph>;
   }
 
   return (
-    <p {...props}>
+    <SmallParagraph {...props}>
       {minAge}-{maxAge} jaar
-    </p>
+    </SmallParagraph>
   );
 }

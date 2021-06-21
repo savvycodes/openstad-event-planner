@@ -23,6 +23,7 @@ declare module 'goober' {
     };
     effects: {
       boxShadowPrimary: string;
+      boxShadowSecondary: string;
     };
   }
 }

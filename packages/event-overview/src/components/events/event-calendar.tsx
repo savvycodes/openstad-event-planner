@@ -9,37 +9,62 @@ import isSameDay from 'date-fns/isSameDay';
 import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
 
-import { ActivityCard, CardWrapper } from '../card/card';
+import { MapPin, ChevronLeft, ChevronRight } from 'react-feather';
+
+import { CardWrapper } from '../card/card';
 import { Ages } from '../ages';
 import { EventTiles } from './event-tiles';
-import { DFlex } from '../layout/layout';
+import { BorderedCardTitle, SmallParagraph } from '../text/text';
 
 interface EventCalendarProps {
   events: any[];
 }
 
 const s = {
-  DFlex: styled(DFlex)`
-    width: 100%;
+  Container: styled('div')`
+    min-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin: 0;
+    padding: 0;
+    align-items: flex-start;
+    justify-content: stretch;
+    margin-bottom: 48px;
   `,
   CalendarDay: styled('div')`
-    flex-grow: 1;
-    width: 100%;
+    background-color: ${props => props.theme.colors.white};
+    box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+    margin: 0 12px;
+    min-width: 168px;
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
   `,
   CalendarTitle: styled('h2')<any>`
     background-color: ${props => (props.active ? props.theme.colors.primary : props.theme.colors.darkGray)};
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 400;
     text-align: center;
-    margin: 0;
     padding: 4px 12px;
-  `,
-  ActivityCard: styled(ActivityCard)`
-    background-color: yellow;
     margin: 0;
+    padding: 12px;
+    box-shadow: ${props => props.theme.effects.boxShadowSecondary};
+  `,
+  CardContent: styled('div')`
+    padding: 0 8px;
+    overflow-y: scroll;
+  `,
+  LocationContainer: styled('div')`
+    display: flex;
+    align-items: center;
+  `,
+  Location: styled('a')`
+    text-decoration: none;
+    color: ${props => props.theme.colors.primary};
+    font-size: 14px;
   `,
   CardDiv: styled('div')`
-    margin: 0;
-    padding: 0;
+    padding: 0 -4px;
   `,
 };
 
@@ -134,14 +159,14 @@ export function EventCalendar({ events }: EventCalendarProps) {
 
   return (
     <div>
-      <button onClick={previous}>Previous</button>
-      <button onClick={next}>Next</button>
 
-      <s.DFlex>
+      <s.Container>
+        <ChevronLeft style={{cursor: 'pointer'}} onClick={previous} size={24} stroke={'black'} />
+        
         {range.map((day: Date) => {
           const date = formatISO(day, { representation: 'date' });
           const eventsByDay = eventsGroupedByDay[date] || [];
-
+          
           return (
             <s.CalendarDay key={date}>
               <s.CalendarTitle
@@ -152,7 +177,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
               </s.CalendarTitle>
 
 
-<s.ActivityCard>
+<s.CardContent>
               {eventsByDay.map((event: any) => {
                 const slot = event.slots.find((slot: any) =>
                   isSameDay(day, slot.startTime)
@@ -162,27 +187,32 @@ export function EventCalendar({ events }: EventCalendarProps) {
 
                 return (
                   <s.CardDiv key={event.id}>
-                    <h3>{event.name}</h3>
-                    <p>
+                    <BorderedCardTitle title={event.name} />
+                    <Ages minAge={event.minAge} maxAge={event.maxAge} />
+                    <SmallParagraph>
                       {format(slot.startTime, 'HH:mm')} -{' '}
                       {format(slot.endTime, 'HH:mm')}
-                    </p>
-                    <Ages minAge={event.minAge} maxAge={event.maxAge} />
-                    <a href="#">Locatie</a>
+                    </SmallParagraph>
+                    <s.LocationContainer>
+                    <MapPin style={{ padding: '0 4px' }} size={22} stroke={'black'} />
+                    <s.Location href="#">Locatie</s.Location>
+                    </s.LocationContainer>
                   </s.CardDiv>
                 );
               })}
-              </s.ActivityCard>
+              </s.CardContent>
             </s.CalendarDay>
           );
         })}
-      </s.DFlex>
+        <ChevronRight style={{cursor: 'pointer'}} onClick={next} size={24} stroke={'black'} />
+      </s.Container>
 
+      
+      <CardWrapper>
       {eventsOnActiveDay ? (
-        <CardWrapper>
           <EventTiles events={eventsOnActiveDay} />
-        </CardWrapper>
-      ) : null}
+          ) : null}
+          </CardWrapper>
     </div>
   );
 }
