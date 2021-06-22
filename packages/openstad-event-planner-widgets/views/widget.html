@@ -30,7 +30,11 @@
 <pre>{{ data.widget.config | safe }}</pre>
 {% endif %} {% else %}
 
-<h1>Sorry, je bent geen aanbieder</h1>
-<a href="{{ data.widget.loginUrl }}">Login</a>
+<h1>Inloggen Aanbieders</h1>
+<a
+  href="{{ data.widget.loginUrl }}"
+  class="filled-button margin-bottom-sm button-without-icon"
+  >Login</a
+>
 
 {% endif %}
