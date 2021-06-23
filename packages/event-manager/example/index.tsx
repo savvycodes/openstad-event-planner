@@ -5,9 +5,9 @@ import { App } from '../.';
 
 const config = {
   jwt:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE2MjM5Mzk4ODEsImV4cCI6MTYzOTY2NDY4MX0.3Aez4yCRp2MnaXqSDVIYj9bBUzVeqTjWwOyNPzrZ7ow',
-  siteId: 2,
-  apiUrl: 'http://localhost:8111',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYyNDQ1NTY3MCwiZXhwIjoxNjQwMTgwNDcwfQ.kNeYO4yy7zSWcbaeP_Te8jl6bYzvpfcd7SzJmBANoZU',
+  siteId: 3,
+  apiUrl: '/api',
   imageUrl: '/image',
   user: {
     isEventProvider: true,
