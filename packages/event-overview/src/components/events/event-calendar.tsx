@@ -22,23 +22,22 @@ interface EventCalendarProps {
 
 const s = {
   Container: styled('div')`
-  @media (min-width: 1024px) {
-    min-width: 100%;
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    margin: 0;
-    padding: 0;
-    align-items: flex-start;
-    justify-content: stretch;
-    margin-bottom: 48px;
-  }
-  @media (max-width: 1023px) {
-    display: block;
-    margin: 0;
-    padding: 0;
-    margin-bottom: 48px;
-  } 
-  
+    @media (min-width: 1024px) {
+      min-width: 100%;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      margin: 0;
+      padding: 0;
+      align-items: flex-start;
+      justify-content: stretch;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 1023px) {
+      display: block;
+      margin: 0;
+      padding: 0;
+      margin-bottom: 48px;
+    }
   `,
   ChevronLeft: styled(ChevronLeft)`
     @media (max-width: 1023px) {
@@ -46,30 +45,31 @@ const s = {
     }
   `,
   ChevronRight: styled(ChevronRight)`
-  @media (max-width: 1023px) {
-    display: none;
-  }
+    @media (max-width: 1023px) {
+      display: none;
+    }
   `,
   CalendarDay: styled('div')`
-  @media (min-width: 1024px) {
-    background-color: ${props => props.theme.colors.white};
-    box-shadow: ${props => props.theme.effects.boxShadowPrimary};
-    margin: 0 12px;
-    min-width: 168px;
-    max-height: 70vh;
-    display: flex;
-    flex-direction: column;
-  }
-  @media (max-width: 1023px) {
-    background-color: ${props => props.theme.colors.white};
-    box-shadow: ${props => props.theme.effects.boxShadowPrimary};
-    margin: 0 12px 24px 12px;
-    display: flex;
-    flex-direction: column;
-  }
+    @media (min-width: 1024px) {
+      background-color: ${props => props.theme.colors.white};
+      box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+      margin: 0 12px;
+      min-width: 168px;
+      max-height: 70vh;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (max-width: 1023px) {
+      background-color: ${props => props.theme.colors.white};
+      box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+      margin: 0 12px 24px 12px;
+      display: flex;
+      flex-direction: column;
+    }
   `,
   CalendarTitle: styled('h2')<any>`
-    background-color: ${props => (props.active ? props.theme.colors.primary : props.theme.colors.darkGray)};
+    background-color: ${props =>
+      props.active ? props.theme.colors.primary : props.theme.colors.darkGray};
     font-size: 18px;
     font-weight: 400;
     text-align: center;
@@ -186,15 +186,19 @@ export function EventCalendar({ events }: EventCalendarProps) {
   }
 
   return (
-    <div style={{width: '100vw'}}>
-
+    <div style={{ width: '100vw' }}>
       <s.Container>
-        <s.ChevronLeft style={{cursor: 'pointer'}} onClick={previous} size={24} stroke={'black'} />
-        
+        <s.ChevronLeft
+          style={{ cursor: 'pointer' }}
+          onClick={previous}
+          size={24}
+          stroke={'black'}
+        />
+
         {range.map((day: Date) => {
           const date = formatISO(day, { representation: 'date' });
           const eventsByDay = eventsGroupedByDay[date] || [];
-          
+
           return (
             <s.CalendarDay key={date}>
               <s.CalendarTitle
@@ -204,43 +208,49 @@ export function EventCalendar({ events }: EventCalendarProps) {
                 {format(day, 'cccc d LLLL', { locale: nl })}
               </s.CalendarTitle>
 
+              <s.CardContent>
+                {eventsByDay.map((event: any) => {
+                  const slot = event.slots.find((slot: any) =>
+                    isSameDay(day, slot.startTime)
+                  );
 
-<s.CardContent>
-              {eventsByDay.map((event: any) => {
-                const slot = event.slots.find((slot: any) =>
-                  isSameDay(day, slot.startTime)
-                );
+                  if (!slot) return null;
 
-                if (!slot) return null;
-
-                return (
-                  <s.CardDiv key={event.id}>
-                    <BorderedCardTitle title={event.name} />
-                    <Ages minAge={event.minAge} maxAge={event.maxAge} />
-                    <SmallParagraph>
-                      {format(slot.startTime, 'HH:mm')} -{' '}
-                      {format(slot.endTime, 'HH:mm')}
-                    </SmallParagraph>
-                    <s.LocationContainer>
-                    <MapPin style={{ padding: '0 4px' }} size={22} strokeWidth={2} stroke={'black'} />
-                    <s.Location href="#">Locatie</s.Location>
-                    </s.LocationContainer>
-                  </s.CardDiv>
-                );
-              })}
+                  return (
+                    <s.CardDiv key={event.id}>
+                      <BorderedCardTitle title={event.name} />
+                      <Ages minAge={event.minAge} maxAge={event.maxAge} />
+                      <SmallParagraph>
+                        {format(slot.startTime, 'HH:mm')} -{' '}
+                        {format(slot.endTime, 'HH:mm')}
+                      </SmallParagraph>
+                      <s.LocationContainer>
+                        <MapPin
+                          style={{ padding: '0 4px' }}
+                          size={22}
+                          strokeWidth={2}
+                          stroke={'black'}
+                        />
+                        <s.Location href="#">Locatie</s.Location>
+                      </s.LocationContainer>
+                    </s.CardDiv>
+                  );
+                })}
               </s.CardContent>
             </s.CalendarDay>
           );
         })}
-        <s.ChevronRight style={{cursor: 'pointer'}} onClick={next} size={24} stroke={'black'} />
+        <s.ChevronRight
+          style={{ cursor: 'pointer' }}
+          onClick={next}
+          size={24}
+          stroke={'black'}
+        />
       </s.Container>
 
-      
       <CardWrapper>
-      {eventsOnActiveDay ? (
-          <EventTiles events={eventsOnActiveDay} />
-          ) : null}
-          </CardWrapper>
-          </div>
+        {eventsOnActiveDay ? <EventTiles events={eventsOnActiveDay} /> : null}
+      </CardWrapper>
+    </div>
   );
 }

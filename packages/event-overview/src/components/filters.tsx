@@ -25,13 +25,12 @@ const styles = {
     padding: 100px;
   `,
   Container: styled('div')`
-  @media (min-width: 1024px) {
-    margin: 0 48px;
-  }
-  @media (max-width: 1023px) {
-    margin: 0 12px;
-  }
-    
+    @media (min-width: 1024px) {
+      margin: 0 48px;
+    }
+    @media (max-width: 1023px) {
+      margin: 0 12px;
+    }
   `,
   InputWithIcon: styled('div')`
     display: flex;
@@ -39,7 +38,7 @@ const styles = {
     margin: 24px 0;
   `,
   StyledInput: styled(StyledInput)`
-  margin: 0;
+    margin: 0;
   `,
   Search: styled(Search)`
     background-color: ${props => props.theme.colors.background};
@@ -64,7 +63,7 @@ const styles = {
   `,
 
   FilterItemName: styled('h2')`
-    background-color: ${props => props.theme.colors.white}; 
+    background-color: ${props => props.theme.colors.white};
     width: 100%;
     padding: 12px;
     box-shadow: ${props => props.theme.effects.boxShadowPrimary};
@@ -73,7 +72,7 @@ const styles = {
     margin: 0;
   `,
   Button: styled(Button)`
-  margin: 24px 0;
+    margin: 24px 0;
     padding: 8px 16px;
     font-size: 14px;
   `,
@@ -92,20 +91,31 @@ function Filter({ name, children }: any) {
   const [isOpen, setOpen] = useState(false);
 
   return (
-
-<>
-<styles.InputWithIcon>
+    <>
+      <styles.InputWithIcon>
         <styles.FilterItemName onClick={() => setOpen(!isOpen)}>
           {name}
         </styles.FilterItemName>
-        {isOpen ? <styles.ChevronUp onClick={() => setOpen(!isOpen)} size={24} strokeWidth={3} stroke={'#0D0D0D'} /> : <styles.ChevronDown onClick={() => setOpen(!isOpen)} size={24} strokeWidth={3} stroke={'#0D0D0D'} />}
-      
+        {isOpen ? (
+          <styles.ChevronUp
+            onClick={() => setOpen(!isOpen)}
+            size={24}
+            strokeWidth={3}
+            stroke={'#0D0D0D'}
+          />
+        ) : (
+          <styles.ChevronDown
+            onClick={() => setOpen(!isOpen)}
+            size={24}
+            strokeWidth={3}
+            stroke={'#0D0D0D'}
+          />
+        )}
       </styles.InputWithIcon>
       {isOpen ? children : null}
-      </>
+    </>
   );
 }
-
 
 const initialFilters: any = {
   q: '',
@@ -121,7 +131,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
   const ages = ['0-4', '4-8', '8-12', '12-16', '16-18', '18-99'];
 
   function test() {
-    if(window.innerWidth < 1024) {
+    if (window.innerWidth < 1024) {
       return false;
     } else {
       return true;
@@ -135,22 +145,20 @@ export function FilterSidebar({ onChange, ...props }: any) {
 
   const debouncedQuery = useDebounce(query, 500);
 
-
-
   useEffect(() => {
     setFilters({
       ...filters,
       q: debouncedQuery,
     });
-  }, [debouncedQuery]);
+  }, [debouncedQuery, filters]);
 
   useEffect(() => {
     onChange(filters);
-  }, [filters]);
+  }, [filters, onChange]);
 
   useEffect(() => {
     onChange(filters);
-  }, []);
+  }, [filters, onChange]);
 
   if (!tags) {
     return <Spinner />;
@@ -159,131 +167,145 @@ export function FilterSidebar({ onChange, ...props }: any) {
   return (
     <styles.Container>
       <styles.DFlex>
-      <styles.InputWithIcon>
-        <styles.StyledInput
-          placeholder="Trefwoord"
-          value={query}
-          onChange={(e: { target: { value: string; }; }) => setQuery(e.target.value)}
-        />
-      <styles.Search size={24} strokeWidth={3} stroke={'#0D0D0D'} />
-      </styles.InputWithIcon>
-      <styles.Paragraph onClick={() => setFiltersVisible(!filtersVisible)}>Filteren</styles.Paragraph>
+        <styles.InputWithIcon>
+          <styles.StyledInput
+            placeholder="Trefwoord"
+            value={query}
+            onChange={(e: { target: { value: string } }) =>
+              setQuery(e.target.value)
+            }
+          />
+          <styles.Search size={24} strokeWidth={3} stroke={'#0D0D0D'} />
+        </styles.InputWithIcon>
+        <styles.Paragraph onClick={() => setFiltersVisible(!filtersVisible)}>
+          Filteren
+        </styles.Paragraph>
       </styles.DFlex>
-      {filtersVisible &&
-      <>
-      <styles.Filter name="Leeftijd">
-        {ages.map((group: string, index) => {
-          const range = group.split('-').map(a => parseInt(a));
+      {filtersVisible && (
+        <>
+          <styles.Filter name="Leeftijd">
+            {ages.map((group: string, index) => {
+              const range = group.split('-').map(a => parseInt(a));
 
-          return (
-            <label style={{ display: 'block' }} key={index}>
-              <input
-                type="checkbox"
-                checked={filters.ageRanges.some(
-                  ([min, max]: any) => min === range[0] && max === range[1]
-                )}
-                onChange={e => {
-                  const checked = e.target.checked;
+              return (
+                <label style={{ display: 'block' }} key={index}>
+                  <input
+                    type="checkbox"
+                    checked={filters.ageRanges.some(
+                      ([min, max]: any) => min === range[0] && max === range[1]
+                    )}
+                    onChange={e => {
+                      const checked = e.target.checked;
 
-                  if (checked) {
-                    // add
-                    setFilters({
-                      ...filters,
-                      ageRanges: [...filters.ageRanges, range],
-                    });
-                  } else {
-                    // remove
-                    setFilters({
-                      ...filters,
-                      ageRanges: [...filters.ageRanges].filter(([min, max]) => {
-                        if (min === range[0] && max === range[1]) {
-                          return false;
-                        }
-                        return true;
-                      }),
-                    });
-                  }
-                }}
-              />
-              <styles.Ages
-                style={{ display: 'inline-block' }}
-                minAge={range[0]}
-                maxAge={range[1]}
-              />
-            </label>
-          );
-        })}
-      </styles.Filter>
-      <Filter name="Stadsdeel">
-        {districts.map((district: any, index) => (
-          <label style={{ display: 'block' }} key={index}>
-            <input
-              type="checkbox"
-              checked={filters.districts.includes(district)}
-              onChange={e => {
-                const checked = e.target.checked;
-                if (checked) {
-                  //   add
-                  setFilters({
-                    ...filters,
-                    districts: [...filters.districts, district],
-                  });
-                } else {
-                  //   remove
-                  setFilters({
-                    ...filters,
-                    districts: [...filters.districts].filter(
-                      d => d !== district
-                    ),
-                  });
-                }
-              }}
-            />
-            <styles.P style={{ display: 'inline-block' }}>{district}</styles.P>
-          </label>
-        ))}
-      </Filter>
-      <Filter name="Tags">
-        {tags.map((tag: any) => (
-          <label style={{ display: 'block' }} key={tag.id}>
-            <input
-              type="checkbox"
-              checked={filters.tagIds.includes(tag.id)}
-              onChange={e => {
-                const checked = e.target.checked;
-                if (checked) {
-                  //   add
-                  setFilters({
-                    ...filters,
-                    tagIds: [...filters.tagIds, tag.id],
-                  });
-                } else {
-                  //   remove
-                  setFilters({
-                    ...filters,
-                    tagIds: [...filters.tagIds].filter(tId => tId !== tag.id),
-                  });
-                }
-              }}
-            />
-            <styles.P style={{ display: 'inline-block' }}>{tag.name}</styles.P>
-          </label>
-        ))}
-      </Filter>
-      <Calendar
-        minDate={new Date()}
-        multiple
-        value={filters.dates}
-        onChange={(dates: any) =>
-          setFilters({
-            ...filters,
-            dates: dates.map((d: any) => new Date(d)),
-          })
-        }
-      />
-      <styles.Button onClick={() => setFilters(initialFilters)}>Wissen</styles.Button>
-      </>
-    }
+                      if (checked) {
+                        // add
+                        setFilters({
+                          ...filters,
+                          ageRanges: [...filters.ageRanges, range],
+                        });
+                      } else {
+                        // remove
+                        setFilters({
+                          ...filters,
+                          ageRanges: [...filters.ageRanges].filter(
+                            ([min, max]) => {
+                              if (min === range[0] && max === range[1]) {
+                                return false;
+                              }
+                              return true;
+                            }
+                          ),
+                        });
+                      }
+                    }}
+                  />
+                  <styles.Ages
+                    style={{ display: 'inline-block' }}
+                    minAge={range[0]}
+                    maxAge={range[1]}
+                  />
+                </label>
+              );
+            })}
+          </styles.Filter>
+          <Filter name="Stadsdeel">
+            {districts.map((district: any, index) => (
+              <label style={{ display: 'block' }} key={index}>
+                <input
+                  type="checkbox"
+                  checked={filters.districts.includes(district)}
+                  onChange={e => {
+                    const checked = e.target.checked;
+                    if (checked) {
+                      //   add
+                      setFilters({
+                        ...filters,
+                        districts: [...filters.districts, district],
+                      });
+                    } else {
+                      //   remove
+                      setFilters({
+                        ...filters,
+                        districts: [...filters.districts].filter(
+                          d => d !== district
+                        ),
+                      });
+                    }
+                  }}
+                />
+                <styles.P style={{ display: 'inline-block' }}>
+                  {district}
+                </styles.P>
+              </label>
+            ))}
+          </Filter>
+          <Filter name="Tags">
+            {tags.map((tag: any) => (
+              <label style={{ display: 'block' }} key={tag.id}>
+                <input
+                  type="checkbox"
+                  checked={filters.tagIds.includes(tag.id)}
+                  onChange={e => {
+                    const checked = e.target.checked;
+                    if (checked) {
+                      //   add
+                      setFilters({
+                        ...filters,
+                        tagIds: [...filters.tagIds, tag.id],
+                      });
+                    } else {
+                      //   remove
+                      setFilters({
+                        ...filters,
+                        tagIds: [...filters.tagIds].filter(
+                          tId => tId !== tag.id
+                        ),
+                      });
+                    }
+                  }}
+                />
+                <styles.P style={{ display: 'inline-block' }}>
+                  {tag.name}
+                </styles.P>
+              </label>
+            ))}
+          </Filter>
+          <Calendar
+            minDate={new Date()}
+            multiple
+            value={filters.dates}
+            onChange={(dates: any) =>
+              setFilters({
+                ...filters,
+                dates: dates.map((d: any) => new Date(d)),
+              })
+            }
+          />
+          <styles.Button onClick={() => setFilters(initialFilters)}>
+            Wissen
+          </styles.Button>
+        </>
+      )}
     </styles.Container>
   );
 }

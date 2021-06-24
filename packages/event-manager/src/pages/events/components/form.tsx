@@ -172,12 +172,13 @@ export function ActivityForm({
       </FormItem>
 
       <styles.DateTimeDiv>
-        <styles.Label>Startdatum en einddatum
-        <styles.Paragraph>
-        Voeg extra data toe door op + te klikken
+        <styles.Label>
+          Startdatum en einddatum
+          <styles.Paragraph>
+            Voeg extra data toe door op + te klikken
           </styles.Paragraph>
         </styles.Label>
-        
+
         <FieldArray name="slots">
           {arrayHelpers => (
             <>
@@ -217,27 +218,63 @@ export function ActivityForm({
         <Label>Leeftijd</Label>
         <CheckboxList>
           <CheckboxItem>
-            <Field type="checkbox" id="age04" name="ages" value="0-4" tabIndex={7} />
-            <ListLabel htmlFor="age04" >0 - 4 jaar</ListLabel>
+            <Field
+              type="checkbox"
+              id="age04"
+              name="ages"
+              value="0-4"
+              tabIndex={7}
+            />
+            <ListLabel htmlFor="age04">0 - 4 jaar</ListLabel>
           </CheckboxItem>
           <CheckboxItem>
-            <Field type="checkbox" id="age48" name="ages" value="4-8" tabIndex={8} />
+            <Field
+              type="checkbox"
+              id="age48"
+              name="ages"
+              value="4-8"
+              tabIndex={8}
+            />
             <ListLabel htmlFor="age48">4 - 8 jaar</ListLabel>
           </CheckboxItem>
           <CheckboxItem>
-            <Field type="checkbox" id="age812" name="ages" value="8-12" tabIndex={9} />
+            <Field
+              type="checkbox"
+              id="age812"
+              name="ages"
+              value="8-12"
+              tabIndex={9}
+            />
             <ListLabel htmlFor="age812">8 - 12 jaar</ListLabel>
           </CheckboxItem>
           <CheckboxItem>
-            <Field type="checkbox" id="age1216" name="ages" value="12-16" tabIndex={10} />
+            <Field
+              type="checkbox"
+              id="age1216"
+              name="ages"
+              value="12-16"
+              tabIndex={10}
+            />
             <ListLabel htmlFor="age1216">12 - 16 jaar</ListLabel>
           </CheckboxItem>
           <CheckboxItem>
-            <Field type="checkbox" id="age1618" name="ages" value="16-18" tabIndex={11} />
+            <Field
+              type="checkbox"
+              id="age1618"
+              name="ages"
+              value="16-18"
+              tabIndex={11}
+            />
             <ListLabel htmlFor="age1618">16 - 18 jaar</ListLabel>
           </CheckboxItem>
           <CheckboxItem>
-            <Field type="checkbox" id="age18" name="ages" value="18-99" tabIndex={12} />
+            <Field
+              type="checkbox"
+              id="age18"
+              name="ages"
+              value="18-99"
+              tabIndex={12}
+            />
             <ListLabel htmlFor="age18">18 jaar en ouder</ListLabel>
           </CheckboxItem>
           <Paragraph>
@@ -314,7 +351,8 @@ export function ActivityForm({
         <Label htmlFor="attendees">
           Aantal beschikbare plekken
           <styles.Paragraph>
-          Laat het aantal beschikbare plekken op 0 als je niet weet hoeveel plekken er beschikbaar zijn.
+            Laat het aantal beschikbare plekken op 0 als je niet weet hoeveel
+            plekken er beschikbaar zijn.
           </styles.Paragraph>
           <Field
             type="number"

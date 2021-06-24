@@ -45,7 +45,7 @@ export function ImageUpload({ onUpload, value, ...props }: ImageUploadProps) {
         })
         .finally(() => setUploading(false));
     }
-  }, [file, config.imageUrl]);
+  }, [file, config.imageUrl, onUpload]);
 
   return (
     <>

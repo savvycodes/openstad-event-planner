@@ -7,11 +7,7 @@ import { Spinner } from '../components/spinner';
 import { ErrorBanner } from '../components/error-banner';
 import { FilterSidebar } from '../components/filters';
 import { CardWrapper } from '../components/card/card';
-import {
-  Header,
-  Main,
-  NavigationItem,
-} from '../components/layout/layout';
+import { Header, Main, NavigationItem } from '../components/layout/layout';
 import { EventCalendar } from '../components/events/event-calendar';
 import { EventTiles } from '../components/events/event-tiles';
 import { EventMap } from '../components/events/event-map';
@@ -94,9 +90,7 @@ export function EventsPage({}: RouteComponentProps) {
             <EventTiles events={events} />
           </CardWrapper>
         ) : null}
-        {viewType === 'calendar' ? (
-            <EventCalendar events={events} />
-        ) : null}
+        {viewType === 'calendar' ? <EventCalendar events={events} /> : null}
         {viewType === 'map' ? (
           <div>
             <EventMap events={events} />

@@ -66,7 +66,7 @@ export const Border = styled('div')`
 `;
 
 export const SmallParagraph = styled('p')`
-    font-size: 12px;
+  font-size: 12px;
   font-family: 'Noto Sans', sans-serif;
   margin: 0 5%;
   display: inline-block;

@@ -16,5 +16,4 @@ export const SecondaryButton = styled('button')`
   background-color: ${props => props.theme.colors.secondary};
   color: ${props => props.theme.colors.white};
   padding: 10px 48px;
-  
 `;

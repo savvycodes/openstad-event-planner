@@ -12,22 +12,22 @@ import { SecondaryButton } from '../components/button/button';
 
 const styles = {
   Container: styled('div')`
-  @media (min-width: 1024px) {
-    background-color: ${props => props.theme.colors.background};
-    padding: 48px;
-  }
-  @media (max-width: 1023px) {
-    background-color: ${props => props.theme.colors.background};
-    padding: 12px;
-  }
+    @media (min-width: 1024px) {
+      background-color: ${props => props.theme.colors.background};
+      padding: 48px;
+    }
+    @media (max-width: 1023px) {
+      background-color: ${props => props.theme.colors.background};
+      padding: 12px;
+    }
   `,
   EventInformation: styled('div')`
-  @media (min-width: 1024px) {
-    margin: 32px;
-  }
-  @media (max-width: 1023px) {
-    margin: 12px;
-  }
+    @media (min-width: 1024px) {
+      margin: 32px;
+    }
+    @media (max-width: 1023px) {
+      margin: 12px;
+    }
   `,
 
   DetailHeader: styled('div')`
@@ -45,25 +45,25 @@ const styles = {
   `,
 
   Title: styled('h1')`
-  @media (min-width: 1024px) {
-    font-size: 48px;
-    display: inline-block;
-    margin: 0;
-  }
-  @media (max-width: 1023px) {
-    font-size: 24px;
-    display: inline-block;
-    margin: 0;
-  }
+    @media (min-width: 1024px) {
+      font-size: 48px;
+      display: inline-block;
+      margin: 0;
+    }
+    @media (max-width: 1023px) {
+      font-size: 24px;
+      display: inline-block;
+      margin: 0;
+    }
   `,
 
   ImageContainer: styled('div')`
-  @media (min-width: 1024px) {
-    width: 65%;
-  }
-  @media (max-width: 1023px) {
-    width: 100%;
-  }
+    @media (min-width: 1024px) {
+      width: 65%;
+    }
+    @media (max-width: 1023px) {
+      width: 100%;
+    }
   `,
 
   EventTagsContainer: styled('div')`
@@ -89,22 +89,21 @@ const styles = {
   `,
 
   EventCardContainer: styled('div')`
-
-  @media (min-width: 1024px) {
-    padding: 24px;
-    background-color: ${props => props.theme.colors.white};
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    box-shadow: ${props => props.theme.effects.boxShadowPrimary};
-  }
-  @media (max-width: 1023px) {
-    padding: 24px;
-    background-color: ${props => props.theme.colors.white};
-    width: 100%;
-    display: block;
-    box-shadow: ${props => props.theme.effects.boxShadowPrimary};
-  }
+    @media (min-width: 1024px) {
+      padding: 24px;
+      background-color: ${props => props.theme.colors.white};
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+    }
+    @media (max-width: 1023px) {
+      padding: 24px;
+      background-color: ${props => props.theme.colors.white};
+      width: 100%;
+      display: block;
+      box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+    }
   `,
 
   DescriptionContainer: styled('div')`
@@ -134,26 +133,26 @@ const styles = {
   `,
 
   ProgressBar: styled('div')`
-  @media (min-width: 1024px) {
-    position: relative;
-    margin-bottom: 8px;
-    width: 60%;
-    border: 1px solid ${props => props.theme.colors.primary};
-    border-radius: 50px;
-    height: 12px;
-    box-sizing: content-box;
-    height: 12px;
-  }
-  @media (max-width: 1023px) {
-    position: relative;
-    margin-bottom: 8px;
-    width: 100%;
-    border: 1px solid ${props => props.theme.colors.primary};
-    border-radius: 50px;
-    height: 12px;
-    box-sizing: content-box;
-    height: 12px;
-  }
+    @media (min-width: 1024px) {
+      position: relative;
+      margin-bottom: 8px;
+      width: 60%;
+      border: 1px solid ${props => props.theme.colors.primary};
+      border-radius: 50px;
+      height: 12px;
+      box-sizing: content-box;
+      height: 12px;
+    }
+    @media (max-width: 1023px) {
+      position: relative;
+      margin-bottom: 8px;
+      width: 100%;
+      border: 1px solid ${props => props.theme.colors.primary};
+      border-radius: 50px;
+      height: 12px;
+      box-sizing: content-box;
+      height: 12px;
+    }
   `,
   ProgressBarContent: styled('span')`
     display: block;
@@ -223,9 +222,9 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             </styles.Title>
 
             <Heart
-            style={{
-              display: 'none'
-            }}
+              style={{
+                display: 'none',
+              }}
               fill={'transparent'}
               // fill={'transparent'}
               size={28}
@@ -236,38 +235,48 @@ export function EventDetailPage({ params }: RouteComponentProps) {
           </styles.DetailHeader>
 
           <styles.GridContainer>
+            <styles.EventTagsContainer>
+              {event.tags.map((tag: any) => {
+                return (
+                  <>
+                    <CardTag
+                      style={{
+                        display: 'block',
+                        margin: 0,
+                        marginRight: '8px',
+                      }}
+                    >
+                      {event.minAge}-{event.maxAge} jaar
+                    </CardTag>
+                    <CardTag
+                      style={{
+                        display: 'block',
+                        margin: 0,
+                        marginRight: '8px',
+                      }}
+                    >
+                      {tag.name}
+                    </CardTag>
+                    <CardTag
+                      style={{
+                        display: 'block',
+                        margin: 0,
+                        marginRight: '8px',
+                      }}
+                    >
+                      {event.district}
+                    </CardTag>
+                  </>
+                );
+              })}
+            </styles.EventTagsContainer>
 
-          <styles.EventTagsContainer>
-            {event.tags.map((tag: any) => {
-
-              return (
-                <>
-                  <CardTag
-                  style={{ display: 'block', margin: 0, marginRight: '8px' }}>
-                    {event.minAge}-{event.maxAge} jaar
-                  </CardTag>
-                  <CardTag
-                    style={{ display: 'block', margin: 0, marginRight: '8px' }}
-                  >
-                    {tag.name}
-                  </CardTag>
-                  <CardTag 
-                  style={{ display: 'block', margin: 0, marginRight: '8px' }}>
-                    {event.district}
-                  </CardTag>
-                </>
-              );
-            })}
-          </styles.EventTagsContainer>
-
-          <SmallParagraph>{event.organisation.name}</SmallParagraph>
+            <SmallParagraph>{event.organisation.name}</SmallParagraph>
           </styles.GridContainer>
 
           <styles.DescriptionContainer>
             <styles.Paragraph>{event.description}</styles.Paragraph>
           </styles.DescriptionContainer>
-
-
 
           <div
             style={{
@@ -293,14 +302,11 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             {event.slots.map((slot: any) => {
               const start = new Date(slot.startTime);
               const end = new Date(slot.endTime);
-              return (
-                <AvailablePlaces end={end} start={start} slot={slot} />
-              );
+              return <AvailablePlaces end={end} start={start} slot={slot} />;
             })}
           </styles.ImageContainer>
         </styles.EventDetails>
       </styles.EventCardContainer>
-
     </styles.Container>
   );
 }
