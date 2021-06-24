@@ -34,6 +34,7 @@ export const CardTitle = styled('h1')`
   font-size: 16px;
   font-family: 'Noto Sans', sans-serif;
   display: inline-block;
+  margin: 8px 0 4px 0;
 `;
 export const NewActivityTitle = styled('h1')`
   @media (min-width: 1024px) {
@@ -66,6 +67,9 @@ export const Border = styled('div')`
 
 export const SmallParagraph = styled('p')`
     font-size: 12px;
+  font-family: 'Noto Sans', sans-serif;
+  margin: 0 5%;
+  display: inline-block;
 `;
 
 export function BorderedTitle(props: any) {

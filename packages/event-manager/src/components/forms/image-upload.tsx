@@ -58,9 +58,6 @@ export function ImageUpload({ onUpload, value, ...props }: ImageUploadProps) {
       {file ? <img src={URL.createObjectURL(file)} alt="" /> : null}
       {!file && value ? <img src={value.toString()} alt="" /> : null}
       <input
-        style={{
-          display: 'none',
-        }}
         type="file"
         accept="image/jpeg,image/png"
         onChange={e => {

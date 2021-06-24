@@ -5,9 +5,9 @@ import { RouteComponentProps } from 'wouter';
 
 import { ErrorBanner } from '../components/error-banner';
 import { Spinner } from '../components/spinner';
-import { Border, Paragraph } from '../components/text/text';
+import { Border, Paragraph, SmallParagraph } from '../components/text/text';
 import { CardTag } from '../components/card/card';
-import { ChevronRight, Heart, Search } from 'react-feather';
+import { ChevronRight, Heart } from 'react-feather';
 import { SecondaryButton } from '../components/button/button';
 
 const styles = {
@@ -171,7 +171,12 @@ const styles = {
     display: flex;
     align-items: center;
     color: ${props => props.theme.colors.black};
-  `
+  `,
+  GridContainer: styled('div')`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  `,
 };
 
 export function EventDetailPage({ params }: RouteComponentProps) {
@@ -180,14 +185,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
   if (error)
     return <ErrorBanner>Er ging iets fout: ({error.message})</ErrorBanner>;
   if (!event) return <Spinner />;
-
-  function ProgressBar(amount: any) {
-    return (
-      <styles.ProgressBar>
-        <styles.ProgressBarContent style={{ width: amount.amount }} />
-      </styles.ProgressBar>
-    );
-  }
 
   interface Props {
     start: any;
@@ -199,7 +196,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
 
     return (
       <styles.DateProgressBar key={slot.id}>
-        {/* <Paragraph>Donderdag 8 juli 14:00 - 17:00</Paragraph> */}
         <Paragraph>
           {start.toLocaleDateString('nl-NL', options)}{' '}
           {start.toLocaleTimeString('nl-NL', {
@@ -212,10 +208,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             minute: '2-digit',
           })}
         </Paragraph>
-
-        <ProgressBar amount="20%" />
-
-        <Paragraph>7/12 deelnemers</Paragraph>
       </styles.DateProgressBar>
     );
   };
@@ -231,6 +223,9 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             </styles.Title>
 
             <Heart
+            style={{
+              display: 'none'
+            }}
               fill={'transparent'}
               // fill={'transparent'}
               size={28}
@@ -239,6 +234,8 @@ export function EventDetailPage({ params }: RouteComponentProps) {
               strokeWidth={1}
             />
           </styles.DetailHeader>
+
+          <styles.GridContainer>
 
           <styles.EventTagsContainer>
             {event.tags.map((tag: any) => {
@@ -263,9 +260,14 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             })}
           </styles.EventTagsContainer>
 
+          <SmallParagraph>{event.organisation.name}</SmallParagraph>
+          </styles.GridContainer>
+
           <styles.DescriptionContainer>
             <styles.Paragraph>{event.description}</styles.Paragraph>
           </styles.DescriptionContainer>
+
+
 
           <div
             style={{
@@ -299,15 +301,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
         </styles.EventDetails>
       </styles.EventCardContainer>
 
-
-      <styles.Title>Meer activiteiten zoals deze</styles.Title>
-        {/* {loading ? <Spinner /> : <CardWrapper>
-            <EventTiles events={events} />
-          </CardWrapper>} */}
-          <styles.SearchButton>
-            <Search style={{marginRight: '8px'}} size={24} strokeWidth={3} stroke={"#7a7a7a"} />
-            Zoek activiteit
-          </styles.SearchButton>
     </styles.Container>
   );
 }

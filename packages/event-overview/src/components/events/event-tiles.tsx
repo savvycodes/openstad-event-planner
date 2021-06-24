@@ -8,17 +8,19 @@ import {
   CardTagsContainer,
   CardTag,
 } from '../card/card';
-import { BorderedCardTitle } from '../text/text';
+import { BorderedCardTitle, SmallParagraph } from '../text/text';
 
 export function EventTiles({ events }: any) {  
   return events.map((event: any) => (
     <ActivityCard key={event.id}>
+      {console.log(event)
+      }
       <Link to={`#/events/${event.id}`}>
         <ActivityImage src={event.image} alt={event.name} />
         <CardTextContainer>
           <BorderedCardTitle title={event.name} />
         </CardTextContainer>
-
+        <SmallParagraph>door {event.organisation.name}</SmallParagraph>
         <CardTagsContainer>
           <CardTag>
             {event.minAge}-{event.maxAge} jaar
@@ -28,6 +30,7 @@ export function EventTiles({ events }: any) {
           </CardTag>
           <CardTag style={{ display: 'block' }}>{event.district}</CardTag>
         </CardTagsContainer>
+        
       </Link>
     </ActivityCard>
   ));

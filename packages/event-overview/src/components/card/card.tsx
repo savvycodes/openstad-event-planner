@@ -20,7 +20,7 @@ export const CardWrapper = styled('div')`
 
 export const ActivityCard = styled('div')<CardProps>`
   cursor: pointer;
-  height: 42.5vh;
+  height: 47.5vh;
   background-color: ${props =>
     props.newactivity
       ? props.theme.colors.background
@@ -30,7 +30,7 @@ export const ActivityCard = styled('div')<CardProps>`
   position: relative;
 `;
 export const CardTextContainer = styled('div')`
-  margin: -5% 5%;
+  margin: 0 5%;
   width: 80%;
 `;
 export const CardIconContainer = styled('div')`
@@ -68,7 +68,7 @@ export const NewActivityCardTextContainer = styled('div')`
 export const ActivityImage = styled('img')`
   width: 90%;
   height: 60%;
-  margin: 5%;
+  margin: 5% 5% 0 5%;
   object-fit: cover;
 `;
 

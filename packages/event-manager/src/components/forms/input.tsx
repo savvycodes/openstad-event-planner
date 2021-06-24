@@ -52,6 +52,7 @@ export const CheckboxItem = styled('label')`
   display: flex;
   align-items: center;
   padding: 4px 0;
+  width: fit-content;
 `;
 
 export const CheckboxList = styled('div')`
