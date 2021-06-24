@@ -80,11 +80,15 @@ export function SignupPage() {
       .url()
       .matches(
         /(?:(?:http|https):\/\/)?(?:www.)?(?:m.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w-]*)?/,
-        'Geen geldige Facebook URL'
+        'Geen geldige Facebook profiel/pagina URL (voorbeeld: https://facebook.com/gemeenteamsterdam)'
       )
       .nullable(),
     instagram: Yup.string()
       .url()
+      .matches(
+        /https?:\/\/(www\.)?instagram\.com\/([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,30}(?:[A-Za-z0-9_]))?)(\/)?/,
+        'Geen geldige Instagram profiel URL (voorbeeld: https://instagram.com/midzomermokum)'
+      )
       .nullable(),
     tagIds: Yup.array()
       .of(Yup.number())
