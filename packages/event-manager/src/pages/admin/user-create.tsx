@@ -43,7 +43,6 @@ export function CreateUserPage() {
       </styles.Header>
       <Formik
         onSubmit={async (values, helpers) => {
-          console.log('submit', values);
           setError(null);
           try {
             const res = await fetch(

@@ -156,10 +156,6 @@ export function FilterSidebar({ onChange, ...props }: any) {
     onChange(filters);
   }, [filters, onChange]);
 
-  useEffect(() => {
-    onChange(filters);
-  }, [filters, onChange]);
-
   if (!tags) {
     return <Spinner />;
   }

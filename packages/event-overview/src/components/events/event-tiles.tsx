@@ -13,7 +13,6 @@ import { BorderedCardTitle, SmallParagraph } from '../text/text';
 export function EventTiles({ events }: any) {
   return events.map((event: any) => (
     <ActivityCard key={event.id}>
-      {console.log(event)}
       <Link to={`#/events/${event.id}`}>
         <ActivityImage src={event.image} alt={event.name} />
         <CardTextContainer>
