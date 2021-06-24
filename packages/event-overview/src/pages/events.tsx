@@ -7,7 +7,12 @@ import { Spinner } from '../components/spinner';
 import { ErrorBanner } from '../components/error-banner';
 import { FilterSidebar } from '../components/filters';
 import { CardWrapper } from '../components/card/card';
-import { Header, Main, NavigationItem } from '../components/layout/layout';
+import {
+  DFlex,
+  Header,
+  Main,
+  NavigationItem,
+} from '../components/layout/layout';
 import { EventCalendar } from '../components/events/event-calendar';
 import { EventTiles } from '../components/events/event-tiles';
 import { EventMap } from '../components/events/event-map';
@@ -18,14 +23,6 @@ const styles = {
   Header: styled(Header)`
     display: flex;
     justify-content: flex-end;
-  `,
-  Container: styled('div')`
-    @media (min-width: 1024px) {
-      display: flex;
-    }
-    @media (max-width: 1023px) {
-      display: inline-block;
-    }
   `,
 };
 
@@ -80,7 +77,7 @@ export function EventsPage({}: RouteComponentProps) {
         </NavigationItem>
       </styles.Header>
 
-      <styles.Container>
+      <DFlex>
         <FilterSidebar filters={filters} onChange={setFilters} />
 
         {loading ? <Spinner /> : null}
@@ -90,7 +87,11 @@ export function EventsPage({}: RouteComponentProps) {
             <EventTiles events={events} />
           </CardWrapper>
         ) : null}
-        {viewType === 'calendar' ? <EventCalendar events={events} /> : null}
+        {viewType === 'calendar' ? (
+          <div>
+            <EventCalendar events={events} />
+          </div>
+        ) : null}
         {viewType === 'map' ? (
           <div>
             <EventMap events={events} />
@@ -99,7 +100,7 @@ export function EventsPage({}: RouteComponentProps) {
             </CardWrapper>
           </div>
         ) : null}
-      </styles.Container>
+      </DFlex>
     </Main>
   );
 }

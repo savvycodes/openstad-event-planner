@@ -146,11 +146,11 @@ export function FilterSidebar({ onChange, ...props }: any) {
   const debouncedQuery = useDebounce(query, 500);
 
   useEffect(() => {
-    setFilters({
+    setFilters((filters: any) => ({
       ...filters,
       q: debouncedQuery,
-    });
-  }, [debouncedQuery, filters]);
+    }));
+  }, [debouncedQuery]);
 
   useEffect(() => {
     onChange(filters);
