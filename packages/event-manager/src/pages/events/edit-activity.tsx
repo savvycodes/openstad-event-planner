@@ -51,12 +51,7 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
         description: values.description,
         location: values.location,
         district: values.district,
-        price:
-          values.needToPay === 'free'
-            ? 0
-            : values.needToPay === 'citypass'
-            ? -1
-            : values.price * 100,
+        price: values.price,
         attendees: values.attendees,
         information: values.information,
         image: values.image,
@@ -103,7 +98,7 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
       description: event.description,
       location: event.location,
       district: event.district,
-      price: event.price === -1 ? 0 : event.price / 100,
+      price: event.price,
       attendees: event.attendees,
       information: event.information,
       tagIds: event.tags.map((tag: any) => tag.id.toString()),
@@ -114,8 +109,6 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
         startTime: new Date(slot.startTime),
         endTime: new Date(slot.endTime),
       })),
-      needToPay:
-        event.price === 0 ? 'free' : event.price === -1 ? 'citypass' : 'free',
     };
   }
 

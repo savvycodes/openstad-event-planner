@@ -266,33 +266,18 @@ export function ActivityForm({
       </FormItem>
 
       <FormItem>
-        <Label>Kosten deelname</Label>
-        <CheckboxList>
-          <CheckboxItem htmlFor="free">
-            <Field type="radio" id="free" name="needToPay" value="free" />
-            Gratis
-          </CheckboxItem>
-          <CheckboxItem htmlFor="citypass">
-            <Field
-              type="radio"
-              id="citypass"
-              name="needToPay"
-              value="citypass"
-            />
-            Stadspas
-          </CheckboxItem>
-          <CheckboxItem htmlFor="paid">
-            <Field type="radio" id="paid" name="needToPay" value="paid" />
-            <Field
-              name="price"
-              type="number"
-              step={0.01}
-              placeholder="bedrag"
-              min={0}
-              disabled={['free', 'citypass'].includes(form?.values?.needToPay)}
-            />
-          </CheckboxItem>
-        </CheckboxList>
+        <Label htmlFor="price">
+          Kosten deelname
+          <Field
+            id="price"
+            name="price"
+            placeholder="Gratis, Stadspas of geldbedrag"
+            component={Textarea}
+          />
+          <Paragraph>
+            <ErrorMessage name="price" />
+          </Paragraph>
+        </Label>
       </FormItem>
 
       <FormItem>
