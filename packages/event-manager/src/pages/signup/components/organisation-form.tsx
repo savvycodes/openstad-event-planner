@@ -134,7 +134,7 @@ export function OrganisationForm() {
           <Field
             type="text"
             name="facebook"
-            placeholder="Facebook"
+            placeholder="https://facebook.com/gemeenteamsterdam"
             component={Input}
           />
           <Paragraph>
@@ -143,7 +143,7 @@ export function OrganisationForm() {
           <Field
             type="text"
             name="instagram"
-            placeholder="Instagram"
+            placeholder="https://instagram.com/midzomermokum"
             component={Input}
           />
           <Paragraph>

@@ -105,7 +105,6 @@ export function ActivityForm({
             type="text"
             name="name"
             placeholder="verplicht veld"
-            tabIndex={1}
             component={Input}
           />
           <Paragraph>
@@ -123,7 +122,6 @@ export function ActivityForm({
             style={{ width: '50%' }}
             name="description"
             placeholder="verplicht veld"
-            tabIndex={2}
             component={Textarea}
           />
           <Paragraph>
@@ -147,7 +145,6 @@ export function ActivityForm({
             </Paragraph>
           ) : null}
           <LocationFinder
-            tabIndex={3}
             placeholder="verplicht veld"
             onSelect={(geo: any) => form.setFieldValue('location', geo)}
             error={form.errors?.location?.coordinates}
@@ -155,7 +152,7 @@ export function ActivityForm({
           <Paragraph>
             <ErrorMessage name="location.coordinates" />
           </Paragraph>
-          <Field name="district" tabIndex={4} component={Select}>
+          <Field name="district" component={Select}>
             <option value="" disabled>
               Stadsdeel
             </option>
@@ -304,47 +301,18 @@ export function ActivityForm({
       </FormItem>
 
       <FormItem>
-        <Label>Kosten deelname</Label>
-        <CheckboxList>
-          <CheckboxItem htmlFor="free">
-            <Field
-              type="radio"
-              id="free"
-              name="needToPay"
-              value="free"
-              tabIndex={13}
-            />
-            Gratis
-          </CheckboxItem>
-          <CheckboxItem htmlFor="citypass">
-            <Field
-              type="radio"
-              id="citypass"
-              name="needToPay"
-              value="citypass"
-              tabIndex={13}
-            />
-            Stadspas
-          </CheckboxItem>
-          <CheckboxItem htmlFor="paid">
-            <Field
-              type="radio"
-              id="paid"
-              name="needToPay"
-              value="paid"
-              tabIndex={14}
-            />
-            <Field
-              name="price"
-              type="number"
-              step={0.01}
-              placeholder="bedrag"
-              min={0}
-              tabIndex={15}
-              disabled={['free', 'citypass'].includes(form?.values?.needToPay)}
-            />
-          </CheckboxItem>
-        </CheckboxList>
+        <Label htmlFor="price">
+          Kosten deelname
+          <Field
+            id="price"
+            name="price"
+            placeholder="Gratis, Stadspas of geldbedrag"
+            component={Textarea}
+          />
+          <Paragraph>
+            <ErrorMessage name="price" />
+          </Paragraph>
+        </Label>
       </FormItem>
 
       <FormItem>
@@ -359,7 +327,6 @@ export function ActivityForm({
             name="attendees"
             placeholder="verplicht veld"
             component={Input}
-            tabIndex={16}
           />
           <Paragraph>
             <ErrorMessage name="attendees" />
@@ -374,7 +341,6 @@ export function ActivityForm({
             component={Textarea}
             rows={6}
             cols={40}
-            tabIndex={17}
             style={{ width: '50%' }}
             name="information"
             placeholder="optioneel"
@@ -389,7 +355,6 @@ export function ActivityForm({
         <Label>
           Upload foto
           <ImageUpload
-            tabIndex={18}
             onUpload={image => form.setFieldValue('image', image.url)}
             value={form.values.image}
           />
@@ -400,7 +365,7 @@ export function ActivityForm({
       </FormItem>
 
       <styles.Center>
-        <Button type="submit" tabIndex={19} disabled={form.isSubmitting}>
+        <Button type="submit" disabled={form.isSubmitting}>
           Voeg toe
         </Button>
       </styles.Center>

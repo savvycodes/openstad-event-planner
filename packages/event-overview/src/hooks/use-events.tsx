@@ -18,6 +18,13 @@ export function useEvents(filters: any) {
     };
     delete apiFilters.ageRanges;
 
+    // remove empty values
+    Object.keys(apiFilters).forEach(key => {
+      if (!apiFilters[key]) {
+        delete apiFilters[key];
+      }
+    });
+
     setQueryString(qs.stringify(apiFilters));
   }, [filters]);
 

@@ -28,7 +28,7 @@ export const schema = Yup.object().shape({
     })
     .required('Locatie is verplicht'),
   district: Yup.string().required('Stadsdeel is verplicht'),
-  price: Yup.number(),
+  price: Yup.string(),
   attendees: Yup.number().required('Aantal beschikbare plekken is verplicht'),
   information: Yup.string(),
   slots: Yup.array()
@@ -88,12 +88,7 @@ export function ProviderAddActivityPage(): JSX.Element {
         description: values.description,
         location: values.location,
         district: values.district,
-        price:
-          values.needToPay === 'free'
-            ? 0
-            : values.needToPay === 'citypass'
-            ? -1
-            : values.price * 100,
+        price: values.price,
         attendees: values.attendees,
         information: values.information,
         image: values.image,
@@ -153,7 +148,7 @@ export function ProviderAddActivityPage(): JSX.Element {
             coordinates: [],
           },
           district: '',
-          price: 0,
+          price: '',
           attendees: 0,
           information: '',
           tagIds: [],
@@ -165,7 +160,6 @@ export function ProviderAddActivityPage(): JSX.Element {
               endTime: addHours(addDays(new Date(), 1), 1),
             },
           ],
-          needToPay: 'free',
         }}
         onSubmit={handleSubmit}
         validationSchema={schema}
