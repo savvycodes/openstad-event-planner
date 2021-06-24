@@ -11,13 +11,27 @@ import { useDistricts } from '../hooks/use-districts';
 import useDebounce from '../hooks/use-debounce';
 import { StyledInput } from './forms/input';
 import { Button } from './button/button';
+import { Paragraph } from './text/text';
+import { DFlex } from './layout/layout';
 
 const styles = {
+  Ages: styled(Ages)`
+    padding: 0 8px;
+  `,
+  P: styled(Paragraph)`
+    padding: 0 8px;
+  `,
   Filter: styled(Filter)`
     padding: 100px;
   `,
   Container: styled('div')`
+  @media (min-width: 1024px) {
     margin: 0 48px;
+  }
+  @media (max-width: 1023px) {
+    margin: 0 12px;
+  }
+    
   `,
   InputWithIcon: styled('div')`
     display: flex;
@@ -63,6 +77,15 @@ const styles = {
     padding: 8px 16px;
     font-size: 14px;
   `,
+  DFlex: styled(DFlex)`
+    align-items: center;
+    justify-content: space-between;
+  `,
+  Paragraph: styled(Paragraph)`
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  `,
 };
 
 function Filter({ name, children }: any) {
@@ -83,6 +106,7 @@ function Filter({ name, children }: any) {
   );
 }
 
+
 const initialFilters: any = {
   q: '',
   ageRanges: [],
@@ -96,10 +120,22 @@ export function FilterSidebar({ onChange, ...props }: any) {
   const districts = useDistricts();
   const ages = ['0-4', '4-8', '8-12', '12-16', '16-18', '18-99'];
 
+  function test() {
+    if(window.innerWidth < 1024) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  const [filtersVisible, setFiltersVisible] = useState(test);
+
   const [filters, setFilters] = useState(props.filters || initialFilters);
   const [query, setQuery] = useState(filters.q);
 
   const debouncedQuery = useDebounce(query, 500);
+
+
 
   useEffect(() => {
     setFilters({
@@ -122,6 +158,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
 
   return (
     <styles.Container>
+      <styles.DFlex>
       <styles.InputWithIcon>
         <styles.StyledInput
           placeholder="Trefwoord"
@@ -129,8 +166,11 @@ export function FilterSidebar({ onChange, ...props }: any) {
           onChange={(e: { target: { value: string; }; }) => setQuery(e.target.value)}
         />
       <styles.Search size={24} strokeWidth={3} stroke={'#0D0D0D'} />
-      {/* <styles.Search size={24} strokeWidth={3} stroke={'#ccc'} /> */}
       </styles.InputWithIcon>
+      <styles.Paragraph onClick={() => setFiltersVisible(!filtersVisible)}>Filteren</styles.Paragraph>
+      </styles.DFlex>
+      {filtersVisible &&
+      <>
       <styles.Filter name="Leeftijd">
         {ages.map((group: string, index) => {
           const range = group.split('-').map(a => parseInt(a));
@@ -165,7 +205,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
                   }
                 }}
               />
-              <Ages
+              <styles.Ages
                 style={{ display: 'inline-block' }}
                 minAge={range[0]}
                 maxAge={range[1]}
@@ -199,7 +239,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
                 }
               }}
             />
-            <p style={{ display: 'inline-block' }}>{district}</p>
+            <styles.P style={{ display: 'inline-block' }}>{district}</styles.P>
           </label>
         ))}
       </Filter>
@@ -226,7 +266,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
                 }
               }}
             />
-            <p style={{ display: 'inline-block' }}>{tag.name}</p>
+            <styles.P style={{ display: 'inline-block' }}>{tag.name}</styles.P>
           </label>
         ))}
       </Filter>
@@ -242,6 +282,8 @@ export function FilterSidebar({ onChange, ...props }: any) {
         }
       />
       <styles.Button onClick={() => setFilters(initialFilters)}>Wissen</styles.Button>
+      </>
+    }
     </styles.Container>
   );
 }

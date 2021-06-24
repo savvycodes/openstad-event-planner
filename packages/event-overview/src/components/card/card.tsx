@@ -54,7 +54,7 @@ export const CardTag = styled('p')`
   border: 1px solid ${props => props.theme.colors.primary};
   border-radius: 5px;
   padding: 0 8px;
-  margin: 0 4px;
+  margin: 4px;
 `;
 
 export const NewActivityCardTextContainer = styled('div')`

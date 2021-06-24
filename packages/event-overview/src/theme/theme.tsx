@@ -7,6 +7,7 @@ import React, { createContext, useContext } from 'react';
 const defaultTheme: DefaultTheme = {
   colors: {
     primary: '#009af0',
+    secondary: '#f06a58',
     danger: '#CF1919',
     white: '#fff',
     black: '#0D0D0D',

@@ -4,6 +4,7 @@ declare module 'goober' {
   export interface DefaultTheme {
     colors: {
       primary: string;
+      secondary: string;
       danger: string;
       white: string;
       black: string;

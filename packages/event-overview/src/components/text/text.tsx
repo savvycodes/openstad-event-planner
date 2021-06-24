@@ -10,7 +10,7 @@ type TextProps = {
 };
 
 export const Paragraph = styled('p')`
-  font-size: 0.8rem;
+  font-size: 16px;
   font-family: 'Noto Sans', sans-serif;
 `;
 
@@ -59,7 +59,7 @@ export const NavItem = styled('p')<TextProps>`
     props.active ? props.theme.effects.boxShadowPrimary : 'none'};
 `;
 
-const Border = styled('div')`
+export const Border = styled('div')`
   width: 50%;
   border-bottom: 3px solid ${props => props.theme.colors.primary};
 `;

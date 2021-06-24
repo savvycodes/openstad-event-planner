@@ -9,3 +9,12 @@ export const Button = styled('button')`
   border-radius: 100px;
   cursor: pointer;
 `;
+
+export const SecondaryButton = styled('button')`
+  border: none;
+  font-size: 16px;
+  background-color: ${props => props.theme.colors.secondary};
+  color: ${props => props.theme.colors.white};
+  padding: 10px 48px;
+  
+`;

@@ -22,6 +22,7 @@ interface EventCalendarProps {
 
 const s = {
   Container: styled('div')`
+  @media (min-width: 1024px) {
     min-width: 100%;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -30,8 +31,27 @@ const s = {
     align-items: flex-start;
     justify-content: stretch;
     margin-bottom: 48px;
+  }
+  @media (max-width: 1023px) {
+    display: block;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 48px;
+  } 
+  
+  `,
+  ChevronLeft: styled(ChevronLeft)`
+    @media (max-width: 1023px) {
+      display: none;
+    }
+  `,
+  ChevronRight: styled(ChevronRight)`
+  @media (max-width: 1023px) {
+    display: none;
+  }
   `,
   CalendarDay: styled('div')`
+  @media (min-width: 1024px) {
     background-color: ${props => props.theme.colors.white};
     box-shadow: ${props => props.theme.effects.boxShadowPrimary};
     margin: 0 12px;
@@ -39,6 +59,14 @@ const s = {
     max-height: 70vh;
     display: flex;
     flex-direction: column;
+  }
+  @media (max-width: 1023px) {
+    background-color: ${props => props.theme.colors.white};
+    box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+    margin: 0 12px 24px 12px;
+    display: flex;
+    flex-direction: column;
+  }
   `,
   CalendarTitle: styled('h2')<any>`
     background-color: ${props => (props.active ? props.theme.colors.primary : props.theme.colors.darkGray)};
@@ -158,10 +186,10 @@ export function EventCalendar({ events }: EventCalendarProps) {
   }
 
   return (
-    <div>
+    <div style={{width: '100vw'}}>
 
       <s.Container>
-        <ChevronLeft style={{cursor: 'pointer'}} onClick={previous} size={24} stroke={'black'} />
+        <s.ChevronLeft style={{cursor: 'pointer'}} onClick={previous} size={24} stroke={'black'} />
         
         {range.map((day: Date) => {
           const date = formatISO(day, { representation: 'date' });
@@ -194,7 +222,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
                       {format(slot.endTime, 'HH:mm')}
                     </SmallParagraph>
                     <s.LocationContainer>
-                    <MapPin style={{ padding: '0 4px' }} size={22} stroke={'black'} />
+                    <MapPin style={{ padding: '0 4px' }} size={22} strokeWidth={2} stroke={'black'} />
                     <s.Location href="#">Locatie</s.Location>
                     </s.LocationContainer>
                   </s.CardDiv>
@@ -204,7 +232,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
             </s.CalendarDay>
           );
         })}
-        <ChevronRight style={{cursor: 'pointer'}} onClick={next} size={24} stroke={'black'} />
+        <s.ChevronRight style={{cursor: 'pointer'}} onClick={next} size={24} stroke={'black'} />
       </s.Container>
 
       
@@ -213,6 +241,6 @@ export function EventCalendar({ events }: EventCalendarProps) {
           <EventTiles events={eventsOnActiveDay} />
           ) : null}
           </CardWrapper>
-    </div>
+          </div>
   );
 }

@@ -10,7 +10,7 @@ import {
 } from '../card/card';
 import { BorderedCardTitle } from '../text/text';
 
-export function EventTiles({ events }: any) {
+export function EventTiles({ events }: any) {  
   return events.map((event: any) => (
     <ActivityCard key={event.id}>
       <Link to={`#/events/${event.id}`}>
