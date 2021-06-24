@@ -25,7 +25,6 @@ export const StyledInput = styled('input')<InputProps>`
 `;
 
 export const StyledTextArea = styled('textarea')<InputProps>`
-  resize: none;
   padding: 8px 10px;
   border-color: ${props => props.error && props.theme.colors.danger};
   border: ${props => !props.error && 'none'};
