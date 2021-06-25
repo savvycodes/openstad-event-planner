@@ -186,7 +186,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
   }
 
   return (
-    <div style={{ width: '100vw' }}>
+    <div>
       <s.Container>
         <s.ChevronLeft
           style={{ cursor: 'pointer' }}
@@ -200,9 +200,8 @@ export function EventCalendar({ events }: EventCalendarProps) {
           const eventsByDay = eventsGroupedByDay[date] || [];
 
           return (
-            <s.CalendarDay key={date}>
+            <s.CalendarDay key={date} onClick={() => setActiveDay(day)}>
               <s.CalendarTitle
-                onClick={() => setActiveDay(day)}
                 active={activeDay && isSameDay(activeDay, day)}
               >
                 {format(day, 'cccc d LLLL', { locale: nl })}
