@@ -201,9 +201,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
 
           return (
             <s.CalendarDay key={date} onClick={() => setActiveDay(day)}>
-              <s.CalendarTitle
-                active={activeDay && isSameDay(activeDay, day)}
-              >
+              <s.CalendarTitle active={activeDay && isSameDay(activeDay, day)}>
                 {format(day, 'cccc d LLLL', { locale: nl })}
               </s.CalendarTitle>
 
