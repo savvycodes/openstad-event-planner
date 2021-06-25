@@ -9,7 +9,7 @@ export function Router(): JSX.Element {
   return (
     <HashRouter>
       <Switch>
-        <Route path={`/events`} component={EventsPage} />
+        <Route path="/events" component={EventsPage} />
         <Route path={`/events/:id`} component={EventDetailPage} />
         <Redirect to={`/events`} />
       </Switch>

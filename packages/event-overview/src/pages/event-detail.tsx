@@ -1,14 +1,18 @@
 import React from 'react';
 import useSWR from 'swr';
 import { styled } from 'goober';
-import { RouteComponentProps } from 'wouter';
+import { RouteComponentProps, Link } from 'wouter';
 
 import { ErrorBanner } from '../components/error-banner';
 import { Spinner } from '../components/spinner';
 import { Border, Paragraph, SmallParagraph } from '../components/text/text';
 import { CardTag } from '../components/card/card';
-import { ChevronRight, Heart } from 'react-feather';
-import { SecondaryButton } from '../components/button/button';
+import {
+  // ChevronRight,
+  Heart,
+} from 'react-feather';
+// import { SecondaryButton } from '../components/button/button';
+import { formatAges } from '../components/ages';
 
 const styles = {
   Container: styled('div')`
@@ -116,7 +120,7 @@ const styles = {
     padding: 0;
   `,
 
-  A: styled('a')`
+  A: styled(Link)<any>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -176,6 +180,11 @@ const styles = {
     align-items: center;
     justify-content: space-between;
   `,
+  CardTag: styled(CardTag)`
+    display: block;
+    margin: 0;
+    margin-right: 8px;
+  `,
 };
 
 export function EventDetailPage({ params }: RouteComponentProps) {
@@ -226,48 +235,20 @@ export function EventDetailPage({ params }: RouteComponentProps) {
                 display: 'none',
               }}
               fill={'transparent'}
-              // fill={'transparent'}
               size={28}
               stroke={'black'}
-              // stroke={'black'}
               strokeWidth={1}
             />
           </styles.DetailHeader>
 
           <styles.GridContainer>
             <styles.EventTagsContainer>
+              <styles.CardTag>
+                {formatAges(event.minAge, event.maxAge)}
+              </styles.CardTag>
+              <styles.CardTag>{event.district}</styles.CardTag>
               {event.tags.map((tag: any) => {
-                return (
-                  <>
-                    <CardTag
-                      style={{
-                        display: 'block',
-                        margin: 0,
-                        marginRight: '8px',
-                      }}
-                    >
-                      {event.minAge}-{event.maxAge} jaar
-                    </CardTag>
-                    <CardTag
-                      style={{
-                        display: 'block',
-                        margin: 0,
-                        marginRight: '8px',
-                      }}
-                    >
-                      {tag.name}
-                    </CardTag>
-                    <CardTag
-                      style={{
-                        display: 'block',
-                        margin: 0,
-                        marginRight: '8px',
-                      }}
-                    >
-                      {event.district}
-                    </CardTag>
-                  </>
-                );
+                return <styles.CardTag key={tag.id}>{tag.name}</styles.CardTag>;
               })}
             </styles.EventTagsContainer>
 
@@ -278,7 +259,19 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             <styles.Paragraph>{event.description}</styles.Paragraph>
           </styles.DescriptionContainer>
 
-          <div
+          <styles.DescriptionContainer>
+            <h2>Kosten deelname</h2>
+            <styles.Paragraph>{event.price}</styles.Paragraph>
+          </styles.DescriptionContainer>
+
+          {event.information && event.information.length ? (
+            <styles.DescriptionContainer>
+              <h2>Hoe kan je je aanmelden?</h2>
+              <styles.Paragraph>{event.information}</styles.Paragraph>
+            </styles.DescriptionContainer>
+          ) : null}
+
+          {/* <div
             style={{
               display: 'flex',
               justifyContent: 'center',
@@ -289,10 +282,10 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             <SecondaryButton>Meld je aan</SecondaryButton>
           </div>
 
-          <styles.A href="">
+          <styles.A href={`#/events?organisationId=${event.organisationId}`}>
             <ChevronRight size={28} stroke={'black'} />
             <styles.ATitle>Alle activiteiten van deze aanbieder</styles.ATitle>
-          </styles.A>
+          </styles.A> */}
         </styles.EventInformation>
 
         <styles.EventDetails>

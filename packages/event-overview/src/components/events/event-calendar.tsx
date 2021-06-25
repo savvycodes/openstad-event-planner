@@ -8,8 +8,13 @@ import nl from 'date-fns/locale/nl';
 import isSameDay from 'date-fns/isSameDay';
 import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
+import uniqBy from 'lodash.uniqby';
 
-import { MapPin, ChevronLeft, ChevronRight } from 'react-feather';
+import {
+  // MapPin,
+  ChevronLeft,
+  ChevronRight,
+} from 'react-feather';
 
 import { CardWrapper } from '../card/card';
 import { Ages } from '../ages';
@@ -77,6 +82,7 @@ const s = {
     margin: 0;
     padding: 12px;
     box-shadow: ${props => props.theme.effects.boxShadowSecondary};
+    cursor: pointer;
   `,
   CardContent: styled('div')`
     padding: 0 8px;
@@ -197,7 +203,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
 
         {range.map((day: Date) => {
           const date = formatISO(day, { representation: 'date' });
-          const eventsByDay = eventsGroupedByDay[date] || [];
+          const eventsByDay = uniqBy(eventsGroupedByDay[date], 'id') || [];
 
           return (
             <s.CalendarDay key={date} onClick={() => setActiveDay(day)}>
@@ -214,14 +220,14 @@ export function EventCalendar({ events }: EventCalendarProps) {
                   if (!slot) return null;
 
                   return (
-                    <s.CardDiv key={event.id}>
+                    <s.CardDiv key={slot.id}>
                       <BorderedCardTitle title={event.name} />
                       <Ages minAge={event.minAge} maxAge={event.maxAge} />
                       <SmallParagraph>
                         {format(slot.startTime, 'HH:mm')} -{' '}
                         {format(slot.endTime, 'HH:mm')}
                       </SmallParagraph>
-                      <s.LocationContainer>
+                      {/* <s.LocationContainer>
                         <MapPin
                           style={{ padding: '0 4px' }}
                           size={22}
@@ -229,7 +235,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
                           stroke={'black'}
                         />
                         <s.Location href="#">Locatie</s.Location>
-                      </s.LocationContainer>
+                      </s.LocationContainer> */}
                     </s.CardDiv>
                   );
                 })}
@@ -246,7 +252,9 @@ export function EventCalendar({ events }: EventCalendarProps) {
       </s.Container>
 
       <CardWrapper>
-        {eventsOnActiveDay ? <EventTiles events={eventsOnActiveDay} /> : null}
+        {eventsOnActiveDay ? (
+          <EventTiles events={uniqBy(eventsOnActiveDay, 'id')} />
+        ) : null}
       </CardWrapper>
     </div>
   );

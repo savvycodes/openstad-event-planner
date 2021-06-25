@@ -50,7 +50,7 @@ export const CardTagsContainer = styled('div')`
 `;
 
 export const CardTag = styled('p')`
-  font-size: 8px;
+  font-size: 11px;
   border: 1px solid ${props => props.theme.colors.primary};
   border-radius: 5px;
   padding: 0 8px;

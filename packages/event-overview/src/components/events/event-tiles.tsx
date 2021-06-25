@@ -9,6 +9,7 @@ import {
   CardTag,
 } from '../card/card';
 import { BorderedCardTitle, SmallParagraph } from '../text/text';
+import { formatAges } from '../ages';
 
 export function EventTiles({ events }: any) {
   return events.map((event: any) => (
@@ -20,9 +21,7 @@ export function EventTiles({ events }: any) {
         </CardTextContainer>
         <SmallParagraph>door {event.organisation.name}</SmallParagraph>
         <CardTagsContainer>
-          <CardTag>
-            {event.minAge}-{event.maxAge} jaar
-          </CardTag>
+          <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
           <CardTag style={{ display: 'block' }}>
             {event.tags.map((tag: any) => tag.name).join(', ')}
           </CardTag>
