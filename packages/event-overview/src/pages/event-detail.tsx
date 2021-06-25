@@ -5,7 +5,12 @@ import { RouteComponentProps, Link } from 'wouter';
 
 import { ErrorBanner } from '../components/error-banner';
 import { Spinner } from '../components/spinner';
-import { Border, Paragraph, SmallParagraph } from '../components/text/text';
+import {
+  Border,
+  Paragraph,
+  SmallParagraph,
+  RichText,
+} from '../components/text/text';
 import { CardTag } from '../components/card/card';
 import {
   // ChevronRight,
@@ -112,12 +117,6 @@ const styles = {
 
   DescriptionContainer: styled('div')`
     width: 95%;
-  `,
-
-  Paragraph: styled(Paragraph)`
-    color: ${props => props.theme.colors.black};
-    margin: 0;
-    padding: 0;
   `,
 
   A: styled(Link)<any>`
@@ -256,18 +255,18 @@ export function EventDetailPage({ params }: RouteComponentProps) {
           </styles.GridContainer>
 
           <styles.DescriptionContainer>
-            <styles.Paragraph>{event.description}</styles.Paragraph>
+            <RichText text={event.description} />
           </styles.DescriptionContainer>
 
           <styles.DescriptionContainer>
             <h2>Kosten deelname</h2>
-            <styles.Paragraph>{event.price}</styles.Paragraph>
+            <Paragraph>{event.price}</Paragraph>
           </styles.DescriptionContainer>
 
           {event.information && event.information.length ? (
             <styles.DescriptionContainer>
               <h2>Hoe kan je je aanmelden?</h2>
-              <styles.Paragraph>{event.information}</styles.Paragraph>
+              <RichText text={event.information} />
             </styles.DescriptionContainer>
           ) : null}
 

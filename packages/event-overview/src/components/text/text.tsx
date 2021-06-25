@@ -88,3 +88,16 @@ export function BorderedCardTitle(props: any) {
     </CardTitle>
   );
 }
+
+export function RichText(props: any) {
+  return props.text.split('\n\n').map((p: string) => (
+    <Paragraph>
+      {p.split('\n').map((line: string, index: number, lines: any) => (
+        <>
+          {line}
+          {index < lines.length ? <br /> : null}
+        </>
+      ))}
+    </Paragraph>
+  ));
+}
