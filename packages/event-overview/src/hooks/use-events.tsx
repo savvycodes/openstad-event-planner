@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useSWR from 'swr';
+import { useSWRInfinite } from 'swr';
 import qs from 'query-string';
 
 const skip = () => true;
@@ -9,7 +9,19 @@ const skip = () => true;
  */
 export function useEvents(filters: any) {
   const [queryString, setQueryString] = useState<string>('');
-  const { data, error } = useSWR(() => `/event?${queryString}`);
+  const { data, error, size, setSize } = useSWRInfinite(index => {
+    if (queryString) {
+      return `/event?${queryString}&page=${index + 1}`;
+    }
+    return `/event?page=${index + 1}`;
+  });
+  const events = data ? [].concat(...data) : [];
+  const isEmpty = data?.[0]?.length === 0;
+  const isReachingEnd =
+    isEmpty ||
+    (data &&
+      data[data.length - 1]?.records.length <
+        data[data.length - 1]?.metadata.pageSize);
 
   useEffect(() => {
     const apiFilters = {
@@ -88,14 +100,28 @@ export function useEvents(filters: any) {
     };
   }
 
+  function next() {
+    if (!isReachingEnd) {
+      setSize(size + 1);
+    }
+  }
+
   // Filter locally
   const filteredEvents =
-    data?.records
+    events
+      ?.map((row: any) => row.records)
+      .flat()
       ?.filter(filterQuery(filters))
       .filter(filterAge(filters))
       .filter(filterDistrict(filters))
       .filter(filterTags(filters))
       .filter(filterDates(filters)) ?? [];
 
-  return { events: filteredEvents, error, loading: !error && !data };
+  return {
+    events: filteredEvents,
+    error,
+    loading: !error && !data,
+    hasMoreResults: !isReachingEnd,
+    next,
+  };
 }
