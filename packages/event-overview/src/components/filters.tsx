@@ -13,6 +13,7 @@ import { StyledInput } from './forms/input';
 import { Button } from './button/button';
 import { Paragraph } from './text/text';
 import { DFlex } from './layout/layout';
+import { useMediaQuery } from 'react-responsive';
 
 const styles = {
   Ages: styled(Ages)`
@@ -80,11 +81,6 @@ const styles = {
     align-items: center;
     justify-content: space-between;
   `,
-  Paragraph: styled(Paragraph)`
-    @media (min-width: 1024px) {
-      display: none;
-    }
-  `,
 };
 
 function Filter({ name, children }: any) {
@@ -126,19 +122,16 @@ const initialFilters: any = {
 };
 
 export function FilterSidebar({ onChange, ...props }: any) {
+  const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+
   const { data: tags } = useSWR('/tag');
   const districts = useDistricts();
   const ages = ['0-4', '4-8', '8-12', '12-16', '16-18', '18-99'];
 
-  function test() {
-    if (window.innerWidth < 1024) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  const [filtersVisible, setFiltersVisible] = useState(test);
+  const [filtersVisible, setFiltersVisible] = useState(
+    isDesktopOrLaptop ? true : false
+  );
 
   const [filters, setFilters] = useState(props.filters || initialFilters);
   const [query, setQuery] = useState(filters.q);
@@ -173,9 +166,12 @@ export function FilterSidebar({ onChange, ...props }: any) {
           />
           <styles.Search size={24} strokeWidth={3} stroke={'#0D0D0D'} />
         </styles.InputWithIcon>
-        <styles.Paragraph onClick={() => setFiltersVisible(!filtersVisible)}>
-          Filteren
-        </styles.Paragraph>
+
+        {isTabletOrMobile && (
+          <Paragraph onClick={() => setFiltersVisible(!filtersVisible)}>
+            Filteren
+          </Paragraph>
+        )}
       </styles.DFlex>
       {filtersVisible && (
         <>

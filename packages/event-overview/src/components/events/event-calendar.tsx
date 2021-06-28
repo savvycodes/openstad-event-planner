@@ -9,12 +9,14 @@ import isSameDay from 'date-fns/isSameDay';
 import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
 
-import { MapPin, ChevronLeft, ChevronRight } from 'react-feather';
+import { ChevronLeft, ChevronRight } from 'react-feather';
+import { Link } from 'wouter';
 
 import { CardWrapper } from '../card/card';
 import { Ages } from '../ages';
 import { EventTiles } from './event-tiles';
-import { BorderedCardTitle, SmallParagraph } from '../text/text';
+import { BorderedCardTitle, Paragraph } from '../text/text';
+import { useMediaQuery } from 'react-responsive';
 
 interface EventCalendarProps {
   events: any[];
@@ -78,6 +80,17 @@ const s = {
     padding: 12px;
     box-shadow: ${props => props.theme.effects.boxShadowSecondary};
   `,
+  CalendarTitleMobile: styled('h2')<any>`
+    background-color: ${props =>
+      props.active ? props.theme.colors.primary : props.theme.colors.darkGray};
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    padding: 4px 12px;
+    margin: 0;
+    padding: 12px;
+    box-shadow: ${props => props.theme.effects.boxShadowSecondary};
+  `,
   CardContent: styled('div')`
     padding: 0 8px;
     overflow-y: scroll;
@@ -92,7 +105,10 @@ const s = {
     font-size: 14px;
   `,
   CardDiv: styled('div')`
-    padding: 0 -4px;
+    padding: 4px;
+    cursor: pointer;
+    border-bottom: 1px solid ${props => props.theme.colors.darkGray};
+    margin: 4px;
   `,
 };
 
@@ -104,6 +120,9 @@ const s = {
  * @todo: Calendar should have
  */
 export function EventCalendar({ events }: EventCalendarProps) {
+  const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+
   const [range, setRange] = useState<Date[]>([
     new Date(),
     addDays(new Date(), 1),
@@ -201,39 +220,71 @@ export function EventCalendar({ events }: EventCalendarProps) {
 
           return (
             <s.CalendarDay key={date} onClick={() => setActiveDay(day)}>
-              <s.CalendarTitle active={activeDay && isSameDay(activeDay, day)}>
-                {format(day, 'cccc d LLLL', { locale: nl })}
-              </s.CalendarTitle>
+              {isDesktopOrLaptop && (
+                <>
+                  <s.CalendarTitle
+                    active={activeDay && isSameDay(activeDay, day)}
+                  >
+                    {format(day, 'cccc d LLLL', { locale: nl })}
+                  </s.CalendarTitle>
 
-              <s.CardContent>
-                {eventsByDay.map((event: any) => {
-                  const slot = event.slots.find((slot: any) =>
-                    isSameDay(day, slot.startTime)
-                  );
+                  <s.CardContent>
+                    {eventsByDay.map((event: any) => {
+                      const slot = event.slots.find((slot: any) =>
+                        isSameDay(day, slot.startTime)
+                      );
 
-                  if (!slot) return null;
+                      if (!slot) return null;
 
-                  return (
-                    <s.CardDiv key={event.id}>
-                      <BorderedCardTitle title={event.name} />
-                      <Ages minAge={event.minAge} maxAge={event.maxAge} />
-                      <SmallParagraph>
-                        {format(slot.startTime, 'HH:mm')} -{' '}
-                        {format(slot.endTime, 'HH:mm')}
-                      </SmallParagraph>
-                      <s.LocationContainer>
-                        <MapPin
-                          style={{ padding: '0 4px' }}
-                          size={22}
-                          strokeWidth={2}
-                          stroke={'black'}
-                        />
-                        <s.Location href="#">Locatie</s.Location>
-                      </s.LocationContainer>
-                    </s.CardDiv>
-                  );
-                })}
-              </s.CardContent>
+                      return (
+                        <Link to={`#/events/${event.id}`}>
+                          <s.CardDiv key={event.id}>
+                            <BorderedCardTitle title={event.name} />
+                            <Ages minAge={event.minAge} maxAge={event.maxAge} />
+                            <Paragraph>
+                              {format(slot.startTime, 'HH:mm')} -{' '}
+                              {format(slot.endTime, 'HH:mm')}
+                            </Paragraph>
+                          </s.CardDiv>
+                        </Link>
+                      );
+                    })}
+                  </s.CardContent>
+                </>
+              )}
+
+              {isTabletOrMobile && (
+                <>
+                  <s.CalendarTitleMobile
+                    active={activeDay && isSameDay(activeDay, day)}
+                  >
+                    {format(day, 'cccc d LLLL', { locale: nl })}
+                  </s.CalendarTitleMobile>
+
+                  <s.CardContent>
+                    {eventsByDay.map((event: any) => {
+                      const slot = event.slots.find((slot: any) =>
+                        isSameDay(day, slot.startTime)
+                      );
+
+                      if (!slot) return null;
+
+                      return (
+                        <Link to={`#/events/${event.id}`}>
+                          <s.CardDiv key={event.id}>
+                            <BorderedCardTitle title={event.name} />
+                            <Ages minAge={event.minAge} maxAge={event.maxAge} />
+                            <Paragraph>
+                              {format(slot.startTime, 'HH:mm')} -{' '}
+                              {format(slot.endTime, 'HH:mm')}
+                            </Paragraph>
+                          </s.CardDiv>
+                        </Link>
+                      );
+                    })}
+                  </s.CardContent>
+                </>
+              )}
             </s.CalendarDay>
           );
         })}

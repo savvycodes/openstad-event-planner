@@ -5,7 +5,14 @@ import { Map } from '../map';
 
 export function EventMap({ events }: any) {
   return (
-    <div style={{ minHeight: '500px', width: '100%', flexBasis: '100%' }}>
+    <div
+      style={{
+        minHeight: '500px',
+        width: '100%',
+        flexBasis: '100%',
+        display: 'block',
+      }}
+    >
       <Map>
         {events.map((event: any) => (
           <Marker

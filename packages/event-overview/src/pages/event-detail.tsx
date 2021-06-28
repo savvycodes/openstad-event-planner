@@ -5,9 +5,9 @@ import { RouteComponentProps } from 'wouter';
 
 import { ErrorBanner } from '../components/error-banner';
 import { Spinner } from '../components/spinner';
-import { Border, Paragraph, SmallParagraph } from '../components/text/text';
+import { Border, Paragraph } from '../components/text/text';
 import { CardTag } from '../components/card/card';
-import { ChevronRight, Heart } from 'react-feather';
+import { ChevronRight } from 'react-feather';
 import { SecondaryButton } from '../components/button/button';
 
 const styles = {
@@ -28,12 +28,6 @@ const styles = {
     @media (max-width: 1023px) {
       margin: 12px;
     }
-  `,
-
-  DetailHeader: styled('div')`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   `,
 
   EventDetails: styled('div')`
@@ -69,10 +63,7 @@ const styles = {
   EventTagsContainer: styled('div')`
     margin: 16px 0;
     display: flex;
-
-    @media (max-width: 1023px) {
-      flex-wrap: wrap;
-    }
+    flex-wrap: wrap;
   `,
 
   EventImage: styled('img')`
@@ -114,6 +105,10 @@ const styles = {
     color: ${props => props.theme.colors.black};
     margin: 0;
     padding: 0;
+  `,
+
+  Provider: styled(Paragraph)`
+    font-weight: 600;
   `,
 
   A: styled('a')`
@@ -215,24 +210,10 @@ export function EventDetailPage({ params }: RouteComponentProps) {
     <styles.Container>
       <styles.EventCardContainer>
         <styles.EventInformation>
-          <styles.DetailHeader>
-            <styles.Title>
-              {event.name}
-              <Border />
-            </styles.Title>
-
-            <Heart
-              style={{
-                display: 'none',
-              }}
-              fill={'transparent'}
-              // fill={'transparent'}
-              size={28}
-              stroke={'black'}
-              // stroke={'black'}
-              strokeWidth={1}
-            />
-          </styles.DetailHeader>
+          <styles.Title>
+            {event.name}
+            <Border />
+          </styles.Title>
 
           <styles.GridContainer>
             <styles.EventTagsContainer>
@@ -241,8 +222,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
                   <>
                     <CardTag
                       style={{
-                        display: 'block',
-                        margin: 0,
                         marginRight: '8px',
                       }}
                     >
@@ -250,8 +229,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
                     </CardTag>
                     <CardTag
                       style={{
-                        display: 'block',
-                        margin: 0,
                         marginRight: '8px',
                       }}
                     >
@@ -259,8 +236,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
                     </CardTag>
                     <CardTag
                       style={{
-                        display: 'block',
-                        margin: 0,
                         marginRight: '8px',
                       }}
                     >
@@ -271,7 +246,7 @@ export function EventDetailPage({ params }: RouteComponentProps) {
               })}
             </styles.EventTagsContainer>
 
-            <SmallParagraph>{event.organisation.name}</SmallParagraph>
+            <styles.Provider>{event.organisation.name}</styles.Provider>
           </styles.GridContainer>
 
           <styles.DescriptionContainer>
