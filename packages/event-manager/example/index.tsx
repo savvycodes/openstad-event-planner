@@ -5,13 +5,20 @@ import { App } from '../.';
 
 const config = {
   jwt:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2MjM2NjA5MDEsImV4cCI6MTYzOTM4NTcwMX0.was9RUPDVplwGIQSyRBX3WHM4HziSxlx4GN8L3KGo90',
-  siteId: 3,
-  apiUrl: '/api',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJpYXQiOjE2MjQ4NzM0MjUsImV4cCI6MTY0MDU5ODIyNX0.tURYJHswfSxSOaTP61QBQ-j8I5C6Ciury36r2O3LR_c',
+  siteId: 2,
+  apiUrl: 'http://localhost:8111',
   imageUrl: '/image',
   user: {
     isEventProvider: true,
     role: 'member',
+  },
+  map: {
+    accessToken:
+      'pk.eyJ1IjoiYmFkbXV0cyIsImEiOiJja3B4eGxiZzYxYXpiMnFwOXY1bnF3OTQ1In0.eHLVPwsrmCLBb1GQWX9EJg',
+    id: 'badmuts/ckpxxn1kf0n6t17p3fgmdbgoa',
+    tileUrl:
+      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
   },
 };
 

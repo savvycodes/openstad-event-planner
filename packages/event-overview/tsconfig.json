@@ -1,6 +1,11 @@
 {
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
-  "include": ["src", "types", "goober.d.ts"],
+  "include": [
+    "src",
+    "types",
+    "goober.d.ts",
+    "react-leaflet-markercluster.d.ts"
+  ],
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext"],
@@ -31,6 +36,13 @@
     "forceConsistentCasingInFileNames": true,
     // `tsdx build` ignores this option, but it is commonly used when type-checking separately with `tsc`
     "noEmit": true,
-    "allowJs": true
+    "allowJs": true,
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
+      "@hooks/*": ["hooks/*"],
+      "@context/*": ["context/*"]
+    }
   }
 }

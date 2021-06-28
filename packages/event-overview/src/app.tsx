@@ -20,6 +20,11 @@ export type AppConfig = {
     // @todo: define all possible roles in a seperate type
     role?: string;
   };
+  map: {
+    tileUrl?: string;
+    accessToken?: string;
+    id?: string;
+  };
 };
 
 type AppProps = {
@@ -32,24 +37,24 @@ export function App(props: AppProps): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
-      <ConfigProvider value={props.config}>
-        <UserProvider
-          value={{
-            jwt: props.config.jwt,
-            role: props.config.user?.role,
-            isEventProvider: props.config.user?.isEventProvider || false,
-          }}
-        >
-          <SWRConfig
+      <SWRConfig
+        value={{
+          fetcher: (resource, init) =>
+            createFetcher(props.config, resource, init),
+        }}
+      >
+        <ConfigProvider value={props.config}>
+          <UserProvider
             value={{
-              fetcher: (resource, init) =>
-                createFetcher(props.config, resource, init),
+              jwt: props.config.jwt,
+              role: props.config.user?.role,
+              isEventProvider: props.config.user?.isEventProvider || false,
             }}
           >
             <Router />
-          </SWRConfig>
-        </UserProvider>
-      </ConfigProvider>
+          </UserProvider>
+        </ConfigProvider>
+      </SWRConfig>
     </ThemeProvider>
   );
 }

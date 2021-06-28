@@ -32,10 +32,10 @@ export function OrganisationSettingsPage() {
 
   const organisationSchema = Yup.object().shape({
     name: Yup.string().required('Naam is verplicht'),
-    street: Yup.string().required('Straat + huisnummer is verplicht'),
+    street: Yup.string().nullable(),
     zip: Yup.string()
       .matches(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-zA-Z]{2}$/, 'Ongeldige postcode')
-      .required('Postcode is verplicht'),
+      .nullable(),
     district: Yup.string()
       .oneOf(districts)
       .required('Stadsdeel is verplicht'),
@@ -47,11 +47,11 @@ export function OrganisationSettingsPage() {
       .required('E-mailadres is verplicht'),
     website: Yup.string()
       .url()
-      .required('Website is verplicht'),
+      .nullable(),
     facebook: Yup.string()
       .url()
       .matches(
-        /(?:(?:http|https):\/\/)?(?:www.)?(?:m.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/,
+        /(?:(?:http|https):\/\/)?(?:www.)?(?:m.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\\-]*)?/,
         'Geen geldige Facebook URL'
       )
       .nullable(),
@@ -78,7 +78,6 @@ export function OrganisationSettingsPage() {
         tagIds: organisation.tags.map((tag: any) => tag.id.toString()),
       }}
       onSubmit={async (values, helpers) => {
-        console.log('on submit', values);
         helpers.setSubmitting(true);
         setError(null);
         try {
@@ -87,7 +86,7 @@ export function OrganisationSettingsPage() {
             const err = await res.json();
             return setError(new Error(err.message));
           }
-          location.reload();
+          window.location.reload();
         } catch (err) {
           return setError(err);
         } finally {

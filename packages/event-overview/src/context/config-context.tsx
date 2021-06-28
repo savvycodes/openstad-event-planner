@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 
 import { AppConfig } from '../app';
 
-const ConfigContext = createContext<AppConfig>({
+const defaultConfig = {
   siteId: 2,
   jwt: '',
   apiUrl: '',
@@ -11,7 +11,14 @@ const ConfigContext = createContext<AppConfig>({
     role: '',
     isEventProvider: false,
   },
-});
+  map: {
+    tileUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    accessToken: '',
+    id: '',
+  },
+};
+
+const ConfigContext = createContext<AppConfig>(defaultConfig);
 
 type ConfigProviderProps = {
   children: React.ReactNode;
@@ -20,7 +27,7 @@ type ConfigProviderProps = {
 
 export const ConfigProvider = (props: ConfigProviderProps): JSX.Element => {
   return (
-    <ConfigContext.Provider value={props.value}>
+    <ConfigContext.Provider value={{ ...defaultConfig, ...props.value }}>
       {props.children}
     </ConfigContext.Provider>
   );

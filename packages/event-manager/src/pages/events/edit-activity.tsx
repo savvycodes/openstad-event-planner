@@ -51,11 +51,12 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
         description: values.description,
         location: values.location,
         district: values.district,
-        price: values.needToPay === 'free' ? 0 : values.price * 100,
+        price: values.price,
         attendees: values.attendees,
         information: values.information,
         image: values.image,
         tagIds: values.tagIds,
+        slots: values.slots,
       };
 
       // Find min and max age
@@ -69,29 +70,6 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
       payload.minAge = minAge;
       payload.maxAge = maxAge;
 
-      // Merge time with date for each slot
-      const [startHour, startMin] = values.startTime
-        .split(':')
-        .map((v: string) => parseInt(v));
-      const [endHour, endMin] = values.endTime
-        .split(':')
-        .map((v: string) => parseInt(v));
-
-      payload.slots = values.dates.map((date: Date) => {
-        const start = new Date(date);
-        start.setHours(startHour);
-        start.setMinutes(startMin);
-        start.setSeconds(0);
-        const end = new Date(date);
-        end.setHours(endHour);
-        end.setMinutes(endMin);
-        end.setSeconds(0);
-        return {
-          startTime: start,
-          endTime: end,
-        };
-      });
-
       await updateEvent(config, params.id, payload);
 
       navigate('/events');
@@ -103,22 +81,6 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
   }
 
   function getInitialValues(event: any) {
-    const startDate = new Date(event.slots[0].startTime);
-    const endDate = new Date(event.slots[0].endTime);
-
-    const startTime = startDate
-      .toTimeString()
-      .split(' ')[0]
-      .split(':')
-      .slice(0, 2)
-      .join(':');
-    const endTime = endDate
-      .toTimeString()
-      .split(' ')[0]
-      .split(':')
-      .slice(0, 2)
-      .join(':');
-
     const ages = ['0-4', '4-8', '8-12', '12-16', '16-18', '18-99'].filter(
       ageGroup => {
         const [min, max] = ageGroup.split('-').map(age => parseInt(age));
@@ -136,16 +98,17 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
       description: event.description,
       location: event.location,
       district: event.district,
-      price: event.price / 100,
+      price: event.price,
       attendees: event.attendees,
       information: event.information,
       tagIds: event.tags.map((tag: any) => tag.id.toString()),
       ages: ages,
       image: event.image,
-      dates: event.slots.map((slot: any) => new Date(slot.startTime)),
-      startTime: startTime,
-      endTime: endTime,
-      needToPay: event.price > 0 ? 'paid' : 'free',
+      slots: event.slots.map((slot: any) => ({
+        ...slot,
+        startTime: new Date(slot.startTime),
+        endTime: new Date(slot.endTime),
+      })),
     };
   }
 

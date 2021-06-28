@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled } from 'goober';
-import { Calendar, Grid, MapPin, Plus } from 'react-feather';
+import { Plus } from 'react-feather';
 import { Route } from 'wouter';
 
 import { useHashLocation } from '../../components/hash-router';
@@ -90,27 +90,6 @@ export function ProviderActivityOverviewPage(): JSX.Element {
             Uw gegevens
           </NavItem>
         </HeaderNavigation>
-
-        <Route path="/events">
-          <HeaderNavigation>
-            <styles.RightNavItem onClick={() => console.log('navigate')} active>
-              <Grid style={{ padding: '0 4px' }} size={24} fill={'black'} />
-              Tegels
-            </styles.RightNavItem>
-            <styles.RightNavItem onClick={() => console.log('navigate')}>
-              <MapPin style={{ padding: '0 4px' }} size={24} stroke={'black'} />
-              Kaart
-            </styles.RightNavItem>
-            <styles.RightNavItem onClick={() => console.log('navigate')}>
-              <Calendar
-                style={{ padding: '0 4px' }}
-                size={24}
-                stroke={'black'}
-              />
-              Kalender
-            </styles.RightNavItem>
-          </HeaderNavigation>
-        </Route>
       </styles.SubHeader>
 
       <Route
@@ -125,19 +104,7 @@ export function ProviderActivityOverviewPage(): JSX.Element {
           </CardWrapper>
         )}
       />
-      <Route
-        path="/events/settings"
-        component={OrganisationSettingsPage}
-        // component={() => (
-        //   <CardWrapper>
-        //     {organisation && organisation.id ? (
-        //       <ActivityList organisationId={organisation.id} />
-        //     ) : (
-        //       <Spinner />
-        //     )}
-        //   </CardWrapper>
-        // )}
-      />
+      <Route path="/events/settings" component={OrganisationSettingsPage} />
     </Main>
   );
 }

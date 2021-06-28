@@ -9,6 +9,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
+    "leaflet": "^1.7.1",
     "react-app-polyfill": "^1.0.0"
   },
   "alias": {

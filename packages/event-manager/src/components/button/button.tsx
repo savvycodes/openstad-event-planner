@@ -9,3 +9,13 @@ export const Button = styled('button')`
   border-radius: 100px;
   cursor: pointer;
 `;
+
+export const AddDateTimeButton = styled('div')`
+  cursor: pointer;
+  border: none;
+  float: right;
+  margin-right: 6px;
+  background-color: ${props => props.theme.colors.darkGray};
+  padding: 4px 16px;
+  border-radius: 50px;
+`;

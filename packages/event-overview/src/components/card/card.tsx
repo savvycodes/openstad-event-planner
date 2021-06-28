@@ -12,6 +12,7 @@ type CardProps = {
 
 export const CardWrapper = styled('div')`
   @media (min-width: 1024px) {
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
@@ -19,8 +20,7 @@ export const CardWrapper = styled('div')`
 
 export const ActivityCard = styled('div')<CardProps>`
   cursor: pointer;
-  /* width: ${100 / 3}%; */
-  height: 42.5vh;
+  height: 47.5vh;
   background-color: ${props =>
     props.newactivity
       ? props.theme.colors.background
@@ -30,7 +30,7 @@ export const ActivityCard = styled('div')<CardProps>`
   position: relative;
 `;
 export const CardTextContainer = styled('div')`
-  margin: -5% 5%;
+  margin: 0 5%;
   width: 80%;
 `;
 export const CardIconContainer = styled('div')`
@@ -39,6 +39,22 @@ export const CardIconContainer = styled('div')`
   right: 5%;
   bottom: 5%;
   justify-content: center;
+`;
+
+export const CardTagsContainer = styled('div')`
+  position: absolute;
+  bottom: 12px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+`;
+
+export const CardTag = styled('p')`
+  font-size: 11px;
+  border: 1px solid ${props => props.theme.colors.primary};
+  border-radius: 5px;
+  padding: 0 8px;
+  margin: 4px;
 `;
 
 export const NewActivityCardTextContainer = styled('div')`
@@ -52,7 +68,7 @@ export const NewActivityCardTextContainer = styled('div')`
 export const ActivityImage = styled('img')`
   width: 90%;
   height: 60%;
-  margin: 5%;
+  margin: 5% 5% 0 5%;
   object-fit: cover;
 `;
 

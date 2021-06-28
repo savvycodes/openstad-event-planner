@@ -1,5 +1,12 @@
 import { styled } from 'goober';
 
+/**
+ * Form helpers
+ */
+type InputProps = {
+  active?: boolean;
+};
+
 export const Main = styled('div')`
   background-color: ${props => props.theme.colors.background};
   padding: 12px 0;
@@ -11,6 +18,19 @@ export const Header = styled('div')`
 export const DFlex = styled('div')`
   display: flex;
 `;
+
+export const NavigationItem = styled('div')<InputProps>`
+  padding: 12px;
+  margin-left: 12px;
+  background-color: ${props => props.theme.colors.background};
+  box-shadow: ${props =>
+    props.active ? props.theme.effects.boxShadowPrimary : 'none'};
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
 export const HeaderNavigation = styled('div')`
   @media (max-width: 1023px) {
     display: flex;

@@ -11,34 +11,34 @@ type TextProps = {
 
 export const Paragraph = styled('p')`
   font-size: 14px;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: ${props => props.theme.font.family};
 `;
 
 export const Title = styled('h1')`
   font-size: 24px;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: ${props => props.theme.font.family};
   display: inline-block;
 `;
 
 export const Label = styled('label')`
   font-weight: 700;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: ${props => props.theme.font.family};
 `;
 export const ListLabel = styled('label')`
   padding: 0 8px;
   font-size: 14px;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: ${props => props.theme.font.family};
 `;
 
 export const CardTitle = styled('h1')`
   font-size: 18px;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: ${props => props.theme.font.family};
   display: inline-block;
 `;
 export const NewActivityTitle = styled('h1')`
   @media (min-width: 1024px) {
     font-size: 18px;
-    font-family: 'Noto Sans', sans-serif;
+    font-family: ${props => props.theme.font.family};
     margin: 12px;
     color: ${props => props.theme.colors.darkestGray};
   }
@@ -51,7 +51,7 @@ export const NavItem = styled('p')<TextProps>`
   display: flex;
   cursor: pointer;
   justify-content: center;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: ${props => props.theme.font.family};
   margin: 8px 4px;
   padding: 8px;
   background-color: ${props => props.theme.colors.background};

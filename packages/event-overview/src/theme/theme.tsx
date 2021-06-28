@@ -7,6 +7,7 @@ import React, { createContext, useContext } from 'react';
 const defaultTheme: DefaultTheme = {
   colors: {
     primary: '#009af0',
+    secondary: '#f06a58',
     danger: '#CF1919',
     white: '#fff',
     black: '#0D0D0D',
@@ -22,11 +23,13 @@ const defaultTheme: DefaultTheme = {
   },
   font: {
     size: 16,
-    family: "'Roboto', sans-serif",
+    family:
+      "'Avenir Next W01', 'Avenir', 'Noto Sans', 'Roboto', Helvetica, Arial, sans-serif",
   },
   effects: {
     // @todo: this color is not dynamic, boxShadowPrimary should be a function composing shadow size (don't think that should be configurable) and color together
     boxShadowPrimary: '0 6px 9px 0px #ccc',
+    boxShadowSecondary: '0 3px 9px 0px #ccc',
   },
 };
 

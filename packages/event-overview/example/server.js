@@ -6,32 +6,36 @@ const app = express();
 
 app.use(
   createProxyMiddleware('/api', {
-    target: 'http://localhost:4444',
+    target: 'https://api.openstad.savvy.codes',
     changeOrigin: true,
-    onProxyReq: function(proxyReq, req) {
-      proxyReq.setHeader('cookie', req.headers.cookie);
+    pathRewrite: {
+      '^/api/oauth': '/oauth',
+      '^/api/api': '/api',
     },
-    onProxyRes: function(proxyRes, req, res) {
-      const proxyCookie = proxyRes.headers['set-cookie'];
-      if (proxyCookie) {
-        res.setHeader('cookie', proxyCookie);
-      }
-    },
+    // onProxyReq: function(proxyReq, req) {
+    //   proxyReq.setHeader('cookie', req.headers.cookie);
+    // },
+    // onProxyRes: function(proxyRes, req, res) {
+    //   const proxyCookie = proxyRes.headers['set-cookie'];
+    //   if (proxyCookie) {
+    //     res.setHeader('cookie', proxyCookie);
+    //   }
+    // },
   })
 );
 app.use(
   createProxyMiddleware('/image', {
-    target: 'http://localhost:4444',
+    target: 'https://midzomermokum.openstad-staging.savvy.codes/image',
     changeOrigin: true,
     onProxyReq: function(proxyReq, req) {
-      proxyReq.setHeader('cookie', req.headers.cookie);
+      // proxyReq.setHeader('cookie', req.headers.cookie);
     },
     onProxyRes: function(proxyRes, req, res) {
-      const proxyCookie = proxyRes.headers['set-cookie'];
-      if (proxyCookie) {
-        res.setHeader('cookie', proxyCookie);
-        // myappSessionValidationCookie = proxyCookie;
-      }
+      // const proxyCookie = proxyRes.headers['set-cookie'];
+      // if (proxyCookie) {
+      //   res.setHeader('cookie', proxyCookie);
+      //   // myappSessionValidationCookie = proxyCookie;
+      // }
     },
   })
 );

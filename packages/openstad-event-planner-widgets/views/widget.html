@@ -1,14 +1,4 @@
-{% if not data.widget.isSupported %} {#
-<h1>Geen API ondersteuning</h1>
-<p>
-  <a
-    href="https://github.com/savvycodes/openstad-event-planner#installation"
-    target="_blank"
-    >Update</a
-  >
-  de API zodat deze de event-planner ondersteunt
-</p>
-#} {% endif %} {% if data.widget.canView %}
+{% if data.widget.canView %}
 <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 <script src="/modules/@savvycodes/openstad-event-planner-widgets/js/event-manager.js"></script>
@@ -30,7 +20,11 @@
 <pre>{{ data.widget.config | safe }}</pre>
 {% endif %} {% else %}
 
-<h1>Sorry, je bent geen aanbieder</h1>
-<a href="{{ data.widget.loginUrl }}">Login</a>
+<h1>Inloggen Aanbieders</h1>
+<a
+  href="{{ data.widget.loginUrl }}"
+  class="filled-button margin-bottom-sm button-without-icon"
+  >Login</a
+>
 
 {% endif %}
