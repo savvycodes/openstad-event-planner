@@ -221,7 +221,9 @@ export function EventCalendar({ events }: EventCalendarProps) {
 
                   return (
                     <s.CardDiv key={slot.id}>
-                      <BorderedCardTitle title={event.name} />
+                      <a href={`#/events/${event.id}`}>
+                        <BorderedCardTitle title={event.name} />
+                      </a>
                       <Ages minAge={event.minAge} maxAge={event.maxAge} />
                       <SmallParagraph>
                         {format(slot.startTime, 'HH:mm')} -{' '}
