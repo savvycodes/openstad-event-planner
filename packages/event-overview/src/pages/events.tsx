@@ -94,7 +94,7 @@ export function EventsPage({}: RouteComponentProps) {
           </div>
         ) : null}
         {viewType === 'map' ? (
-          <div>
+          <div style={{ width: '100%' }}>
             <EventMap events={events} />
             <CardWrapper>
               <EventTiles events={events} />

@@ -76,6 +76,7 @@
     "query-string": "^7.0.0",
     "react-feather": "^2.0.9",
     "react-leaflet": "^3.2.0",
+    "react-leaflet-markercluster": "^3.0.0-rc1",
     "react-multi-date-picker": "^2.9.7",
     "swr": "^0.5.6",
     "theme": "^0.1.0",
