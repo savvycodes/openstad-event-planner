@@ -10,7 +10,7 @@ import { App } from '../.';
 
 const config = {
   jwt: '',
-  siteId: 2,
+  siteId: 6,
   apiUrl: '/api',
   imageUrl: '/image',
   user: {
