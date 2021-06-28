@@ -8,6 +8,7 @@ import nl from 'date-fns/locale/nl';
 import isSameDay from 'date-fns/isSameDay';
 import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
+import uniqBy from 'lodash.uniqby';
 
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { Link } from 'wouter';
@@ -79,6 +80,7 @@ const s = {
     margin: 0;
     padding: 12px;
     box-shadow: ${props => props.theme.effects.boxShadowSecondary};
+    cursor: pointer;
   `,
   CalendarTitleMobile: styled('h2')<any>`
     background-color: ${props =>
@@ -216,7 +218,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
 
         {range.map((day: Date) => {
           const date = formatISO(day, { representation: 'date' });
-          const eventsByDay = eventsGroupedByDay[date] || [];
+          const eventsByDay = uniqBy(eventsGroupedByDay[date], 'id') || [];
 
           return (
             <s.CalendarDay key={date} onClick={() => setActiveDay(day)}>
@@ -297,7 +299,9 @@ export function EventCalendar({ events }: EventCalendarProps) {
       </s.Container>
 
       <CardWrapper>
-        {eventsOnActiveDay ? <EventTiles events={eventsOnActiveDay} /> : null}
+        {eventsOnActiveDay ? (
+          <EventTiles events={uniqBy(eventsOnActiveDay, 'id')} />
+        ) : null}
       </CardWrapper>
     </div>
   );

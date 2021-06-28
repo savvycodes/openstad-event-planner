@@ -17,6 +17,7 @@ const styles = {
     font-size: 12px;
   `,
 };
+import { formatAges } from '../ages';
 
 export function EventTiles({ events }: any) {
   return events.map((event: any) => (
@@ -30,9 +31,7 @@ export function EventTiles({ events }: any) {
           door {event.organisation.name}
         </styles.SmallParagraph>
         <CardTagsContainer>
-          <CardTag>
-            {event.minAge}-{event.maxAge} jaar
-          </CardTag>
+          <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
           <CardTag style={{ display: 'block' }}>
             {event.tags.map((tag: any) => tag.name).join(', ')}
           </CardTag>

@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "react-app-polyfill": "^1.0.0",
-    "react-responsive": "^8.2.0"
+    "react-responsive": "^8.2.0",
+    "leaflet.markercluster": "^1.5.0"
   },
   "alias": {
     "react": "../node_modules/react",

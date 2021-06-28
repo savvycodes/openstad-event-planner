@@ -5,10 +5,9 @@ import { RouteComponentProps } from 'wouter';
 
 import { ErrorBanner } from '../components/error-banner';
 import { Spinner } from '../components/spinner';
-import { Border, Paragraph } from '../components/text/text';
+import { Border, Paragraph, RichText } from '../components/text/text';
 import { CardTag } from '../components/card/card';
-import { ChevronRight } from 'react-feather';
-import { SecondaryButton } from '../components/button/button';
+import { formatAges } from '@components/ages';
 
 const styles = {
   Container: styled('div')`
@@ -171,6 +170,11 @@ const styles = {
     align-items: center;
     justify-content: space-between;
   `,
+  CardTag: styled(CardTag)`
+    display: block;
+    margin: 0;
+    margin-right: 8px;
+  `,
 };
 
 export function EventDetailPage({ params }: RouteComponentProps) {
@@ -217,6 +221,10 @@ export function EventDetailPage({ params }: RouteComponentProps) {
 
           <styles.GridContainer>
             <styles.EventTagsContainer>
+              <styles.CardTag>
+                {formatAges(event.minAge, event.maxAge)}
+              </styles.CardTag>
+              <styles.CardTag>{event.district}</styles.CardTag>
               {event.tags.map((tag: any) => {
                 return (
                   <>
@@ -250,10 +258,22 @@ export function EventDetailPage({ params }: RouteComponentProps) {
           </styles.GridContainer>
 
           <styles.DescriptionContainer>
-            <styles.Paragraph>{event.description}</styles.Paragraph>
+            <RichText text={event.description} />
           </styles.DescriptionContainer>
 
-          <div
+          <styles.DescriptionContainer>
+            <h2>Kosten deelname</h2>
+            <Paragraph>{event.price}</Paragraph>
+          </styles.DescriptionContainer>
+
+          {event.information && event.information.length ? (
+            <styles.DescriptionContainer>
+              <h2>Hoe kan je je aanmelden?</h2>
+              <RichText text={event.information} />
+            </styles.DescriptionContainer>
+          ) : null}
+
+          {/* <div
             style={{
               display: 'flex',
               justifyContent: 'center',
@@ -264,10 +284,10 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             <SecondaryButton>Meld je aan</SecondaryButton>
           </div>
 
-          <styles.A href="">
+          <styles.A href={`#/events?organisationId=${event.organisationId}`}>
             <ChevronRight size={28} stroke={'black'} />
             <styles.ATitle>Alle activiteiten van deze aanbieder</styles.ATitle>
-          </styles.A>
+          </styles.A> */}
         </styles.EventInformation>
 
         <styles.EventDetails>

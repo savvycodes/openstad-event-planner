@@ -17,6 +17,7 @@ import {
 import { EventCalendar } from '../components/events/event-calendar';
 import { EventTiles } from '../components/events/event-tiles';
 import { EventMap } from '../components/events/event-map';
+import { Button } from '../components/button/button';
 
 import { useEvents } from '../hooks/use-events';
 
@@ -40,7 +41,7 @@ export function EventsPage({}: RouteComponentProps) {
   const [filters, setFilters] = useState<any>(null);
   const [viewType, setViewType] = useState('tile');
 
-  const { events, error, loading } = useEvents(filters);
+  const { events, error, loading, next, hasMoreResults } = useEvents(filters);
 
   if (error) {
     return <ErrorBanner>{error.message}</ErrorBanner>;
@@ -135,6 +136,42 @@ export function EventsPage({}: RouteComponentProps) {
           ) : null}
         </styles.ContentContainer>
       )}
+      {isDesktopOrLaptop && (
+        <DFlex>
+          <FilterSidebar filters={filters} onChange={setFilters} />
+
+          {loading ? <Spinner /> : null}
+
+          {viewType === 'tile' ? (
+            <CardWrapper>
+              <EventTiles events={events} />
+            </CardWrapper>
+          ) : null}
+          {viewType === 'calendar' ? (
+            <div>
+              <EventCalendar events={events} />
+            </div>
+          ) : null}
+          {viewType === 'map' ? (
+            <div style={{ width: '100%', height: '100%' }}>
+              <EventMap events={events} />
+              <CardWrapper>
+                <EventTiles events={events} />
+              </CardWrapper>
+            </div>
+          ) : null}
+        </DFlex>
+      )}
+      {hasMoreResults ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Button onClick={next}>Meer laden</Button>
+        </div>
+      ) : null}
     </Main>
   );
 }

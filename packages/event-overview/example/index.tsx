@@ -1,14 +1,16 @@
 import 'react-app-polyfill/ie11';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'leaflet';
+import 'leaflet.markercluster';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { App } from '../.';
 
 const config = {
-  jwt:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJpYXQiOjE2MjM5MzczMDcsImV4cCI6MTYzOTY2MjEwN30.VFt9Kfln_O_y28S1i0I5-08vQH7fweoxul5BlY2GuFU',
-  siteId: 3,
+  jwt: '',
+  siteId: 6,
   apiUrl: '/api',
   imageUrl: '/image',
   user: {
