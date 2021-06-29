@@ -84,32 +84,6 @@ export function EventsPage({}: RouteComponentProps) {
         </NavigationItem>
       </styles.Header>
 
-      {isDesktopOrLaptop && (
-        <DFlex>
-          <FilterSidebar filters={filters} onChange={setFilters} />
-
-          {loading ? <Spinner /> : null}
-
-          {viewType === 'tile' ? (
-            <CardWrapper>
-              <EventTiles events={events} />
-            </CardWrapper>
-          ) : null}
-          {viewType === 'calendar' ? (
-            <div>
-              <EventCalendar events={events} />
-            </div>
-          ) : null}
-          {viewType === 'map' ? (
-            <div style={{ width: '100%', height: '100%' }}>
-              <EventMap events={events} />
-              <CardWrapper>
-                <EventTiles events={events} />
-              </CardWrapper>
-            </div>
-          ) : null}
-        </DFlex>
-      )}
       {isTabletOrMobile && (
         <styles.ContentContainer>
           <FilterSidebar filters={filters} onChange={setFilters} />

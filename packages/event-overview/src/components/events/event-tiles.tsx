@@ -24,6 +24,7 @@ export function EventTiles({ events }: any) {
     <Link to={`#/events/${event.id}`}>
       <ActivityCard key={event.id}>
         <ActivityImage src={event.image} alt={event.name} />
+
         <CardTextContainer>
           <BorderedCardTitle title={event.name} />
         </CardTextContainer>
@@ -32,10 +33,10 @@ export function EventTiles({ events }: any) {
         </styles.SmallParagraph>
         <CardTagsContainer>
           <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
-          <CardTag style={{ display: 'block' }}>
-            {event.tags.map((tag: any) => tag.name).join(', ')}
-          </CardTag>
-          <CardTag style={{ display: 'block' }}>{event.district}</CardTag>
+          {event.tags.map((tag: any) => (
+            <CardTag>{tag.name}</CardTag>
+          ))}
+          <CardTag>{event.district}</CardTag>
         </CardTagsContainer>
       </ActivityCard>
     </Link>

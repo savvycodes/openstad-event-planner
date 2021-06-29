@@ -15,7 +15,6 @@ export const CardWrapper = styled('div')`
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    height: 100%;
   }
 `;
 
@@ -29,10 +28,9 @@ export const ActivityCard = styled('div')<CardProps>`
   margin: 12px;
   padding: 5%;
   position: relative;
-  height: 95%;
 `;
 export const CardTextContainer = styled('div')`
-  width: 80%;
+  width: 100%;
 `;
 export const CardIconContainer = styled('div')`
   position: absolute;
@@ -42,15 +40,6 @@ export const CardIconContainer = styled('div')`
   justify-content: center;
 `;
 
-// export const CardTagsContainer = styled('div')`
-//   position: absolute;
-//   bottom: 12px;
-//   display: flex;
-//   width: 100%;
-//   justify-content: center;
-//   flex-wrap: wrap;
-//   margin-top: 240px;
-// `;
 export const CardTagsContainer = styled('div')`
   display: flex;
   justify-content: center;
@@ -76,7 +65,7 @@ export const NewActivityCardTextContainer = styled('div')`
 
 export const ActivityImage = styled('img')`
   width: 100%;
-  height: 60%;
+  height: 240px;
   object-fit: cover;
 `;
 

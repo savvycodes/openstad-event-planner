@@ -53,6 +53,13 @@ const s = {
     }
   `,
   CalendarDay: styled('div')`
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
     @media (min-width: 1024px) {
       background-color: ${props => props.theme.colors.white};
       box-shadow: ${props => props.theme.effects.boxShadowPrimary};
@@ -216,6 +223,31 @@ export function EventCalendar({ events }: EventCalendarProps) {
           stroke={'black'}
         />
 
+        {isTabletOrMobile && (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              margin: '12px 0',
+            }}
+          >
+            <div
+              onClick={previous}
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              <ChevronLeft style={{ cursor: 'pointer' }} stroke={'black'} />
+              <Paragraph>Vorige</Paragraph>
+            </div>
+
+            <div
+              onClick={next}
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              <Paragraph>Volgende</Paragraph>
+              <ChevronRight style={{ cursor: 'pointer' }} stroke={'black'} />
+            </div>
+          </div>
+        )}
         {range.map((day: Date) => {
           const date = formatISO(day, { representation: 'date' });
           const eventsByDay = uniqBy(eventsGroupedByDay[date], 'id') || [];

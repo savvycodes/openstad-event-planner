@@ -7,7 +7,7 @@ import { ErrorBanner } from '../components/error-banner';
 import { Spinner } from '../components/spinner';
 import { Border, Paragraph, RichText } from '../components/text/text';
 import { CardTag } from '../components/card/card';
-import { formatAges } from '@components/ages';
+import { formatAges } from '../components/ages';
 
 const styles = {
   Container: styled('div')`
@@ -25,12 +25,11 @@ const styles = {
       margin: 32px;
     }
     @media (max-width: 1023px) {
-      margin: 12px;
+      margin-bottom: 24px;
     }
   `,
 
   EventDetails: styled('div')`
-    margin: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
