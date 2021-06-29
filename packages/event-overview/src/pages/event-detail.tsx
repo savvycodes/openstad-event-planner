@@ -1,22 +1,12 @@
 import React from 'react';
 import useSWR from 'swr';
 import { styled } from 'goober';
-import { RouteComponentProps, Link } from 'wouter';
+import { RouteComponentProps } from 'wouter';
 
 import { ErrorBanner } from '../components/error-banner';
 import { Spinner } from '../components/spinner';
-import {
-  Border,
-  Paragraph,
-  SmallParagraph,
-  RichText,
-} from '../components/text/text';
+import { Border, Paragraph, RichText } from '../components/text/text';
 import { CardTag } from '../components/card/card';
-import {
-  // ChevronRight,
-  Heart,
-} from 'react-feather';
-// import { SecondaryButton } from '../components/button/button';
 import { formatAges } from '../components/ages';
 
 const styles = {
@@ -35,18 +25,11 @@ const styles = {
       margin: 32px;
     }
     @media (max-width: 1023px) {
-      margin: 12px;
+      margin-bottom: 24px;
     }
   `,
 
-  DetailHeader: styled('div')`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  `,
-
   EventDetails: styled('div')`
-    margin: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,10 +61,7 @@ const styles = {
   EventTagsContainer: styled('div')`
     margin: 16px 0;
     display: flex;
-
-    @media (max-width: 1023px) {
-      flex-wrap: wrap;
-    }
+    flex-wrap: wrap;
   `,
 
   EventImage: styled('img')`
@@ -119,7 +99,17 @@ const styles = {
     width: 95%;
   `,
 
-  A: styled(Link)<any>`
+  Paragraph: styled(Paragraph)`
+    color: ${props => props.theme.colors.black};
+    margin: 0;
+    padding: 0;
+  `,
+
+  Provider: styled(Paragraph)`
+    font-weight: 600;
+  `,
+
+  A: styled('a')`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -223,22 +213,10 @@ export function EventDetailPage({ params }: RouteComponentProps) {
     <styles.Container>
       <styles.EventCardContainer>
         <styles.EventInformation>
-          <styles.DetailHeader>
-            <styles.Title>
-              {event.name}
-              <Border />
-            </styles.Title>
-
-            <Heart
-              style={{
-                display: 'none',
-              }}
-              fill={'transparent'}
-              size={28}
-              stroke={'black'}
-              strokeWidth={1}
-            />
-          </styles.DetailHeader>
+          <styles.Title>
+            {event.name}
+            <Border />
+          </styles.Title>
 
           <styles.GridContainer>
             <styles.EventTagsContainer>
@@ -247,11 +225,35 @@ export function EventDetailPage({ params }: RouteComponentProps) {
               </styles.CardTag>
               <styles.CardTag>{event.district}</styles.CardTag>
               {event.tags.map((tag: any) => {
-                return <styles.CardTag key={tag.id}>{tag.name}</styles.CardTag>;
+                return (
+                  <>
+                    <CardTag
+                      style={{
+                        marginRight: '8px',
+                      }}
+                    >
+                      {event.minAge}-{event.maxAge} jaar
+                    </CardTag>
+                    <CardTag
+                      style={{
+                        marginRight: '8px',
+                      }}
+                    >
+                      {tag.name}
+                    </CardTag>
+                    <CardTag
+                      style={{
+                        marginRight: '8px',
+                      }}
+                    >
+                      {event.district}
+                    </CardTag>
+                  </>
+                );
               })}
             </styles.EventTagsContainer>
 
-            <SmallParagraph>{event.organisation.name}</SmallParagraph>
+            <styles.Provider>{event.organisation.name}</styles.Provider>
           </styles.GridContainer>
 
           <styles.DescriptionContainer>

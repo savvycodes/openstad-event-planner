@@ -7,6 +7,7 @@ import { Spinner } from '../components/spinner';
 import { ErrorBanner } from '../components/error-banner';
 import { FilterSidebar } from '../components/filters';
 import { CardWrapper } from '../components/card/card';
+import { useMediaQuery } from 'react-responsive';
 import {
   DFlex,
   Header,
@@ -25,6 +26,9 @@ const styles = {
     display: flex;
     justify-content: flex-end;
   `,
+  ContentContainer: styled('div')`
+    display: block;
+  `,
 };
 
 /**
@@ -42,6 +46,8 @@ export function EventsPage({}: RouteComponentProps) {
   if (error) {
     return <ErrorBanner>{error.message}</ErrorBanner>;
   }
+  const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
 
   return (
     <Main>
@@ -78,30 +84,58 @@ export function EventsPage({}: RouteComponentProps) {
         </NavigationItem>
       </styles.Header>
 
-      <DFlex>
-        <FilterSidebar filters={filters} onChange={setFilters} />
+      {isTabletOrMobile && (
+        <styles.ContentContainer>
+          <FilterSidebar filters={filters} onChange={setFilters} />
 
-        {loading ? <Spinner /> : null}
+          {loading ? <Spinner /> : null}
 
-        {viewType === 'tile' ? (
-          <CardWrapper>
-            <EventTiles events={events} />
-          </CardWrapper>
-        ) : null}
-        {viewType === 'calendar' ? (
-          <div>
-            <EventCalendar events={events} />
-          </div>
-        ) : null}
-        {viewType === 'map' ? (
-          <div style={{ width: '100%' }}>
-            <EventMap events={events} />
+          {viewType === 'tile' ? (
             <CardWrapper>
               <EventTiles events={events} />
             </CardWrapper>
-          </div>
-        ) : null}
-      </DFlex>
+          ) : null}
+          {viewType === 'calendar' ? (
+            <div>
+              <EventCalendar events={events} />
+            </div>
+          ) : null}
+          {viewType === 'map' ? (
+            <div style={{ width: '100%', height: '100%' }}>
+              <EventMap events={events} />
+              <CardWrapper>
+                <EventTiles events={events} />
+              </CardWrapper>
+            </div>
+          ) : null}
+        </styles.ContentContainer>
+      )}
+      {isDesktopOrLaptop && (
+        <DFlex>
+          <FilterSidebar filters={filters} onChange={setFilters} />
+
+          {loading ? <Spinner /> : null}
+
+          {viewType === 'tile' ? (
+            <CardWrapper>
+              <EventTiles events={events} />
+            </CardWrapper>
+          ) : null}
+          {viewType === 'calendar' ? (
+            <div>
+              <EventCalendar events={events} />
+            </div>
+          ) : null}
+          {viewType === 'map' ? (
+            <div style={{ width: '100%', height: '100%' }}>
+              <EventMap events={events} />
+              <CardWrapper>
+                <EventTiles events={events} />
+              </CardWrapper>
+            </div>
+          ) : null}
+        </DFlex>
+      )}
       {hasMoreResults ? (
         <div
           style={{

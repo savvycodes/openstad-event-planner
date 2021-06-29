@@ -20,18 +20,17 @@ export const CardWrapper = styled('div')`
 
 export const ActivityCard = styled('div')<CardProps>`
   cursor: pointer;
-  height: 47.5vh;
   background-color: ${props =>
     props.newactivity
       ? props.theme.colors.background
       : props.theme.colors.white};
   box-shadow: ${props => props.theme.effects.boxShadowPrimary};
   margin: 12px;
+  padding: 5%;
   position: relative;
 `;
 export const CardTextContainer = styled('div')`
-  margin: 0 5%;
-  width: 80%;
+  width: 100%;
 `;
 export const CardIconContainer = styled('div')`
   position: absolute;
@@ -42,19 +41,18 @@ export const CardIconContainer = styled('div')`
 `;
 
 export const CardTagsContainer = styled('div')`
-  position: absolute;
-  bottom: 12px;
   display: flex;
-  width: 100%;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 
 export const CardTag = styled('p')`
-  font-size: 11px;
+  font-size: 12px;
   border: 1px solid ${props => props.theme.colors.primary};
   border-radius: 5px;
   padding: 0 8px;
   margin: 4px;
+  font-weight: 500;
 `;
 
 export const NewActivityCardTextContainer = styled('div')`
@@ -66,9 +64,8 @@ export const NewActivityCardTextContainer = styled('div')`
 `;
 
 export const ActivityImage = styled('img')`
-  width: 90%;
-  height: 60%;
-  margin: 5% 5% 0 5%;
+  width: 100%;
+  height: 240px;
   object-fit: cover;
 `;
 
