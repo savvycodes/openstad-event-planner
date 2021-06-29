@@ -29,6 +29,9 @@ const styles = {
   ContentContainer: styled('div')`
     display: block;
   `,
+  DFlex: styled(DFlex)`
+    align-items: flex-start;
+  `,
 };
 
 /**
@@ -111,7 +114,7 @@ export function EventsPage({}: RouteComponentProps) {
         </styles.ContentContainer>
       )}
       {isDesktopOrLaptop && (
-        <DFlex>
+        <styles.DFlex>
           <FilterSidebar filters={filters} onChange={setFilters} />
 
           {loading ? <Spinner /> : null}
@@ -134,7 +137,7 @@ export function EventsPage({}: RouteComponentProps) {
               </CardWrapper>
             </div>
           ) : null}
-        </DFlex>
+        </styles.DFlex>
       )}
       {hasMoreResults ? (
         <div
