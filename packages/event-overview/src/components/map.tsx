@@ -10,6 +10,7 @@ export function Map({ children, ...props }: any) {
       center={[52.367, 4.904]}
       zoom={13}
       style={{ minHeight: '500px', width: '100%' }}
+      tap={false}
       {...props}
     >
       <TileLayer
