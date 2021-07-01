@@ -1,9 +1,9 @@
 {
   "name": "@savvycodes/openstad-event-browser-widgets",
-  "version": "0.0.4-alpha.28",
+  "version": "0.0.4-alpha.29",
   "main": "index.js",
   "dependencies": {
-    "@savvycodes/event-overview": "^0.0.4-alpha.28",
+    "@savvycodes/event-overview": "^0.0.4-alpha.29",
     "lodash.get": "^4.4.2"
   },
   "devDependencies": {
