@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Formik } from 'formik';
+import { RouteComponentProps, Redirect } from 'wouter';
 
 import { useHashLocation } from '../../components/hash-router';
 import { BorderedTitle, Paragraph } from '../../components/text/text';
@@ -14,7 +15,6 @@ import { useConfig } from '../../context/config-context';
 import { updateEvent } from '../../endpoints/event';
 
 import { schema } from './add-activity';
-import { RouteComponentProps } from 'wouter';
 
 /**
  * Edit event
@@ -123,6 +123,10 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
         )
       </ErrorBanner>
     );
+  }
+
+  if (event && organisation && event.organisationId !== organisation.id) {
+    return <Redirect to="/events" />;
   }
 
   return (
