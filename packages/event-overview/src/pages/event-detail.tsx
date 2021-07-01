@@ -174,8 +174,6 @@ const styles = {
     justify-content: space-between;
   `,
   CardTag: styled(CardTag)`
-    display: block;
-    margin: 0;
     margin-right: 8px;
   `,
 };
@@ -229,31 +227,7 @@ export function EventDetailPage({ params }: RouteComponentProps) {
               </styles.CardTag>
               <styles.CardTag>{event.district}</styles.CardTag>
               {event.tags.map((tag: any) => {
-                return (
-                  <>
-                    <CardTag
-                      style={{
-                        marginRight: '8px',
-                      }}
-                    >
-                      {event.minAge}-{event.maxAge} jaar
-                    </CardTag>
-                    <CardTag
-                      style={{
-                        marginRight: '8px',
-                      }}
-                    >
-                      {tag.name}
-                    </CardTag>
-                    <CardTag
-                      style={{
-                        marginRight: '8px',
-                      }}
-                    >
-                      {event.district}
-                    </CardTag>
-                  </>
-                );
+                return <styles.CardTag>{tag.name}</styles.CardTag>;
               })}
             </styles.EventTagsContainer>
 
@@ -275,22 +249,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
               <RichText text={event.information} />
             </styles.DescriptionContainer>
           ) : null}
-
-          {/* <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              margin: '48px 0 80px 0',
-            }}
-          >
-            <SecondaryButton>Meld je aan</SecondaryButton>
-          </div>
-
-          <styles.A href={`#/events?organisationId=${event.organisationId}`}>
-            <ChevronRight size={28} stroke={'black'} />
-            <styles.ATitle>Alle activiteiten van deze aanbieder</styles.ATitle>
-          </styles.A> */}
         </styles.EventInformation>
 
         <styles.EventDetails>

@@ -18,8 +18,9 @@ const styles = {
   `,
 };
 import { formatAges } from '../ages';
+import { EmptyState } from '../emptyState/emptyState';
 
-export function EventTiles({ events }: any) {
+const LoadEvents = (events: any) => {
   return events.map((event: any) => (
     <Link to={`#/events/${event.id}`} key={event.id}>
       <ActivityCard>
@@ -34,11 +35,15 @@ export function EventTiles({ events }: any) {
         <CardTagsContainer>
           <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
           {event.tags.map((tag: any) => (
-            <CardTag>{tag.name}</CardTag>
+            <CardTag key={tag.id}>{tag.name}</CardTag>
           ))}
           <CardTag>{event.district}</CardTag>
         </CardTagsContainer>
       </ActivityCard>
     </Link>
   ));
+};
+
+export function EventTiles({ events }: any) {
+  return events && events.length > 0 ? LoadEvents(events) : <EmptyState />;
 }
