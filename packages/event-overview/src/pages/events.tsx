@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'wouter';
 import { styled } from 'goober';
 import { Calendar, Grid, MapPin } from 'react-feather';
@@ -51,6 +51,13 @@ export function EventsPage({}: RouteComponentProps) {
   }
   const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+
+  useEffect(() => {
+    if (viewType === 'map' && hasMoreResults) {
+      next();
+    }
+    console.log('fetching more');
+  }, [viewType, hasMoreResults, next]);
 
   return (
     <Main>

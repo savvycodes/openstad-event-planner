@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSWRInfinite } from 'swr';
 import qs from 'query-string';
+import uniqBy from 'lodash.uniqby';
 
 const skip = () => true;
 
@@ -22,6 +23,10 @@ export function useEvents(filters: any) {
     (data &&
       data[data.length - 1]?.records.length <
         data[data.length - 1]?.metadata.pageSize);
+  const isLoadingInitialData = !data && !error;
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && data && typeof data[size - 1] === 'undefined');
 
   useEffect(() => {
     const apiFilters = {
@@ -101,7 +106,7 @@ export function useEvents(filters: any) {
   }
 
   function next() {
-    if (!isReachingEnd) {
+    if (!isReachingEnd && !isLoadingMore) {
       setSize(size + 1);
     }
   }
@@ -118,7 +123,7 @@ export function useEvents(filters: any) {
       .filter(filterDates(filters)) ?? [];
 
   return {
-    events: filteredEvents,
+    events: uniqBy(filteredEvents, 'id'),
     error,
     loading: !error && !data,
     hasMoreResults: !isReachingEnd,
