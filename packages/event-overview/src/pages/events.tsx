@@ -46,9 +46,6 @@ export function EventsPage({}: RouteComponentProps) {
 
   const { events, error, loading, next, hasMoreResults } = useEvents(filters);
 
-  if (error) {
-    return <ErrorBanner>{error.message}</ErrorBanner>;
-  }
   const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
 
@@ -56,8 +53,11 @@ export function EventsPage({}: RouteComponentProps) {
     if (viewType === 'map' && hasMoreResults) {
       next();
     }
-    console.log('fetching more');
   }, [viewType, hasMoreResults, next]);
+
+  if (error) {
+    return <ErrorBanner>{error.message}</ErrorBanner>;
+  }
 
   return (
     <Main>

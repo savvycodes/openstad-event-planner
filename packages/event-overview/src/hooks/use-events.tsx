@@ -63,11 +63,12 @@ export function useEvents(filters: any) {
       return skip;
     }
 
-    const ranges = filter.ageRanges;
+    // for each range check if min or max is valid
+    const ranges = filter.ageRanges; // ranges = [[16,18],[18,99]]
     return (event: any) => {
       return ranges.some(([rMin, rMax]: number[]) => {
         if (rMax === 99) rMax++;
-        return event.minAge >= rMin && rMax > event.minAge;
+        return event.minAge >= rMin || rMax > event.minAge;
       });
     };
   }

@@ -3,6 +3,7 @@ import { styled } from 'goober';
 import useSWR from 'swr';
 import { Calendar } from 'react-multi-date-picker';
 import { ChevronDown, ChevronUp, Search } from 'react-feather';
+import { useMediaQuery } from 'react-responsive';
 
 import { Spinner } from './spinner';
 import { Ages } from './ages';
@@ -13,7 +14,6 @@ import { StyledInput } from './forms/input';
 import { Button } from './button/button';
 import { Paragraph } from './text/text';
 import { DFlex } from './layout/layout';
-import { useMediaQuery } from 'react-responsive';
 
 const styles = {
   Ages: styled(Ages)`

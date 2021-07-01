@@ -42,7 +42,10 @@ export function LocationFinder({ onSelect, ...props }: any) {
                 setLocations([]);
               }}
             >
-              {location.properties.display_name}
+              {`${location.properties.address.road} ${location.properties.address.house_number}`}{' '}
+              <br />
+              {`${location.properties.address.postcode} ${location.properties
+                .address.town || location.properties.address.city}`}
             </Paragraph>
           </LocationListItem>
         ))}
@@ -59,7 +62,7 @@ export function LocationFinder({ onSelect, ...props }: any) {
 
 function searchLocations(search: string) {
   return fetch(
-    `https://nominatim.openstreetmap.org/search?format=geojson&q=${encodeURIComponent(
+    `https://nominatim.openstreetmap.org/search?format=geojson&addressdetails=1&accept-language=nl&countrycodes=nl&limit=5&q=${encodeURIComponent(
       search
     )}`
   )

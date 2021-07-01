@@ -2,12 +2,15 @@ import React from 'react';
 import useSWR from 'swr';
 import { styled } from 'goober';
 import { RouteComponentProps } from 'wouter';
+import { MapPin } from 'react-feather';
 
 import { ErrorBanner } from '../components/error-banner';
 import { Spinner } from '../components/spinner';
 import { Border, Paragraph, RichText } from '../components/text/text';
 import { CardTag } from '../components/card/card';
 import { formatAges } from '../components/ages';
+import { Location } from '../components/location';
+import { DFlex } from '../components/layout/layout';
 
 const styles = {
   Container: styled('div')`
@@ -68,6 +71,7 @@ const styles = {
     width: 100%;
     max-height: 240px;
     object-fit: cover;
+    margin-bottom: 20px;
   `,
 
   DateProgressBar: styled('div')`
@@ -292,6 +296,16 @@ export function EventDetailPage({ params }: RouteComponentProps) {
         <styles.EventDetails>
           <styles.ImageContainer>
             <styles.EventImage src={event.image} alt={event.name} />
+
+            <DFlex style={{ alignItems: 'center' }}>
+              <MapPin size={24} />
+              <Paragraph style={{ margin: '0 10px' }}>
+                <Location
+                  lat={event.location.coordinates[1]}
+                  lon={event.location.coordinates[0]}
+                />
+              </Paragraph>
+            </DFlex>
 
             {event.slots.map((slot: any) => {
               const start = new Date(slot.startTime);

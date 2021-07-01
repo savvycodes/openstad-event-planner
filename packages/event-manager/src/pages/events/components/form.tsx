@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ErrorMessage, Field, FieldArray, useFormikContext } from 'formik';
-import { Plus, X } from 'react-feather';
+import { Plus, X, MapPin } from 'react-feather';
 import { styled } from 'goober';
 import addDays from 'date-fns/addDays';
 import addHours from 'date-fns/addHours';
@@ -16,8 +16,10 @@ import {
   StyledInput,
 } from '../../../components/forms/input';
 import { Label, ListLabel, Paragraph } from '../../../components/text/text';
+import { DFlex } from '../../../components/layout/layout';
 import { AddDateTimeButton, Button } from '../../../components/button/button';
 import { ImageUpload } from '../../../components/forms/image-upload';
+import { Location } from '../../../components/location';
 import { LocationFinder } from '../../../components/forms/location-finder';
 import { DateTimeSelector } from './DateTimeComponent';
 
@@ -137,12 +139,15 @@ export function ActivityForm({
             Vul een adres in en selecteer één van de beschikbare locaties
           </styles.Paragraph>
           {form.values.location.coordinates.length > 0 ? (
-            <Paragraph>
-              Coördinaten van geselecteerde locatie:{' '}
-              {form.values.location.coordinates[0]}
-              {', '}
-              {form.values.location.coordinates[1]}
-            </Paragraph>
+            <DFlex style={{ alignItems: 'center' }}>
+              <MapPin size={24} />
+              <Paragraph style={{ margin: '0 10px' }}>
+                <Location
+                  lat={form.values.location.coordinates[1]}
+                  lon={form.values.location.coordinates[0]}
+                />
+              </Paragraph>
+            </DFlex>
           ) : null}
           <LocationFinder
             placeholder="verplicht veld"
