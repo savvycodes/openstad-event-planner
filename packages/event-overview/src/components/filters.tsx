@@ -27,7 +27,7 @@ const styles = {
   `,
   Container: styled('div')`
     @media (min-width: 1024px) {
-      margin: 0 48px;
+      margin: 0 42px;
     }
     @media (max-width: 1023px) {
       margin: 0 12px;

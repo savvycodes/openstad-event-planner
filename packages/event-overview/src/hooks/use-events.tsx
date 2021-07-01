@@ -63,8 +63,7 @@ export function useEvents(filters: any) {
       return skip;
     }
 
-    // for each range check if min or max is valid
-    const ranges = filter.ageRanges; // ranges = [[16,18],[18,99]]
+    const ranges = filter.ageRanges;
     return (event: any) => {
       return ranges.some(([rMin, rMax]: number[]) => {
         if (rMax === 99) rMax++;
