@@ -14,7 +14,6 @@ import {
   Main,
   NavigationItem,
 } from '../components/layout/layout';
-import { EmptyState } from '../components/emptyState/emptyState';
 import { EventCalendar } from '../components/events/event-calendar';
 import { EventTiles } from '../components/events/event-tiles';
 import { EventMap } from '../components/events/event-map';
@@ -121,13 +120,9 @@ export function EventsPage({}: RouteComponentProps) {
           {loading ? <Spinner /> : null}
 
           {viewType === 'tile' ? (
-            events && events.length > 0 ? (
-              <CardWrapper>
-                <EventTiles events={events} />
-              </CardWrapper>
-            ) : (
-              <EmptyState />
-            )
+            <CardWrapper>
+              <EventTiles events={events} />
+            </CardWrapper>
           ) : null}
           {viewType === 'calendar' ? (
             <div>
@@ -137,14 +132,9 @@ export function EventsPage({}: RouteComponentProps) {
           {viewType === 'map' ? (
             <div style={{ width: '100%', height: '100%' }}>
               <EventMap events={events} />
-
-              {events && events.length > 0 ? (
-                <CardWrapper>
-                  <EventTiles events={events} />
-                </CardWrapper>
-              ) : (
-                <EmptyState />
-              )}
+              <CardWrapper>
+                <EventTiles events={events} />
+              </CardWrapper>
             </div>
           ) : null}
         </styles.DFlex>
