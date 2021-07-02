@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { ErrorMessage, Field, FieldArray, useFormikContext } from 'formik';
 import { Plus, X, MapPin } from 'react-feather';
-import { styled } from 'goober';
+import { styled, css } from 'goober';
 import addDays from 'date-fns/addDays';
 import addHours from 'date-fns/addHours';
+import ReactQuill from 'react-quill';
 
 import {
   Input,
@@ -81,6 +82,21 @@ const styles = {
     display: flex;
     justify-content: center;
   `,
+  Editor: (props: any) => css`
+    background: ${props.theme.colors.white};
+    box-shadow: ${props.theme.effects.boxShadowPrimary};
+    font-weight: normal;
+    font-family: ${props.theme.font.family};
+
+    .ql-editor {
+      min-height: 200px;
+    }
+
+    .ql-container {
+      font-family: ${props.theme.font.family};
+      font-size: ${props.theme.font.size}px;
+    }
+  `,
 };
 
 export function ActivityForm({
@@ -116,16 +132,24 @@ export function ActivityForm({
       </FormItem>
 
       <FormItem>
-        <Label htmlFor="description">
+        <Label htmlFor="description" style={{ width: '70%' }}>
           Beschrijving activiteit
-          <Field
-            rows={6}
-            cols={60}
-            style={{ width: '50%' }}
-            name="description"
-            placeholder="verplicht veld"
-            component={Textarea}
-          />
+          <Field name="description">
+            {({ field }: any) => (
+              <ReactQuill
+                id={field.name}
+                className={styles.Editor({ theme })}
+                value={field.value}
+                onChange={field.onChange(field.name)}
+                modules={{
+                  toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['link'],
+                  ],
+                }}
+              />
+            )}
+          </Field>
           <Paragraph>
             <ErrorMessage name="description" />
           </Paragraph>
@@ -340,16 +364,24 @@ export function ActivityForm({
       </FormItem>
 
       <FormItem>
-        <Label htmlFor="information">
+        <Label htmlFor="information" style={{ width: '70%' }}>
           Hoe kan je je aanmelden?
-          <Field
-            component={Textarea}
-            rows={6}
-            cols={40}
-            style={{ width: '50%' }}
-            name="information"
-            placeholder="optioneel"
-          />
+          <Field name="information">
+            {({ field }: any) => (
+              <ReactQuill
+                id={field.name}
+                className={styles.Editor({ theme })}
+                value={field.value}
+                onChange={field.onChange(field.name)}
+                modules={{
+                  toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['link'],
+                  ],
+                }}
+              />
+            )}
+          </Field>
           <Paragraph>
             <ErrorMessage name="information" />
           </Paragraph>

@@ -90,6 +90,8 @@ export function BorderedCardTitle(props: any) {
 }
 
 export function RichText(props: any) {
+  return <div dangerouslySetInnerHTML={{ __html: props.text }}></div>;
+
   return props.text.split('\n\n').map((p: string) => (
     <Paragraph>
       {p.split('\n').map((line: string, index: number, lines: any) => (

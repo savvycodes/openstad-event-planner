@@ -251,7 +251,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
               </label>
             ))}
           </Filter>
-          <Filter name="Tags">
+          <Filter name="Categorieën">
             {tags.map((tag: any) => (
               <label style={{ display: 'block' }} key={tag.id}>
                 <input
