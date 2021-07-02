@@ -63,12 +63,24 @@ export function useEvents(filters: any) {
       return skip;
     }
 
+    const groups = [
+      [0, 4],
+      [4, 8],
+      [8, 12],
+      [12, 16],
+      [16, 18],
+      [18, 99],
+    ];
     const ranges = filter.ageRanges;
     return (event: any) => {
-      return ranges.some(([rMin, rMax]: number[]) => {
-        if (rMax === 99) rMax++;
-        return event.minAge >= rMin || rMax > event.minAge;
-      });
+      event.ranges = groups.filter(
+        ([min, max]) => event.minAge <= min && event.maxAge >= max
+      );
+
+      // check if any of the selected ranges is inside event.ranges
+      return event.ranges.some(([eMin, eMax]: number[]) =>
+        ranges.some(([rMin, rMax]: number[]) => eMin === rMin && eMax === rMax)
+      );
     };
   }
 

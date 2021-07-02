@@ -28,8 +28,8 @@ export function Location({ lat, lon }: LocationProps) {
   const address = location?.features?.[0]?.properties?.address;
   return (
     <>
-      {`${address.road} ${address.house_number}`} <br />
-      {`${address.postcode} ${address.town || address.city}`}
+      {`${address.road || ''} ${address.house_number || ''}`} <br />
+      {`${address.postcode || ''} ${address.town || address.city || ''}`}
     </>
   );
 }
