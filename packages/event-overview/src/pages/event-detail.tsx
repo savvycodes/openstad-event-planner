@@ -13,6 +13,10 @@ import { Location } from '../components/location';
 import { DFlex } from '../components/layout/layout';
 
 const styles = {
+  Bold: styled('p')`
+    font-weight: 700;
+    display: inline-block;
+  `,
   Container: styled('div')`
     @media (min-width: 1024px) {
       background-color: ${props => props.theme.colors.background};
@@ -110,7 +114,7 @@ const styles = {
   `,
 
   Provider: styled(Paragraph)`
-    font-weight: 600;
+    margin-top: 8px;
   `,
 
   A: styled('a')`
@@ -168,11 +172,6 @@ const styles = {
     align-items: center;
     color: ${props => props.theme.colors.black};
   `,
-  GridContainer: styled('div')`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  `,
   CardTag: styled(CardTag)`
     margin-right: 8px;
   `,
@@ -180,6 +179,32 @@ const styles = {
 
 export function EventDetailPage({ params }: RouteComponentProps) {
   const { data: event, error } = useSWR(() => '/event/' + params.id);
+
+  console.log(event);
+
+  function SortSlots() {
+    const startDates:[] = event.slots.map((slot: any) => {
+      return slot.startTime;
+    })
+    const endDates:[] = event.slots.map((slot: any) => {
+      return slot.endTime;
+    })
+    const startDate = startDates.reduce(function (pre, cur) {
+      return Date.parse(pre) > Date.parse(cur) ? cur : pre;
+    });
+    const endDate = endDates.reduce(function (pre, cur) {
+        return Date.parse(pre) < Date.parse(cur) ? cur : pre;
+    });
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    return <AvailablePlaces end={end} start={start} slot={event.slots[0]} />
+
+
+  }
+
+  
 
   if (error)
     return <ErrorBanner>Er ging iets fout: ({error.message})</ErrorBanner>;
@@ -190,6 +215,7 @@ export function EventDetailPage({ params }: RouteComponentProps) {
     end: any;
     slot: any;
   }
+
   const AvailablePlaces: React.FC<Props> = ({ start, end, slot }) => {
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
 
@@ -197,6 +223,19 @@ export function EventDetailPage({ params }: RouteComponentProps) {
       <styles.DateProgressBar key={slot.id}>
         <Paragraph>
           {start.toLocaleDateString('nl-NL', options)}{' '}
+          {start.toLocaleTimeString('nl-NL', {
+            hour: '2-digit',
+            minute: '2-digit',
+          })}{' '}
+          -{' '}
+          {end.toLocaleTimeString('nl-NL', {
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
+          {' '}
+          <styles.Bold>Tot</styles.Bold>
+          {' '}
+          {end.toLocaleDateString('nl-NL', options)}{' '}
           {start.toLocaleTimeString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit',
@@ -219,8 +258,8 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             {event.name}
             <Border />
           </styles.Title>
+          <styles.Provider>door: {event.organisation.name}</styles.Provider>
 
-          <styles.GridContainer>
             <styles.EventTagsContainer>
               <styles.CardTag>
                 {formatAges(event.minAge, event.maxAge)}
@@ -230,17 +269,13 @@ export function EventDetailPage({ params }: RouteComponentProps) {
                 return <styles.CardTag>{tag.name}</styles.CardTag>;
               })}
             </styles.EventTagsContainer>
-
-            <styles.Provider>{event.organisation.name}</styles.Provider>
-          </styles.GridContainer>
-
           <styles.DescriptionContainer>
             <RichText text={event.description} />
           </styles.DescriptionContainer>
 
           <styles.DescriptionContainer>
             <h2>Kosten deelname</h2>
-            <Paragraph>{event.price}</Paragraph>
+            <Paragraph>{event.price > 0 ? '€' + event.price / 100 : 'gratis'}</Paragraph>
           </styles.DescriptionContainer>
 
           {event.information && event.information.length ? (
@@ -255,6 +290,8 @@ export function EventDetailPage({ params }: RouteComponentProps) {
           <styles.ImageContainer>
             <styles.EventImage src={event.image} alt={event.name} />
 
+            
+
             <DFlex style={{ alignItems: 'center' }}>
               <MapPin size={24} />
               <Paragraph style={{ margin: '0 10px' }}>
@@ -264,12 +301,13 @@ export function EventDetailPage({ params }: RouteComponentProps) {
                 />
               </Paragraph>
             </DFlex>
+            {event.attendees > 0 &&
+            <Paragraph style={{marginTop: '16px'}}>Beschikbare plaatsen: {event.attendees}</Paragraph>
+            }
 
-            {event.slots.map((slot: any) => {
-              const start = new Date(slot.startTime);
-              const end = new Date(slot.endTime);
-              return <AvailablePlaces end={end} start={start} slot={slot} />;
-            })}
+            {SortSlots()}
+            
+            
           </styles.ImageContainer>
         </styles.EventDetails>
       </styles.EventCardContainer>
