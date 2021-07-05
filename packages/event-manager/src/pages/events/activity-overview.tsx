@@ -19,11 +19,13 @@ import {
 import { Header, HeaderNavigation, Main } from '../../components/layout/layout';
 import { Spinner } from '../../components/spinner';
 import { ErrorBanner } from '../../components/error-banner';
+import { Button } from '../../components/button/button';
 
 import { useApi } from '../../hooks/use-api';
 import { useConfig } from '../../context/config-context';
 import { removeEvent } from '../../endpoints/event';
 import { OrganisationSettingsPage } from '../organisation/settings';
+import { useEffect } from 'react';
 
 const styles = {
   Header: styled(Header)`
@@ -46,6 +48,13 @@ const styles = {
   `,
   RightNavItem: styled(NavItem)`
     padding: 12px 18px;
+  `,
+  ButtonRow: styled('div')`
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
   `,
 };
 
@@ -116,10 +125,12 @@ type ActivityListProps = {
 function ActivityList({ organisationId }: ActivityListProps) {
   const [, navigate] = useHashLocation();
   const config = useConfig();
+  const [page, setPage] = React.useState(1);
   const { data, loading, error, reload } = useApi(
-    `/event?organisationId=${organisationId}`
+    `/event?organisationId=${organisationId}&page=${page}`
   );
   const [deleteError, setDeleteError] = React.useState<Error | null>(null);
+  const [events, setEvents] = React.useState([]);
 
   async function handleDelete(id: number) {
     setDeleteError(null);
@@ -128,6 +139,21 @@ function ActivityList({ organisationId }: ActivityListProps) {
       reload();
     } catch (err) {
       setDeleteError(err);
+    }
+  }
+
+  useEffect(() => {
+    if (data?.records) {
+      setEvents((events: any) => {
+        events = events || [];
+        return events.concat(data.records);
+      });
+    }
+  }, [data]);
+
+  function nextPage() {
+    if (data?.metadata?.pageCount > page) {
+      setPage(page + 1);
     }
   }
 
@@ -145,9 +171,11 @@ function ActivityList({ organisationId }: ActivityListProps) {
     return <ErrorBanner>{deleteError.message}</ErrorBanner>;
   }
 
+  console.log('events', events.length);
+
   return (
     <>
-      {data.records.map((event: any) => (
+      {events.map((event: any) => (
         <ActivityCards
           key={event.id}
           src={event.image}
@@ -162,6 +190,11 @@ function ActivityList({ organisationId }: ActivityListProps) {
           <NewActivityTitle>Voeg activiteit toe</NewActivityTitle>
         </NewActivityCardTextContainer>
       </ActivityCard>
+      {data?.metadata?.pageCount > page ? (
+        <styles.ButtonRow>
+          <Button onClick={nextPage}>Meer laden</Button>
+        </styles.ButtonRow>
+      ) : null}
     </>
   );
 }
