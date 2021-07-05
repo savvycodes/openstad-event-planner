@@ -50,7 +50,7 @@ export function EventsPage({}: RouteComponentProps) {
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
 
   useEffect(() => {
-    if (['map', 'calendar'].includes(viewType) && hasMoreResults) {
+    if (['map', 'calendar', 'tile'].includes(viewType) && hasMoreResults) {
       next();
     }
   }, [viewType, hasMoreResults, next]);
