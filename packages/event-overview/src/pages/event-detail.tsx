@@ -182,23 +182,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
 
   console.log(event);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
   if (error)
     return <ErrorBanner>Er ging iets fout: ({error.message})</ErrorBanner>;
   if (!event) return <Spinner />;
@@ -220,10 +203,7 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             hour: '2-digit',
             minute: '2-digit',
           })}{' '}
-          
-          {' '}
-          <styles.Bold>tot</styles.Bold>
-          {' '}
+          <styles.Bold>tot</styles.Bold>{' '}
           {end.toLocaleDateString('nl-NL', options)}{' '}
           {end.toLocaleTimeString('nl-NL', {
             hour: '2-digit',
@@ -244,22 +224,22 @@ export function EventDetailPage({ params }: RouteComponentProps) {
           </styles.Title>
           <styles.Provider>door: {event.organisation.name}</styles.Provider>
 
-            <styles.EventTagsContainer>
-              <styles.CardTag>
-                {formatAges(event.minAge, event.maxAge)}
-              </styles.CardTag>
-              <styles.CardTag>{event.district}</styles.CardTag>
-              {event.tags.map((tag: any) => {
-                return <styles.CardTag>{tag.name}</styles.CardTag>;
-              })}
-            </styles.EventTagsContainer>
+          <styles.EventTagsContainer>
+            <styles.CardTag>
+              {formatAges(event.minAge, event.maxAge)}
+            </styles.CardTag>
+            <styles.CardTag>{event.district}</styles.CardTag>
+            {event.tags.map((tag: any) => {
+              return <styles.CardTag>{tag.name}</styles.CardTag>;
+            })}
+          </styles.EventTagsContainer>
           <styles.DescriptionContainer>
             <RichText text={event.description} />
           </styles.DescriptionContainer>
 
           <styles.DescriptionContainer>
             <h2>Kosten deelname</h2>
-            <Paragraph>{event.price > 0 ? '€' + event.price / 100 : 'gratis'}</Paragraph>
+            <Paragraph>{event.price}</Paragraph>
           </styles.DescriptionContainer>
 
           {event.information && event.information.length ? (
@@ -274,8 +254,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
           <styles.ImageContainer>
             <styles.EventImage src={event.image} alt={event.name} />
 
-            
-
             <DFlex style={{ alignItems: 'center' }}>
               <MapPin size={24} />
               <Paragraph style={{ margin: '0 10px' }}>
@@ -285,16 +263,17 @@ export function EventDetailPage({ params }: RouteComponentProps) {
                 />
               </Paragraph>
             </DFlex>
-            {event.attendees > 0 &&
-            <Paragraph style={{marginTop: '16px'}}>Beschikbare plaatsen: {event.attendees}</Paragraph>
-            }
+            {event.attendees > 0 && (
+              <Paragraph style={{ marginTop: '16px' }}>
+                Beschikbare plaatsen: {event.attendees}
+              </Paragraph>
+            )}
 
             {event.slots.map((slot: any) => {
               const start = new Date(slot.startTime);
               const end = new Date(slot.endTime);
               return <AvailablePlaces end={end} start={start} slot={slot} />;
             })}
-            
           </styles.ImageContainer>
         </styles.EventDetails>
       </styles.EventCardContainer>
