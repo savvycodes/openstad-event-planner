@@ -171,8 +171,6 @@ function ActivityList({ organisationId }: ActivityListProps) {
     return <ErrorBanner>{deleteError.message}</ErrorBanner>;
   }
 
-  console.log('events', events.length);
-
   return (
     <>
       {events.map((event: any) => (

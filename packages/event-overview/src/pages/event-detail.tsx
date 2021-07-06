@@ -13,6 +13,10 @@ import { Location } from '../components/location';
 import { DFlex } from '../components/layout/layout';
 
 const styles = {
+  Bold: styled('p')`
+    font-weight: 700;
+    display: inline-block;
+  `,
   Container: styled('div')`
     @media (min-width: 1024px) {
       background-color: ${props => props.theme.colors.background};
@@ -110,7 +114,7 @@ const styles = {
   `,
 
   Provider: styled(Paragraph)`
-    font-weight: 600;
+    margin-top: 8px;
   `,
 
   A: styled('a')`
@@ -168,11 +172,6 @@ const styles = {
     align-items: center;
     color: ${props => props.theme.colors.black};
   `,
-  GridContainer: styled('div')`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  `,
   CardTag: styled(CardTag)`
     margin-right: 8px;
   `,
@@ -190,6 +189,7 @@ export function EventDetailPage({ params }: RouteComponentProps) {
     end: any;
     slot: any;
   }
+
   const AvailablePlaces: React.FC<Props> = ({ start, end, slot }) => {
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
 
@@ -201,7 +201,8 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             hour: '2-digit',
             minute: '2-digit',
           })}{' '}
-          -{' '}
+          <styles.Bold>tot</styles.Bold>{' '}
+          {end.toLocaleDateString('nl-NL', options)}{' '}
           {end.toLocaleTimeString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit',
@@ -219,21 +220,17 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             {event.name}
             <Border />
           </styles.Title>
+          <styles.Provider>door: {event.organisation.name}</styles.Provider>
 
-          <styles.GridContainer>
-            <styles.EventTagsContainer>
-              <styles.CardTag>
-                {formatAges(event.minAge, event.maxAge)}
-              </styles.CardTag>
-              <styles.CardTag>{event.district}</styles.CardTag>
-              {event.tags.map((tag: any) => {
-                return <styles.CardTag>{tag.name}</styles.CardTag>;
-              })}
-            </styles.EventTagsContainer>
-
-            <styles.Provider>{event.organisation.name}</styles.Provider>
-          </styles.GridContainer>
-
+          <styles.EventTagsContainer>
+            <styles.CardTag>
+              {formatAges(event.minAge, event.maxAge)}
+            </styles.CardTag>
+            <styles.CardTag>{event.district}</styles.CardTag>
+            {event.tags.map((tag: any) => {
+              return <styles.CardTag>{tag.name}</styles.CardTag>;
+            })}
+          </styles.EventTagsContainer>
           <styles.DescriptionContainer>
             <RichText text={event.description} />
           </styles.DescriptionContainer>
@@ -264,6 +261,11 @@ export function EventDetailPage({ params }: RouteComponentProps) {
                 />
               </Paragraph>
             </DFlex>
+            {event.attendees > 0 && (
+              <Paragraph style={{ marginTop: '16px' }}>
+                Beschikbare plaatsen: {event.attendees}
+              </Paragraph>
+            )}
 
             {event.slots.map((slot: any) => {
               const start = new Date(slot.startTime);
