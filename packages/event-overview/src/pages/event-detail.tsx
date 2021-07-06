@@ -182,27 +182,20 @@ export function EventDetailPage({ params }: RouteComponentProps) {
 
   console.log(event);
 
-  function SortSlots() {
-    const startDates:[] = event.slots.map((slot: any) => {
-      return slot.startTime;
-    })
-    const endDates:[] = event.slots.map((slot: any) => {
-      return slot.endTime;
-    })
-    const startDate = startDates.reduce(function (pre, cur) {
-      return Date.parse(pre) > Date.parse(cur) ? cur : pre;
-    });
-    const endDate = endDates.reduce(function (pre, cur) {
-        return Date.parse(pre) < Date.parse(cur) ? cur : pre;
-    });
-
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    
-    return <AvailablePlaces end={end} start={start} slot={event.slots[0]} />
 
 
-  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 
@@ -227,20 +220,11 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             hour: '2-digit',
             minute: '2-digit',
           })}{' '}
-          -{' '}
-          {end.toLocaleTimeString('nl-NL', {
-            hour: '2-digit',
-            minute: '2-digit',
-          })}
+          
           {' '}
-          <styles.Bold>Tot</styles.Bold>
+          <styles.Bold>tot</styles.Bold>
           {' '}
           {end.toLocaleDateString('nl-NL', options)}{' '}
-          {start.toLocaleTimeString('nl-NL', {
-            hour: '2-digit',
-            minute: '2-digit',
-          })}{' '}
-          -{' '}
           {end.toLocaleTimeString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit',
@@ -305,8 +289,11 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             <Paragraph style={{marginTop: '16px'}}>Beschikbare plaatsen: {event.attendees}</Paragraph>
             }
 
-            {SortSlots()}
-            
+            {event.slots.map((slot: any) => {
+              const start = new Date(slot.startTime);
+              const end = new Date(slot.endTime);
+              return <AvailablePlaces end={end} start={start} slot={slot} />;
+            })}
             
           </styles.ImageContainer>
         </styles.EventDetails>
