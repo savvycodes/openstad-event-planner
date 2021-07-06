@@ -205,6 +205,11 @@ export function EventCalendar({ events }: EventCalendarProps) {
    */
   function previous() {
     const currentRange = [...range];
+
+    if (isSameDay(currentRange[0], new Date())) {
+      return;
+    }
+
     // remove date from end of range
     currentRange.splice(currentRange.length - 1, 1);
     const firstDate = currentRange[0];
