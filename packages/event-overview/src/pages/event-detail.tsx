@@ -180,8 +180,6 @@ const styles = {
 export function EventDetailPage({ params }: RouteComponentProps) {
   const { data: event, error } = useSWR(() => '/event/' + params.id);
 
-  console.log(event);
-
   if (error)
     return <ErrorBanner>Er ging iets fout: ({error.message})</ErrorBanner>;
   if (!event) return <Spinner />;
