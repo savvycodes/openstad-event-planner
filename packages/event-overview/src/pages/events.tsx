@@ -18,6 +18,7 @@ import { EventCalendar } from '../components/events/event-calendar';
 import { EventTiles } from '../components/events/event-tiles';
 import { EventMap } from '../components/events/event-map';
 import { Button } from '../components/button/button';
+import { EmptyState } from '../components/emptyState/emptyState'
 
 import { useEvents } from '../hooks/use-events';
 
@@ -109,6 +110,7 @@ export function EventsPage({}: RouteComponentProps) {
           {viewType === 'tile' ? (
             <CardWrapper>
               <EventTiles events={events} />
+              {events.length === 0 ? <EmptyState /> : null}
             </CardWrapper>
           ) : null}
           {viewType === 'calendar' ? (
@@ -121,6 +123,8 @@ export function EventsPage({}: RouteComponentProps) {
               <EventMap events={events} />
               <CardWrapper>
                 <EventTiles events={events} />
+                {events.length === 0 ? <EmptyState /> : null}
+                
               </CardWrapper>
             </div>
           ) : null}
@@ -135,6 +139,7 @@ export function EventsPage({}: RouteComponentProps) {
           {viewType === 'tile' ? (
             <CardWrapper>
               <EventTiles events={events} />
+              {events.length === 0 ? <EmptyState /> : null}
             </CardWrapper>
           ) : null}
           {viewType === 'calendar' ? (
@@ -147,6 +152,7 @@ export function EventsPage({}: RouteComponentProps) {
               <EventMap events={events} />
               <CardWrapper>
                 <EventTiles events={events} />
+                {events.length === 0 ? <EmptyState /> : null}
               </CardWrapper>
             </div>
           ) : null}
@@ -157,6 +163,8 @@ export function EventsPage({}: RouteComponentProps) {
           style={{
             display: 'flex',
             justifyContent: 'center',
+            marginTop: 32,
+            marginBottom: 32,
           }}
         >
           <Button onClick={next}>Meer laden</Button>
