@@ -115,7 +115,7 @@ export function EventsPage({}: RouteComponentProps) {
           ) : null}
           {viewType === 'calendar' ? (
             <div>
-              <EventCalendar events={events} />
+              <EventCalendar filters={filters} events={events} />
             </div>
           ) : null}
           {viewType === 'map' ? (
@@ -144,7 +144,7 @@ export function EventsPage({}: RouteComponentProps) {
           ) : null}
           {viewType === 'calendar' ? (
             <div>
-              <EventCalendar events={events} />
+              <EventCalendar events={events} filters={filters} />
             </div>
           ) : null}
           {viewType === 'map' ? (
