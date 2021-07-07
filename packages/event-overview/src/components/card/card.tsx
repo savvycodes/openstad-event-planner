@@ -106,7 +106,7 @@ export function ActivityCards({
 }: ActivityCardsProps) {
   return (
     <ActivityCard newactivity>
-      <ActivityImage src={src} />
+      <ActivityImage src={src} alt={title} loading="lazy" />
       <CardTextContainer>
         <BorderedCardTitle title={title} />
       </CardTextContainer>
