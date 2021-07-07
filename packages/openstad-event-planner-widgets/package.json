@@ -1,16 +1,16 @@
 {
   "name": "@savvycodes/openstad-event-planner-widgets",
-  "version": "0.0.4-alpha.36",
+  "version": "0.0.4-alpha.37",
   "main": "index.js",
   "dependencies": {
-    "@savvycodes/event-overview": "^0.0.4-alpha.36",
+    "@savvycodes/event-overview": "^0.0.4-alpha.37",
     "lodash.get": "^4.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.13.13",
-    "@savvycodes/event-manager": "^0.0.4-alpha.36",
+    "@savvycodes/event-manager": "^0.0.4-alpha.37",
     "@types/react": "^17.0.9",
     "@types/react-dom": "^17.0.6",
     "babel-loader": "^8.2.2",
