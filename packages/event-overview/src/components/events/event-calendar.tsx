@@ -6,8 +6,6 @@ import format from 'date-fns/format';
 import formatISO from 'date-fns/formatISO';
 import nl from 'date-fns/locale/nl';
 import isSameDay from 'date-fns/isSameDay';
-import isAfter from 'date-fns/isAfter';
-import isBefore from 'date-fns/isBefore';
 import uniqBy from 'lodash.uniqby';
 
 import { ChevronLeft, ChevronRight } from 'react-feather';
@@ -21,6 +19,7 @@ import { useMediaQuery } from 'react-responsive';
 
 interface EventCalendarProps {
   events: any[];
+  filters: any;
 }
 
 const s = {
@@ -128,7 +127,7 @@ const s = {
  *
  * @todo: Calendar should have
  */
-export function EventCalendar({ events }: EventCalendarProps) {
+export function EventCalendar({ events, filters }: EventCalendarProps) {
   const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
 
@@ -172,22 +171,6 @@ export function EventCalendar({ events }: EventCalendarProps) {
   }, [range, events]);
 
   /**
-   * Update the selected day when it is getting out of the date range
-   */
-  useEffect(() => {
-    if (!activeDay) return;
-
-    const first = range[0];
-    const last = range[range.length - 1];
-
-    if (isAfter(activeDay, last)) {
-      setActiveDay(last);
-    } else if (isBefore(activeDay, first)) {
-      setActiveDay(first);
-    }
-  }, [range, activeDay]);
-
-  /**
    * Add a new day to end of range and remove first day of range
    */
   function next() {
@@ -212,6 +195,20 @@ export function EventCalendar({ events }: EventCalendarProps) {
     currentRange.unshift(subDays(firstDate, 1));
     setRange(currentRange);
   }
+
+  useEffect(() => {
+    setActiveDay(filters.dates[0]);
+
+    if (filters.dates[0]) {
+      setRange([
+        new Date(filters.dates[0]),
+        addDays(new Date(filters.dates[0]), 1),
+        addDays(new Date(filters.dates[0]), 2),
+        addDays(new Date(filters.dates[0]), 3),
+        addDays(new Date(filters.dates[0]), 4),
+      ]);
+    }
+  }, [filters.dates]);
 
   return (
     <div>
