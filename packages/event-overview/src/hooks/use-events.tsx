@@ -28,8 +28,6 @@ export function useEvents(filters: any) {
     isLoadingInitialData ||
     (size > 0 && data && typeof data[size - 1] === 'undefined');
 
-  console.log('is reaching end', { isReachingEnd, isEmpty });
-
   useEffect(() => {
     const apiFilters = {
       ...filters,
