@@ -37,7 +37,7 @@ const LoadEvents = (events: any) => {
     <Link to={`#/events/${event.id}`} key={event.id}>
       <ActivityCard>
         <ActivityImageWrapper>
-          <ActivityImage src={event.image} alt={event.name} loading="lazy" />
+          <ActivityImage src={event.image + '/:/rs=w:666'} alt={event.name} loading="lazy" />
           <CardTagsContainer>
             <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
             {event.tags.map((tag: any) => (
