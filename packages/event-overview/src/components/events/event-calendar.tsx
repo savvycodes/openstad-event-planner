@@ -332,8 +332,9 @@ export function EventCalendar({ events }: EventCalendarProps) {
 
       <CardWrapper>
         {eventsOnActiveDay ? (
-          <EventTiles events={uniqBy(eventsOnActiveDay, 'id')} />
-        ) : null}
+          <EventTiles events={uniqBy(eventsOnActiveDay, 'id')} calendar={true} />
+          ) : null
+        }
       </CardWrapper>
     </div>
   );

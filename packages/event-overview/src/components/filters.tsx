@@ -37,9 +37,11 @@ const styles = {
     display: flex;
     align-items: center;
     margin: 24px 0;
+    width: 100%;
   `,
   StyledInput: styled(StyledInput)`
     margin: 0;
+    width: 100%;
   `,
   Search: styled(Search)`
     background-color: ${props => props.theme.colors.background};

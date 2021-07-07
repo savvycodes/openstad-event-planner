@@ -61,6 +61,7 @@ export const NavItem = styled('p')<TextProps>`
 `;
 
 export const Border = styled('div')`
+  margin-top: 2px;
   width: 50%;
   border-bottom: 3px solid ${props => props.theme.colors.primary};
 `;
