@@ -261,11 +261,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
                 />
               </Paragraph>
             </DFlex>
-            {event.attendees > 0 && (
-              <Paragraph style={{ marginTop: '16px' }}>
-                Beschikbare plaatsen: {event.attendees}
-              </Paragraph>
-            )}
 
             {event.slots.map((slot: any) => {
               const start = new Date(slot.startTime);

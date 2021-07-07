@@ -26,11 +26,11 @@ export const ActivityCard = styled('div')<CardProps>`
       : props.theme.colors.white};
   box-shadow: ${props => props.theme.effects.boxShadowPrimary};
   margin: 12px;
-  padding: 5%;
   position: relative;
 `;
 export const CardTextContainer = styled('div')`
   width: 100%;
+  padding: 8px 16px;
 `;
 export const CardIconContainer = styled('div')`
   position: absolute;
@@ -41,16 +41,22 @@ export const CardIconContainer = styled('div')`
 `;
 
 export const CardTagsContainer = styled('div')`
+  position: absolute;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  margin: 0 -4px;
+  padding: 0 16px 12px;
+  bottom: 0;
 `;
 
 export const CardTag = styled('p')`
   font-size: 12px;
+  line-height: 12px;
   border: 1px solid ${props => props.theme.colors.primary};
+  background-color: ${props => props.theme.colors.white};
   border-radius: 5px;
-  padding: 0 8px;
+  padding: 6px 8px;
   margin: 4px;
   font-weight: 500;
 `;
@@ -62,6 +68,10 @@ export const NewActivityCardTextContainer = styled('div')`
   align-items: center;
   justify-content: center;
 `;
+
+export const ActivityImageWrapper = styled('div')`
+  position: relative;
+`
 
 export const ActivityImage = styled('img')`
   width: 100%;
@@ -106,7 +116,7 @@ export function ActivityCards({
 }: ActivityCardsProps) {
   return (
     <ActivityCard newactivity>
-      <ActivityImage src={src} />
+      <ActivityImage src={src} alt={title} loading="lazy" />
       <CardTextContainer>
         <BorderedCardTitle title={title} />
       </CardTextContainer>

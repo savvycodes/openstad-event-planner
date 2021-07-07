@@ -4,6 +4,7 @@ import { Link } from 'wouter';
 
 import {
   ActivityCard,
+  ActivityImageWrapper,
   ActivityImage,
   CardTextContainer,
   CardTagsContainer,
@@ -14,7 +15,11 @@ import { BorderedCardTitle } from '../text/text';
 const styles = {
   SmallParagraph: styled('p')`
     display: block;
+    margin-top: 8px;
+    margin-bottom: 4px;
     font-size: 12px;
+    font-weight: bold;
+    line-height: 14px;
   `,
   Description: styled('p')`
     font-size: 12px;
@@ -26,35 +31,39 @@ const styles = {
   `,
 };
 import { formatAges } from '../ages';
-import { EmptyState } from '../emptyState/emptyState';
 
 const LoadEvents = (events: any) => {
   return events.map((event: any) => (
     <Link to={`#/events/${event.id}`} key={event.id}>
       <ActivityCard>
-        <ActivityImage src={event.image} alt={event.name} />
+        <ActivityImageWrapper>
+          <ActivityImage src={event.image} alt={event.name} loading="lazy" />
+          <CardTagsContainer>
+            <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
+            {event.tags.map((tag: any) => (
+              <CardTag key={tag.id}>{tag.name}</CardTag>
+            ))}
+            <CardTag>{event.district}</CardTag>
+          </CardTagsContainer>
+        </ActivityImageWrapper>
         <CardTextContainer>
           <BorderedCardTitle title={event.name} />
+          <styles.SmallParagraph>
+            Door: {event.organisation.name}
+          </styles.SmallParagraph>
+          <styles.Description>
+            {event.description.replace(/(<([^>]+)>)/gi, '')}
+          </styles.Description>
         </CardTextContainer>
-        <styles.SmallParagraph>
-          door {event.organisation.name}
-        </styles.SmallParagraph>
-        <styles.Description>
-          {event.description.replace(/(<([^>]+)>)/gi, '')}
-        </styles.Description>
-
-        <CardTagsContainer>
-          <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
-          {event.tags.map((tag: any) => (
-            <CardTag key={tag.id}>{tag.name}</CardTag>
-          ))}
-          <CardTag>{event.district}</CardTag>
-        </CardTagsContainer>
       </ActivityCard>
     </Link>
   ));
 };
 
+// export function EventTiles({ events }: any) {
+//   return events && events.length > 0 ? LoadEvents(events) : <EmptyState />;
+// }
+
 export function EventTiles({ events }: any) {
-  return events && events.length > 0 ? LoadEvents(events) : <EmptyState />;
+  return LoadEvents(events);
 }

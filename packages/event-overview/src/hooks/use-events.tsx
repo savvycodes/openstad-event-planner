@@ -21,12 +21,14 @@ export function useEvents(filters: any) {
   const isReachingEnd =
     isEmpty ||
     (data &&
-      data[data.length - 1]?.records.length <
-        data[data.length - 1]?.metadata.pageSize);
+      data[data.length - 1]?.metadata.page ===
+        data[data.length - 1]?.metadata.pageCount);
   const isLoadingInitialData = !data && !error;
   const isLoadingMore =
     isLoadingInitialData ||
     (size > 0 && data && typeof data[size - 1] === 'undefined');
+
+  console.log('is reaching end', { isReachingEnd, isEmpty });
 
   useEffect(() => {
     const apiFilters = {
