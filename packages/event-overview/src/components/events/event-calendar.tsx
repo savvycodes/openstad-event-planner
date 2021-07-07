@@ -119,6 +119,13 @@ const s = {
     border-bottom: 1px solid ${props => props.theme.colors.darkGray};
     margin: 4px;
   `,
+  CalendarButton: styled('button')`
+    width: 24px;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+  `,
 };
 
 /**
@@ -221,12 +228,9 @@ export function EventCalendar({ events }: EventCalendarProps) {
   return (
     <div>
       <s.Container>
-        <s.ChevronLeft
-          style={{ cursor: 'pointer' }}
-          onClick={previous}
-          size={24}
-          stroke={'black'}
-        />
+        <s.CalendarButton onClick={previous}>
+          <s.ChevronLeft size={24} stroke={'black'} />
+        </s.CalendarButton>
 
         {isTabletOrMobile && (
           <div
@@ -327,12 +331,9 @@ export function EventCalendar({ events }: EventCalendarProps) {
             </s.CalendarDay>
           );
         })}
-        <s.ChevronRight
-          style={{ cursor: 'pointer' }}
-          onClick={next}
-          size={24}
-          stroke={'black'}
-        />
+        <s.CalendarButton onClick={next}>
+          <s.ChevronRight size={24} stroke={'black'} />
+        </s.CalendarButton>
       </s.Container>
 
       <CardWrapper>
