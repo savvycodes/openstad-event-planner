@@ -32,7 +32,7 @@ const LoadEvents = (events: any) => {
   return events.map((event: any) => (
     <Link to={`#/events/${event.id}`} key={event.id}>
       <ActivityCard>
-        <ActivityImage src={event.image} alt={event.name} />
+        <ActivityImage src={event.image} alt={event.name} loading="lazy" />
         <CardTextContainer>
           <BorderedCardTitle title={event.name} />
         </CardTextContainer>
