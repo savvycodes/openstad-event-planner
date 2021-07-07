@@ -14,7 +14,10 @@ export const CardWrapper = styled('div')`
   @media (min-width: 1024px) {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 16px;
+    row-gap: 24px;
+    column-gap: 24px;
   }
 `;
 
@@ -25,7 +28,6 @@ export const ActivityCard = styled('div')<CardProps>`
       ? props.theme.colors.background
       : props.theme.colors.white};
   box-shadow: ${props => props.theme.effects.boxShadowPrimary};
-  margin: 12px;
   position: relative;
 `;
 export const CardTextContainer = styled('div')`
