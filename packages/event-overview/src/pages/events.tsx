@@ -18,7 +18,7 @@ import { EventCalendar } from '../components/events/event-calendar';
 import { EventTiles } from '../components/events/event-tiles';
 import { EventMap } from '../components/events/event-map';
 import { Button } from '../components/button/button';
-import { EmptyState } from '../components/emptyState/emptyState'
+import { EmptyState } from '../components/emptyState/emptyState';
 
 import { useEvents } from '../hooks/use-events';
 
@@ -41,8 +41,11 @@ const styles = {
  * @returns
  */
 export function EventsPage({}: RouteComponentProps) {
+  let storedFilters = sessionStorage.getItem('events.filter');
+  storedFilters = storedFilters ? JSON.parse(storedFilters) : null;
+
   // @todo: store filters in query string and restore from there
-  const [filters, setFilters] = useState<any>(null);
+  const [filters, setFilters] = useState<any>(storedFilters);
   const [viewType, setViewType] = useState('tile');
 
   const { events, error, loading, next, hasMoreResults } = useEvents(filters);
@@ -61,6 +64,13 @@ export function EventsPage({}: RouteComponentProps) {
       next();
     }
   }, [filters, hasMoreResults, next]);
+
+  useEffect(() => {
+    if (filters) {
+      // store filters in session storage
+      sessionStorage.setItem('events.filter', JSON.stringify(filters));
+    }
+  }, [filters]);
 
   if (error) {
     return <ErrorBanner>{error.message}</ErrorBanner>;
@@ -124,7 +134,6 @@ export function EventsPage({}: RouteComponentProps) {
               <CardWrapper>
                 <EventTiles events={events} />
                 {events.length === 0 ? <EmptyState /> : null}
-                
               </CardWrapper>
             </div>
           ) : null}
