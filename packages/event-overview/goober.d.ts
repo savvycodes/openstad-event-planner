@@ -5,6 +5,7 @@ declare module 'goober' {
     colors: {
       primary: string;
       secondary: string;
+      red: string;
       danger: string;
       white: string;
       black: string;

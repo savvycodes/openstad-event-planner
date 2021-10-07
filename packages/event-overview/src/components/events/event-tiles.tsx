@@ -9,8 +9,13 @@ import {
   CardTextContainer,
   CardTagsContainer,
   CardTag,
+  IconWrapper,
+  HeartIcon,
+  IconContainer,
 } from '../card/card';
 import { BorderedCardTitle } from '../text/text';
+
+
 
 const styles = {
   SmallParagraph: styled('p')`
@@ -36,6 +41,13 @@ const LoadEvents = (events: any) => {
   return events.map((event: any) => (
     <Link to={`#/events/${event.id}`} key={event.id}>
       <ActivityCard>
+        <IconWrapper>
+          <IconContainer>
+
+            <HeartIcon active/>
+
+            </IconContainer>
+          </IconWrapper>
         <ActivityImageWrapper>
           <ActivityImage src={event.image + '/:/rs=w:666'} alt={event.name} loading="lazy" />
           <CardTagsContainer>
