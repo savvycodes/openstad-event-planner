@@ -15,8 +15,6 @@ import {
 } from '../card/card';
 import { BorderedCardTitle } from '../text/text';
 
-
-
 const styles = {
   SmallParagraph: styled('p')`
     display: block;
@@ -43,13 +41,15 @@ const LoadEvents = (events: any) => {
       <ActivityCard>
         <IconWrapper>
           <IconContainer>
-
-            <HeartIcon active/>
-
-            </IconContainer>
-          </IconWrapper>
+            <HeartIcon active />
+          </IconContainer>
+        </IconWrapper>
         <ActivityImageWrapper>
-          <ActivityImage src={event.image + '/:/rs=w:666'} alt={event.name} loading="lazy" />
+          <ActivityImage
+            src={event.image + '/:/rs=w:666'}
+            alt={event.name}
+            loading="lazy"
+          />
           <CardTagsContainer>
             <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
             {event.tags.map((tag: any) => (

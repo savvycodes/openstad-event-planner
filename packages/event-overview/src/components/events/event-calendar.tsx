@@ -125,6 +125,30 @@ const s = {
     background: transparent;
     cursor: pointer;
   `,
+  NextPreviousButtons: styled('div')`
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0,
+    background-color: ${props => props.theme.colors.background}
+  `,
+
+  PreviousButton: styled('div')`
+    display: flex;
+    justifycontent: center;
+  `,
+
+  NextButton: styled('div')`
+    display: flex;
+    justifycontent: center;
+  `,
+
+  ChevronLeftMobile: styled(ChevronLeft)`
+    cursor: pointer;
+  `,
+
+  ChevronRightMobile: styled(ChevronRight)`
+    cursor: pointer;
+  `,
 };
 
 /**
@@ -230,29 +254,17 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
         </s.CalendarButton>
 
         {isTabletOrMobile && (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              margin: '12px 0',
-            }}
-          >
-            <div
-              onClick={previous}
-              style={{ display: 'flex', justifyContent: 'center' }}
-            >
-              <ChevronLeft style={{ cursor: 'pointer' }} stroke={'black'} />
+          <s.NextPreviousButtons>
+            <s.PreviousButton onClick={previous}>
+              <s.ChevronLeftMobile stroke={'black'} />
               <Paragraph>Vorige</Paragraph>
-            </div>
+            </s.PreviousButton>
 
-            <div
-              onClick={next}
-              style={{ display: 'flex', justifyContent: 'center' }}
-            >
+            <s.NextButton onClick={next}>
               <Paragraph>Volgende</Paragraph>
-              <ChevronRight style={{ cursor: 'pointer' }} stroke={'black'} />
-            </div>
-          </div>
+              <s.ChevronRightMobile stroke={'black'} />
+            </s.NextButton>
+          </s.NextPreviousButtons>
         )}
         {range.map((day: Date) => {
           const date = formatISO(day, { representation: 'date' });
@@ -328,6 +340,19 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
             </s.CalendarDay>
           );
         })}
+        {isTabletOrMobile && (
+          <s.NextPreviousButtons>
+            <s.PreviousButton onClick={previous}>
+              <s.ChevronLeftMobile stroke={'black'} />
+              <Paragraph>Vorige</Paragraph>
+            </s.PreviousButton>
+
+            <s.NextButton onClick={next}>
+              <Paragraph>Volgende</Paragraph>
+              <s.ChevronRightMobile stroke={'black'} />
+            </s.NextButton>
+          </s.NextPreviousButtons>
+        )}
         <s.CalendarButton onClick={next}>
           <s.ChevronRight size={24} stroke={'black'} />
         </s.CalendarButton>
@@ -336,8 +361,7 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
       <CardWrapper>
         {eventsOnActiveDay ? (
           <EventTiles events={uniqBy(eventsOnActiveDay, 'id')} />
-          ) : null
-        }
+        ) : null}
       </CardWrapper>
     </div>
   );

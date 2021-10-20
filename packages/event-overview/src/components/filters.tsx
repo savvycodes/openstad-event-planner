@@ -7,6 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import { Spinner } from './spinner';
 import { Ages } from './ages';
+import { Filter as FilterIcon } from 'react-feather';
 
 import { useDistricts } from '../hooks/use-districts';
 import useDebounce from '../hooks/use-debounce';
@@ -82,6 +83,20 @@ const styles = {
   DFlex: styled(DFlex)`
     align-items: center;
     justify-content: space-between;
+  `,
+
+  FilterButton: styled('div')`
+  background-color: ${props => props.theme.colors.background};
+  box-shadow: ${props => props.theme.effects.boxShadowSecondary};
+  padding: 8px;
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  `,
+
+  FilterIcon: styled(FilterIcon)`
+  padding: 0 4px;
   `,
 };
 
@@ -170,9 +185,10 @@ export function FilterSidebar({ onChange, ...props }: any) {
         </styles.InputWithIcon>
 
         {isTabletOrMobile && (
-          <Paragraph onClick={() => setFiltersVisible(!filtersVisible)}>
+          <styles.FilterButton onClick={() => setFiltersVisible(!filtersVisible)}>
+            <styles.FilterIcon size={24} stroke={'black'} />
             Filteren
-          </Paragraph>
+          </styles.FilterButton>
         )}
       </styles.DFlex>
       {filtersVisible && (
