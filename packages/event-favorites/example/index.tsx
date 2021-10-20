@@ -8,18 +8,13 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { App } from '../.';
 
-// admin token
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzMzcwMTUyMywiZXhwIjoxNjQ5NDI2MzIzfQ.WvCsbHoeeOM-HvOCAUJmlPtW8mLyzVKF6R0oGyyZjv8
-// pleb token
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzcwMjE0NSwiZXhwIjoxNjQ5NDI2OTQ1fQ.-KjHejLlbhPcI81kmLOeifuKHuFp3XdcjMFHTC66g48
-
 const config = {
-  jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzcwMjE0NSwiZXhwIjoxNjQ5NDI2OTQ1fQ.-KjHejLlbhPcI81kmLOeifuKHuFp3XdcjMFHTC66g48',
-  siteId: 2,
+  jwt: '',
+  siteId: 6,
   apiUrl: '/api',
   imageUrl: '/image',
   user: {
-    isEventProvider: false,
+    isEventProvider: true,
     role: 'member',
   },
   map: {
