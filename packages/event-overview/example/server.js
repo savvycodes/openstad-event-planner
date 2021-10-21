@@ -6,7 +6,7 @@ const app = express();
 
 app.use(
   createProxyMiddleware('/api', {
-    target: 'https://api.openstad.savvy.codes',
+    target: 'http://localhost:8111',
     changeOrigin: true,
     pathRewrite: {
       '^/api/oauth': '/oauth',

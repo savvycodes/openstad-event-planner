@@ -6,7 +6,7 @@ const app = express();
 
 app.use(
   createProxyMiddleware('/api', {
-    target: 'https://api.openstad-staging.savvy.codes',
+    target: 'http://localhost:8111',
     changeOrigin: true,
     pathRewrite: {
       '^/api/oauth': '/oauth',
@@ -25,10 +25,10 @@ app.use(
 );
 app.use(
   createProxyMiddleware('/image', {
-    target: 'http://localhost:3333',
+    target: 'https://img.openstad-staging.savvy.codes',
     changeOrigin: true,
     pathRewrite: {
-      '^/image': '/image?access_token=xxxxxx',
+      '^/image': '/image?access_token=1OGvxxZRXUpGUI7lxqqD',
     },
   })
 );

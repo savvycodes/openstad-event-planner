@@ -1,0 +1,32 @@
+{
+  "name": "@savvycodes/openstad-event-favorites-widgets",
+  "version": "0.0.4-alpha.47",
+  "main": "index.js",
+  "dependencies": {
+    "@savvycodes/event-favorites": "^0.0.4-alpha.47",
+    "lodash.get": "^4.4.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-react": "^7.13.13",
+    "@types/react": "^17.0.9",
+    "@types/react-dom": "^17.0.6",
+    "babel-loader": "^8.2.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "react-dom": ">=16"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "prepare": "webpack --mode production"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
