@@ -12,25 +12,27 @@ import {
   HeartIcon,
 } from '../card/card';
 import { BorderedCardTitle } from '../text/text';
+import { useConfig } from '../../context/config-context';
 
 const styles = {
   SmallParagraph: styled('p')`
     display: block;
     margin-top: 8px;
-    margin-bottom: 4px;
-    font-size: 12px;
+    margin-bottom: 12px;
+    font-size: 16px;
     font-weight: bold;
     line-height: 14px;
   `,
   Description: styled('p')`
-    font-size: 12px;
+    font-size: 16px;
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.8;
   `,
-  Paragraph: styled('p')`
+  Link: styled('a')`
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
@@ -38,17 +40,22 @@ const styles = {
   `,
 };
 
-const LoadEvents = (events: any, add: any) => {
+export function EventTiles({ events, add, onDelete, onFavorite }: any) {
+  const { activityPageUrl } = useConfig();
+
   return events.map((event: any) => (
-    <ActivityCard>
+    <ActivityCard key={event.id}>
       <IconWrapper>
         {add ? (
           <IconContainer>
-            <HeartIcon active={false} />
+            <HeartIcon
+              active={false}
+              onClick={() => onFavorite && onFavorite(event.id)}
+            />
           </IconContainer>
         ) : (
           <IconContainer>
-            <TrashIcon />
+            <TrashIcon onClick={() => onDelete && onDelete(event.id)} />
           </IconContainer>
         )}
       </IconWrapper>
@@ -61,24 +68,16 @@ const LoadEvents = (events: any, add: any) => {
       </ActivityImageWrapper>
       <CardTextContainer>
         <BorderedCardTitle title={event.name} />
-        <styles.SmallParagraph>
-          Door: {event.organisation.name}
-        </styles.SmallParagraph>
-        <styles.Description>
-          {event.description.replace(/(<([^>]+)>)/gi, '')}
-        </styles.Description>
-        <styles.Paragraph onClick={() => console.log('nice')}>
+        {event.organisation ? (
+          <styles.SmallParagraph>
+            Door: {event.organisation?.name}
+          </styles.SmallParagraph>
+        ) : null}
+        <styles.Description>{event.description}</styles.Description>
+        <styles.Link href={`${activityPageUrl}/events/${event.id}`}>
           Activiteit bekijken
-        </styles.Paragraph>
+        </styles.Link>
       </CardTextContainer>
     </ActivityCard>
   ));
-};
-
-// export function EventTiles({ events }: any) {
-//   return events && events.length > 0 ? LoadEvents(events) : <EmptyState />;
-// }
-
-export function EventTiles({ events, add }: any) {
-  return LoadEvents(events, add);
 }

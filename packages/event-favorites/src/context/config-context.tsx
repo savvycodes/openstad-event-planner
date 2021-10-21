@@ -2,19 +2,15 @@ import React, { createContext, useContext } from 'react';
 
 import { AppConfig } from '../app';
 
-const defaultConfig = {
+const defaultConfig: AppConfig = {
   siteId: 2,
   jwt: '',
   apiUrl: '',
   imageUrl: '',
+  activityPageUrl: 'http://localhost:1234/#',
   user: {
     role: '',
     isEventProvider: false,
-  },
-  map: {
-    tileUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    accessToken: '',
-    id: '',
   },
 };
 

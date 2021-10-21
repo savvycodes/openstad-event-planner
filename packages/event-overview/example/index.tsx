@@ -14,13 +14,14 @@ import { App } from '../.';
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzcwMjE0NSwiZXhwIjoxNjQ5NDI2OTQ1fQ.-KjHejLlbhPcI81kmLOeifuKHuFp3XdcjMFHTC66g48
 
 const config = {
-  jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzcwMjE0NSwiZXhwIjoxNjQ5NDI2OTQ1fQ.-KjHejLlbhPcI81kmLOeifuKHuFp3XdcjMFHTC66g48',
+  jwt:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzNDcyNDA0OSwiZXhwIjoxNjUwNDQ4ODQ5fQ.6K64xnl0eIDYCv1xUq3k1L6wuH3f-rTVnzdYhBve5s0',
   siteId: 2,
   apiUrl: '/api',
   imageUrl: '/image',
   user: {
     isEventProvider: false,
-    role: 'member',
+    role: 'admin',
   },
   map: {
     accessToken:

@@ -34,6 +34,7 @@ export function useEvents(filters: any) {
       dates: filters?.dates?.map((date: Date) => date.toISOString()) ?? null,
     };
     delete apiFilters.ageRanges;
+    delete apiFilters.favorites;
 
     // remove empty values
     Object.keys(apiFilters).forEach(key => {
@@ -103,7 +104,7 @@ export function useEvents(filters: any) {
   }
 
   function filterDates(filter: any) {
-    if (!filter?.dates.length) {
+    if (!filter.dates || !filter?.dates.length) {
       return skip;
     }
 
@@ -114,6 +115,16 @@ export function useEvents(filters: any) {
           ($date: Date) => date.toDateString() === $date.toDateString()
         )
       );
+    };
+  }
+
+  function filterFavorites(filter: any) {
+    if (!filter || !filter?.favorites || !filter.favorites.length) {
+      return skip;
+    }
+
+    return (event: any) => {
+      return !filter.favorites.includes(event.id);
     };
   }
 
@@ -132,7 +143,8 @@ export function useEvents(filters: any) {
       .filter(filterAge(filters))
       .filter(filterDistrict(filters))
       .filter(filterTags(filters))
-      .filter(filterDates(filters)) ?? [];
+      .filter(filterDates(filters))
+      .filter(filterFavorites(filters)) ?? [];
 
   return {
     events: uniqBy(filteredEvents, 'id'),

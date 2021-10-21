@@ -31,7 +31,7 @@ export const ListLabel = styled('label')`
 `;
 
 export const CardTitle = styled('h1')`
-  font-size: 16px;
+  font-size: 24px;
   font-family: ${props => props.theme.font.family};
   display: inline-block;
   margin: 8px 0 4px 0;

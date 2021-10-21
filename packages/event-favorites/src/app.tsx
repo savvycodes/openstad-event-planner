@@ -12,18 +12,14 @@ setup(createElement, undefined, useTheme);
 
 export type AppConfig = {
   siteId: number;
-  jwt?: string;
+  jwt: string;
   apiUrl: string;
   imageUrl: string;
+  activityPageUrl: string;
   user?: {
     isEventProvider?: boolean;
     // @todo: define all possible roles in a seperate type
     role?: string;
-  };
-  map: {
-    tileUrl?: string;
-    accessToken?: string;
-    id?: string;
   };
 };
 

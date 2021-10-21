@@ -34,7 +34,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "@savvycodes/event-overview",
+  "name": "@savvycodes/event-favorites",
   "author": "Savvy.codes",
   "module": "dist/openstad-events.esm.js",
   "size-limit": [
@@ -54,6 +54,7 @@
     "@types/leaflet": "^1.7.2",
     "@types/lodash": "^4.14.170",
     "@types/lodash.isempty": "^4.4.6",
+    "@types/lodash.samplesize": "^4.2.6",
     "@types/lodash.uniqby": "^4.7.6",
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.5",
@@ -72,6 +73,7 @@
     "formik": "^2.2.8",
     "goober": "^2.0.37",
     "lodash.isempty": "^4.4.0",
+    "lodash.samplesize": "^4.2.0",
     "lodash.uniqby": "^4.7.0",
     "only": "^0.0.2",
     "package-lock": "^1.0.5",

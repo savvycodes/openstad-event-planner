@@ -9,20 +9,15 @@ import * as ReactDOM from 'react-dom';
 import { App } from '../.';
 
 const config = {
-  jwt: '',
-  siteId: 6,
+  jwt:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzNDcyNDA0OSwiZXhwIjoxNjUwNDQ4ODQ5fQ.6K64xnl0eIDYCv1xUq3k1L6wuH3f-rTVnzdYhBve5s0',
+  siteId: 2,
+  activityPageUrl: 'http://localhost:1234/#',
   apiUrl: '/api',
   imageUrl: '/image',
   user: {
     isEventProvider: true,
     role: 'member',
-  },
-  map: {
-    accessToken:
-      'pk.eyJ1IjoiYmFkbXV0cyIsImEiOiJja3B4eGxiZzYxYXpiMnFwOXY1bnF3OTQ1In0.eHLVPwsrmCLBb1GQWX9EJg',
-    id: 'badmuts/ckpxxn1kf0n6t17p3fgmdbgoa',
-    tileUrl:
-      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
   },
 };
 

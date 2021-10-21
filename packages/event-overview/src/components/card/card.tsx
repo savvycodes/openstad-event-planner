@@ -11,7 +11,7 @@ type CardProps = {
 };
 
 type IconProps = {
-  active: boolean;
+  active?: boolean;
 };
 
 export const CardWrapper = styled('div')`
@@ -43,13 +43,12 @@ export const IconContainer = styled('div')`
 `;
 
 export const HeartIcon = styled(Heart)<IconProps>`
-fill: ${props => props.active ? props.theme.colors.red : 'transparent'};
-    stroke: ${props => props.active ? props.theme.colors.red: '#000000'};
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    `
-    ;
+  fill: ${props => (props.active ? props.theme.colors.red : 'transparent')};
+  stroke: ${props => (props.active ? props.theme.colors.red : '#000000')};
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+`;
 
 export const ActivityCard = styled('div')<CardProps>`
   cursor: pointer;
@@ -103,7 +102,7 @@ export const NewActivityCardTextContainer = styled('div')`
 
 export const ActivityImageWrapper = styled('div')`
   position: relative;
-`
+`;
 
 export const ActivityImage = styled('img')`
   width: 100%;

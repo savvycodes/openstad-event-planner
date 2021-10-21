@@ -19,11 +19,21 @@ export const SecondaryButton = styled('button')`
 `;
 
 export const RedButton = styled('button')`
-margin-top: 24px;
-border: none;
-color: white;
+  margin-top: 24px;
+  border: none;
+  color: white;
   padding: 10px;
-  background: #EC0000;
+  background: #ec0000;
   border-radius: 8px;
   cursor: pointer;
+`;
+
+export const RedButtonLink = styled('a')`
+  margin-top: 24px;
+  border: none;
+  color: white;
+  padding: 10px;
+  background: #ec0000;
+  border-radius: 8px;
+  display: inline-block;
 `;

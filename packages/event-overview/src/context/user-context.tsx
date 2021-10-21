@@ -55,5 +55,12 @@ export function useUser() {
     throw new Error('useUser must be used within a UserProvider');
   }
 
-  return context;
+  function isLoggedIn() {
+    if (context && context.jwt) {
+      return true;
+    }
+    return false;
+  }
+
+  return { ...context, isLoggedIn };
 }

@@ -26,6 +26,11 @@ export function Location({ lat, lon }: LocationProps) {
   }
 
   const address = location?.features?.[0]?.properties?.address;
+
+  if (!address) {
+    return null;
+  }
+
   return (
     <>
       {`${address.road || ''} ${address.house_number || ''}`} <br />

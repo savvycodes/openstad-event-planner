@@ -34,14 +34,32 @@ const styles = {
   `,
 };
 import { formatAges } from '../ages';
+import { useUser } from '../../context/user-context';
+import { useFavorites } from '../../hooks/use-favorites';
 
-const LoadEvents = (events: any) => {
+export function EventTiles({ events }: any) {
+  const user = useUser();
+  const { isFavorite, unfavorite, favorite } = useFavorites();
+
   return events.map((event: any) => (
     <Link to={`#/events/${event.id}`} key={event.id}>
       <ActivityCard>
-        <IconWrapper>
+        <IconWrapper
+          onClick={e => {
+            e.stopPropagation();
+            if (user.isLoggedIn()) {
+              if (isFavorite(event.id)) {
+                unfavorite(event.id);
+              } else {
+                favorite(event);
+              }
+            } else {
+              alert('Je moet ingelogd zijn om deze als favoriet op te slaan');
+            }
+          }}
+        >
           <IconContainer>
-            <HeartIcon active />
+            <HeartIcon active={isFavorite(event.id)} />
           </IconContainer>
         </IconWrapper>
         <ActivityImageWrapper>
@@ -52,7 +70,7 @@ const LoadEvents = (events: any) => {
           />
           <CardTagsContainer>
             <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
-            {event.tags.map((tag: any) => (
+            {event?.tags.map((tag: any) => (
               <CardTag key={tag.id}>{tag.name}</CardTag>
             ))}
             <CardTag>{event.district}</CardTag>
@@ -70,12 +88,4 @@ const LoadEvents = (events: any) => {
       </ActivityCard>
     </Link>
   ));
-};
-
-// export function EventTiles({ events }: any) {
-//   return events && events.length > 0 ? LoadEvents(events) : <EmptyState />;
-// }
-
-export function EventTiles({ events }: any) {
-  return LoadEvents(events);
 }
