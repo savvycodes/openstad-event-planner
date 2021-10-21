@@ -2,7 +2,7 @@ const get = require('lodash.get');
 
 module.exports = {
   extend: 'openstad-widgets',
-  label: 'Evenementen overzicht',
+  label: 'Evenementen favorieten',
 
   /**
    * @todo: Add useful fields
