@@ -5,7 +5,7 @@
 <script>
   window.addEventListener('load', function() {
     const config = {{ data.widget.config | safe }};
-    const elem = document.querySelector('#{{ data.widget.containerId }} .openstad-event-browser');
+    const elem = document.querySelector('#{{ data.widget.containerId }} .openstad-event-favorites');
 
     savvycodes.OpenstadEventFavorites.renderElement(config, elem);
   })
