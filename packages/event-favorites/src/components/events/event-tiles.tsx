@@ -73,7 +73,9 @@ export function EventTiles({ events, add, onDelete, onFavorite }: any) {
             Door: {event.organisation?.name}
           </styles.SmallParagraph>
         ) : null}
-        <styles.Description>{event.description}</styles.Description>
+        <styles.Description>
+          {event.description.replace(/(<([^>]+)>)/gi, '')}
+        </styles.Description>
         <styles.Link href={`${activityPageUrl}/events/${event.id}`}>
           Activiteit bekijken
         </styles.Link>
