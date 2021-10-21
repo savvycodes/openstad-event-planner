@@ -44,8 +44,6 @@ module.exports = {
    * @param {*} options
    */
   construct: function (self, options) {
-    options.playerData = ['_id', 'config'];
-
     const superPushAssets = self.pushAssets;
     self.pushAssets = function () {
       superPushAssets();
@@ -57,7 +55,7 @@ module.exports = {
         const containerId = self.apos.utils.generateId();
         widget.containerId = containerId;
         // Create the config for the react component
-        widget.config = {
+        widget.config = JSON.stringify({
           activityPageUrl: widget.activityPageUrl,
           siteId: req.data.global.siteId,
           apiUrl: self.apos.settings.getOption(req, 'apiUrl'),
@@ -71,7 +69,7 @@ module.exports = {
               false
             ),
           },
-        };
+        });
 
         // // Check if user can view this widget
         // widget.canView =
