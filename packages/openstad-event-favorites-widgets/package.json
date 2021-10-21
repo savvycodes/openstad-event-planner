@@ -1,6 +1,6 @@
 {
   "name": "@savvycodes/openstad-event-favorites-widgets",
-  "version": "0.0.4-alpha.43",
+  "version": "0.0.4-alpha.44",
   "main": "index.js",
   "dependencies": {
     "@savvycodes/event-favorites": "^0.0.4-alpha.40",
