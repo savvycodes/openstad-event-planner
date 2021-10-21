@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from '@savvycodes/event-favorites';
 
-apos.define('openstad-event-favorites-widgets', {
+window.apos.define('openstad-event-favorites-widgets', {
   extend: 'openstad-widgets',
   construct: function (self, options) {
     console.log('construct.options', options);
