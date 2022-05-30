@@ -6,7 +6,7 @@ import 'leaflet';
 import 'leaflet.markercluster';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { App } from '../.';
+import { App } from '../src/app';
 
 // admin token
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzMzcwMTUyMywiZXhwIjoxNjQ5NDI2MzIzfQ.WvCsbHoeeOM-HvOCAUJmlPtW8mLyzVKF6R0oGyyZjv8
@@ -14,9 +14,8 @@ import { App } from '../.';
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzcwMjE0NSwiZXhwIjoxNjQ5NDI2OTQ1fQ.-KjHejLlbhPcI81kmLOeifuKHuFp3XdcjMFHTC66g48
 
 const config = {
-  jwt:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzNDcyNDA0OSwiZXhwIjoxNjUwNDQ4ODQ5fQ.6K64xnl0eIDYCv1xUq3k1L6wuH3f-rTVnzdYhBve5s0',
-  siteId: 2,
+  jwt: null, //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzNDcyNDA0OSwiZXhwIjoxNjUwNDQ4ODQ5fQ.6K64xnl0eIDYCv1xUq3k1L6wuH3f-rTVnzdYhBve5s0',
+  siteId: 3,
   apiUrl: '/api',
   imageUrl: '/image',
   user: {
@@ -66,7 +65,7 @@ const config = {
     { id: 'w16911478967856762', value: 'Centrum' },
     { id: 'w136021711703036594', value: 'Nieuw-West' },
     { id: 'w869620717202683373', value: 'Noord' },
-    { id: 'w798411027474221411', value: 'Noord' },
+    { id: 'w798411027474221411', value: 'Oost' },
     { id: 'w88663654761504373', value: 'West' },
     { id: 'w322246137345888350', value: 'Weesp' },
     { id: 'w886239040903530283', value: 'Zuid' },
@@ -94,5 +93,5 @@ ReactDOM.render(
   <React.StrictMode>
     <App config={config} theme={theme} />
   </React.StrictMode>,
-  document.querySelector('.openstad-events')
+  document.querySelector('.openstad-event-browser')
 );

@@ -26,6 +26,8 @@ export type AppConfig = {
     id?: string;
   };
   base?: string;
+  themes?: any;
+  areas?: any;
 };
 
 type AppProps = {
