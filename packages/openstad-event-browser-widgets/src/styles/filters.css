@@ -1,0 +1,38 @@
+.event-filter {
+  position: relative;
+}
+
+.event-filter__icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.event-input-wrapper__has-icon {
+  position: relative;
+}
+
+.event-input-wrapper__input{
+  width: 100%;
+}
+
+.event-input-wrapper__icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.event-filter__label {
+  display: block;
+  margin: 0;
+}
+
+.event-filter__label p {
+  margin: 0;
+}
+
+.event-filter__input {
+  height: 20px;
+  width: 20px;
+  margin: 0;
+}

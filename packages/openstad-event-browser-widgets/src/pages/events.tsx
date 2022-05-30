@@ -11,7 +11,6 @@ import { useMediaQuery } from 'react-responsive';
 import {
   DFlex,
   Header,
-  Main,
   NavigationItem,
 } from '../components/layout/layout';
 import { EventCalendar } from '../components/events/event-calendar';
@@ -21,6 +20,8 @@ import { Button } from '../components/button/button';
 import { EmptyState } from '../components/emptyState/emptyState';
 
 import { useEvents } from '../hooks/use-events';
+
+import '../styles/events.css';
 
 const styles = {
   Header: styled(Header)`
@@ -77,39 +78,42 @@ export function EventsPage({}: RouteComponentProps) {
   }
 
   return (
-    <Main>
-      <styles.Header>
+    <main className="event-events__main">
+      <nav className="event-events__nav">
         <NavigationItem
+          className={viewType === 'map' ? "event-events__nav-item active" : "event-events__nav-item"}
           active={viewType === 'map'}
           onClick={e => {
             e.preventDefault();
             setViewType('map');
           }}
         >
-          <MapPin style={{ padding: '0 4px' }} size={24} stroke={'black'} />
+          <MapPin size={24} stroke={'black'} />
           Kaart
         </NavigationItem>
         <NavigationItem
+          className={viewType === 'calendar' ? "event-events__nav-item active" : "event-events__nav-item"}
           active={viewType === 'calendar'}
           onClick={e => {
             e.preventDefault();
             setViewType('calendar');
           }}
         >
-          <Calendar style={{ padding: '0 4px' }} size={24} stroke={'black'} />
+          <Calendar size={24} stroke={'black'} />
           Kalender
         </NavigationItem>
         <NavigationItem
+          className={viewType === 'tile' ? "event-events__nav-item active" : "event-events__nav-item"}
           active={viewType === 'tile'}
           onClick={e => {
             e.preventDefault();
             setViewType('tile');
           }}
         >
-          <Grid style={{ padding: '0 4px' }} size={24} fill={'black'} />
+          <Grid size={24} fill={'black'} />
           Tegels
         </NavigationItem>
-      </styles.Header>
+      </nav>
 
       {isTabletOrMobile && (
         <styles.ContentContainer>
@@ -176,9 +180,9 @@ export function EventsPage({}: RouteComponentProps) {
             marginBottom: 32,
           }}
         >
-          <Button onClick={next}>Meer laden</Button>
+          <button className='event-events__fetch-more' onClick={next}>Meer laden</button>
         </div>
       ) : null}
-    </Main>
+    </main>
   );
 }

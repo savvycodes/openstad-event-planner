@@ -1,5 +1,4 @@
 import React from 'react';
-import { Paragraph } from './text/text';
 
 export function formatAges(minAge: any, maxAge: any) {
   if (maxAge === 99) {
@@ -10,5 +9,5 @@ export function formatAges(minAge: any, maxAge: any) {
 }
 
 export function Ages({ minAge, maxAge, ...props }: any) {
-  return <Paragraph {...props}>{formatAges(minAge, maxAge)}</Paragraph>;
+  return <p {...props}>{formatAges(minAge, maxAge)}</p>;
 }

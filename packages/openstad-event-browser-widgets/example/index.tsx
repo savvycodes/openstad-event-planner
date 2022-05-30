@@ -14,8 +14,8 @@ import { App } from '../src/app';
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTYzMzcwMjE0NSwiZXhwIjoxNjQ5NDI2OTQ1fQ.-KjHejLlbhPcI81kmLOeifuKHuFp3XdcjMFHTC66g48
 
 const config = {
-  jwt: null, //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzNDcyNDA0OSwiZXhwIjoxNjUwNDQ4ODQ5fQ.6K64xnl0eIDYCv1xUq3k1L6wuH3f-rTVnzdYhBve5s0',
-  siteId: 3,
+  jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImNsaWVudCI6ImRlZmF1bHQiLCJpYXQiOjE2NTM5MTU3MTAsImV4cCI6MTY2OTY0MDUxMH0.VkKLFpWROaBrR8EqDYI-txFkjvQMx9sIbLJ-ZFS7ib0", //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzNDcyNDA0OSwiZXhwIjoxNjUwNDQ4ODQ5fQ.6K64xnl0eIDYCv1xUq3k1L6wuH3f-rTVnzdYhBve5s0',
+  siteId: 4,
   apiUrl: '/api',
   imageUrl: '/image',
   user: {

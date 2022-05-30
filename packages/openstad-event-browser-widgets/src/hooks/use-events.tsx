@@ -31,7 +31,7 @@ export function useEvents(filters: any) {
   useEffect(() => {
     const apiFilters = {
       ...filters,
-      dates: filters?.dates?.map((date: Date) => date.toISOString()) ?? null,
+      dates: filters?.dates?.map((date: Date) => (date && date.toISOString) ? date.toISOString() : null ) ?? null,
     };
     delete apiFilters.ageRanges;
 

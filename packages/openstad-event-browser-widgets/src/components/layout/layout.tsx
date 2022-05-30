@@ -1,4 +1,5 @@
 import { styled } from 'goober';
+import { darken } from 'polished';
 
 /**
  * Form helpers
@@ -20,12 +21,7 @@ export const DFlex = styled('div')`
 `;
 
 export const NavigationItem = styled('div')<InputProps>`
-  padding: 12px;
-  margin-left: 12px;
-  background-color: ${props => props.theme.colors.background};
-  box-shadow: ${props =>
-    props.active ? props.theme.effects.boxShadowPrimary : 'none'};
-  text-decoration: none;
+  background-color: ${props => props.active ? darken(0.25, props.theme.colors.background) : props.theme.colors.background};
   display: flex;
   align-items: center;
   cursor: pointer;
