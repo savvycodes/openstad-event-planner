@@ -67,12 +67,6 @@ export function SignupPage() {
     district: Yup.string()
       .oneOf(districts)
       .required('Stadsdeel is verplicht'),
-    phone: Yup.number()
-      .min(10)
-      .required('Telefoonnummer is verplicht'),
-    email: Yup.string()
-      .email()
-      .required('E-mailadres is verplicht'),
     website: Yup.string()
       .url()
       .nullable(),
@@ -90,9 +84,6 @@ export function SignupPage() {
         'Geen geldige Instagram profiel URL (voorbeeld: https://instagram.com/midzomermokum)'
       )
       .nullable(),
-    tagIds: Yup.array()
-      .of(Yup.number())
-      .min(1, 'U moet minimaal 1 type activiteit selecteren'),
   });
 
   async function handleSubmit(values: any, form: any) {
@@ -127,13 +118,9 @@ export function SignupPage() {
     <Main>
       <Header>
         {submitError ? <ErrorBanner>{submitError.message}</ErrorBanner> : null}
-        <Paragraph>Welkom{' ' + user.fullName || ''},</Paragraph>
         <Paragraph>
-          Vul hieronder uw gegevens in. Vragen? Neem contact op met{' '}
-          <a href="mailto:midzomermokum@amsterdam.nl">
-            midzomermokum@amsterdam.nl
-          </a>
-          .
+          Welkom! Na het aanvullen van de data over je organisatie en jullie
+          contactpersoon kan je aan de slag met het plaatsen van activiteiten
         </Paragraph>
 
         <Wizard
@@ -161,11 +148,15 @@ export function SignupPage() {
         >
           {/* First step: Organisation info */}
           <WizardStep validationSchema={organisationSchema}>
+            <h1>Organisatiegegevens</h1>
+            <p>stap 1 van 2</p>
             <OrganisationForm />
           </WizardStep>
 
           {/* Second step: Contact information  */}
           <WizardStep validationSchema={contactSchema}>
+            <h1>Contactpersoon</h1>
+            <p>stap 2 van 2</p>
             <ContactForm />
           </WizardStep>
 

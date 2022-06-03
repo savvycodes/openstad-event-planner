@@ -82,7 +82,13 @@ export function Wizard({
             )}
             <div>
               <Button type="submit" disabled={formik.isSubmitting}>
-                {formik.isSubmitting ? <Spinner /> : 'Volgende'}
+                {formik.isSubmitting ? (
+                  <Spinner />
+                ) : isLastStep ? (
+                  'Aan de slag'
+                ) : (
+                  'Volgende stap'
+                )}
               </Button>
             </div>
           </div>

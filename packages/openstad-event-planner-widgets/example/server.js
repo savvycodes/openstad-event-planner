@@ -25,10 +25,17 @@ app.use(
 );
 app.use(
   createProxyMiddleware('/image', {
-    target: 'https://img.openstad-staging.savvy.codes',
+    target: 'https://midzomermokum.openstad-staging.savvy.codes/image',
     changeOrigin: true,
-    pathRewrite: {
-      '^/image': '/image?access_token=1OGvxxZRXUpGUI7lxqqD',
+    onProxyReq: function(proxyReq, req) {
+      // proxyReq.setHeader('cookie', req.headers.cookie);
+    },
+    onProxyRes: function(proxyRes, req, res) {
+      // const proxyCookie = proxyRes.headers['set-cookie'];
+      // if (proxyCookie) {
+      //   res.setHeader('cookie', proxyCookie);
+      //   // myappSessionValidationCookie = proxyCookie;
+      // }
     },
   })
 );

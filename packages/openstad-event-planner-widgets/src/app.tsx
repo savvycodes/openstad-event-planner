@@ -18,6 +18,8 @@ export type AppConfig = {
     // @todo: define all possible roles in a seperate type
     role?: string;
   };
+  themes?: any;
+  areas?: any;
 };
 
 type AppProps = {

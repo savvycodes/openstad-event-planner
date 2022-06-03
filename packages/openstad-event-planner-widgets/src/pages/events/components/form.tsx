@@ -16,7 +16,7 @@ import {
   Select,
   StyledInput,
 } from '../../../components/forms/input';
-import { Label, ListLabel, Paragraph } from '../../../components/text/text';
+import { Label, /*ListLabel,*/ Paragraph } from '../../../components/text/text';
 import { DFlex } from '../../../components/layout/layout';
 import { AddDateTimeButton, Button } from '../../../components/button/button';
 import { ImageUpload } from '../../../components/forms/image-upload';
@@ -25,6 +25,7 @@ import { LocationFinder } from '../../../components/forms/location-finder';
 import { DateTimeSelector } from './DateTimeComponent';
 
 import { useTheme } from '../../../theme/theme';
+import { useConfig } from '../../../context/config-context';
 
 type ActivityFormProps = {
   organisation: any;
@@ -106,6 +107,7 @@ export function ActivityForm({
 }: ActivityFormProps) {
   const form = useFormikContext<FormValues>();
   const theme = useTheme();
+  const { themes } = useConfig();
 
   return (
     <Form>
@@ -240,7 +242,7 @@ export function ActivityForm({
         </FieldArray>
       </styles.DateTimeDiv>
 
-      <FormItem>
+      {/* <FormItem>
         <Label>Leeftijd</Label>
         <CheckboxList>
           <CheckboxItem>
@@ -307,9 +309,34 @@ export function ActivityForm({
             <ErrorMessage name="ages" />
           </Paragraph>
         </CheckboxList>
-      </FormItem>
+      </FormItem> */}
 
-      <FormItem>
+      {themes &&
+        themes.map((theme: any) => (
+          <FormItem key={theme.id}>
+            <Label>{theme.formLabel || theme.value}</Label>
+            <CheckboxList>
+              {tags &&
+                tags
+                  .filter((tag: any) => tag?.extraData?.theme === theme.value)
+                  .map((tag: any) => (
+                    <CheckboxItem key={tag.id}>
+                      <Field
+                        type="checkbox"
+                        name="tagIds"
+                        value={tag.id.toString()}
+                      />
+                      {tag.name}
+                    </CheckboxItem>
+                  ))}
+              <Paragraph>
+                <ErrorMessage name="tagIds" />
+              </Paragraph>
+            </CheckboxList>
+          </FormItem>
+        ))}
+
+      {/* <FormItem>
         <Label>Type activiteit</Label>
         <CheckboxList>
           {tags &&
@@ -327,7 +354,7 @@ export function ActivityForm({
             <ErrorMessage name="tagIds" />
           </Paragraph>
         </CheckboxList>
-      </FormItem>
+      </FormItem> */}
 
       <FormItem>
         <Label htmlFor="price">

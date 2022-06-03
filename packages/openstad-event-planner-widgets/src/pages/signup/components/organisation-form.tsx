@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { ErrorMessage, Field, useFormikContext } from 'formik';
+import { ErrorMessage, Field /*useFormikContext*/ } from 'formik';
 
 import { Spinner } from '../../../components/spinner';
 import {
   Input,
   FormItem,
-  CheckboxList,
+  // CheckboxList,
   Select,
-  CheckboxItem,
+  // CheckboxItem,
 } from '../../../components/forms/input';
 import { Label, Paragraph } from '../../../components/text/text';
 
@@ -17,7 +17,7 @@ import { useDistricts } from '../../../hooks/use-districts';
 export function OrganisationForm() {
   const { data: tags, loading } = useApi('/tag');
   const districts = useDistricts();
-  const formik = useFormikContext<any>();
+  // const formik = useFormikContext<any>();
 
   if (loading || !tags || !districts) {
     return <Spinner />;
@@ -27,7 +27,7 @@ export function OrganisationForm() {
     <>
       <FormItem>
         <Label htmlFor="name">
-          Naam organisatie
+          Organisatie
           <Field
             name="name"
             id="name"
@@ -43,17 +43,23 @@ export function OrganisationForm() {
 
       <FormItem>
         <Label htmlFor="street">
-          Adres organisatie
+          Straat en huisnummer
           <Field
             id="street"
             type="text"
             name="street"
-            placeholder="Straat + huisnummer"
+            placeholder="Straat en huisnummer"
             component={Input}
           />
           <Paragraph>
             <ErrorMessage name="street" />
           </Paragraph>
+        </Label>
+      </FormItem>
+
+      <FormItem>
+        <Label htmlFor="zip">
+          Postcode
           <Field
             id="zip"
             type="text"
@@ -64,11 +70,17 @@ export function OrganisationForm() {
           <Paragraph>
             <ErrorMessage name="zip" />
           </Paragraph>
+        </Label>
+      </FormItem>
+
+      <FormItem>
+        <Label htmlFor="district">
+          Stadsdeel
           <Field id="district" name="district" component={Select}>
             <option value="" disabled hidden>
               Stadsdeel
             </option>
-            {districts.map((district, index) => (
+            {districts.map((district: any, index: any) => (
               <option key={`${district}_${index}`} value={district}>
                 {district}
               </option>
@@ -80,7 +92,7 @@ export function OrganisationForm() {
         </Label>
       </FormItem>
 
-      <FormItem>
+      {/* <FormItem>
         <Label htmlFor="phone">
           Algemeen telefoonnummer organisatie
           <Field
@@ -94,9 +106,9 @@ export function OrganisationForm() {
             <ErrorMessage name="phone" />
           </Paragraph>
         </Label>
-      </FormItem>
+      </FormItem> */}
 
-      <FormItem>
+      {/* <FormItem>
         <Label htmlFor="email">
           Algemeen mailadres organisatie
           <Field
@@ -110,11 +122,11 @@ export function OrganisationForm() {
             <ErrorMessage name="email" />
           </Paragraph>
         </Label>
-      </FormItem>
+      </FormItem> */}
 
       <FormItem>
         <Label htmlFor="website">
-          Website organisatie
+          Website
           <Field
             id="website"
             type="text"
@@ -129,9 +141,10 @@ export function OrganisationForm() {
       </FormItem>
 
       <FormItem>
-        <Label>
-          Social media organisatie
+        <Label htmlFor="facebook">
+          Social media - Facebook
           <Field
+            id="facebook"
             type="text"
             name="facebook"
             placeholder="https://facebook.com/gemeenteamsterdam"
@@ -140,7 +153,13 @@ export function OrganisationForm() {
           <Paragraph>
             <ErrorMessage name="facebook" />
           </Paragraph>
+        </Label>
+      </FormItem>
+      <FormItem>
+        <Label htmlFor="instagram">
+          Social media - Instagram
           <Field
+            id="instagram"
             type="text"
             name="instagram"
             placeholder="https://instagram.com/midzomermokum"
@@ -152,7 +171,7 @@ export function OrganisationForm() {
         </Label>
       </FormItem>
 
-      <FormItem>
+      {/* <FormItem>
         <Label>Actief in type activiteit</Label>
         <CheckboxList>
           {tags.map((tag: any) => (
@@ -178,7 +197,7 @@ export function OrganisationForm() {
         <Paragraph>
           <ErrorMessage name="tagIds" />
         </Paragraph>
-      </FormItem>
+      </FormItem> */}
     </>
   );
 }

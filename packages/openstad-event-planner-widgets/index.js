@@ -3,11 +3,13 @@ const get = require('lodash.get');
 module.exports = {
   extend: 'openstad-widgets',
   label: 'Eventplanner',
+  playerData: ['_id', 'config'],
+  minify: false,
 
   /**
    * @todo: Add useful fields
    */
-  beforeConstruct: function (self, options) {
+  beforeConstruct: function(self, options) {
     options.addFields = [
       {
         type: 'boolean',
@@ -31,27 +33,23 @@ module.exports = {
    * @param {*} self
    * @param {*} options
    */
-  construct: function (self, options) {
+  construct: function(self, options) {
     const superPushAssets = self.pushAssets;
-    self.pushAssets = function () {
+    self.pushAssets = function() {
       superPushAssets();
-      // Drawback to this approach is that event-manager is loaded when users don't have access to it
-      // self.pushAsset('script', 'event-manager', { when: 'user' });
+      self.pushAsset('script', 'always', { when: 'always' });
     };
 
     const superLoad = self.load;
-    self.load = function (req, widgets, next) {
-      widgets.forEach((widget) => {
-        const containerId = self.apos.utils.generateId();
-        widget.containerId = containerId;
-
+    self.load = function(req, widgets, next) {
+      widgets.forEach(widget => {
         // Check for API support
         // widget.isSupported = get(req, 'data.openstadUser', {}).hasOwnProperty(
         //   'isEventProvider'
         // );
 
         // Create the config for the react component
-        widget.config = JSON.stringify({
+        widget.config = {
           siteId: req.data.global.siteId,
           apiUrl: self.apos.settings.getOption(req, 'apiUrl'),
           imageUrl: req.data.siteUrl + '/image',
@@ -64,14 +62,19 @@ module.exports = {
               false
             ),
           },
-        });
+          themes: req.data.global.themes,
+          areas: req.data.global.areas,
+        };
+
+        console.log('JWT', req.session.jwt);
 
         // Check if user can view this widget
-        widget.canView =
-          get(req, 'data.openstadUser.isEventProvider', false) ||
-          ['admin', 'moderator', 'editor'].includes(
-            get(req, 'data.openstadUser.role', '')
-          );
+        widget.canView = get(req, 'data.openstadUser.id', false);
+        console.log({ canView: widget.canView });
+        // get(req, 'data.openstadUser.isEventProvider', false) ||
+        // ['admin', 'moderator', 'editor'].includes(
+        //   get(req, 'data.openstadUser.role', '')
+        // );
 
         widget.loginUrl =
           req.data.siteUrl +
@@ -86,7 +89,7 @@ module.exports = {
     };
 
     const superOutput = self.output;
-    self.output = function (widget, options) {
+    self.output = function(widget, options) {
       return superOutput(widget, options);
     };
   },

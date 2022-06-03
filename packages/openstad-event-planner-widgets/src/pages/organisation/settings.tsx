@@ -58,9 +58,6 @@ export function OrganisationSettingsPage() {
     instagram: Yup.string()
       .url()
       .nullable(),
-    tagIds: Yup.array()
-      .of(Yup.number())
-      .min(1, 'U moet minimaal 1 type activiteit selecteren'),
   });
 
   return (
@@ -75,7 +72,6 @@ export function OrganisationSettingsPage() {
         website: organisation.website,
         facebook: organisation.facebook,
         instagram: organisation.instagram,
-        tagIds: organisation.tags.map((tag: any) => tag.id.toString()),
       }}
       onSubmit={async (values, helpers) => {
         helpers.setSubmitting(true);
