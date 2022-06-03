@@ -16,7 +16,6 @@ import {
 import { EventCalendar } from '../components/events/event-calendar';
 import { EventTiles } from '../components/events/event-tiles';
 import { EventMap } from '../components/events/event-map';
-import { Button } from '../components/button/button';
 import { EmptyState } from '../components/emptyState/emptyState';
 
 import { useEvents } from '../hooks/use-events';
@@ -116,14 +115,14 @@ export function EventsPage({}: RouteComponentProps) {
       </nav>
 
       {isTabletOrMobile && (
-        <styles.ContentContainer>
+        <div>
           <FilterSidebar filters={filters} onChange={setFilters} />
 
           {loading ? <Spinner /> : null}
 
           {viewType === 'tile' ? (
-            <CardWrapper>
-              <EventTiles events={events} />
+            <CardWrapper className="events__card-wrapper">
+              <EventTiles className="events__tile" events={events} />
               {events.length === 0 ? <EmptyState /> : null}
             </CardWrapper>
           ) : null}
@@ -141,7 +140,7 @@ export function EventsPage({}: RouteComponentProps) {
               </CardWrapper>
             </div>
           ) : null}
-        </styles.ContentContainer>
+        </div>
       )}
       {isDesktopOrLaptop && (
         <styles.DFlex>

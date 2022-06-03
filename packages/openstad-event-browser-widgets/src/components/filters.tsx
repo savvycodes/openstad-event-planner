@@ -22,7 +22,7 @@ function Filter({ name, children }: any) {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <>
+    <div className='event-filter-wrapper'>
       <div className='event-filter'>
         <p onClick={() => setOpen(!isOpen)}>
           {name}
@@ -31,20 +31,20 @@ function Filter({ name, children }: any) {
           <ChevronUp className="event-filter__icon"
             onClick={() => setOpen(!isOpen)}
             size={24}
-            strokeWidth={3}
+            strokeWidth={2}
             stroke={'#0D0D0D'}
           />
         ) : (
           <ChevronDown className="event-filter__icon"
             onClick={() => setOpen(!isOpen)}
             size={24}
-            strokeWidth={3}
+            strokeWidth={2}
             stroke={'#0D0D0D'}
           />
         )}
       </div>
       {isOpen ? children : null}
-    </>
+    </div>
   );
 }
 
@@ -91,7 +91,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
 
   return (
     <div>
-      <div>
+      <>
         <div className="event-input-wrapper event-input-wrapper__has-icon">
           <input
             className='event-input-wrapper__input'
@@ -101,7 +101,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
               setQuery(e.target.value)
             }
           />
-          <Search className="event-input-wrapper__icon" size={24} strokeWidth={3} stroke={'#0D0D0D'} />
+          <Search className="event-input-wrapper__icon" size={24} strokeWidth={2} stroke={'#0D0D0D'} />
         </div>
 
         {isTabletOrMobile && (
@@ -112,7 +112,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
             Filteren
           </button>
         )}
-      </div>
+      </>
       {filtersVisible && (
         <>
           <Filter className="event-filter" name="Stadsdeel">

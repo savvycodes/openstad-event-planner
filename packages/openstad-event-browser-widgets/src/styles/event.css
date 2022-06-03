@@ -1,0 +1,7 @@
+@media (min-width: 1024px) {
+  .events-event-container__layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+  

@@ -1,15 +1,25 @@
 .event-filter {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem .5rem;
 }
 
-.event-filter__icon {
-  position: absolute;
-  right: 0;
-  top: 0;
+.event-filter-wrapper label:last-child {
+  padding-bottom: 1rem;
+}
+
+.event-filter p {
+  margin: 0;
+  flex-grow: 1;
 }
 
 .event-input-wrapper__has-icon {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .event-input-wrapper__input{
@@ -18,21 +28,29 @@
 
 .event-input-wrapper__icon {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: .5rem;
 }
 
 .event-filter__label {
   display: block;
   margin: 0;
+  padding: .5rem 0 0;
+}
+
+.event-filter__label input {
+  margin: 0;
 }
 
 .event-filter__label p {
-  margin: 0;
+  margin: 0 0 0 1rem;
 }
 
 .event-filter__input {
   height: 20px;
   width: 20px;
   margin: 0;
+}
+
+.rmdp-wrapper.rmdp-shadow {
+  margin: 1rem 0;
 }

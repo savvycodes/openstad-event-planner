@@ -1,38 +1,10 @@
-import { styled } from 'goober';
 import React from 'react';
 import { Link } from 'wouter';
 
 import {
-  ActivityCard,
-  ActivityImageWrapper,
   ActivityImage,
-  CardTextContainer,
-  CardTagsContainer,
-  CardTag,
-  IconWrapper,
   HeartIcon,
-  IconContainer,
 } from '../card/card';
-import { BorderedCardTitle } from '../text/text';
-
-const styles = {
-  SmallParagraph: styled('p')`
-    display: block;
-    margin-top: 8px;
-    margin-bottom: 4px;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 14px;
-  `,
-  Description: styled('p')`
-    font-size: 12px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  `,
-};
 import { formatAges } from '../ages';
 import { useUser } from '../../context/user-context';
 // import { useConfig } from '../../context/config-context';
@@ -45,8 +17,9 @@ export function EventTiles({ events }: any) {
 
   return events.map((event: any) => (
     <Link to={`/${event.id}`} key={event.id}>
-      <ActivityCard>
-        <IconWrapper
+      <div className="events-activity-card">
+        <div
+          className="events-icon-button"
           onClick={e => {
             e.stopPropagation();
             if (user.isLoggedIn()) {
@@ -60,34 +33,34 @@ export function EventTiles({ events }: any) {
             }
           }}
         >
-          <IconContainer>
+          <div className="events-icon-button__container">
             <HeartIcon active={isFavorite(event.id)} />
-          </IconContainer>
-        </IconWrapper>
-        <ActivityImageWrapper>
-          <ActivityImage
+          </div>
+        </div>
+        <div className="events-activity-card__image-wrapper">
+          <ActivityImage className="events-activity-card__image"
             src={event.image + '/:/rs=w:666'}
             alt={event.name}
             loading="lazy"
           />
-          <CardTagsContainer>
-            <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
+          <div className="events-tags-container">
+            <p className="events-tags-container">{formatAges(event.minAge, event.maxAge)}</p>
             {event?.tags.map((tag: any) => (
-              <CardTag key={tag.id}>{tag.name}</CardTag>
+              <p className="events-tags-container" key={tag.id}>{tag.name}</p>
             ))}
-            <CardTag>{event.district}</CardTag>
-          </CardTagsContainer>
-        </ActivityImageWrapper>
-        <CardTextContainer>
-          <BorderedCardTitle title={event.name} />
-          <styles.SmallParagraph>
+            <p className="events-tags-container">{event.district}</p>
+          </div>
+        </div>
+        <div className="events-activity-card__text">
+          <h3 className="events-activity-card__text-title">{event.name}</h3>
+          <p className="events-activity-card__text-organisation">
             Door: {event.organisation.name}
-          </styles.SmallParagraph>
-          <styles.Description>
+          </p>
+          <p className="events-activity-card__text-description">
             {event.description.replace(/(<([^>]+)>)/gi, '')}
-          </styles.Description>
-        </CardTextContainer>
-      </ActivityCard>
+          </p>
+        </div>
+      </div>
     </Link>
   ));
 }
