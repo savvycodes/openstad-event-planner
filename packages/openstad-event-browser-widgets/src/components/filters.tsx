@@ -229,7 +229,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
             ))}
           </Filter>
           {themes?.map((theme: any) => (
-            <Filter name={theme.value}>
+            <Filter name={theme.label || theme.value}>
               {tags
                 .filter((tag: any) => tag.extraData.theme === theme.value)
                 .map((tag: any) => (
