@@ -48,7 +48,7 @@
     "build": "webpack --mode production",
     "prepare": "webpack --mode production"
   },
-  "gitHead": "e90aa6b5b9ce14ef87cfa28405985f2081220805",
+  "gitHead": "5aa6c446ecc9d63654f70c20f277aa5e198c4e09",
   "publishConfig": {
     "access": "public"
   }

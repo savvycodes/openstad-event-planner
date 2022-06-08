@@ -24,11 +24,9 @@ import { Button } from '../../components/button/button';
 import { useApi } from '../../hooks/use-api';
 import { useConfig } from '../../context/config-context';
 import { removeEvent } from '../../endpoints/event';
+import { ContactDetailsPage } from '../organisation/contact';
 import { OrganisationSettingsPage } from '../organisation/settings';
 // import ContactForm from './components/contact-form';
-import { ContactForm, contactSchema } from '../signup/components/contact-form';
-import { Form, Formik } from 'formik';
-import { ContactDetailsPage } from '../organisation/contact';
 
 const styles = {
   Header: styled(Header)`
