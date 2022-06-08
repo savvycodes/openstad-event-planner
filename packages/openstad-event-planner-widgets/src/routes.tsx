@@ -66,6 +66,10 @@ export function Router(): JSX.Element {
             path="/events/settings"
             component={ProviderActivityOverviewPage}
           />
+          <Route
+            path="/events/contact"
+            component={ProviderActivityOverviewPage}
+          />
           <Route path="/events/create" component={ProviderAddActivityPage} />
           <Route path="/events/:id/edit" component={EditActivityPage} />
           <Route

@@ -6,7 +6,7 @@ import { Paragraph } from '../../components/text/text';
 import { Header, Main } from '../../components/layout/layout';
 import { Wizard, WizardStep } from '../../components/forms/wizard';
 import { OrganisationForm } from './components/organisation-form';
-import { ContactForm } from './components/contact-form';
+import { ContactForm, contactSchema } from './components/contact-form';
 // import { MunicipalityContactForm } from './components/municipality-contact-form';
 
 import { useHashLocation } from '../../components/hash-router';
@@ -18,18 +18,6 @@ import { Spinner } from '../../components/spinner';
 import { ErrorBanner } from '../../components/error-banner';
 
 import { useApi } from '../../hooks/use-api';
-
-const contactSchema = Yup.object().shape({
-  contactName: Yup.string().required('Naam is verplicht'),
-  contactPosition: Yup.string().required('Functie is verplicht'),
-  contactPhone: Yup.string()
-    .min(10)
-    .required('Telefoonnummer is verplicht'),
-  contactEmail: Yup.string()
-    .email()
-    .required('E-mailadres is verplicht'),
-  municipalityContactName: Yup.string().required('Naam is verplicht'),
-});
 
 // const municipalitySchema = Yup.object().shape({
 //   municipalityContactName: Yup.string().required('Naam is verplicht'),
@@ -139,7 +127,7 @@ export function SignupPage() {
             contactPosition: '',
             contactPhone: '',
             contactEmail: '',
-            municipalityContactName: '',
+            // municipalityContactName: '',
             // municipalityContactPhone: '',
             // municipalityContactEmail: '',
             // municipalityContactStatement: '',
@@ -157,6 +145,12 @@ export function SignupPage() {
           <WizardStep validationSchema={contactSchema}>
             <h1>Contactpersoon</h1>
             <p>stap 2 van 2</p>
+            <Paragraph>
+              Deze informatie gebruiken wij om contact met u op te nemen over
+              het beheer van activiteiten en informatie op dit platform.
+              Ingevoerde content is uiteindelijk alleen zichtbaar voor
+              beheerders van dit platform.
+            </Paragraph>
             <ContactForm />
           </WizardStep>
 

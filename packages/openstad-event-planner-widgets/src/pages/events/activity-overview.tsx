@@ -25,7 +25,10 @@ import { useApi } from '../../hooks/use-api';
 import { useConfig } from '../../context/config-context';
 import { removeEvent } from '../../endpoints/event';
 import { OrganisationSettingsPage } from '../organisation/settings';
-import { useEffect } from 'react';
+// import ContactForm from './components/contact-form';
+import { ContactForm, contactSchema } from '../signup/components/contact-form';
+import { Form, Formik } from 'formik';
+import { ContactDetailsPage } from '../organisation/contact';
 
 const styles = {
   Header: styled(Header)`
@@ -96,7 +99,13 @@ export function ProviderActivityOverviewPage(): JSX.Element {
             onClick={() => navigate('/events/settings')}
             active={location === '/events/settings'}
           >
-            Uw gegevens
+            Organisatiegegevens
+          </NavItem>
+          <NavItem
+            onClick={() => navigate('/events/contact')}
+            active={location === '/events/contact'}
+          >
+            Contactpersoon
           </NavItem>
         </HeaderNavigation>
       </styles.SubHeader>
@@ -114,6 +123,7 @@ export function ProviderActivityOverviewPage(): JSX.Element {
         )}
       />
       <Route path="/events/settings" component={OrganisationSettingsPage} />
+      <Route path="/events/contact" component={ContactDetailsPage} />
     </Main>
   );
 }
@@ -129,7 +139,7 @@ function ActivityList({ organisationId }: ActivityListProps) {
   const { data, loading, error, reload } = useApi(
     `/event?organisationId=${organisationId}&page=${page}`
   );
-  const [deleteError, setDeleteError] = React.useState<Error | null>(null);
+  const [deleteError, setDeleteError] = React.useState<Error | any>(null);
   const [events, setEvents] = React.useState([]);
 
   async function handleDelete(id: number) {
@@ -142,7 +152,7 @@ function ActivityList({ organisationId }: ActivityListProps) {
     }
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (data?.records) {
       setEvents((events: any) => {
         events = events || [];

@@ -1,21 +1,28 @@
 import * as React from 'react';
 import { ErrorMessage, Field } from 'formik';
+import * as Yup from 'yup';
 
 import { Input, FormItem } from '../../../components/forms/input';
 import { Paragraph, Label } from '../../../components/text/text';
 
+export const contactSchema = Yup.object().shape({
+  contactName: Yup.string().required('Naam is verplicht'),
+  contactPosition: Yup.string().required('Functie is verplicht'),
+  contactPhone: Yup.string()
+    .min(10, 'Minimaal 10 cijfers')
+    .required('Telefoonnummer is verplicht'),
+  contactEmail: Yup.string()
+    .email('Geen geldig e-mailadres')
+    .required('E-mailadres is verplicht'),
+  // municipalityContactName: Yup.string().required('Naam is verplicht'),
+});
+
 export function ContactForm() {
   return (
     <>
-      <Paragraph>
-        Deze informatie gebruiken wij om contact met u op te nemen over het
-        beheer van activiteiten en informatie op dit platform. Ingevoerde
-        content is uiteindelijk alleen zichtbaar voor beheerders van dit
-        platform.
-      </Paragraph>
       <FormItem>
         <Label htmlFor="contactName">
-          Naam contactpersoon
+          Naam
           <Field
             name="contactName"
             id="contactName"
@@ -30,7 +37,7 @@ export function ContactForm() {
       </FormItem>
       <FormItem>
         <Label htmlFor="contactPosition">
-          Functie contactpersoon
+          Functie
           <Field
             name="contactPosition"
             id="contactPosition"
@@ -45,7 +52,7 @@ export function ContactForm() {
       </FormItem>
       <FormItem>
         <Label htmlFor="contactEmail">
-          Mail contactpersoon
+          E-mailadres
           <Field
             name="contactEmail"
             id="contactEmail"
@@ -60,7 +67,7 @@ export function ContactForm() {
       </FormItem>
       <FormItem>
         <Label htmlFor="contactPhone">
-          Telefoon contactpersoon
+          Telefoonnummer
           <Field
             name="contactPhone"
             id="contactPhone"
@@ -73,9 +80,9 @@ export function ContactForm() {
           </Paragraph>
         </Label>
       </FormItem>
-      <FormItem>
+      {/* <FormItem>
         <Label htmlFor="municipalityContactName">
-          Naam contactpersoon van uw organisatie bij gemeente Amsterdam
+          Naam contactpersoon van uw organisatie bij gemeente Amsterdam  
           <Field
             name="municipalityContactName"
             id="municipalityContactName"
@@ -87,7 +94,7 @@ export function ContactForm() {
             <ErrorMessage name="municipalityContactName" />
           </Paragraph>
         </Label>
-      </FormItem>
+      </FormItem> */}
     </>
   );
 }

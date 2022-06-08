@@ -8,6 +8,11 @@ export const Button = styled('button')`
   font-weight: 700;
   border-radius: 100px;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 `;
 
 export const AddDateTimeButton = styled('div')`
