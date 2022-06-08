@@ -48,9 +48,6 @@ export const schema = Yup.object().shape({
   tagIds: Yup.array()
     .of(Yup.string())
     .min(1, 'U moet minimaal 1 type activiteit selecteren'),
-  ages: Yup.array()
-    .of(Yup.string())
-    .min(1, 'U moet minimaal 1 leeftijd selecteren'),
   needToPay: Yup.string(),
 });
 
@@ -95,17 +92,6 @@ export function ProviderAddActivityPage(): JSX.Element {
         tagIds: values.tagIds,
         slots: values.slots,
       };
-
-      // Find min and max age
-      const allAges = values.ages
-        .map((group: string) => group.split('-'))
-        .flat()
-        .map((age: string) => parseInt(age));
-      const minAge = Math.min(...allAges);
-      const maxAge = Math.max(...allAges);
-
-      payload.minAge = minAge;
-      payload.maxAge = maxAge;
 
       await createEvent(config, payload);
 

@@ -25,17 +25,11 @@ app.use(
 );
 app.use(
   createProxyMiddleware('/image', {
-    target: 'https://midzomermokum.openstad-staging.savvy.codes/image',
-    changeOrigin: true,
-    onProxyReq: function(proxyReq, req) {
-      // proxyReq.setHeader('cookie', req.headers.cookie);
-    },
-    onProxyRes: function(proxyRes, req, res) {
-      // const proxyCookie = proxyRes.headers['set-cookie'];
-      // if (proxyCookie) {
-      //   res.setHeader('cookie', proxyCookie);
-      //   // myappSessionValidationCookie = proxyCookie;
-      // }
+    target: 'http://localhost:3333',
+    pathRewrite: { ['^/image']: '/image' },
+    onProxyReq: (proxyReq, req, res) => {
+      // add custom header to request
+      proxyReq.setHeader('Authorization', `Bearer xxxxxx`);
     },
   })
 );

@@ -33,7 +33,7 @@ export function Router(): JSX.Element {
 
     if (isAdmin) {
       navigate('/admin/users');
-    } else if (isEmpty(organisation)) {
+    } else if (isEmpty(organisation) || !organisation.id) {
       navigate('/signup');
     }
   }, [organisation, loading, navigate, isAdmin]);

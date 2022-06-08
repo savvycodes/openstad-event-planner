@@ -6,7 +6,7 @@ import { App } from '../src/app';
 
 const config = {
   jwt:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJjbGllbnQiOiJkZWZhdWx0IiwiaWF0IjoxNjU0NjgwMDU1LCJleHAiOjE2NzA0MDQ4NTV9.bjRPLR_LV3Qo7uMAGIVWaAY7bT2DGhrorsdBVrscKOE',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJjbGllbnQiOiJkZWZhdWx0IiwiaWF0IjoxNjU0NjkzODY1LCJleHAiOjE2NzA0MTg2NjV9.D922n0gpsCnbf_33G2qka4UVEM_7M8oxKZMBiWxDLXM',
   siteId: 3,
   apiUrl: 'http://localhost:8111',
   imageUrl: '/image',
