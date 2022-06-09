@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'wouter';
-import { styled } from 'goober';
 import { Calendar, Grid, MapPin } from 'react-feather';
 
 import { Spinner } from '../components/spinner';
@@ -9,8 +8,6 @@ import { FilterSidebar } from '../components/filters';
 import { CardWrapper } from '../components/card/card';
 import { useMediaQuery } from 'react-responsive';
 import {
-  DFlex,
-  Header,
   NavigationItem,
 } from '../components/layout/layout';
 import { EventCalendar } from '../components/events/event-calendar';
@@ -21,19 +18,6 @@ import { EmptyState } from '../components/emptyState/emptyState';
 import { useEvents } from '../hooks/use-events';
 
 import '../styles/events.css';
-
-const styles = {
-  Header: styled(Header)`
-    display: flex;
-    justify-content: flex-end;
-  `,
-  ContentContainer: styled('div')`
-    display: block;
-  `,
-  DFlex: styled(DFlex)`
-    align-items: flex-start;
-  `,
-};
 
 /**
  * Page that shows events
@@ -143,7 +127,7 @@ export function EventsPage({}: RouteComponentProps) {
         </div>
       )}
       {isDesktopOrLaptop && (
-        <styles.DFlex>
+        <div className="events-overview">
           <FilterSidebar filters={filters} onChange={setFilters} />
 
           {loading ? <Spinner /> : null}
@@ -168,7 +152,7 @@ export function EventsPage({}: RouteComponentProps) {
               </CardWrapper>
             </div>
           ) : null}
-        </styles.DFlex>
+        </div>
       )}
       {hasMoreResults ? (
         <div

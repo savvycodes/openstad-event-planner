@@ -90,7 +90,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
   }
 
   return (
-    <div>
+    <div className="events-filters">
       <>
         <div className="event-input-wrapper event-input-wrapper__has-icon">
           <input

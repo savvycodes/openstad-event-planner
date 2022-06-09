@@ -20,7 +20,7 @@ export const DFlex = styled('div')`
   display: flex;
 `;
 
-export const NavigationItem = styled('div')<InputProps>`
+export const NavigationItem = styled('button')<InputProps>`
   background-color: ${props => props.active ? darken(0.25, props.theme.colors.background) : props.theme.colors.background};
   display: flex;
   align-items: center;

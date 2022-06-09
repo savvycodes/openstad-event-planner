@@ -34,7 +34,7 @@ export function EventTiles({ events }: any) {
           }}
         >
           <div className="events-icon-button__container">
-            <HeartIcon active={isFavorite(event.id)} />
+            <HeartIcon size={24} active={isFavorite(event.id)} />
           </div>
         </div>
         <div className="events-activity-card__image-wrapper">
@@ -43,22 +43,23 @@ export function EventTiles({ events }: any) {
             alt={event.name}
             loading="lazy"
           />
-          <div className="events-tags-container">
-            <p className="events-tags-container">{formatAges(event.minAge, event.maxAge)}</p>
+          <div className="events-tags-container events-tags-container__card">
+            <p className="events-tag events-tag__ages">{formatAges(event.minAge, event.maxAge)}</p>
             {event?.tags.map((tag: any) => (
-              <p className="events-tags-container" key={tag.id}>{tag.name}</p>
+              <p className="events-tag events-tag__category" key={tag.id}>{tag.name}</p>
             ))}
-            <p className="events-tags-container">{event.district}</p>
+            <p className="events-tag events-tag__district">{event.district}</p>
           </div>
         </div>
         <div className="events-activity-card__text">
           <h3 className="events-activity-card__text-title">{event.name}</h3>
           <p className="events-activity-card__text-organisation">
-            Door: {event.organisation.name}
+            Aanbieder: {event.organisation.name}
           </p>
           <p className="events-activity-card__text-description">
             {event.description.replace(/(<([^>]+)>)/gi, '')}
           </p>
+          <a href="" className="events-activity-card__link">Activiteit bekijken</a>
         </div>
       </div>
     </Link>

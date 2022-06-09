@@ -5,7 +5,7 @@ import { MapPin } from 'react-feather';
 
 import { ErrorBanner } from '../components/error-banner';
 import { Spinner } from '../components/spinner';
-import { Paragraph, RichText } from '../components/text/text';
+import { RichText } from '../components/text/text';
 import { formatAges } from '../components/ages';
 import { Location } from '../components/location';
 
@@ -30,21 +30,21 @@ export function EventDetailPage({ params }: RouteComponentProps) {
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
 
     return (
-      <div key={slot.id}>
-        <p>
+      <ul className="events-when" key={slot.id}>
+        <li className="event-when">
           {start.toLocaleDateString('nl-NL', options)}{' '}
           {start.toLocaleTimeString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit',
           })}{' '}
-          <p>tot</p>{' '}
+          tot{' '}
           {end.toLocaleDateString('nl-NL', options)}{' '}
           {end.toLocaleTimeString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit',
           })}
-        </p>
-      </div>
+        </li>
+      </ul>
     );
   };
 
@@ -53,7 +53,7 @@ export function EventDetailPage({ params }: RouteComponentProps) {
       <div className="events-event-container__layout">
         <div className="events-event-container__information">
           <h2>{event.name}</h2>
-          <p>door: {event.organisation.name}</p>
+          <p className="events-activity-card__text-organisation">Aanbieder: {event.organisation.name}</p>
 
           <div className="events-tags-container">
             <p className="events-tag">
@@ -71,7 +71,7 @@ export function EventDetailPage({ params }: RouteComponentProps) {
 
           <div className="events-event__information">
             <h3>Kosten deelname</h3>
-            <Paragraph>{event.price}</Paragraph>
+            <p>{event.price}</p>
           </div>
 
           {event.information && event.information.length ? (
