@@ -95,7 +95,6 @@ export function OrganisationSettingsPage() {
     >
       {formik => (
         <Form>
-          <pre>{JSON.stringify(formik, undefined, 2)}</pre>
           <OrganisationForm />
           {submitError ? (
             <ErrorBanner>
