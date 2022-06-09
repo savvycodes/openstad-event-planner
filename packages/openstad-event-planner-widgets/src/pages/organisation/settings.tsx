@@ -40,11 +40,13 @@ export function OrganisationSettingsPage() {
       .oneOf(districts)
       .required('Stadsdeel is verplicht'),
     phone: Yup.number()
-      .min(10)
-      .required('Telefoonnummer is verplicht'),
+      // .required('Telefoonnummer is verplicht')
+      .nullable()
+      .min(10),
     email: Yup.string()
+      // .required('E-mailadres is verplicht')
       .email()
-      .required('E-mailadres is verplicht'),
+      .nullable(),
     website: Yup.string()
       .url()
       .nullable(),
@@ -93,6 +95,7 @@ export function OrganisationSettingsPage() {
     >
       {formik => (
         <Form>
+          <pre>{JSON.stringify(formik, undefined, 2)}</pre>
           <OrganisationForm />
           {submitError ? (
             <ErrorBanner>
