@@ -71,7 +71,7 @@ export function EventsPage({}: RouteComponentProps) {
             setViewType('map');
           }}
         >
-          <MapPin size={24} stroke={'black'} />
+          <MapPin size={24} stroke={viewType === 'map' ? '#fff' : '#004699'} />
           Kaart
         </NavigationItem>
         <NavigationItem
@@ -82,7 +82,7 @@ export function EventsPage({}: RouteComponentProps) {
             setViewType('calendar');
           }}
         >
-          <Calendar size={24} stroke={'black'} />
+          <Calendar size={24} stroke={viewType === 'calendar' ? '#fff' : '#004699'} />
           Kalender
         </NavigationItem>
         <NavigationItem
@@ -93,7 +93,7 @@ export function EventsPage({}: RouteComponentProps) {
             setViewType('tile');
           }}
         >
-          <Grid size={24} fill={'black'} />
+          <Grid size={24} fill={viewType === 'tile' ? '#fff' : '#004699'} />
           Tegels
         </NavigationItem>
       </nav>

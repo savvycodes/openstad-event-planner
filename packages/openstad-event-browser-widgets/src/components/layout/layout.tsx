@@ -1,5 +1,4 @@
 import { styled } from 'goober';
-import { darken } from 'polished';
 
 /**
  * Form helpers
@@ -21,10 +20,17 @@ export const DFlex = styled('div')`
 `;
 
 export const NavigationItem = styled('button')<InputProps>`
-  background-color: ${props => props.active ? darken(0.25, props.theme.colors.background) : props.theme.colors.background};
+  background-color: ${props => props.active ? '#00387A' : '#fff'};
+  color: ${props => props.active ? '#fff' : '#004699'};
+  border: 2px solid ${props => props.active ? '#00387A' : '#004699'};;
   display: flex;
   align-items: center;
   cursor: pointer;
+  &:hover {
+    color: ${props => props.active ? '#fff' : '#00387A'};
+    border: 2px solid #00387A;
+    background-color: ${props => props.active ? '#00387A' : '#fff'};
+  }
 `;
 
 export const HeaderNavigation = styled('div')`
