@@ -12,9 +12,8 @@ import { ChevronLeft, ChevronRight } from 'react-feather';
 import { Link } from 'wouter';
 
 import { CardWrapper } from '../card/card';
-// import { Ages } from '../ages';
 import { EventTiles } from './event-tiles';
-import { BorderedCardTitle, Paragraph } from '../text/text';
+import { Paragraph } from '../text/text';
 import { useMediaQuery } from 'react-responsive';
 
 interface EventCalendarProps {
@@ -291,7 +290,7 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
                       return (
                         <Link to={`/${event.id}`}>
                           <s.CardDiv key={event.id}>
-                            <BorderedCardTitle title={event.name} />
+                            <h3>{event.name}</h3>
                             <Paragraph>
                               {format(slot.startTime, 'HH:mm')} -{' '}
                               {format(slot.endTime, 'HH:mm')}
@@ -323,7 +322,7 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
                       return (
                         <Link to={`/${event.id}`}>
                           <s.CardDiv key={event.id}>
-                            <BorderedCardTitle title={event.name} />
+                            <h3>{event.name}</h3>
                             <Paragraph>
                               {format(slot.startTime, 'HH:mm')} -{' '}
                               {format(slot.endTime, 'HH:mm')}
