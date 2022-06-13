@@ -4,15 +4,16 @@ import { ErrorMessage, Field /*useFormikContext*/ } from 'formik';
 import { Spinner } from '../../../components/spinner';
 import {
   Input,
-  FormItem,
   // CheckboxList,
   Select,
   // CheckboxItem,
 } from '../../../components/forms/input';
-import { Label, Paragraph } from '../../../components/text/text';
+import { Paragraph } from '../../../components/text/text';
 
 import { useApi } from '../../../hooks/use-api';
 import { useDistricts } from '../../../hooks/use-districts';
+
+import '../../../styles/forms.css'
 
 export function OrganisationForm() {
   const { data: tags, loading } = useApi('/tag');
@@ -24,26 +25,26 @@ export function OrganisationForm() {
   }
 
   return (
-    <>
-      <FormItem>
-        <Label htmlFor="name">
+    <div className="form-wrapper">
+      <div className="inputfield-wrapper">
+        <label htmlFor="name">
           Organisatie
-          <Field
-            name="name"
-            id="name"
-            type="text"
-            placeholder="verplicht veld"
-            component={Input}
-          />
-          <Paragraph>
-            <ErrorMessage name="name" />
-          </Paragraph>
-        </Label>
-      </FormItem>
+        </label>
+        <Field
+          name="name"
+          id="name"
+          type="text"
+          placeholder="Verplicht veld"
+          component={Input}
+        />
+        <Paragraph>
+          <ErrorMessage name="name" />
+        </Paragraph>
+      </div>
 
-      <FormItem>
-        <Label htmlFor="street">
-          Straat en huisnummer
+      <div className="inputfield-wrapper">
+        <label htmlFor="street">
+          Straat en huisnummer</label>
           <Field
             id="street"
             type="text"
@@ -54,12 +55,12 @@ export function OrganisationForm() {
           <Paragraph>
             <ErrorMessage name="street" />
           </Paragraph>
-        </Label>
-      </FormItem>
+        
+      </div>
 
-      <FormItem>
-        <Label htmlFor="zip">
-          Postcode
+      <div className="inputfield-wrapper">
+        <label htmlFor="zip">
+          Postcode</label>
           <Field
             id="zip"
             type="text"
@@ -70,12 +71,11 @@ export function OrganisationForm() {
           <Paragraph>
             <ErrorMessage name="zip" />
           </Paragraph>
-        </Label>
-      </FormItem>
+        
+      </div>
 
-      <FormItem>
-        <Label htmlFor="district">
-          Stadsdeel
+      <div className="inputfield-wrapper">
+        <label htmlFor="district">Stadsdeel</label>
           <Field id="district" name="district" component={Select}>
             <option value="" disabled hidden>
               Stadsdeel
@@ -89,12 +89,12 @@ export function OrganisationForm() {
           <Paragraph>
             <ErrorMessage name="district" />
           </Paragraph>
-        </Label>
-      </FormItem>
+        
+      </div>
 
-      {/* <FormItem>
-        <Label htmlFor="phone">
-          Algemeen telefoonnummer organisatie
+      {/* <div className="inputfield-wrapper">
+        <label htmlFor="phone">
+          Algemeen telefoonnummer organisatie</label>
           <Field
             id="phone"
             type="text"
@@ -105,12 +105,12 @@ export function OrganisationForm() {
           <Paragraph>
             <ErrorMessage name="phone" />
           </Paragraph>
-        </Label>
-      </FormItem> */}
+        
+      </div> */}
 
-      {/* <FormItem>
-        <Label htmlFor="email">
-          Algemeen mailadres organisatie
+      {/* <div className="inputfield-wrapper">
+        <label htmlFor="email">
+          Algemeen mailadres organisatie</label>
           <Field
             id="email"
             type="text"
@@ -121,12 +121,12 @@ export function OrganisationForm() {
           <Paragraph>
             <ErrorMessage name="email" />
           </Paragraph>
-        </Label>
-      </FormItem> */}
+        
+      </div> */}
 
-      <FormItem>
-        <Label htmlFor="website">
-          Website
+      <div className="inputfield-wrapper">
+        <label htmlFor="website">
+          Website</label>
           <Field
             id="website"
             type="text"
@@ -137,12 +137,13 @@ export function OrganisationForm() {
           <Paragraph>
             <ErrorMessage name="website" />
           </Paragraph>
-        </Label>
-      </FormItem>
+        
+      </div>
 
-      <FormItem>
-        <Label htmlFor="facebook">
+      <div className="inputfield-wrapper">
+        <label htmlFor="facebook">
           Social media - Facebook
+          </label>
           <Field
             id="facebook"
             type="text"
@@ -153,11 +154,11 @@ export function OrganisationForm() {
           <Paragraph>
             <ErrorMessage name="facebook" />
           </Paragraph>
-        </Label>
-      </FormItem>
-      <FormItem>
-        <Label htmlFor="instagram">
-          Social media - Instagram
+        
+      </div>
+      <div className="inputfield-wrapper">
+        <label htmlFor="instagram">
+          Social media - Instagram</label>
           <Field
             id="instagram"
             type="text"
@@ -168,11 +169,11 @@ export function OrganisationForm() {
           <Paragraph>
             <ErrorMessage name="instagram" />
           </Paragraph>
-        </Label>
-      </FormItem>
+        
+      </div>
 
-      {/* <FormItem>
-        <Label>Actief in type activiteit</Label>
+      {/* <div className="inputfield-wrapper">
+        <label>Actief in type activiteit</label>
         <CheckboxList>
           {tags.map((tag: any) => (
             <CheckboxItem key={tag.id}>
@@ -197,7 +198,7 @@ export function OrganisationForm() {
         <Paragraph>
           <ErrorMessage name="tagIds" />
         </Paragraph>
-      </FormItem> */}
-    </>
+      </div> */}
+    </div>
   );
 }

@@ -14,13 +14,14 @@ export const Form = styled(FormikForm)`
   display: block;
 `;
 
-export const StyledInput = styled('input')<InputProps>`
-  padding: 8px 10px;
-  border: ${props => !props.error && 'none'};
+export const FormItem = styled('div')`
   display: block;
-  box-shadow: ${props => props.theme.effects.boxShadowPrimary};
-  margin-top: 8px;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+`;
 
+export const StyledInput = styled('input')<InputProps>`
   ${props => props.error && `border-color: ${props.theme.colors.danger};`};
 `;
 
@@ -34,19 +35,9 @@ export const StyledTextArea = styled('textarea')<InputProps>`
 `;
 
 export const StyledSelect = styled('select')<InputProps>`
-  padding: 8px 10px;
-  border-color: ${props => props.error && props.theme.colors.danger};
-  border: ${props => !props.error && 'none'};
-  box-shadow: ${props => props.theme.effects.boxShadowPrimary};
-  margin-top: 8px;
+  ${props => props.error && `border-color: ${props.theme.colors.danger};`};
 `;
 
-export const FormItem = styled('div')`
-  display: block;
-  padding: 12px;
-  justify-content: center;
-  align-items: center;
-`;
 export const CheckboxItem = styled('label')`
   display: flex;
   align-items: center;
@@ -91,7 +82,7 @@ export const Select = ({
   form: { touched, errors },
   ...props
 }: FieldProps | any) => (
-  <StyledSelect
+  <StyledSelect className="select"
     {...field}
     {...props}
     error={touched[field.name] && errors[field.name] ? true : false}

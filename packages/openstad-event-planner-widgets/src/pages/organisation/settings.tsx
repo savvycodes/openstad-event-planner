@@ -6,7 +6,6 @@ import { OrganisationForm } from '../signup/components/organisation-form';
 import { useApi } from '../../hooks/use-api';
 import { ErrorBanner } from '../../components/error-banner';
 import { Spinner } from '../../components/spinner';
-import { Button } from '../../components/button/button';
 import { useDistricts } from '../../hooks/use-districts';
 import { updateOrganisation } from '../../endpoints/organisation';
 import { useConfig } from '../../context/config-context';
@@ -95,15 +94,16 @@ export function OrganisationSettingsPage() {
     >
       {formik => (
         <Form>
+          <h3>Organisatiegegevens</h3>
           <OrganisationForm />
           {submitError ? (
             <ErrorBanner>
               Kon organisatie niet opslaan: {submitError.message}
             </ErrorBanner>
           ) : null}
-          <Button type="submit" disabled={formik.isSubmitting}>
+          <button type="submit" disabled={formik.isSubmitting}>
             {formik.isSubmitting ? <Spinner /> : 'Opslaan'}
-          </Button>
+          </button>
         </Form>
       )}
     </Formik>

@@ -6,8 +6,8 @@ import { App } from '../src/app';
 
 const config = {
   jwt:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJjbGllbnQiOiJkZWZhdWx0IiwiaWF0IjoxNjU0NjkzODY1LCJleHAiOjE2NzA0MTg2NjV9.D922n0gpsCnbf_33G2qka4UVEM_7M8oxKZMBiWxDLXM',
-  siteId: 3,
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsImNsaWVudCI6ImRlZmF1bHQiLCJpYXQiOjE2NTUxMDYzNzUsImV4cCI6MTY3MDgzMTE3NX0.aFyw5lGRh03-8xfsnQZfB9BPpWopWnlqz5_Rcjvaa1M',
+  siteId: 4,
   apiUrl: 'http://localhost:8111',
   imageUrl: '/image',
   user: {
@@ -24,7 +24,7 @@ const config = {
   themes: [
     {
       id: 'w1151353630559146',
-      value: 'Categorieën',
+      value: 'category',
       label: 'Categorieën',
       formLabel: 'Selecteer de categorieën die passen bij je activiteit',
       flag: 'blue',
@@ -41,7 +41,7 @@ const config = {
     },
     {
       id: 'w787643766599362890',
-      value: 'Leeftijd',
+      value: 'age',
       label: 'Leeftijd',
       formLabel: 'Voor welke leeftijd(en) is je activiteit',
       flag: 'blue',

@@ -1,4 +1,5 @@
 import { styled } from 'goober';
+import { backgrounds } from 'polished';
 import React from 'react';
 
 /**
@@ -21,7 +22,6 @@ export const Title = styled('h1')`
 `;
 
 export const Label = styled('label')`
-  font-weight: 700;
   font-family: ${props => props.theme.font.family};
 `;
 export const ListLabel = styled('label')`
@@ -48,15 +48,10 @@ export const NewActivityTitle = styled('h1')`
 `;
 
 export const NavItem = styled('p')<TextProps>`
-  display: flex;
+  padding: .5rem 1.5rem;
   cursor: pointer;
-  justify-content: center;
-  font-family: ${props => props.theme.font.family};
-  margin: 8px 4px;
-  padding: 8px;
-  background-color: ${props => props.theme.colors.background};
-  box-shadow: ${props =>
-    props.active ? props.theme.effects.boxShadowPrimary : 'none'};
+  background-color: ${props => props.active ? '#004699' : '#fff'};
+  color: ${props => props.active ? '#fff' : '#004699'};
 `;
 
 const Border = styled('div')`

@@ -6,7 +6,6 @@ import {
   FormikConfig,
   FormikHelpers,
 } from 'formik';
-import { Button } from '../button/button';
 import { Spinner } from '../spinner';
 
 // Wizard is a single Formik instance whose children are each page of the
@@ -74,14 +73,14 @@ export function Wizard({
       {formik => (
         <Form>
           {step}
-          <div style={{ display: 'flex' }}>
+          <div className="button-group">
             {stepNumber > 0 && (
-              <Button onClick={() => previous(formik.values)} type="button">
+              <button onClick={() => previous(formik.values)} type="button">
                 Terug
-              </Button>
+              </button>
             )}
             <div>
-              <Button type="submit" disabled={formik.isSubmitting}>
+              <button type="submit" disabled={formik.isSubmitting}>
                 {formik.isSubmitting ? (
                   <Spinner />
                 ) : isLastStep ? (
@@ -89,7 +88,7 @@ export function Wizard({
                 ) : (
                   'Volgende stap'
                 )}
-              </Button>
+              </button>
             </div>
           </div>
         </Form>
