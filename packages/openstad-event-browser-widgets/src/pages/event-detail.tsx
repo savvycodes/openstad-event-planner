@@ -6,12 +6,9 @@ import { MapPin } from 'react-feather';
 import { ErrorBanner } from '../components/error-banner';
 import { Spinner } from '../components/spinner';
 import { RichText } from '../components/text/text';
-import { formatAges } from '../components/ages';
 import { Location } from '../components/location';
 
-import '../styles/event.css'
-
-
+import '../styles/event.css';
 
 export function EventDetailPage({ params }: RouteComponentProps) {
   const { data: event, error } = useSWR(() => '/event/' + params.id);
@@ -37,8 +34,7 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             hour: '2-digit',
             minute: '2-digit',
           })}{' '}
-          tot{' '}
-          {end.toLocaleDateString('nl-NL', options)}{' '}
+          tot {end.toLocaleDateString('nl-NL', options)}{' '}
           {end.toLocaleTimeString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit',
@@ -53,12 +49,11 @@ export function EventDetailPage({ params }: RouteComponentProps) {
       <div className="events-event-container__layout">
         <div className="events-event-container__information">
           <h2>{event.name}</h2>
-          <p className="events-activity-card__text-organisation">Aanbieder: {event.organisation.name}</p>
+          <p className="events-activity-card__text-organisation">
+            Aanbieder: {event.organisation.name}
+          </p>
 
           <div className="events-tags-container">
-            <p className="events-tag">
-              {formatAges(event.minAge, event.maxAge)}
-            </p>
             <p className="events-tag">{event.district}</p>
             {event.tags.map((tag: any) => {
               return <p className="events-tag">{tag.name}</p>;
@@ -66,7 +61,10 @@ export function EventDetailPage({ params }: RouteComponentProps) {
           </div>
           <div className="events-event__information">
             <h3>Beschrijving activiteit</h3>
-            <RichText className="events-event__information-description" text={event.description} />
+            <RichText
+              className="events-event__information-description"
+              text={event.description}
+            />
           </div>
 
           <div className="events-event__information">
@@ -81,17 +79,17 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             </div>
           ) : null}
           <div className="events-event__information">
-          <h3>Wanneer?</h3>
-          {event.slots.map((slot: any) => {
+            <h3>Wanneer?</h3>
+            {event.slots.map((slot: any) => {
               const start = new Date(slot.startTime);
               const end = new Date(slot.endTime);
               return <AvailablePlaces end={end} start={start} slot={slot} />;
             })}
           </div>
-          
+
           <div className="events-event__information">
-          <h3>Locatie</h3>
-          <div className="events-event__information-location">
+            <h3>Locatie</h3>
+            <div className="events-event__information-location">
               <MapPin size={24} />
               <p>
                 <Location
@@ -102,7 +100,11 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             </div>
           </div>
         </div>
-        <img className="events-event__information-image" src={event.image} alt={event.name} />
+        <img
+          className="events-event__information-image"
+          src={event.image}
+          alt={event.name}
+        />
       </div>
     </div>
   );

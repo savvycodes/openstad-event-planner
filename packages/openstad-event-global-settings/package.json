@@ -1,0 +1,11 @@
+{
+  "name": "@savvycodes/openstad-event-global-settings",
+  "version": "0.0.5-alpha.0",
+  "main": "index.js",
+  "dependencies": {
+    "lodash.get": "^4.4.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

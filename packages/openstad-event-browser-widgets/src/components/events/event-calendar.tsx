@@ -12,7 +12,7 @@ import { ChevronLeft, ChevronRight } from 'react-feather';
 import { Link } from 'wouter';
 
 import { CardWrapper } from '../card/card';
-import { Ages } from '../ages';
+// import { Ages } from '../ages';
 import { EventTiles } from './event-tiles';
 import { BorderedCardTitle, Paragraph } from '../text/text';
 import { useMediaQuery } from 'react-responsive';
@@ -60,8 +60,8 @@ const s = {
     -o-user-select: none;
     user-select: none;
     @media (min-width: 1024px) {
-      background-color: ${props => props.theme.colors.white};
-      box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+      background-color: ${(props) => props.theme.colors.white};
+      box-shadow: ${(props) => props.theme.effects.boxShadowPrimary};
       margin: 0 12px;
       min-width: 168px;
       max-height: 70vh;
@@ -69,15 +69,15 @@ const s = {
       flex-direction: column;
     }
     @media (max-width: 1023px) {
-      background-color: ${props => props.theme.colors.white};
-      box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+      background-color: ${(props) => props.theme.colors.white};
+      box-shadow: ${(props) => props.theme.effects.boxShadowPrimary};
       margin: 0 12px 24px 12px;
       display: flex;
       flex-direction: column;
     }
   `,
   CalendarTitle: styled('h2')<any>`
-    background-color: ${props =>
+    background-color: ${(props) =>
       props.active ? props.theme.colors.primary : props.theme.colors.darkGray};
     font-size: 18px;
     font-weight: 400;
@@ -85,11 +85,11 @@ const s = {
     padding: 4px 12px;
     margin: 0;
     padding: 12px;
-    box-shadow: ${props => props.theme.effects.boxShadowSecondary};
+    box-shadow: ${(props) => props.theme.effects.boxShadowSecondary};
     cursor: pointer;
   `,
   CalendarTitleMobile: styled('h2')<any>`
-    background-color: ${props =>
+    background-color: ${(props) =>
       props.active ? props.theme.colors.primary : props.theme.colors.darkGray};
     font-size: 18px;
     font-weight: 400;
@@ -97,7 +97,7 @@ const s = {
     padding: 4px 12px;
     margin: 0;
     padding: 12px;
-    box-shadow: ${props => props.theme.effects.boxShadowSecondary};
+    box-shadow: ${(props) => props.theme.effects.boxShadowSecondary};
   `,
   CardContent: styled('div')`
     padding: 0 8px;
@@ -109,13 +109,13 @@ const s = {
   `,
   Location: styled('a')`
     text-decoration: none;
-    color: ${props => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.primary};
     font-size: 14px;
   `,
   CardDiv: styled('div')`
     padding: 4px;
     cursor: pointer;
-    border-bottom: 1px solid ${props => props.theme.colors.darkGray};
+    border-bottom: 1px solid ${(props) => props.theme.colors.darkGray};
     margin: 4px;
   `,
   CalendarButton: styled('button')`
@@ -129,7 +129,7 @@ const s = {
     display: flex;
     justify-content: space-between;
     margin: 12px 0,
-    background-color: ${props => props.theme.colors.background}
+    background-color: ${(props) => props.theme.colors.background}
   `,
 
   PreviousButton: styled('div')`
@@ -292,7 +292,6 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
                         <Link to={`/${event.id}`}>
                           <s.CardDiv key={event.id}>
                             <BorderedCardTitle title={event.name} />
-                            <Ages minAge={event.minAge} maxAge={event.maxAge} />
                             <Paragraph>
                               {format(slot.startTime, 'HH:mm')} -{' '}
                               {format(slot.endTime, 'HH:mm')}
@@ -325,7 +324,6 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
                         <Link to={`/${event.id}`}>
                           <s.CardDiv key={event.id}>
                             <BorderedCardTitle title={event.name} />
-                            <Ages minAge={event.minAge} maxAge={event.maxAge} />
                             <Paragraph>
                               {format(slot.startTime, 'HH:mm')} -{' '}
                               {format(slot.endTime, 'HH:mm')}

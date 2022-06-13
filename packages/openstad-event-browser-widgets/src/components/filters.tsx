@@ -5,37 +5,31 @@ import { ChevronDown, ChevronUp, Search } from 'react-feather';
 import { useMediaQuery } from 'react-responsive';
 
 import { Spinner } from './spinner';
-import { Ages } from './ages';
 import { Filter as FilterIcon } from 'react-feather';
 
 import { useDistricts } from '../hooks/use-districts';
 import useDebounce from '../hooks/use-debounce';
-import { StyledInput } from './forms/input';
-import { Button } from './button/button';
-import { Paragraph } from './text/text';
-import { DFlex } from './layout/layout';
 import { useConfig } from '../context/config-context';
-import { ErrorBanner } from './error-banner';
 import '../styles/filters.css';
 
 function Filter({ name, children }: any) {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <div className='event-filter-wrapper'>
-      <div className='event-filter'>
-        <p onClick={() => setOpen(!isOpen)}>
-          {name}
-        </p>
+    <div className="event-filter-wrapper">
+      <div className="event-filter">
+        <p onClick={() => setOpen(!isOpen)}>{name}</p>
         {isOpen ? (
-          <ChevronUp className="event-filter__icon"
+          <ChevronUp
+            className="event-filter__icon"
             onClick={() => setOpen(!isOpen)}
             size={24}
             strokeWidth={2}
             stroke={'#0D0D0D'}
           />
         ) : (
-          <ChevronDown className="event-filter__icon"
+          <ChevronDown
+            className="event-filter__icon"
             onClick={() => setOpen(!isOpen)}
             size={24}
             strokeWidth={2}
@@ -94,21 +88,31 @@ export function FilterSidebar({ onChange, ...props }: any) {
       <>
         <div className="event-input-wrapper event-input-wrapper__has-icon">
           <input
-            className='event-input-wrapper__input'
+            className="event-input-wrapper__input"
             placeholder="Trefwoord"
             value={query}
             onChange={(e: { target: { value: string } }) =>
               setQuery(e.target.value)
             }
           />
-          <Search className="event-input-wrapper__icon" size={24} strokeWidth={2} stroke={'#0D0D0D'} />
+          <Search
+            className="event-input-wrapper__icon"
+            size={24}
+            strokeWidth={2}
+            stroke={'#0D0D0D'}
+          />
         </div>
 
         {isTabletOrMobile && (
-          <button className="event-button"
+          <button
+            className="event-button"
             onClick={() => setFiltersVisible(!filtersVisible)}
           >
-            <FilterIcon className="event-button__icon" size={24} stroke={'black'} />
+            <FilterIcon
+              className="event-button__icon"
+              size={24}
+              stroke={'black'}
+            />
             Filteren
           </button>
         )}
@@ -141,14 +145,12 @@ export function FilterSidebar({ onChange, ...props }: any) {
                     }
                   }}
                 />
-                <p style={{ display: 'inline-block' }}>
-                  {district}
-                </p>
+                <p style={{ display: 'inline-block' }}>{district}</p>
               </label>
             ))}
           </Filter>
-          {themes?.map((theme: any) => (
-            <Filter name={theme.value}>
+          {themes?.map((theme: any, themeIndex: any) => (
+            <Filter name={theme.label || theme.value}>
               {tags
                 .filter((tag: any) => tag.extraData.theme === theme.value)
                 .map((tag: any) => (
@@ -156,29 +158,32 @@ export function FilterSidebar({ onChange, ...props }: any) {
                     <input
                       className="event-filter__input"
                       type="checkbox"
-                      checked={filters.tagIds.includes(tag.id)}
+                      checked={
+                        filters.tagIds[themeIndex] &&
+                        filters.tagIds[themeIndex].includes(tag.id)
+                      }
                       onChange={(e) => {
                         const checked = e.target.checked;
+                        const tagIds = [...filters.tagIds];
+                        const themeTags = tagIds[themeIndex] || [];
+
                         if (checked) {
                           //   add
-                          setFilters({
-                            ...filters,
-                            tagIds: [...filters.tagIds, tag.id],
-                          });
+                          tagIds[themeIndex] = [...themeTags, tag.id];
                         } else {
                           //   remove
-                          setFilters({
-                            ...filters,
-                            tagIds: [...filters.tagIds].filter(
-                              (tId) => tId !== tag.id
-                            ),
-                          });
+                          tagIds[themeIndex] = [...themeTags].filter(
+                            (tId) => tId !== tag.id
+                          );
                         }
+
+                        setFilters({
+                          ...filters,
+                          tagIds: tagIds.map((x) => (!x ? [] : x)), // .filter((x: any) => x),
+                        });
                       }}
                     />
-                    <p style={{ display: 'inline-block' }}>
-                      {tag.name}
-                    </p>
+                    <p style={{ display: 'inline-block' }}>{tag.name}</p>
                   </label>
                 ))}
             </Filter>
@@ -194,9 +199,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
               })
             }
           />
-          <button onClick={() => setFilters(initialFilters)}>
-            Wissen
-          </button>
+          <button onClick={() => setFilters(initialFilters)}>Wissen</button>
         </>
       )}
     </div>

@@ -1,18 +1,13 @@
 import React from 'react';
 import { Link } from 'wouter';
 
-import {
-  ActivityImage,
-  HeartIcon,
-} from '../card/card';
-import { formatAges } from '../ages';
+import { ActivityImage, HeartIcon } from '../card/card';
+
 import { useUser } from '../../context/user-context';
-// import { useConfig } from '../../context/config-context';
 import { useFavorites } from '../../hooks/use-favorites';
 
 export function EventTiles({ events }: any) {
   const user = useUser();
-  // const config = useConfig();
   const { isFavorite, unfavorite, favorite } = useFavorites();
 
   return events.map((event: any) => (
@@ -20,7 +15,7 @@ export function EventTiles({ events }: any) {
       <div className="events-activity-card">
         <div
           className="events-icon-button"
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
             if (user.isLoggedIn()) {
               if (isFavorite(event.id)) {
@@ -38,15 +33,17 @@ export function EventTiles({ events }: any) {
           </div>
         </div>
         <div className="events-activity-card__image-wrapper">
-          <ActivityImage className="events-activity-card__image"
+          <ActivityImage
+            className="events-activity-card__image"
             src={event.image + '/:/rs=w:666'}
             alt={event.name}
             loading="lazy"
           />
           <div className="events-tags-container events-tags-container__card">
-            <p className="events-tag events-tag__ages">{formatAges(event.minAge, event.maxAge)}</p>
             {event?.tags.map((tag: any) => (
-              <p className="events-tag events-tag__category" key={tag.id}>{tag.name}</p>
+              <p className="events-tag events-tag__category" key={tag.id}>
+                {tag.name}
+              </p>
             ))}
             <p className="events-tag events-tag__district">{event.district}</p>
           </div>
@@ -59,7 +56,9 @@ export function EventTiles({ events }: any) {
           <p className="events-activity-card__text-description">
             {event.description.replace(/(<([^>]+)>)/gi, '')}
           </p>
-          <a href="" className="events-activity-card__link">Activiteit bekijken</a>
+          <a href="" className="events-activity-card__link">
+            Activiteit bekijken
+          </a>
         </div>
       </div>
     </Link>
