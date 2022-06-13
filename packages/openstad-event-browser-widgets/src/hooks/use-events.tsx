@@ -10,7 +10,7 @@ const skip = () => true;
  */
 export function useEvents(filters: any) {
   const [queryString, setQueryString] = useState<string>('');
-  const { data, error, size, setSize } = useSWRInfinite(index => {
+  const { data, error, size, setSize } = useSWRInfinite((index) => {
     if (queryString) {
       return `/event?${queryString}&page=${index + 1}`;
     }
@@ -35,8 +35,15 @@ export function useEvents(filters: any) {
     };
     delete apiFilters.ageRanges;
 
+    if (apiFilters.tagIds) {
+      // filter null values from array
+      apiFilters.tagIds = apiFilters.tagIds
+        .filter((x: any[]) => x.length)
+        .map((tags: any) => JSON.stringify(tags));
+    }
+
     // remove empty values
-    Object.keys(apiFilters).forEach(key => {
+    Object.keys(apiFilters).forEach((key) => {
       if (!apiFilters[key]) {
         delete apiFilters[key];
       }
@@ -53,35 +60,9 @@ export function useEvents(filters: any) {
     const fields = ['name', 'description'];
     return (event: any) =>
       fields
-        .map(field => event[field].toLowerCase())
+        .map((field) => event[field].toLowerCase())
         .join(' ')
         .includes(filter.q.toLowerCase());
-  }
-
-  function filterAge(filter: any) {
-    if (!filter?.ageRanges?.length) {
-      return skip;
-    }
-
-    const groups = [
-      [0, 4],
-      [4, 8],
-      [8, 12],
-      [12, 16],
-      [16, 18],
-      [18, 99],
-    ];
-    const ranges = filter.ageRanges;
-    return (event: any) => {
-      event.ranges = groups.filter(
-        ([min, max]) => event.minAge <= min && event.maxAge >= max
-      );
-
-      // check if any of the selected ranges is inside event.ranges
-      return event.ranges.some(([eMin, eMax]: number[]) =>
-        ranges.some(([rMin, rMax]: number[]) => eMin === rMin && eMax === rMax)
-      );
-    };
   }
 
   function filterDistrict(filter: any) {
@@ -93,12 +74,14 @@ export function useEvents(filters: any) {
   }
 
   function filterTags(filter: any) {
-    if (!filter?.tagIds?.length) {
+    if (!filter?.tagIds?.length || !filter.tagIds.flat().length) {
       return skip;
     }
     return (event: any) =>
-      filter.tagIds.some((tagId: number) =>
-        event.tags.map((tag: any) => tag.id).includes(tagId)
+      filter.tagIds.every((tags: any) =>
+        tags.some((tagId: number) =>
+          event.tags.map((tag: any) => tag.id).includes(tagId)
+        )
       );
   }
 
@@ -129,7 +112,6 @@ export function useEvents(filters: any) {
       ?.map((row: any) => row.records)
       .flat()
       ?.filter(filterQuery(filters))
-      .filter(filterAge(filters))
       .filter(filterDistrict(filters))
       .filter(filterTags(filters))
       .filter(filterDates(filters)) ?? [];

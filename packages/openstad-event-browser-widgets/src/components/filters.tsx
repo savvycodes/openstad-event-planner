@@ -16,6 +16,7 @@ import { Button } from './button/button';
 import { Paragraph } from './text/text';
 import { DFlex } from './layout/layout';
 import { useConfig } from '../context/config-context';
+import { removeEmptyKeys } from '../util/empty-keys';
 
 const styles = {
   Ages: styled(Ages)`
@@ -228,7 +229,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
               </label>
             ))}
           </Filter>
-          {themes?.map((theme: any) => (
+          {themes?.map((theme: any, themeIndex: any) => (
             <Filter name={theme.label || theme.value}>
               {tags
                 .filter((tag: any) => tag.extraData.theme === theme.value)
@@ -236,24 +237,29 @@ export function FilterSidebar({ onChange, ...props }: any) {
                   <label style={{ display: 'block' }} key={tag.id}>
                     <input
                       type="checkbox"
-                      checked={filters.tagIds.includes(tag.id)}
+                      checked={
+                        filters.tagIds[themeIndex] &&
+                        filters.tagIds[themeIndex].includes(tag.id)
+                      }
                       onChange={(e) => {
                         const checked = e.target.checked;
+                        const tagIds = [...filters.tagIds];
+                        const themeTags = tagIds[themeIndex] || [];
+
                         if (checked) {
                           //   add
-                          setFilters({
-                            ...filters,
-                            tagIds: [...filters.tagIds, tag.id],
-                          });
+                          tagIds[themeIndex] = [...themeTags, tag.id];
                         } else {
                           //   remove
-                          setFilters({
-                            ...filters,
-                            tagIds: [...filters.tagIds].filter(
-                              (tId) => tId !== tag.id
-                            ),
-                          });
+                          tagIds[themeIndex] = [...themeTags].filter(
+                            (tId) => tId !== tag.id
+                          );
                         }
+
+                        setFilters({
+                          ...filters,
+                          tagIds: tagIds.map((x) => (!x ? [] : x)), // .filter((x: any) => x),
+                        });
                       }}
                     />
                     <styles.P style={{ display: 'inline-block' }}>

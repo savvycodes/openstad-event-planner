@@ -33,7 +33,7 @@ const styles = {
     text-overflow: ellipsis;
   `,
 };
-import { formatAges } from '../ages';
+// import { formatAges } from '../ages';
 import { useUser } from '../../context/user-context';
 // import { useConfig } from '../../context/config-context';
 import { useFavorites } from '../../hooks/use-favorites';
@@ -47,7 +47,7 @@ export function EventTiles({ events }: any) {
     <Link to={`/${event.id}`} key={event.id}>
       <ActivityCard>
         <IconWrapper
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
             if (user.isLoggedIn()) {
               if (isFavorite(event.id)) {
@@ -71,7 +71,7 @@ export function EventTiles({ events }: any) {
             loading="lazy"
           />
           <CardTagsContainer>
-            <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
+            {/* <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag> */}
             {event?.tags.map((tag: any) => (
               <CardTag key={tag.id}>{tag.name}</CardTag>
             ))}

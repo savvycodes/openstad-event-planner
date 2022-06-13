@@ -8,7 +8,7 @@ import { ErrorBanner } from '../components/error-banner';
 import { Spinner } from '../components/spinner';
 import { Border, Paragraph, RichText } from '../components/text/text';
 import { CardTag } from '../components/card/card';
-import { formatAges } from '../components/ages';
+// import { formatAges } from '../components/ages';
 import { Location } from '../components/location';
 import { DFlex } from '../components/layout/layout';
 
@@ -19,11 +19,11 @@ const styles = {
   `,
   Container: styled('div')`
     @media (min-width: 1024px) {
-      background-color: ${props => props.theme.colors.background};
+      background-color: ${(props) => props.theme.colors.background};
       padding: 48px;
     }
     @media (max-width: 1023px) {
-      background-color: ${props => props.theme.colors.background};
+      background-color: ${(props) => props.theme.colors.background};
       padding: 12px;
     }
   `,
@@ -80,7 +80,7 @@ const styles = {
 
   DateProgressBar: styled('div')`
     background-color: white;
-    box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+    box-shadow: ${(props) => props.theme.effects.boxShadowPrimary};
     margin: 24px 0;
     padding: 4px 12px;
   `,
@@ -88,18 +88,18 @@ const styles = {
   EventCardContainer: styled('div')`
     @media (min-width: 1024px) {
       padding: 24px;
-      background-color: ${props => props.theme.colors.white};
+      background-color: ${(props) => props.theme.colors.white};
       width: 100%;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+      box-shadow: ${(props) => props.theme.effects.boxShadowPrimary};
     }
     @media (max-width: 1023px) {
       padding: 24px;
-      background-color: ${props => props.theme.colors.white};
+      background-color: ${(props) => props.theme.colors.white};
       width: 100%;
       display: block;
-      box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+      box-shadow: ${(props) => props.theme.effects.boxShadowPrimary};
     }
   `,
 
@@ -108,7 +108,7 @@ const styles = {
   `,
 
   Paragraph: styled(Paragraph)`
-    color: ${props => props.theme.colors.black};
+    color: ${(props) => props.theme.colors.black};
     margin: 0;
     padding: 0;
   `,
@@ -125,7 +125,7 @@ const styles = {
   `,
 
   ATitle: styled('h2')`
-    color: ${props => props.theme.colors.black};
+    color: ${(props) => props.theme.colors.black};
     font-size: 20px;
     display: inline-block;
     margin: 0;
@@ -138,7 +138,7 @@ const styles = {
       position: relative;
       margin-bottom: 8px;
       width: 60%;
-      border: 1px solid ${props => props.theme.colors.primary};
+      border: 1px solid ${(props) => props.theme.colors.primary};
       border-radius: 50px;
       height: 12px;
       box-sizing: content-box;
@@ -148,7 +148,7 @@ const styles = {
       position: relative;
       margin-bottom: 8px;
       width: 100%;
-      border: 1px solid ${props => props.theme.colors.primary};
+      border: 1px solid ${(props) => props.theme.colors.primary};
       border-radius: 50px;
       height: 12px;
       box-sizing: content-box;
@@ -159,18 +159,18 @@ const styles = {
     display: block;
     height: 100%;
     border-radius: 8px;
-    background-color: ${props => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.colors.primary};
     position: relative;
     overflow: hidden;
   `,
   SearchButton: styled('button')`
-    background-color: ${props => props.theme.colors.background};
-    box-shadow: ${props => props.theme.effects.boxShadowPrimary};
+    background-color: ${(props) => props.theme.colors.background};
+    box-shadow: ${(props) => props.theme.effects.boxShadowPrimary};
     padding: 8px 16px;
     border: none;
     display: flex;
     align-items: center;
-    color: ${props => props.theme.colors.black};
+    color: ${(props) => props.theme.colors.black};
   `,
   CardTag: styled(CardTag)`
     margin-right: 8px;
@@ -223,9 +223,6 @@ export function EventDetailPage({ params }: RouteComponentProps) {
           <styles.Provider>door: {event.organisation.name}</styles.Provider>
 
           <styles.EventTagsContainer>
-            <styles.CardTag>
-              {formatAges(event.minAge, event.maxAge)}
-            </styles.CardTag>
             <styles.CardTag>{event.district}</styles.CardTag>
             {event.tags.map((tag: any) => {
               return <styles.CardTag>{tag.name}</styles.CardTag>;
