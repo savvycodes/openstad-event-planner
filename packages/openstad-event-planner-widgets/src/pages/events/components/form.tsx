@@ -8,7 +8,6 @@ import ReactQuill from 'react-quill';
 
 import {
   Input,
-  FormItem,
   Form,
   Textarea,
   CheckboxItem,
@@ -17,8 +16,6 @@ import {
   StyledInput,
 } from '../../../components/forms/input';
 import { Label, /*ListLabel,*/ Paragraph } from '../../../components/text/text';
-import { DFlex } from '../../../components/layout/layout';
-import { AddDateTimeButton, Button } from '../../../components/button/button';
 import { ImageUpload } from '../../../components/forms/image-upload';
 import { Location } from '../../../components/location';
 import { LocationFinder } from '../../../components/forms/location-finder';
@@ -55,18 +52,6 @@ const styles = {
   Paragraph: styled(Paragraph)`
     font-weight: 500;
   `,
-  DateTimeDiv: styled('div')`
-    @media (min-width: 1024px) {
-      position: relative;
-      width: 50%;
-      margin-bottom: 24px;
-    }
-    @media (max-width: 1023px) {
-      position: relative;
-      width: 100%;
-      margin-bottom: 24px;
-    }
-  `,
   Label: styled(Label)`
     margin-left: 12px;
   `,
@@ -83,19 +68,11 @@ const styles = {
     display: flex;
     justify-content: center;
   `,
-  Editor: (props: any) => css`
-    background: ${props.theme.colors.white};
-    box-shadow: ${props.theme.effects.boxShadowPrimary};
-    font-weight: normal;
-    font-family: ${props.theme.font.family};
+  Editor: () => css`
+    width: 100%;
 
     .ql-editor {
       min-height: 200px;
-    }
-
-    .ql-container {
-      font-family: ${props.theme.font.family};
-      font-size: ${props.theme.font.size}px;
     }
   `,
 };
@@ -111,36 +88,34 @@ export function ActivityForm({
 
   return (
     <Form>
-      <FormItem>
-        <Label htmlFor="name">
-          Naam organisatie
+      <div className="form-wrapper">
+      <div className="inputfield-wrapper">
+        <label htmlFor="name">
+          Naam organisatie</label>
           <StyledInput value={organisation.name} disabled />
-        </Label>
-      </FormItem>
+        
+      </div>
 
-      <FormItem>
-        <Label htmlFor="name">
-          Titel activiteit
+      <div className="inputfield-wrapper">
+        <label htmlFor="name">Titel activiteit</label>
           <Field
             type="text"
             name="name"
-            placeholder="verplicht veld"
+            placeholder="Verplicht veld"
             component={Input}
           />
-          <Paragraph>
+          <p className="error-message">
             <ErrorMessage name="name" />
-          </Paragraph>
-        </Label>
-      </FormItem>
+          </p>
+      </div>
 
-      <FormItem>
-        <Label htmlFor="description" style={{ width: '70%' }}>
-          Beschrijving activiteit
+      <div className="inputfield-wrapper">
+        <label htmlFor="description">Beschrijving activiteit</label>
           <Field name="description">
             {({ field }: any) => (
               <ReactQuill
                 id={field.name}
-                className={styles.Editor({ theme })}
+                className="wysiwyg-textarea"
                 value={field.value}
                 onChange={field.onChange(field.name)}
                 modules={{
@@ -152,97 +127,92 @@ export function ActivityForm({
               />
             )}
           </Field>
-          <Paragraph>
+          <p className="error-message">
             <ErrorMessage name="description" />
-          </Paragraph>
-        </Label>
-      </FormItem>
+          </p>
+      </div>
 
-      <FormItem>
-        <Label htmlFor="location">
-          Locatie activiteit
-          <styles.Paragraph>
-            Vul een adres in en selecteer één van de beschikbare locaties
-          </styles.Paragraph>
+      <div className="inputfield-wrapper">
+        <label htmlFor="location">Locatie activiteit</label>
+          <i className="input-helper">Vul een adres in en selecteer één van de beschikbare locaties</i>
+          <LocationFinder
+            placeholder="Verplicht veld"
+            onSelect={(geo: any) => form.setFieldValue('location', geo)}
+            error={form.errors?.location?.coordinates}
+          />
+          <p className="error-message">
+            <ErrorMessage name="location.coordinates" />
+          </p>
           {form.values.location.coordinates.length > 0 ? (
-            <DFlex style={{ alignItems: 'center' }}>
+            <div className="activity-location">
               <MapPin size={24} />
-              <Paragraph style={{ margin: '0 10px' }}>
+              <p>
                 <Location
                   lat={form.values.location.coordinates[1]}
                   lon={form.values.location.coordinates[0]}
                 />
-              </Paragraph>
-            </DFlex>
+              </p>
+            </div>
           ) : null}
-          <LocationFinder
-            placeholder="verplicht veld"
-            onSelect={(geo: any) => form.setFieldValue('location', geo)}
-            error={form.errors?.location?.coordinates}
-          />
-          <Paragraph>
-            <ErrorMessage name="location.coordinates" />
-          </Paragraph>
-          <Field name="district" component={Select}>
-            <option value="" disabled>
-              Stadsdeel
+      </div>
+
+      <div className="inputfield-wrapper">
+        <label htmlFor="location">Kies een stadsdeel</label>
+        <Field name="district" component={Select}>
+          <option value="" disabled>
+            Stadsdeel
+          </option>
+          {districts.map((district, index) => (
+            <option key={index} value={district}>
+              {district}
             </option>
-            {districts.map((district, index) => (
-              <option key={index} value={district}>
-                {district}
-              </option>
-            ))}
-          </Field>
-          <Paragraph>
-            <ErrorMessage name="district" />
-          </Paragraph>
-        </Label>
-      </FormItem>
+          ))}
+        </Field>
+        <p className="error-message">
+          <ErrorMessage name="district" />
+        </p>
+      </div>
+      <div className="inputfield-wrapper">
+        
+          <label>
+            Wanneer vindt je activiteit plaats?
+          </label>
+          <i className="input-helper">
+            Een activiteit kan op meerdere dagen plaatsvinden, klik op het plusje om extra dagen toe te voegen. Een activiteit kan ook meerdere dagen duren, kies daarvoor een andere einddatum.
+          </i>
+          <FieldArray name="slots">
+            {arrayHelpers => (
+              <>
+                {form.values?.slots?.map((slot: any, index: number) => (
+                  <div className='date-slot-row' key={slot.id || index}>
+                    <DateTimeSelector name={`slots[${index}]`} />
+                    {form.values.slots.length > 1 ? (
+                      <styles.CloseButton
+                        strokeWidth={3}
+                        size={24}
+                        stroke={theme.colors.darkestGray}
+                        onClick={() => arrayHelpers.remove(index)}
+                      />
+                    ) : null}
+                  </div>
+                ))}
+                <button className='add-date-slot-button'
+                  onClick={() =>
+                    arrayHelpers.push({
+                      startTime: addDays(new Date(), 1),
+                      endTime: addHours(addDays(new Date(), 1), 1),
+                    })
+                  }
+                >
+                  Extra dag toevoegen
+                </button>
+              </>
+            )}
+          </FieldArray>
+        
+      </div>
 
-      <styles.DateTimeDiv>
-        <styles.Label>
-          Startdatum en einddatum
-          <styles.Paragraph>
-            Voeg extra data toe door op + te klikken
-          </styles.Paragraph>
-        </styles.Label>
-
-        <FieldArray name="slots">
-          {arrayHelpers => (
-            <>
-              {form.values?.slots?.map((slot: any, index: number) => (
-                <styles.SlotRow key={slot.id || index}>
-                  <DateTimeSelector name={`slots[${index}]`} />
-                  {form.values.slots.length > 1 ? (
-                    <styles.CloseButton
-                      strokeWidth={3}
-                      size={20}
-                      stroke={theme.colors.darkestGray}
-                      onClick={() => arrayHelpers.remove(index)}
-                    />
-                  ) : null}
-                </styles.SlotRow>
-              ))}
-              <AddDateTimeButton
-                onClick={() =>
-                  arrayHelpers.push({
-                    startTime: addDays(new Date(), 1),
-                    endTime: addHours(addDays(new Date(), 1), 1),
-                  })
-                }
-              >
-                <styles.Plus
-                  strokeWidth={3}
-                  size={20}
-                  stroke={theme.colors.black}
-                />
-              </AddDateTimeButton>
-            </>
-          )}
-        </FieldArray>
-      </styles.DateTimeDiv>
-
-      {/* <FormItem>
+      {/* <div className="inputfield-wrapper">
         <Label>Leeftijd</Label>
         <CheckboxList>
           <CheckboxItem>
@@ -309,18 +279,18 @@ export function ActivityForm({
             <ErrorMessage name="ages" />
           </Paragraph>
         </CheckboxList>
-      </FormItem> */}
+      </div> */}
 
       {themes &&
         themes.map((theme: any) => (
-          <FormItem key={theme.id}>
-            <Label>{theme.formLabel || theme.value}</Label>
+          <div className="inputfield-wrapper" key={theme.id}>
+            <label>{theme.formLabel || theme.value}</label>
             <CheckboxList>
               {tags &&
                 tags
                   .filter((tag: any) => tag?.extraData?.theme === theme.value)
                   .map((tag: any) => (
-                    <CheckboxItem key={tag.id}>
+                    <CheckboxItem className="checkbox-label" key={tag.id}>
                       <Field
                         type="checkbox"
                         name="tagIds"
@@ -329,14 +299,14 @@ export function ActivityForm({
                       {tag.name}
                     </CheckboxItem>
                   ))}
-              <Paragraph>
+              <p className="error-message">
                 <ErrorMessage name="tagIds" />
-              </Paragraph>
+              </p>
             </CheckboxList>
-          </FormItem>
+          </div>
         ))}
 
-      {/* <FormItem>
+      {/* <div className="inputfield-wrapper">
         <Label>Type activiteit</Label>
         <CheckboxList>
           {tags &&
@@ -354,50 +324,47 @@ export function ActivityForm({
             <ErrorMessage name="tagIds" />
           </Paragraph>
         </CheckboxList>
-      </FormItem> */}
+      </div> */}
 
-      <FormItem>
-        <Label htmlFor="price">
-          Kosten deelname
+      <div className="inputfield-wrapper">
+        <label htmlFor="price">Kosten deelname</label>
           <Field
             id="price"
             name="price"
             placeholder="Gratis, Stadspas of geldbedrag"
             component={Textarea}
           />
-          <Paragraph>
+          <p className="error-message">
             <ErrorMessage name="price" />
-          </Paragraph>
-        </Label>
-      </FormItem>
+          </p>
+        
+      </div>
 
-      <FormItem>
-        <Label htmlFor="attendees">
-          Aantal beschikbare plekken
-          <styles.Paragraph>
+      <div className="inputfield-wrapper">
+        <label htmlFor="attendees">Aantal beschikbare plekken</label>
+          <i className='input-helper'>
             Laat het aantal beschikbare plekken op 0 als je niet weet hoeveel
             plekken er beschikbaar zijn.
-          </styles.Paragraph>
+          </i>
           <Field
             type="number"
             name="attendees"
-            placeholder="verplicht veld"
+            placeholder="Verplicht veld"
             component={Input}
           />
-          <Paragraph>
+          <p className="error-message">
             <ErrorMessage name="attendees" />
-          </Paragraph>
-        </Label>
-      </FormItem>
+          </p>
+        
+      </div>
 
-      <FormItem>
-        <Label htmlFor="information" style={{ width: '70%' }}>
-          Hoe kan je je aanmelden?
+      <div className="inputfield-wrapper">
+        <label htmlFor="information">Hoe kan je je aanmelden?</label>
           <Field name="information">
             {({ field }: any) => (
               <ReactQuill
                 id={field.name}
-                className={styles.Editor({ theme })}
+                className="wysiwyg-textarea"
                 value={field.value}
                 onChange={field.onChange(field.name)}
                 modules={{
@@ -409,30 +376,31 @@ export function ActivityForm({
               />
             )}
           </Field>
-          <Paragraph>
+          <p className="error-message">
             <ErrorMessage name="information" />
-          </Paragraph>
-        </Label>
-      </FormItem>
+          </p>
+        </div>
 
-      <FormItem>
-        <Label>
-          Upload foto
-          <ImageUpload
+        <div className="inputfield-wrapper">
+          <label>Upload foto</label>
+          <ImageUpload 
+            className="file-upload"
             onUpload={image => form.setFieldValue('image', image.url)}
             value={form.values.image}
           />
-          <Paragraph>
+          <div className="file-upload__replacement">
+            <p>Klik hier om een bestand te uploaden</p>
+          </div>
+          <p className="error-message">
             <ErrorMessage name="image" />
-          </Paragraph>
-        </Label>
-      </FormItem>
+          </p>
+        </div>
 
-      <styles.Center>
-        <Button type="submit" disabled={form.isSubmitting}>
+      
+        <button type="submit" disabled={form.isSubmitting}>
           Voeg toe
-        </Button>
-      </styles.Center>
+        </button>
+      </div>
     </Form>
   );
 }

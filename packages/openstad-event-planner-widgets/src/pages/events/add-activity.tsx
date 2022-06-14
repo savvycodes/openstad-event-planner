@@ -5,8 +5,6 @@ import addDays from 'date-fns/addDays';
 import addHours from 'date-fns/addHours';
 
 import { useHashLocation } from '../../components/hash-router';
-import { BorderedTitle, Paragraph } from '../../components/text/text';
-import { Header, Main } from '../../components/layout/layout';
 import { Spinner } from '../../components/spinner';
 import { ErrorBanner } from '../../components/error-banner';
 import { ActivityForm } from './components/form';
@@ -118,13 +116,8 @@ export function ProviderAddActivityPage(): JSX.Element {
   }
 
   return (
-    <Main>
-      <Header>
-        <BorderedTitle title={organisation.name} />
-
-        <Paragraph>Nieuwe activiteit toevoegen</Paragraph>
-      </Header>
-
+    <main className='component-main'>
+      <h3>Nieuwe activiteit toevoegen</h3>
       <Formik
         initialValues={{
           name: '',
@@ -163,6 +156,6 @@ export function ProviderAddActivityPage(): JSX.Element {
           Oeps! We konden je activiteit niet opslaan: ({submitError.message})
         </ErrorBanner>
       ) : null}
-    </Main>
+    </main>
   );
 }

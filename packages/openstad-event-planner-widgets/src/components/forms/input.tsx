@@ -26,12 +26,7 @@ export const StyledInput = styled('input')<InputProps>`
 `;
 
 export const StyledTextArea = styled('textarea')<InputProps>`
-  padding: 8px 10px;
-  border-color: ${props => props.error && props.theme.colors.danger};
-  border: ${props => !props.error && 'none'};
-  display: block;
-  box-shadow: ${props => props.theme.effects.boxShadowPrimary};
-  margin-top: 8px;
+${props => props.error && `border-color: ${props.theme.colors.danger};`};
 `;
 
 export const StyledSelect = styled('select')<InputProps>`
@@ -41,7 +36,7 @@ export const StyledSelect = styled('select')<InputProps>`
 export const CheckboxItem = styled('label')`
   display: flex;
   align-items: center;
-  padding: 4px 0;
+  padding: .5rem 0;
   width: fit-content;
 `;
 
