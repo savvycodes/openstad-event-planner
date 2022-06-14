@@ -40,4 +40,7 @@ module.exports = {
       const: false,
     },
   },
+  optimization: {
+    minimize: false,
+  },
 };
