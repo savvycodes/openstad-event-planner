@@ -41,7 +41,8 @@ export function DateTimeSelector({ name }: any) {
             value={getIn(
               formik.values,
               `${name}.startTime`,
-              addDays(new Date(), 1)
+              new Date()
+              // addDays(new Date(), 1)
             )}
             placeholder="start datum en tijd"
             format="D MMM - HH:mm"
@@ -74,7 +75,8 @@ export function DateTimeSelector({ name }: any) {
             value={getIn(
               formik.values,
               `${name}.endTime`,
-              addHours(addDays(new Date(), 1), 1)
+              new Date()
+              // addHours(addDays(new Date(), 1), 1)
             )}
             placeholder="eind datum en tijd"
             format="D MMM - HH:mm"

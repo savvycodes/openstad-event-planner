@@ -122,7 +122,7 @@ export function ProviderAddActivityPage(): JSX.Element {
       <Header>
         <BorderedTitle title={organisation.name} />
 
-        <Paragraph>Nieuwe activiteit toevoegen (test 123)</Paragraph>
+        <Paragraph>Nieuwe activiteit toevoegen</Paragraph>
       </Header>
 
       <Formik
