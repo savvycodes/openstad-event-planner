@@ -31,7 +31,10 @@ export function useEvents(filters: any) {
   useEffect(() => {
     const apiFilters = {
       ...filters,
-      dates: filters?.dates?.map((date: Date) => (date && date.toISOString) ? date.toISOString() : null ) ?? null,
+      dates:
+        filters?.dates?.map((date: Date) =>
+          date && date.toISOString ? date.toISOString() : null
+        ) ?? null,
     };
     delete apiFilters.ageRanges;
 
@@ -78,7 +81,7 @@ export function useEvents(filters: any) {
       return skip;
     }
     return (event: any) =>
-      filter.tagIds.every((tags: any) =>
+      filter.tagIds.some((tags: any) =>
         tags.some((tagId: number) =>
           event.tags.map((tag: any) => tag.id).includes(tagId)
         )
