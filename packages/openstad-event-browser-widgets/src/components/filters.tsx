@@ -5,7 +5,6 @@ import { ChevronDown, ChevronUp, Search } from 'react-feather';
 import { useMediaQuery } from 'react-responsive';
 
 import { Spinner } from './spinner';
-import { Filter as FilterIcon } from 'react-feather';
 
 import { useDistricts } from '../hooks/use-districts';
 import useDebounce from '../hooks/use-debounce';
