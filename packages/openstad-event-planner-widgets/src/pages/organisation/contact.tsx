@@ -56,7 +56,7 @@ export function ContactDetailsPage() {
         <Form>
           <h3>Contactpersoon</h3>
           <ContactForm />
-          <button>Opslaan</button>
+          <FormButton>Opslaan</FormButton>
         </Form>
       )}
     </Formik>

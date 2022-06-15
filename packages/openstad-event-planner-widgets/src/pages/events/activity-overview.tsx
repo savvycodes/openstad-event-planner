@@ -168,7 +168,6 @@ function ActivityList({ organisationId }: ActivityListProps) {
     <>
     <h3>Activiteiten</h3>
     <CardWrapper>
-      {console.log(events)}
       {events.map((event: any) => (
         <ActivityCards
           key={event.id}

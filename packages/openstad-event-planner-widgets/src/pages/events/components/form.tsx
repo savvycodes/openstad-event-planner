@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ErrorMessage, Field, FieldArray, useFormikContext } from 'formik';
-import { Plus, X, MapPin } from 'react-feather';
-import { styled, css } from 'goober';
+import { X, MapPin } from 'react-feather';
 import addDays from 'date-fns/addDays';
 import addHours from 'date-fns/addHours';
 import ReactQuill from 'react-quill';
@@ -15,7 +14,6 @@ import {
   Select,
   StyledInput,
 } from '../../../components/forms/input';
-import { Label, /*ListLabel,*/ Paragraph } from '../../../components/text/text';
 import { ImageUpload } from '../../../components/forms/image-upload';
 import { Location } from '../../../components/location';
 import { LocationFinder } from '../../../components/forms/location-finder';
@@ -47,35 +45,6 @@ interface FormValues {
   slots: any[];
   needToPay: string;
 }
-
-const styles = {
-  Paragraph: styled(Paragraph)`
-    font-weight: 500;
-  `,
-  Label: styled(Label)`
-    margin-left: 12px;
-  `,
-  CloseButton: styled(X)`
-    align-self: center;
-  `,
-  Plus: styled(Plus)`
-    float: right;
-  `,
-  SlotRow: styled('div')`
-    display: flex;
-  `,
-  Center: styled('div')`
-    display: flex;
-    justify-content: center;
-  `,
-  Editor: () => css`
-    width: 100%;
-
-    .ql-editor {
-      min-height: 200px;
-    }
-  `,
-};
 
 export function ActivityForm({
   organisation,
@@ -187,7 +156,7 @@ export function ActivityForm({
                   <div className='date-slot-row' key={slot.id || index}>
                     <DateTimeSelector name={`slots[${index}]`} />
                     {form.values.slots.length > 1 ? (
-                      <styles.CloseButton
+                      <X
                         strokeWidth={3}
                         size={24}
                         stroke={theme.colors.darkestGray}

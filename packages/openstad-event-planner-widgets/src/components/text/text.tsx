@@ -1,5 +1,4 @@
 import { styled } from 'goober';
-import { backgrounds } from 'polished';
 import React from 'react';
 
 /**
