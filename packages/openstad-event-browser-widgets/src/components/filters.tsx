@@ -105,14 +105,9 @@ export function FilterSidebar({ onChange, ...props }: any) {
 
         {isTabletOrMobile && (
           <button
-            className="event-button"
+            className="filter-event-button"
             onClick={() => setFiltersVisible(!filtersVisible)}
           >
-            <FilterIcon
-              className="event-button__icon"
-              size={24}
-              stroke={'black'}
-            />
             Filteren
           </button>
         )}

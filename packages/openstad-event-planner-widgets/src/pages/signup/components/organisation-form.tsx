@@ -125,8 +125,8 @@ export function OrganisationForm() {
       </div> */}
 
       <div className="inputfield-wrapper">
-        <label htmlFor="website">
-          Website</label>
+        <label htmlFor="website">Website</label>
+        <i className="input-helper">Zorg dat je url begint met https://</i>
           <Field
             id="website"
             type="text"
@@ -141,9 +141,8 @@ export function OrganisationForm() {
       </div>
 
       <div className="inputfield-wrapper">
-        <label htmlFor="facebook">
-          Social media - Facebook
-          </label>
+        <label htmlFor="facebook">Social media - Facebook</label>
+          <i className="input-helper">Zorg dat je url begint met https://</i>
           <Field
             id="facebook"
             type="text"
@@ -157,8 +156,8 @@ export function OrganisationForm() {
         
       </div>
       <div className="inputfield-wrapper">
-        <label htmlFor="instagram">
-          Social media - Instagram</label>
+        <label htmlFor="instagram">Social media - Instagram</label>
+          <i className="input-helper">Zorg dat je url begint met https://</i>
           <Field
             id="instagram"
             type="text"

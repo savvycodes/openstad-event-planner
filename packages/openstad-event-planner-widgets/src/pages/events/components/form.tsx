@@ -329,6 +329,9 @@ export function ActivityForm({
 
       <div className="inputfield-wrapper">
         <label htmlFor="information">Hoe kan je je aanmelden?</label>
+          <i className='input-helper'>
+            Linken naar je eigen website kan door de tekst te selecteren die wilt linken en daarna op keten icoontje te klikken.
+          </i>
           <Field name="information">
             {({ field }: any) => (
               <ReactQuill
