@@ -27,17 +27,18 @@ const s = {
       min-width: 100%;
       display: grid;
       grid-template-columns: repeat(7, 1fr);
+      grid-gap: 1rem;
       margin: 0;
       padding: 0;
       align-items: flex-start;
       justify-content: stretch;
-      margin-bottom: 48px;
+      margin-bottom: 2rem;
     }
     @media (max-width: 1023px) {
       display: block;
       margin: 0;
       padding: 0;
-      margin-bottom: 48px;
+      margin-bottom: 2rem;
     }
   `,
   ChevronLeft: styled(ChevronLeft)`
@@ -60,8 +61,7 @@ const s = {
     user-select: none;
     @media (min-width: 1024px) {
       background-color: ${(props) => props.theme.colors.white};
-      box-shadow: ${(props) => props.theme.effects.boxShadowPrimary};
-      margin: 0 12px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
       min-width: 168px;
       max-height: 70vh;
       display: flex;
@@ -69,34 +69,33 @@ const s = {
     }
     @media (max-width: 1023px) {
       background-color: ${(props) => props.theme.colors.white};
-      box-shadow: ${(props) => props.theme.effects.boxShadowPrimary};
-      margin: 0 12px 24px 12px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+      margin: 0 0 1rem 0;
       display: flex;
       flex-direction: column;
     }
   `,
-  CalendarTitle: styled('h2')<any>`
+  CalendarTitle: styled('p')<any>`
     background-color: ${(props) =>
-      props.active ? props.theme.colors.primary : props.theme.colors.darkGray};
-    font-size: 18px;
-    font-weight: 400;
+      props.active ? '#00387A' : '#E6E6E6'};
+    color: ${(props) =>
+      props.active ? '#FFF' : '#000'};
+    font-size: 1.125rem;
     text-align: center;
-    padding: 4px 12px;
-    margin: 0;
-    padding: 12px;
-    box-shadow: ${(props) => props.theme.effects.boxShadowSecondary};
+    padding: .5rem 1rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
   `,
-  CalendarTitleMobile: styled('h2')<any>`
+  CalendarTitleMobile: styled('p')<any>`
     background-color: ${(props) =>
-      props.active ? props.theme.colors.primary : props.theme.colors.darkGray};
-    font-size: 18px;
-    font-weight: 400;
+      props.active ? '#00387A' : '#E6E6E6'};
+    color: ${(props) =>
+      props.active ? '#FFF' : '#000'};
+    font-size: 1.125rem;
     text-align: center;
-    padding: 4px 12px;
-    margin: 0;
-    padding: 12px;
-    box-shadow: ${(props) => props.theme.effects.boxShadowSecondary};
+    padding: .5rem 1rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
   `,
   CardContent: styled('div')`
     padding: 0 8px;
@@ -118,27 +117,36 @@ const s = {
     margin: 4px;
   `,
   CalendarButton: styled('button')`
-    width: 24px;
-    border: none;
-    outline: none;
-    background: transparent;
+    display: grid;
+    place-content: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border: 0;
+    padding: 0;
     cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
   `,
   NextPreviousButtons: styled('div')`
     display: flex;
     justify-content: space-between;
-    margin: 12px 0,
-    background-color: ${(props) => props.theme.colors.background}
   `,
 
-  PreviousButton: styled('div')`
+  PreviousButton: styled('button')`
     display: flex;
-    justifycontent: center;
+    justify-content: center;
+    align-items: center;
+    margin: .5rem 0;
+    padding: .25rem;
   `,
 
-  NextButton: styled('div')`
+  NextButton: styled('button')`
     display: flex;
-    justifycontent: center;
+    justify-content: center;
+    align-items: center;
+    margin: .5rem 0;
+    padding: .25rem;
   `,
 
   ChevronLeftMobile: styled(ChevronLeft)`
@@ -246,22 +254,23 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
   }, [filters.dates]);
 
   return (
-    <div>
+    <div className="event-calendar">
       <s.Container>
+      {!isTabletOrMobile &&(
         <s.CalendarButton onClick={previous}>
-          <s.ChevronLeft size={24} stroke={'black'} />
-        </s.CalendarButton>
+          <s.ChevronLeft size={24} stroke={'white'} />
+        </s.CalendarButton>)}
 
         {isTabletOrMobile && (
           <s.NextPreviousButtons>
             <s.PreviousButton onClick={previous}>
-              <s.ChevronLeftMobile stroke={'black'} />
-              <Paragraph>Vorige</Paragraph>
+              
+              Vorige
             </s.PreviousButton>
 
             <s.NextButton onClick={next}>
-              <Paragraph>Volgende</Paragraph>
-              <s.ChevronRightMobile stroke={'black'} />
+              Volgende
+              
             </s.NextButton>
           </s.NextPreviousButtons>
         )}
@@ -276,7 +285,7 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
                   <s.CalendarTitle
                     active={activeDay && isSameDay(activeDay, day)}
                   >
-                    {format(day, 'cccc d LLLL', { locale: nl })}
+                    {format(day, 'cccccc d LLL', { locale: nl })}
                   </s.CalendarTitle>
 
                   <s.CardContent>
@@ -290,11 +299,11 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
                       return (
                         <Link to={`/${event.id}`}>
                           <s.CardDiv key={event.id}>
-                            <h3>{event.name}</h3>
-                            <Paragraph>
+                            <strong className="event-calendar__title">{event.name}</strong>
+                            <p className="event-calendar__time">
                               {format(slot.startTime, 'HH:mm')} -{' '}
                               {format(slot.endTime, 'HH:mm')}
-                            </Paragraph>
+                            </p>
                           </s.CardDiv>
                         </Link>
                       );
@@ -340,19 +349,19 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
         {isTabletOrMobile && (
           <s.NextPreviousButtons>
             <s.PreviousButton onClick={previous}>
-              <s.ChevronLeftMobile stroke={'black'} />
-              <Paragraph>Vorige</Paragraph>
+              
+              Vorige
             </s.PreviousButton>
 
             <s.NextButton onClick={next}>
-              <Paragraph>Volgende</Paragraph>
-              <s.ChevronRightMobile stroke={'black'} />
+              Volgende
+              
             </s.NextButton>
           </s.NextPreviousButtons>
         )}
-        <s.CalendarButton onClick={next}>
-          <s.ChevronRight size={24} stroke={'black'} />
-        </s.CalendarButton>
+        {!isTabletOrMobile &&(<s.CalendarButton onClick={next}>
+          <s.ChevronRight size={24} stroke={'white'} />
+        </s.CalendarButton>)}
       </s.Container>
 
       <CardWrapper>

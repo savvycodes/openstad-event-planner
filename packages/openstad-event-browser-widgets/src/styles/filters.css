@@ -43,3 +43,8 @@
 .rmdp-wrapper {
   width: inherit;
 }
+
+.filter-event-button {
+  margin-top: 1rem;
+  width: 100%;
+}

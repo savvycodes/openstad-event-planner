@@ -5,6 +5,7 @@
   justify-content: flex-end;
   grid-gap: 1rem;
   margin-bottom: 2rem;
+  overflow-x: scroll;
 }
 
 .events-tags-container {

@@ -5,7 +5,6 @@ import { ChevronDown, ChevronUp, Search } from 'react-feather';
 import { useMediaQuery } from 'react-responsive';
 
 import { Spinner } from './spinner';
-import { Filter as FilterIcon } from 'react-feather';
 
 import { useDistricts } from '../hooks/use-districts';
 import useDebounce from '../hooks/use-debounce';
@@ -105,14 +104,9 @@ export function FilterSidebar({ onChange, ...props }: any) {
 
         {isTabletOrMobile && (
           <button
-            className="event-button"
+            className="filter-event-button"
             onClick={() => setFiltersVisible(!filtersVisible)}
           >
-            <FilterIcon
-              className="event-button__icon"
-              size={24}
-              stroke={'black'}
-            />
             Filteren
           </button>
         )}

@@ -1,6 +1,6 @@
 {
   "name": "@savvycodes/openstad-event-planner-widgets",
-  "version": "0.0.5-alpha.19",
+  "version": "0.0.5-alpha.22",
   "main": "index.js",
   "dependencies": {
     "lodash.get": "^4.4.2"
@@ -49,7 +49,7 @@
     "build": "webpack --mode production",
     "prepare": "webpack --mode production"
   },
-  "gitHead": "2cceeb96c612ccf8909e0f703a2d9d81ef4bedcd",
+  "gitHead": "2978949d195fa07d6b8e680711a40845d0702dea",
   "publishConfig": {
     "access": "public"
   }
