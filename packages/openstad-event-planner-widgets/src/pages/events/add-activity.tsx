@@ -45,7 +45,7 @@ export const schema = Yup.object().shape({
     .required('Datum is verplicht'),
   tagIds: Yup.array()
     .of(Yup.string())
-    .min(1, 'U moet minimaal 1 type activiteit selecteren'),
+    .min(1, 'U moet minimaal 1 veld selecteren'),
   needToPay: Yup.string(),
 });
 
@@ -116,7 +116,7 @@ export function ProviderAddActivityPage(): JSX.Element {
   }
 
   return (
-    <main className='component-main'>
+    <main className="component-main">
       <h3>Nieuwe activiteit toevoegen</h3>
       <Formik
         initialValues={{
