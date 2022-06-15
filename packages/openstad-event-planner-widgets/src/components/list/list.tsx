@@ -44,7 +44,6 @@ export const ListItemIcons = styled('div')`
 
 export const LocationListItem = styled('div')`
   padding: 0 4px;
-  margin-top: 4px;
   box-shadow: ${props => props.theme.effects.boxShadowPrimary};
   background-color: white;
 `;

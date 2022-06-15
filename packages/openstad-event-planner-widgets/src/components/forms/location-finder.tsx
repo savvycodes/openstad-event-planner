@@ -32,30 +32,32 @@ export function LocationFinder({ onSelect, ...props }: any) {
         value={query}
       />
       {loading ? <Spinner /> : null}
-      {locations &&
+      <div className="location-finder">
+        {locations &&
+          locations.features &&
+          locations.features.map((location: any, index: number) => (
+            <LocationListItem className="location-finder__item" key={index}>
+              <p
+                onClick={() => {
+                  onSelect(location.geometry);
+                  setLocations([]);
+                }}
+              >
+                {`${location.properties.address.road} ${location.properties.address.house_number}`}{' '}
+                <br />
+                {`${location.properties.address.postcode} ${location.properties
+                  .address.town || location.properties.address.city}`}
+              </p>
+            </LocationListItem>
+          ))}
+        {!loading &&
+        query &&
+        locations &&
         locations.features &&
-        locations.features.map((location: any, index: number) => (
-          <LocationListItem key={index}>
-            <Paragraph
-              onClick={() => {
-                onSelect(location.geometry);
-                setLocations([]);
-              }}
-            >
-              {`${location.properties.address.road} ${location.properties.address.house_number}`}{' '}
-              <br />
-              {`${location.properties.address.postcode} ${location.properties
-                .address.town || location.properties.address.city}`}
-            </Paragraph>
-          </LocationListItem>
-        ))}
-      {!loading &&
-      query &&
-      locations &&
-      locations.features &&
-      !locations.features.length ? (
-        <Paragraph>Geen resultaten</Paragraph>
-      ) : null}
+        !locations.features.length ? (
+          <Paragraph>Geen resultaten</Paragraph>
+        ) : null}
+      </div>
     </>
   );
 }
