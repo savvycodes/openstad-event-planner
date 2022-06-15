@@ -1,19 +1,10 @@
 import * as React from 'react';
 import { styled } from 'goober';
-import { Plus } from 'react-feather';
 import { Route } from 'wouter';
 
 import { useHashLocation } from '../../components/hash-router';
-import {
-  NavItem,
-  NewActivityTitle,
-} from '../../components/text/text';
-import {
-  ActivityCard,
-  ActivityCards,
-  CardWrapper,
-  NewActivityCardTextContainer,
-} from '../../components/card/card';
+import { NavItem } from '../../components/text/text';
+import { ActivityCards, CardWrapper } from '../../components/card/card';
 import { Header } from '../../components/layout/layout';
 import { Spinner } from '../../components/spinner';
 import { ErrorBanner } from '../../components/error-banner';
@@ -68,30 +59,29 @@ export function ProviderActivityOverviewPage(): JSX.Element {
 
   return (
     <main className="component-main">
-        <div className="tab-nav">
-          <NavItem
-            className='tab-nav__item'
-            onClick={() => navigate('/events')}
-            active={location === '/events'}
-          >
-            Activiteiten
-          </NavItem>
-          <NavItem
-            className='tab-nav__item'
-            onClick={() => navigate('/events/settings')}
-            active={location === '/events/settings'}
-          >
-            Organisatiegegevens
-          </NavItem>
-          <NavItem
-            className='tab-nav__item'
-            onClick={() => navigate('/events/contact')}
-            active={location === '/events/contact'}
-          >
-            Contactpersoon
-          </NavItem>
-        </div>
-    
+      <div className="tab-nav">
+        <NavItem
+          className="tab-nav__item"
+          onClick={() => navigate('/events')}
+          active={location === '/events'}
+        >
+          Activiteiten
+        </NavItem>
+        <NavItem
+          className="tab-nav__item"
+          onClick={() => navigate('/events/settings')}
+          active={location === '/events/settings'}
+        >
+          Organisatiegegevens
+        </NavItem>
+        <NavItem
+          className="tab-nav__item"
+          onClick={() => navigate('/events/contact')}
+          active={location === '/events/contact'}
+        >
+          Contactpersoon
+        </NavItem>
+      </div>
 
       <Route
         path="/events"
@@ -166,24 +156,29 @@ function ActivityList({ organisationId }: ActivityListProps) {
 
   return (
     <>
-    <h3>Activiteiten</h3>
-    <CardWrapper>
-      {events.map((event: any) => (
-        <ActivityCards
-          key={event.id}
-          src={event.image}
-          title={event.name}
-          description={event.description}
-          onDelete={() => handleDelete(event.id)}
-          onEdit={() => navigate(`/events/${event.id}/edit`)}
-        />
-      ))}
-      <button className="add-activity-button" onClick={() => navigate('/events/create')}>Activiteit toevoegen</button>
-      {data?.metadata?.pageCount > page ? (
-        <styles.ButtonRow>
-          <Button onClick={nextPage}>Meer laden</Button>
-        </styles.ButtonRow>
-      ) : null}
+      <h3>Activiteiten</h3>
+      <CardWrapper>
+        {events.map((event: any) => (
+          <ActivityCards
+            key={event.id}
+            src={event.image}
+            title={event.name}
+            description={event.description}
+            onDelete={() => handleDelete(event.id)}
+            onEdit={() => navigate(`/events/${event.id}/edit`)}
+          />
+        ))}
+        <button
+          className="add-activity-button"
+          onClick={() => navigate('/events/create')}
+        >
+          Activiteit toevoegen
+        </button>
+        {data?.metadata?.pageCount > page ? (
+          <styles.ButtonRow>
+            <Button onClick={nextPage}>Meer laden</Button>
+          </styles.ButtonRow>
+        ) : null}
       </CardWrapper>
     </>
   );

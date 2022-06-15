@@ -2,8 +2,6 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import isEmpty from 'lodash.isempty';
 
-import { Paragraph } from '../../components/text/text';
-import { Header, Main } from '../../components/layout/layout';
 import { Wizard, WizardStep } from '../../components/forms/wizard';
 import { OrganisationForm } from './components/organisation-form';
 import { ContactForm, contactSchema } from './components/contact-form';
@@ -104,61 +102,60 @@ export function SignupPage() {
 
   return (
     <main className="component-main">
-        {submitError ? <ErrorBanner>{submitError.message}</ErrorBanner> : null}
+      {submitError ? <ErrorBanner>{submitError.message}</ErrorBanner> : null}
 
-        <Wizard
-          onSubmit={handleSubmit}
-          initialValues={{
-            name: '',
-            street: null,
-            zip: null,
-            email: '',
-            phone: '',
-            district: '',
-            website: null,
-            facebook: null,
-            instagram: null,
-            contactName: '',
-            contactPosition: '',
-            contactPhone: '',
-            contactEmail: '',
-            // municipalityContactName: '',
-            // municipalityContactPhone: '',
-            // municipalityContactEmail: '',
-            // municipalityContactStatement: '',
-            tagIds: [],
-          }}
-        >
-          {/* First step: Organisation info */}
-          <WizardStep validationSchema={organisationSchema}>
-            <div className="wizard-step__header">
-              <h2>Organisatiegegevens</h2>
-              <p>stap 1 van 2</p>
-            </div>
-            <OrganisationForm />
-          </WizardStep>
+      <Wizard
+        onSubmit={handleSubmit}
+        initialValues={{
+          name: '',
+          street: null,
+          zip: null,
+          email: '',
+          phone: '',
+          district: '',
+          website: null,
+          facebook: null,
+          instagram: null,
+          contactName: '',
+          contactPosition: '',
+          contactPhone: '',
+          contactEmail: '',
+          // municipalityContactName: '',
+          // municipalityContactPhone: '',
+          // municipalityContactEmail: '',
+          // municipalityContactStatement: '',
+          tagIds: [],
+        }}
+      >
+        {/* First step: Organisation info */}
+        <WizardStep validationSchema={organisationSchema}>
+          <div className="wizard-step__header">
+            <h2>Organisatiegegevens</h2>
+            <p>stap 1 van 2</p>
+          </div>
+          <OrganisationForm />
+        </WizardStep>
 
-          {/* Second step: Contact information  */}
-          <WizardStep validationSchema={contactSchema}>
-            <div className="wizard-step__header">
-              <h2>Contactpersoon</h2>
-              <p>stap 2 van 2</p>
-            </div>
-            <p className="wizard-step__paragraph">
-              Deze informatie gebruiken wij om contact met u op te nemen over
-              het beheer van activiteiten en informatie op dit platform.
-              Ingevoerde content is uiteindelijk alleen zichtbaar voor
-              beheerders van dit platform.
-            </p>
-            <ContactForm />
-          </WizardStep>
+        {/* Second step: Contact information  */}
+        <WizardStep validationSchema={contactSchema}>
+          <div className="wizard-step__header">
+            <h2>Contactpersoon</h2>
+            <p>stap 2 van 2</p>
+          </div>
+          <p className="wizard-step__paragraph">
+            Deze informatie gebruiken wij om contact met u op te nemen over het
+            beheer van activiteiten en informatie op dit platform. Ingevoerde
+            content is uiteindelijk alleen zichtbaar voor beheerders van dit
+            platform.
+          </p>
+          <ContactForm />
+        </WizardStep>
 
-          {/* Third step: Municipality contact */}
-          {/* <WizardStep validationSchema={municipalitySchema}>
+        {/* Third step: Municipality contact */}
+        {/* <WizardStep validationSchema={municipalitySchema}>
             <MunicipalityContactForm />
           </WizardStep> */}
-        </Wizard>
-    
+      </Wizard>
     </main>
   );
 }

@@ -3,8 +3,6 @@ import { Formik } from 'formik';
 import { RouteComponentProps, Redirect } from 'wouter';
 
 import { useHashLocation } from '../../components/hash-router';
-import { BorderedTitle, Paragraph } from '../../components/text/text';
-import { Header, Main } from '../../components/layout/layout';
 import { Spinner } from '../../components/spinner';
 import { ErrorBanner } from '../../components/error-banner';
 import { ActivityForm } from './components/form';
@@ -130,7 +128,7 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
   }
 
   return (
-    <main className='component-main'>
+    <main className="component-main">
       <h3>Activiteit bewerken</h3>
       <Formik
         initialValues={getInitialValues(event)}
