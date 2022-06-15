@@ -54,7 +54,7 @@ export function ContactDetailsPage() {
     >
       {() => (
         <Form>
-          <Title>Contactpersoon</Title>
+          <h3>Contactpersoon</h3>
           <ContactForm />
           <FormButton>Opslaan</FormButton>
         </Form>

@@ -7,8 +7,9 @@ import addHours from 'date-fns/addHours';
 
 import { FormItem } from '../../../components/forms/input';
 import { Label, Paragraph } from '../../../components/text/text';
-import { DFlex } from '../../../components/layout/layout';
 import { useTheme } from '../../../theme/theme';
+
+import '../../../styles/date-picker.css';
 
 export function DateTimeSelector({ name }: any) {
   const theme = useTheme();
@@ -31,9 +32,12 @@ export function DateTimeSelector({ name }: any) {
   const days = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'];
 
   return (
-    <DFlex>
-      <FormItem>
-        <Label>
+    <div className="date-picker__input">
+      
+      <div>
+        <label>
+          Van:
+        </label>
           <DatePicker
             onChange={(date: DateObject) => {
               formik.setFieldValue(`${name}.startTime`, date.toDate());
@@ -51,22 +55,16 @@ export function DateTimeSelector({ name }: any) {
             weekStartDayIndex={1}
             plugins={[<TimePicker hideSeconds position="bottom" />]}
             containerStyle={{ width: '100%', display: 'block' }}
-            style={{
-              border: 'none',
-              boxShadow: theme.effects.boxShadowPrimary,
-              borderRadius: 0,
-              padding: '16px',
-              width: '100%',
-              boxSizing: 'border-box',
-            }}
           />
-          <Paragraph>
+          <p className='error-message'>
             <ErrorMessage name={`${name}.startTime`} />
-          </Paragraph>
-        </Label>
-      </FormItem>
-      <FormItem>
-        <Label>
+          </p>
+      </div>
+      
+      <div>
+        <label>
+          Tot:
+        </label>
           <DatePicker
             onChange={(date: DateObject) => {
               formik.setFieldValue(`${name}.endTime`, date.toDate());
@@ -84,20 +82,11 @@ export function DateTimeSelector({ name }: any) {
             weekStartDayIndex={1}
             plugins={[<TimePicker hideSeconds position="bottom" />]}
             containerStyle={{ width: '100%', display: 'block' }}
-            style={{
-              border: 'none',
-              boxShadow: theme.effects.boxShadowPrimary,
-              borderRadius: 0,
-              padding: '16px',
-              width: '100%',
-              boxSizing: 'border-box',
-            }}
           />
-          <Paragraph>
+          <p>
             <ErrorMessage name={`${name}.endTime`} />
-          </Paragraph>
-        </Label>
-      </FormItem>
-    </DFlex>
+          </p>
+        </div>
+    </div>
   );
 }

@@ -130,13 +130,8 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
   }
 
   return (
-    <Main>
-      <Header>
-        <BorderedTitle title={organisation.name} />
-
-        <Paragraph>Activiteit bewerken</Paragraph>
-      </Header>
-
+    <main className='component-main'>
+      <h3>Activiteit bewerken</h3>
       <Formik
         initialValues={getInitialValues(event)}
         onSubmit={handleSubmit}
@@ -155,6 +150,6 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
           Oeps! We konden je activiteit niet opslaan: ({submitError.message})
         </ErrorBanner>
       ) : null}
-    </Main>
+    </main>
   );
 }

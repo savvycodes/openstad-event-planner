@@ -103,13 +103,8 @@ export function SignupPage() {
   }
 
   return (
-    <Main>
-      <Header>
+    <main className="component-main">
         {submitError ? <ErrorBanner>{submitError.message}</ErrorBanner> : null}
-        <Paragraph>
-          Welkom! Na het aanvullen van de data over je organisatie en jullie
-          contactpersoon kan je aan de slag met het plaatsen van activiteiten
-        </Paragraph>
 
         <Wizard
           onSubmit={handleSubmit}
@@ -136,21 +131,25 @@ export function SignupPage() {
         >
           {/* First step: Organisation info */}
           <WizardStep validationSchema={organisationSchema}>
-            <h1>Organisatiegegevens</h1>
-            <p>stap 1 van 2</p>
+            <div className="wizard-step__header">
+              <h2>Organisatiegegevens</h2>
+              <p>stap 1 van 2</p>
+            </div>
             <OrganisationForm />
           </WizardStep>
 
           {/* Second step: Contact information  */}
           <WizardStep validationSchema={contactSchema}>
-            <h1>Contactpersoon</h1>
-            <p>stap 2 van 2</p>
-            <Paragraph>
+            <div className="wizard-step__header">
+              <h2>Contactpersoon</h2>
+              <p>stap 2 van 2</p>
+            </div>
+            <p className="wizard-step__paragraph">
               Deze informatie gebruiken wij om contact met u op te nemen over
               het beheer van activiteiten en informatie op dit platform.
               Ingevoerde content is uiteindelijk alleen zichtbaar voor
               beheerders van dit platform.
-            </Paragraph>
+            </p>
             <ContactForm />
           </WizardStep>
 
@@ -159,7 +158,7 @@ export function SignupPage() {
             <MunicipalityContactForm />
           </WizardStep> */}
         </Wizard>
-      </Header>
-    </Main>
+    
+    </main>
   );
 }

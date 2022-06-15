@@ -1,7 +1,6 @@
 import { styled } from 'goober';
 import React, { MouseEventHandler } from 'react';
 import { Edit3, Trash2 } from 'react-feather';
-import { BorderedCardTitle } from '../text/text';
 
 /**
  * Card helpers
@@ -14,19 +13,17 @@ export const CardWrapper = styled('div')`
   @media (min-width: 1024px) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    align-items: stretch;
+    justify-content: center;
+    padding-top: 1rem;
   }
 `;
 
 export const ActivityCard = styled('div')<CardProps>`
   cursor: pointer;
-  /* width: ${100 / 3}%; */
-  height: 42.5vh;
-  background-color: ${props =>
-    props.newactivity
-      ? props.theme.colors.background
-      : props.theme.colors.white};
-  box-shadow: ${props => props.theme.effects.boxShadowPrimary};
-  margin: 12px;
+  background-color: ${props => props.theme.colors.white};
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
   position: relative;
 `;
 export const CardTextContainer = styled('div')`
@@ -50,9 +47,6 @@ export const NewActivityCardTextContainer = styled('div')`
 `;
 
 export const ActivityImage = styled('img')`
-  width: 90%;
-  height: 60%;
-  margin: 5%;
   object-fit: cover;
 `;
 
@@ -81,6 +75,7 @@ export const AddActivityButton = styled('button')`
 type ActivityCardsProps = {
   src: string;
   title: string;
+  description: string;
   onDelete?: MouseEventHandler;
   onEdit?: MouseEventHandler;
 };
@@ -88,29 +83,29 @@ type ActivityCardsProps = {
 export function ActivityCards({
   src,
   title,
+  description,
   onDelete = () => null,
   onEdit = () => null,
 }: ActivityCardsProps) {
   return (
-    <ActivityCard newactivity>
-      <ActivityImage src={src + '/:/rs=w:550px'} />
-      <CardTextContainer>
-        <BorderedCardTitle title={title} />
-      </CardTextContainer>
-      <CardIconContainer>
-        <Trash2
-          style={{ float: 'right', padding: '0 4px' }}
-          size={24}
-          stroke={'#7a7a7a'}
-          onClick={onDelete}
-        />
-        <Edit3
-          style={{ float: 'right' }}
-          stroke={'#7a7a7a'}
-          size={24}
-          onClick={onEdit}
-        />
-      </CardIconContainer>
+    <ActivityCard className="activity-card">
+      <img className='activity-card__image' src={src + '/:/rs=w:550px'} />
+      <div className="activity-card__content">
+        <h3>{title.slice(0, 20)+'...'}</h3>
+        <p>{description.replace(/<[^>]+>/g, '').slice(0, 100)+'...'}</p>
+        <div className="activity-card__actions">
+          <Trash2
+            size={24}
+            stroke={'#000'}
+            onClick={onDelete}
+          />
+          <Edit3
+            stroke={'#000'}
+            size={24}
+            onClick={onEdit}
+          />
+        </div>
+      </div>
     </ActivityCard>
   );
 }

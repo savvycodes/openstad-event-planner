@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ErrorMessage, Field } from 'formik';
 import * as Yup from 'yup';
 
-import { Input, FormItem } from '../../../components/forms/input';
+import { Input } from '../../../components/forms/input';
 import { Paragraph, Label } from '../../../components/text/text';
 
 export const contactSchema = Yup.object().shape({
@@ -19,82 +19,82 @@ export const contactSchema = Yup.object().shape({
 
 export function ContactForm() {
   return (
-    <>
-      <FormItem>
+    <div className="form-wrapper">
+      <div className="inputfield-wrapper">
         <Label htmlFor="contactName">
-          Naam
+          Naam</Label>
           <Field
             name="contactName"
             id="contactName"
             type="text"
-            placeholder="verplicht veld"
+            placeholder="Verplicht veld"
             component={Input}
           />
           <Paragraph>
             <ErrorMessage name="contactName" />
           </Paragraph>
-        </Label>
-      </FormItem>
-      <FormItem>
+        
+      </div>
+      <div className="inputfield-wrapper">
         <Label htmlFor="contactPosition">
-          Functie
+          Functie</Label>
           <Field
             name="contactPosition"
             id="contactPosition"
             type="text"
-            placeholder="verplicht veld"
+            placeholder="Verplicht veld"
             component={Input}
           />
           <Paragraph>
             <ErrorMessage name="contactPosition" />
           </Paragraph>
-        </Label>
-      </FormItem>
-      <FormItem>
+        
+      </div>
+      <div className="inputfield-wrapper">
         <Label htmlFor="contactEmail">
-          E-mailadres
+          E-mailadres</Label>
           <Field
             name="contactEmail"
             id="contactEmail"
             type="text"
-            placeholder="verplicht veld"
+            placeholder="Verplicht veld"
             component={Input}
           />
           <Paragraph>
             <ErrorMessage name="contactEmail" />
           </Paragraph>
-        </Label>
-      </FormItem>
-      <FormItem>
+        
+      </div>
+      <div className="inputfield-wrapper">
         <Label htmlFor="contactPhone">
-          Telefoonnummer
+          Telefoonnummer</Label>
           <Field
             name="contactPhone"
             id="contactPhone"
             type="text"
-            placeholder="verplicht veld"
+            placeholder="Verplicht veld"
             component={Input}
           />
           <Paragraph>
             <ErrorMessage name="contactPhone" />
           </Paragraph>
-        </Label>
-      </FormItem>
-      {/* <FormItem>
+        
+      </div>
+      {/* <div className="inputfield-wrapper">
         <Label htmlFor="municipalityContactName">
           Naam contactpersoon van uw organisatie bij gemeente Amsterdam  
           <Field
             name="municipalityContactName"
             id="municipalityContactName"
             type="text"
-            placeholder="verplicht veld"
+            placeholder="Verplicht veld"
             component={Input}
           />
           <Paragraph>
             <ErrorMessage name="municipalityContactName" />
           </Paragraph>
         </Label>
-      </FormItem> */}
-    </>
+      </div> */}
+    </div>
   );
 }

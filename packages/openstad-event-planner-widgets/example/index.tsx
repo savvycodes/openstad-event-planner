@@ -24,7 +24,7 @@ const config = {
   themes: [
     {
       id: 'w1151353630559146',
-      value: 'Categorieën',
+      value: 'category',
       label: 'Categorieën',
       formLabel: 'Selecteer de categorieën die passen bij je activiteit',
       flag: 'blue',
@@ -41,7 +41,7 @@ const config = {
     },
     {
       id: 'w787643766599362890',
-      value: 'Leeftijd',
+      value: 'age',
       label: 'Leeftijd',
       formLabel: 'Voor welke leeftijd(en) is je activiteit',
       flag: 'blue',
