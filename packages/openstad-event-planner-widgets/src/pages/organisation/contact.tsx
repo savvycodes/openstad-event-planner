@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 
 import { ContactForm, contactSchema } from '../signup/components/contact-form';
-import { Title } from '../../components/text/text';
 import FormButton from '../../components/button/form-button';
 import { ErrorBanner } from '../../components/error-banner';
 import { Spinner } from '../../components/spinner';
