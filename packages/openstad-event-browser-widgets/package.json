@@ -1,6 +1,6 @@
 {
   "name": "@savvycodes/openstad-event-browser-widgets",
-  "version": "0.0.5-alpha.1",
+  "version": "0.0.5-alpha.16",
   "main": "index.js",
   "dependencies": {
     "lodash.get": "^4.4.2"
@@ -19,6 +19,7 @@
     "@types/react-dom": "^17.0.6",
     "@types/react-responsive": "^8.0.2",
     "babel-loader": "^8.2.2",
+    "css-loader": "^6.7.1",
     "date-fns": "^2.24.0",
     "feather-icons": "^4.28.0",
     "formik": "^2.2.8",
@@ -60,5 +61,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "4695be465b372dfaa9a3b1ea174a599340f4eff8"
 }

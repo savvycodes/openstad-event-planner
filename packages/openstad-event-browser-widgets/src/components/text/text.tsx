@@ -81,14 +81,6 @@ export function BorderedTitle(props: any) {
     </Title>
   );
 }
-export function BorderedCardTitle(props: any) {
-  return (
-    <CardTitle>
-      {props.title}
-      <Border />
-    </CardTitle>
-  );
-}
 
 export function RichText(props: any) {
   return <div dangerouslySetInnerHTML={{ __html: props.text }}></div>;

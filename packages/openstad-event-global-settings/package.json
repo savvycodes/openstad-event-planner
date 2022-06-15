@@ -1,6 +1,6 @@
 {
   "name": "@savvycodes/openstad-event-global-settings",
-  "version": "0.0.5-alpha.0",
+  "version": "0.0.5-alpha.10",
   "main": "index.js",
   "dependencies": {
     "lodash.get": "^4.4.2"

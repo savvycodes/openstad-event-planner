@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'wouter';
-import { styled } from 'goober';
 import { Calendar, Grid, MapPin } from 'react-feather';
 
 import { Spinner } from '../components/spinner';
@@ -9,31 +8,16 @@ import { FilterSidebar } from '../components/filters';
 import { CardWrapper } from '../components/card/card';
 import { useMediaQuery } from 'react-responsive';
 import {
-  DFlex,
-  Header,
-  Main,
   NavigationItem,
 } from '../components/layout/layout';
 import { EventCalendar } from '../components/events/event-calendar';
 import { EventTiles } from '../components/events/event-tiles';
 import { EventMap } from '../components/events/event-map';
-import { Button } from '../components/button/button';
 import { EmptyState } from '../components/emptyState/emptyState';
 
 import { useEvents } from '../hooks/use-events';
 
-const styles = {
-  Header: styled(Header)`
-    display: flex;
-    justify-content: flex-end;
-  `,
-  ContentContainer: styled('div')`
-    display: block;
-  `,
-  DFlex: styled(DFlex)`
-    align-items: flex-start;
-  `,
-};
+import '../styles/events.css';
 
 /**
  * Page that shows events
@@ -77,49 +61,52 @@ export function EventsPage({}: RouteComponentProps) {
   }
 
   return (
-    <Main>
-      <styles.Header>
+    <main className="event-events__main">
+      <nav className="event-events__nav">
         <NavigationItem
+          className={viewType === 'map' ? "event-events__nav-item active" : "event-events__nav-item"}
           active={viewType === 'map'}
           onClick={e => {
             e.preventDefault();
             setViewType('map');
           }}
         >
-          <MapPin style={{ padding: '0 4px' }} size={24} stroke={'black'} />
+          <MapPin size={24} stroke={viewType === 'map' ? '#fff' : '#004699'} />
           Kaart
         </NavigationItem>
         <NavigationItem
+          className={viewType === 'calendar' ? "event-events__nav-item active" : "event-events__nav-item"}
           active={viewType === 'calendar'}
           onClick={e => {
             e.preventDefault();
             setViewType('calendar');
           }}
         >
-          <Calendar style={{ padding: '0 4px' }} size={24} stroke={'black'} />
+          <Calendar size={24} stroke={viewType === 'calendar' ? '#fff' : '#004699'} />
           Kalender
         </NavigationItem>
         <NavigationItem
+          className={viewType === 'tile' ? "event-events__nav-item active" : "event-events__nav-item"}
           active={viewType === 'tile'}
           onClick={e => {
             e.preventDefault();
             setViewType('tile');
           }}
         >
-          <Grid style={{ padding: '0 4px' }} size={24} fill={'black'} />
+          <Grid size={24} fill={viewType === 'tile' ? '#fff' : '#004699'} />
           Tegels
         </NavigationItem>
-      </styles.Header>
+      </nav>
 
       {isTabletOrMobile && (
-        <styles.ContentContainer>
+        <div>
           <FilterSidebar filters={filters} onChange={setFilters} />
 
           {loading ? <Spinner /> : null}
 
           {viewType === 'tile' ? (
-            <CardWrapper>
-              <EventTiles events={events} />
+            <CardWrapper className="events__card-wrapper">
+              <EventTiles className="events__tile" events={events} />
               {events.length === 0 ? <EmptyState /> : null}
             </CardWrapper>
           ) : null}
@@ -137,10 +124,10 @@ export function EventsPage({}: RouteComponentProps) {
               </CardWrapper>
             </div>
           ) : null}
-        </styles.ContentContainer>
+        </div>
       )}
       {isDesktopOrLaptop && (
-        <styles.DFlex>
+        <div className="events-overview">
           <FilterSidebar filters={filters} onChange={setFilters} />
 
           {loading ? <Spinner /> : null}
@@ -165,7 +152,7 @@ export function EventsPage({}: RouteComponentProps) {
               </CardWrapper>
             </div>
           ) : null}
-        </styles.DFlex>
+        </div>
       )}
       {hasMoreResults ? (
         <div
@@ -176,9 +163,9 @@ export function EventsPage({}: RouteComponentProps) {
             marginBottom: 32,
           }}
         >
-          <Button onClick={next}>Meer laden</Button>
+          <button className='event-events__fetch-more' onClick={next}>Meer laden</button>
         </div>
       ) : null}
-    </Main>
+    </main>
   );
 }
