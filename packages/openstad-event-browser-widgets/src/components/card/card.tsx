@@ -1,7 +1,6 @@
 import { styled } from 'goober';
 import React, { MouseEventHandler } from 'react';
 import { Edit3, Heart, Trash2 } from 'react-feather';
-import { BorderedCardTitle } from '../text/text';
 
 /**
  * Card helpers
@@ -19,9 +18,7 @@ export const CardWrapper = styled('div')`
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin: 16px;
-    row-gap: 24px;
-    column-gap: 24px;
+    grid-gap: 2rem;
   }
 `;
 
@@ -46,8 +43,9 @@ export const HeartIcon = styled(Heart)<IconProps>`
   fill: ${props => (props.active ? props.theme.colors.red : 'transparent')};
   stroke: ${props => (props.active ? props.theme.colors.red : '#000000')};
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  margin: 0;
+  height: 24px;
+  width: 24px;
 `;
 
 export const ActivityCard = styled('div')<CardProps>`
@@ -106,7 +104,7 @@ export const ActivityImageWrapper = styled('div')`
 
 export const ActivityImage = styled('img')`
   width: 100%;
-  height: 240px;
+  height: 200px;
   object-fit: cover;
 `;
 
@@ -149,7 +147,7 @@ export function ActivityCards({
     <ActivityCard newactivity>
       <ActivityImage src={src} alt={title} loading="lazy" />
       <CardTextContainer>
-        <BorderedCardTitle title={title} />
+        <h3>{title}</h3>
       </CardTextContainer>
       <CardIconContainer>
         <Trash2

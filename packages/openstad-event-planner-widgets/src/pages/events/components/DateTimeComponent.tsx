@@ -2,6 +2,8 @@ import * as React from 'react';
 import { getIn, useFormikContext, ErrorMessage } from 'formik';
 import DatePicker, { DateObject } from 'react-multi-date-picker';
 import TimePicker from 'react-multi-date-picker/plugins/time_picker';
+import addDays from 'date-fns/addDays';
+import addHours from 'date-fns/addHours';
 
 import { FormItem } from '../../../components/forms/input';
 import { Label, Paragraph } from '../../../components/text/text';
@@ -40,7 +42,11 @@ export function DateTimeSelector({ name }: any) {
             onChange={(date: DateObject) => {
               formik.setFieldValue(`${name}.startTime`, date.toDate());
             }}
-            value={getIn(formik.values, `${name}.startTime`)}
+            value={getIn(
+              formik.values,
+              `${name}.startTime`,
+              addDays(new Date(), 1)
+            )}
             placeholder="start datum en tijd"
             format="D MMM - HH:mm"
             months={months}
@@ -63,7 +69,11 @@ export function DateTimeSelector({ name }: any) {
             onChange={(date: DateObject) => {
               formik.setFieldValue(`${name}.endTime`, date.toDate());
             }}
-            value={getIn(formik.values, `${name}.endTime`)}
+            value={getIn(
+              formik.values,
+              `${name}.endTime`,
+              addHours(addDays(new Date(), 1), 1)
+            )}
             placeholder="eind datum en tijd"
             format="D MMM - HH:mm"
             minDate={new Date()}

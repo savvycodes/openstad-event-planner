@@ -1,53 +1,21 @@
-import { styled } from 'goober';
 import React from 'react';
 import { Link } from 'wouter';
 
-import {
-  ActivityCard,
-  ActivityImageWrapper,
-  ActivityImage,
-  CardTextContainer,
-  CardTagsContainer,
-  CardTag,
-  IconWrapper,
-  HeartIcon,
-  IconContainer,
-} from '../card/card';
-import { BorderedCardTitle } from '../text/text';
+import { ActivityImage, HeartIcon } from '../card/card';
 
-const styles = {
-  SmallParagraph: styled('p')`
-    display: block;
-    margin-top: 8px;
-    margin-bottom: 4px;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 14px;
-  `,
-  Description: styled('p')`
-    font-size: 12px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  `,
-};
-import { formatAges } from '../ages';
 import { useUser } from '../../context/user-context';
-// import { useConfig } from '../../context/config-context';
 import { useFavorites } from '../../hooks/use-favorites';
 
 export function EventTiles({ events }: any) {
   const user = useUser();
-  // const config = useConfig();
   const { isFavorite, unfavorite, favorite } = useFavorites();
 
   return events.map((event: any) => (
     <Link to={`/${event.id}`} key={event.id}>
-      <ActivityCard>
-        <IconWrapper
-          onClick={e => {
+      <div className="events-activity-card">
+        <div
+          className="events-icon-button"
+          onClick={(e) => {
             e.stopPropagation();
             if (user.isLoggedIn()) {
               if (isFavorite(event.id)) {
@@ -60,34 +28,39 @@ export function EventTiles({ events }: any) {
             }
           }}
         >
-          <IconContainer>
-            <HeartIcon active={isFavorite(event.id)} />
-          </IconContainer>
-        </IconWrapper>
-        <ActivityImageWrapper>
+          <div className="events-icon-button__container">
+            <HeartIcon size={24} active={isFavorite(event.id)} />
+          </div>
+        </div>
+        <div className="events-activity-card__image-wrapper">
           <ActivityImage
+            className="events-activity-card__image"
             src={event.image + '/:/rs=w:666'}
             alt={event.name}
             loading="lazy"
           />
-          <CardTagsContainer>
-            <CardTag>{formatAges(event.minAge, event.maxAge)}</CardTag>
+          <div className="events-tags-container events-tags-container__card">
             {event?.tags.map((tag: any) => (
-              <CardTag key={tag.id}>{tag.name}</CardTag>
+              <p className="events-tag events-tag__category" key={tag.id}>
+                {tag.name}
+              </p>
             ))}
-            <CardTag>{event.district}</CardTag>
-          </CardTagsContainer>
-        </ActivityImageWrapper>
-        <CardTextContainer>
-          <BorderedCardTitle title={event.name} />
-          <styles.SmallParagraph>
-            Door: {event.organisation.name}
-          </styles.SmallParagraph>
-          <styles.Description>
+            <p className="events-tag events-tag__district">{event.district}</p>
+          </div>
+        </div>
+        <div className="events-activity-card__text">
+          <h3 className="events-activity-card__text-title">{event.name}</h3>
+          <p className="events-activity-card__text-organisation">
+            Aanbieder: {event.organisation.name}
+          </p>
+          <p className="events-activity-card__text-description">
             {event.description.replace(/(<([^>]+)>)/gi, '')}
-          </styles.Description>
-        </CardTextContainer>
-      </ActivityCard>
+          </p>
+          <a href="" className="events-activity-card__link">
+            Activiteit bekijken
+          </a>
+        </div>
+      </div>
     </Link>
   ));
 }
