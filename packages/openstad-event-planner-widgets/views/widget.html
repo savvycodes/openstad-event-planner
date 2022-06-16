@@ -12,11 +12,9 @@
 <pre>{{ data.widget.config | dump(2) | safe }}</pre>
 {% endif %} {% else %}
 
-<h1>Inloggen Aanbieders</h1>
-<a
-  href="{{ data.widget.loginUrl }}"
-  class="filled-button margin-bottom-sm button-without-icon"
-  >Login</a
->
+<h2 className="empty-state-login-aanbieder">Inloggen Aanbieders</h2>
+<a className="empty-state-login-aanbieder-button" href="{{ data.widget.loginUrl }}">
+  <button>Login</button>
+</a>
 
 {% endif %}

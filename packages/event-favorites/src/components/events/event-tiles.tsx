@@ -1,85 +1,53 @@
-import { styled } from 'goober';
 import React from 'react';
 
 import {
-  ActivityCard,
-  ActivityImageWrapper,
   ActivityImage,
-  CardTextContainer,
-  IconWrapper,
   TrashIcon,
-  IconContainer,
   HeartIcon,
 } from '../card/card';
-import { BorderedCardTitle } from '../text/text';
 import { useConfig } from '../../context/config-context';
-
-const styles = {
-  SmallParagraph: styled('p')`
-    display: block;
-    margin-top: 8px;
-    margin-bottom: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 14px;
-  `,
-  Description: styled('p')`
-    font-size: 16px;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.8;
-  `,
-  Link: styled('a')`
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    color: red;
-  `,
-};
 
 export function EventTiles({ events, add, onDelete, onFavorite }: any) {
   const { activityPageUrl } = useConfig();
 
   return events.map((event: any) => (
-    <ActivityCard key={event.id}>
-      <IconWrapper>
+    <div className="events-activity-card" key={event.id}>
+      <div className="events-icon-button">
         {add ? (
-          <IconContainer>
+          <div className="events-icon-button__container">
             <HeartIcon
               active={false}
               onClick={() => onFavorite && onFavorite(event.id)}
             />
-          </IconContainer>
+          </div>
         ) : (
-          <IconContainer>
+          <div className="events-icon-button__container">
             <TrashIcon onClick={() => onDelete && onDelete(event.id)} />
-          </IconContainer>
+          </div>
         )}
-      </IconWrapper>
-      <ActivityImageWrapper>
+      </div>
+      <div className="events-activity-card__image-wrapper">
         <ActivityImage
           src={event.image + '/:/rs=w:666'}
           alt={event.name}
           loading="lazy"
         />
-      </ActivityImageWrapper>
-      <CardTextContainer>
-        <BorderedCardTitle title={event.name} />
+      </div>
+      <div className="events-activity-card__text">
+        <h3 className="events-activity-card__text-title">{event.name}</h3>
+        
         {event.organisation ? (
-          <styles.SmallParagraph>
+          <p className="events-activity-card__text-organisation">
             Door: {event.organisation?.name}
-          </styles.SmallParagraph>
+          </p>
         ) : null}
-        <styles.Description>
+        <p className="events-activity-card__text-description">
           {event.description.replace(/(<([^>]+)>)/gi, '')}
-        </styles.Description>
-        <styles.Link href={`${activityPageUrl}/events/${event.id}`}>
+        </p>
+        <a className="events-activity-card__link" href={`${activityPageUrl}/events/${event.id}`}>
           Activiteit bekijken
-        </styles.Link>
-      </CardTextContainer>
-    </ActivityCard>
+        </a>
+      </div>
+    </div>
   ));
 }
