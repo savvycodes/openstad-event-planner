@@ -55,7 +55,7 @@ module.exports = {
     self.load = function(req, widgets, next) {
       widgets.forEach(widget => {
         // Create the config for the react component
-        widget.config = JSON.stringify({
+        widget.config = {
           activityPageUrl: widget.activityPageUrl,
           siteId: req.data.global.siteId,
           apiUrl: self.apos.settings.getOption(req, 'apiUrl'),
@@ -69,7 +69,7 @@ module.exports = {
               false
             ),
           },
-        });
+        };
 
         // // Check if user can view this widget
         // widget.canView =
