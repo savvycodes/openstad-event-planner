@@ -66,11 +66,8 @@ module.exports = {
           areas: req.data.global.areas,
         };
 
-        console.log('JWT', req.session.jwt);
-
         // Check if user can view this widget
         widget.canView = get(req, 'data.openstadUser.id', false);
-        console.log({ canView: widget.canView });
         // get(req, 'data.openstadUser.isEventProvider', false) ||
         // ['admin', 'moderator', 'editor'].includes(
         //   get(req, 'data.openstadUser.role', '')
