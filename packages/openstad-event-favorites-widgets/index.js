@@ -3,11 +3,13 @@ const get = require('lodash.get');
 module.exports = {
   extend: 'openstad-widgets',
   label: 'Evenementen favorieten',
+  playerData: ['_id', 'config'],
+  minify: false,
 
   /**
    * @todo: Add useful fields
    */
-  beforeConstruct: function (self, options) {
+  beforeConstruct: function(self, options) {
     options.addFields = [
       {
         type: 'string',
@@ -43,17 +45,15 @@ module.exports = {
    * @param {*} self
    * @param {*} options
    */
-  construct: function (self, options) {
+  construct: function(self, options) {
     const superPushAssets = self.pushAssets;
-    self.pushAssets = function () {
+    self.pushAssets = function() {
       superPushAssets();
     };
 
     const superLoad = self.load;
-    self.load = function (req, widgets, next) {
-      widgets.forEach((widget) => {
-        const containerId = self.apos.utils.generateId();
-        widget.containerId = containerId;
+    self.load = function(req, widgets, next) {
+      widgets.forEach(widget => {
         // Create the config for the react component
         widget.config = JSON.stringify({
           activityPageUrl: widget.activityPageUrl,
@@ -91,7 +91,7 @@ module.exports = {
     };
 
     const superOutput = self.output;
-    self.output = function (widget, options) {
+    self.output = function(widget, options) {
       return superOutput(widget, options);
     };
   },
