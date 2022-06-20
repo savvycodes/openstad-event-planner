@@ -1,14 +1,10 @@
 import React from 'react';
 
-import {
-  ActivityImage,
-  TrashIcon,
-  HeartIcon,
-} from '../card/card';
+import { ActivityImage, TrashIcon, HeartIcon } from '../card/card';
 import { useConfig } from '../../context/config-context';
 
 export function EventTiles({ events, add, onDelete, onFavorite }: any) {
-  const { activityPageUrl } = useConfig();
+  const { activityDetailPageUrl } = useConfig();
 
   return events.map((event: any) => (
     <div className="events-activity-card" key={event.id}>
@@ -35,7 +31,7 @@ export function EventTiles({ events, add, onDelete, onFavorite }: any) {
       </div>
       <div className="events-activity-card__text">
         <h3 className="events-activity-card__text-title">{event.name}</h3>
-        
+
         {event.organisation ? (
           <p className="events-activity-card__text-organisation">
             Door: {event.organisation?.name}
@@ -44,7 +40,10 @@ export function EventTiles({ events, add, onDelete, onFavorite }: any) {
         <p className="events-activity-card__text-description">
           {event.description.replace(/(<([^>]+)>)/gi, '')}
         </p>
-        <a className="events-activity-card__link" href={`${activityPageUrl}/events/${event.id}`}>
+        <a
+          className="events-activity-card__link"
+          href={`${activityDetailPageUrl}/${event.id}`}
+        >
           Activiteit bekijken
         </a>
       </div>

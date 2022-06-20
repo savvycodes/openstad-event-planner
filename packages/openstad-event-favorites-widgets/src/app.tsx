@@ -16,6 +16,7 @@ export type AppConfig = {
   apiUrl: string;
   imageUrl: string;
   activityPageUrl: string;
+  activityDetailPageUrl: string;
   user?: {
     isEventProvider?: boolean;
     // @todo: define all possible roles in a seperate type

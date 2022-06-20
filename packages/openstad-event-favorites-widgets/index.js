@@ -19,6 +19,14 @@ module.exports = {
           'This is needed to navigate to the events from your profile page.',
       },
       {
+        type: 'string',
+        name: 'activityDetailPageUrl',
+        label:
+          'URL to detail page of an event (a page with the eventbrowser widget)',
+        htmlHelp:
+          'This is needed to navigate to the event detail page from your profile page.',
+      },
+      {
         type: 'boolean',
         name: 'devDebug',
         label: 'Enable debug',
@@ -57,6 +65,7 @@ module.exports = {
         // Create the config for the react component
         widget.config = {
           activityPageUrl: widget.activityPageUrl,
+          activityDetailPageUrl: widget.activityDetailPageUrl,
           siteId: req.data.global.siteId,
           apiUrl: self.apos.settings.getOption(req, 'apiUrl'),
           imageUrl: req.data.siteUrl + '/image',

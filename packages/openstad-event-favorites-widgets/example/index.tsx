@@ -13,6 +13,7 @@ const config = {
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTYzNDcyNDA0OSwiZXhwIjoxNjUwNDQ4ODQ5fQ.6K64xnl0eIDYCv1xUq3k1L6wuH3f-rTVnzdYhBve5s0',
   siteId: 2,
   activityPageUrl: 'http://localhost:1234/#',
+  activityDetailPageUrl: 'http://localhost:1234/#/events',
   apiUrl: '/api',
   imageUrl: '/image',
   user: {

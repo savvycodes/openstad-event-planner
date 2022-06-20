@@ -8,6 +8,7 @@ const defaultConfig: AppConfig = {
   apiUrl: '',
   imageUrl: '',
   activityPageUrl: 'http://localhost:1234/#',
+  activityDetailPageUrl: 'http://localhost:1234/#/events',
   user: {
     role: '',
     isEventProvider: false,
