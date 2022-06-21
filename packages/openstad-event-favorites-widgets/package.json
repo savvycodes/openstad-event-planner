@@ -1,6 +1,6 @@
 {
   "name": "@savvycodes/openstad-event-favorites-widgets",
-  "version": "0.0.5-alpha.27",
+  "version": "0.0.5-alpha.28",
   "main": "index.js",
   "dependencies": {
     "lodash.get": "^4.4.2"
