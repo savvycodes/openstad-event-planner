@@ -14,6 +14,7 @@ import { removeEvent } from '../endpoints/event';
 import { useConfig } from '../context/config-context';
 
 import '../styles/event.css';
+import '../styles/admin.css';
 
 interface Props {
   start: any;
@@ -141,17 +142,25 @@ export function EventDetailPage({ params }: RouteComponentProps) {
             role={['admin', 'editor', 'moderator']}
             render={() => (
               <>
-                <a
-                  href={`${config.providerPageUrl}/admin/events/${event.id}/edit`}
-                >
-                  Bewerken
-                </a>
-                <button
-                  disabled={isRemoving}
-                  onClick={() => onRemove(event.id)}
-                >
-                  Verwijderen
-                </button>
+              <div className="events-event__information admin">
+                <h3>Admin</h3>
+                <p>Deze acties zijn alleen voor een administrator beschikbaar.</p>
+                <div className="events-event__actions">
+                  <a
+                    className="events-event__edit"
+                    href={`${config.providerPageUrl}/admin/events/${event.id}/edit`}
+                  >
+                    Bewerken
+                  </a>
+                  <button
+                    className="events-event__delete danger"
+                    disabled={isRemoving}
+                    onClick={() => onRemove(event.id)}
+                  >
+                    Verwijderen
+                  </button>
+                </div>
+              </div>
               </>
             )}
           />

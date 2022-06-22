@@ -1,0 +1,13 @@
+.admin.events-event__information {
+  padding: 1rem;
+  background-color: #E6E6E6;
+}
+
+.events-event__actions {
+  margin-top: 1rem;
+}
+
+.events-event__edit {
+  padding: 1rem;
+  margin-right: 1rem;
+}
