@@ -11,6 +11,7 @@ type GuardProps = {
 export function Guard({ role, render }: GuardProps) {
   const user = useUser();
 
+  // @ts-ignore
   if (user.isLoggedIn() && role.includes(user.role)) {
     return render();
   }

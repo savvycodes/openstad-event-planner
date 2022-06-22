@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useSWR from 'swr';
-import { RouteComponentProps, Link, useLocation } from 'wouter';
+import { RouteComponentProps, useLocation } from 'wouter';
 import { MapPin } from 'react-feather';
 import { Helmet } from 'react-helmet';
 
