@@ -78,3 +78,7 @@
 .events-activity-card__text-description {
   flex-grow: 1;
 }
+
+.events-activity-card__date {
+  color: #767676;
+}
