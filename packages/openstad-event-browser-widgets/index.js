@@ -9,7 +9,7 @@ module.exports = {
   /**
    * @todo: Add useful fields
    */
-  beforeConstruct: function(self, options) {
+  beforeConstruct: function (self, options) {
     options.addFields = [
       {
         type: 'string',
@@ -37,6 +37,12 @@ module.exports = {
         label: 'Base',
       },
       {
+        type: 'string',
+        name: 'providerPageUrl',
+        label: 'Provider page url',
+        htmlHelp: `URL to the page where providers create events`,
+      },
+      {
         type: 'boolean',
         name: 'devDebug',
         label: 'Enable debug',
@@ -47,7 +53,13 @@ module.exports = {
       {
         name: 'map',
         label: 'Map',
-        fields: ['mapTileUrl', 'mapAccessToken', 'mapId', 'base'],
+        fields: [
+          'mapTileUrl',
+          'mapAccessToken',
+          'mapId',
+          'base',
+          'providerPageUrl',
+        ],
       },
       {
         name: 'developer',
@@ -63,10 +75,10 @@ module.exports = {
    * @param {*} self
    * @param {*} options
    */
-  construct: function(self, options) {
+  construct: function (self, options) {
     const superLoad = self.load;
-    self.load = function(req, widgets, next) {
-      widgets.forEach(widget => {
+    self.load = function (req, widgets, next) {
+      widgets.forEach((widget) => {
         const containerId = self.apos.utils.generateId();
         widget.containerId = containerId;
         // Create the config for the react component
@@ -117,7 +129,7 @@ module.exports = {
     };
 
     var superPushAssets = self.pushAssets;
-    self.pushAssets = function() {
+    self.pushAssets = function () {
       superPushAssets();
       self.pushAsset('script', 'always', { when: 'always' });
     };
