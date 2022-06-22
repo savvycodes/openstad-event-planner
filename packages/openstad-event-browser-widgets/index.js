@@ -105,9 +105,8 @@ module.exports = {
           base:
             widget.base ||
             `${req.sitePrefix ? '/' + req.sitePrefix : ''}${req.url}`,
+          providerPageUrl: widget.providerPageUrl,
         };
-
-        console.log({ config: widget.config });
 
         // Check if user can view this widget
         widget.canView =
