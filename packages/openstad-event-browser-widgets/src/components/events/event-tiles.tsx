@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'wouter';
+import format from 'date-fns/format';
+import nl from 'date-fns/locale/nl';
 
 import { ActivityImage, HeartIcon } from '../card/card';
 
 import { useUser } from '../../context/user-context';
 import { useFavorites } from '../../hooks/use-favorites';
-import format from 'date-fns/format';
-import formatISO from 'date-fns/formatISO';
-import nl from 'date-fns/locale/nl';
 
 export function EventTiles({ events }: any) {
   const user = useUser();
@@ -53,12 +52,19 @@ export function EventTiles({ events }: any) {
         </div>
         <div className="events-activity-card__text">
           <h3 className="events-activity-card__text-title">{event.name}</h3>
-          <p className="events-activity-card__date">{event.slots.length > 1 ? `Meerdere dagen (${event.slots.length})` : format(new Date(event.slots[0].startTime), 'd LLLL', { locale: nl })}</p>
+          <p className="events-activity-card__date">
+            {event.slots.length > 1
+              ? `Meerdere dagen (${event.slots.length})`
+              : format(new Date(event.slots[0].startTime), 'd LLLL', {
+                  locale: nl,
+                })}
+          </p>
           <p className="events-activity-card__text-organisation">
             Aanbieder: {event.organisation.name}
           </p>
           <p className="events-activity-card__text-description">
-            {event.description.replace(/(<([^>]+)>)/gi, '').slice(0, 80)}{event.description.length > 80 ? '...' : null}
+            {event.description.replace(/(<([^>]+)>)/gi, '').slice(0, 80)}
+            {event.description.length > 80 ? '...' : null}
           </p>
           <a href="" className="events-activity-card__link">
             Activiteit bekijken
