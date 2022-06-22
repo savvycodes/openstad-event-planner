@@ -16,6 +16,7 @@ import { useApi } from './hooks/use-api';
 import { useUser } from './context/user-context';
 import { EditActivityPage } from './pages/events/edit-activity';
 import { OrganisationSettingsPage } from './pages/organisation/settings';
+import { AdminEditActivityPage } from './pages/admin/edit-activity';
 
 /**
  * @todo: fix the routing to check where to navigate to
@@ -32,7 +33,7 @@ export function Router(): JSX.Element {
     }
 
     if (isAdmin) {
-      navigate('/admin/users');
+      // navigate('/admin/users');
     } else if (isEmpty(organisation) || !organisation.id) {
       navigate('/signup');
     }
@@ -45,7 +46,7 @@ export function Router(): JSX.Element {
   if (error) {
     return (
       <ErrorBanner>
-        Oops, something went wrong {JSON.stringify(error)}
+        Oops, something went wrong {JSON.stringify(error, undefined, 2)}
       </ErrorBanner>
     );
   }
@@ -54,6 +55,10 @@ export function Router(): JSX.Element {
     <HashRouter>
       {isAdmin ? (
         <Switch>
+          <Route
+            path="/admin/events/:id/edit"
+            component={AdminEditActivityPage}
+          />
           <Route path="/admin/users" component={UserListPage} />
           <Route path="/admin/users/create" component={CreateUserPage} />
           <Redirect to="/admin/users" />

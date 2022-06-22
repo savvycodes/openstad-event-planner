@@ -148,6 +148,7 @@ export function ProviderAddActivityPage(): JSX.Element {
             organisation={organisation}
             districts={districts}
             tags={tags}
+            themes={config.themes}
           />
         )}
       </Formik>

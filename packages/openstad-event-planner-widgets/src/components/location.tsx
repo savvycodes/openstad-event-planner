@@ -9,6 +9,7 @@ interface LocationProps {
 
 export function Location({ lat, lon }: LocationProps) {
   const [location, setLocation] = useState<any>(null);
+  const address = location?.features?.[0]?.properties?.address;
 
   useEffect(() => {
     fetch(
@@ -21,11 +22,10 @@ export function Location({ lat, lon }: LocationProps) {
       .catch(console.error);
   }, [lat, lon]);
 
-  if (!location) {
+  if (!location || !address) {
     return null;
   }
 
-  const address = location?.features?.[0]?.properties?.address;
   return (
     <>
       {`${address.road || ''} ${address.house_number || ''}`} <br />

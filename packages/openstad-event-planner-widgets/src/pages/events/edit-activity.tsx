@@ -140,6 +140,7 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
             organisation={organisation}
             districts={districts}
             tags={tags}
+            themes={config.themes}
           />
         )}
       </Formik>

@@ -28,6 +28,7 @@ export type AppConfig = {
   base?: string;
   themes?: any;
   areas?: any;
+  providerPageUrl?: string;
 };
 
 type AppProps = {

@@ -20,12 +20,12 @@ import { LocationFinder } from '../../../components/forms/location-finder';
 import { DateTimeSelector } from './DateTimeComponent';
 
 import { useTheme } from '../../../theme/theme';
-import { useConfig } from '../../../context/config-context';
 
 type ActivityFormProps = {
   organisation: any;
   districts: any[];
   tags: any;
+  themes: any;
 };
 
 interface FormValues {
@@ -50,23 +50,21 @@ export function ActivityForm({
   organisation,
   districts,
   tags,
+  themes,
 }: ActivityFormProps) {
   const form = useFormikContext<FormValues>();
   const theme = useTheme();
-  const { themes } = useConfig();
 
   return (
     <Form>
       <div className="form-wrapper">
-      <div className="inputfield-wrapper">
-        <label htmlFor="name">
-          Naam organisatie</label>
+        <div className="inputfield-wrapper">
+          <label htmlFor="name">Naam organisatie</label>
           <StyledInput value={organisation.name} disabled />
-        
-      </div>
+        </div>
 
-      <div className="inputfield-wrapper">
-        <label htmlFor="name">Titel activiteit</label>
+        <div className="inputfield-wrapper">
+          <label htmlFor="name">Titel activiteit</label>
           <Field
             type="text"
             name="name"
@@ -76,10 +74,10 @@ export function ActivityForm({
           <p className="error-message">
             <ErrorMessage name="name" />
           </p>
-      </div>
+        </div>
 
-      <div className="inputfield-wrapper">
-        <label htmlFor="description">Beschrijving activiteit</label>
+        <div className="inputfield-wrapper">
+          <label htmlFor="description">Beschrijving activiteit</label>
           <Field name="description">
             {({ field }: any) => (
               <ReactQuill
@@ -99,11 +97,13 @@ export function ActivityForm({
           <p className="error-message">
             <ErrorMessage name="description" />
           </p>
-      </div>
+        </div>
 
-      <div className="inputfield-wrapper">
-        <label htmlFor="location">Locatie activiteit</label>
-          <i className="input-helper">Vul een adres in en selecteer één van de beschikbare locaties</i>
+        <div className="inputfield-wrapper">
+          <label htmlFor="location">Locatie activiteit</label>
+          <i className="input-helper">
+            Vul een adres in en selecteer één van de beschikbare locaties
+          </i>
           <LocationFinder
             placeholder="Verplicht veld"
             onSelect={(geo: any) => form.setFieldValue('location', geo)}
@@ -123,37 +123,36 @@ export function ActivityForm({
               </p>
             </div>
           ) : null}
-      </div>
+        </div>
 
-      <div className="inputfield-wrapper">
-        <label htmlFor="location">Kies een stadsdeel</label>
-        <Field name="district" component={Select}>
-          <option value="" disabled>
-            Stadsdeel
-          </option>
-          {districts.map((district, index) => (
-            <option key={index} value={district}>
-              {district}
+        <div className="inputfield-wrapper">
+          <label htmlFor="location">Kies een stadsdeel</label>
+          <Field name="district" component={Select}>
+            <option value="" disabled>
+              Stadsdeel
             </option>
-          ))}
-        </Field>
-        <p className="error-message">
-          <ErrorMessage name="district" />
-        </p>
-      </div>
-      <div className="inputfield-wrapper">
-        
-          <label>
-            Wanneer vindt je activiteit plaats?
-          </label>
+            {districts.map((district, index) => (
+              <option key={index} value={district}>
+                {district}
+              </option>
+            ))}
+          </Field>
+          <p className="error-message">
+            <ErrorMessage name="district" />
+          </p>
+        </div>
+        <div className="inputfield-wrapper">
+          <label>Wanneer vindt je activiteit plaats?</label>
           <i className="input-helper">
-            Een activiteit kan op meerdere dagen plaatsvinden, klik op het plusje om extra dagen toe te voegen. Een activiteit kan ook meerdere dagen duren, kies daarvoor een andere einddatum.
+            Een activiteit kan op meerdere dagen plaatsvinden, klik op het
+            plusje om extra dagen toe te voegen. Een activiteit kan ook meerdere
+            dagen duren, kies daarvoor een andere einddatum.
           </i>
           <FieldArray name="slots">
             {arrayHelpers => (
               <>
                 {form.values?.slots?.map((slot: any, index: number) => (
-                  <div className='date-slot-row' key={slot.id || index}>
+                  <div className="date-slot-row" key={slot.id || index}>
                     <DateTimeSelector name={`slots[${index}]`} />
                     {form.values.slots.length > 1 ? (
                       <X
@@ -165,7 +164,8 @@ export function ActivityForm({
                     ) : null}
                   </div>
                 ))}
-                <button className='add-date-slot-button'
+                <button
+                  className="add-date-slot-button"
                   onClick={() =>
                     arrayHelpers.push({
                       startTime: addDays(new Date(), 1),
@@ -178,10 +178,9 @@ export function ActivityForm({
               </>
             )}
           </FieldArray>
-        
-      </div>
+        </div>
 
-      {/* <div className="inputfield-wrapper">
+        {/* <div className="inputfield-wrapper">
         <Label>Leeftijd</Label>
         <CheckboxList>
           <CheckboxItem>
@@ -250,32 +249,32 @@ export function ActivityForm({
         </CheckboxList>
       </div> */}
 
-      {themes &&
-        themes.map((theme: any) => (
-          <div className="inputfield-wrapper" key={theme.id}>
-            <label>{theme.formLabel || theme.value}</label>
-            <CheckboxList>
-              {tags &&
-                tags
-                  .filter((tag: any) => tag?.extraData?.theme === theme.value)
-                  .map((tag: any) => (
-                    <CheckboxItem className="checkbox-label" key={tag.id}>
-                      <Field
-                        type="checkbox"
-                        name="tagIds"
-                        value={tag.id.toString()}
-                      />
-                      {tag.name}
-                    </CheckboxItem>
-                  ))}
-              <p className="error-message">
-                <ErrorMessage name="tagIds" />
-              </p>
-            </CheckboxList>
-          </div>
-        ))}
+        {themes &&
+          themes.map((theme: any) => (
+            <div className="inputfield-wrapper" key={theme.id}>
+              <label>{theme.formLabel || theme.value}</label>
+              <CheckboxList>
+                {tags &&
+                  tags
+                    .filter((tag: any) => tag?.extraData?.theme === theme.value)
+                    .map((tag: any) => (
+                      <CheckboxItem className="checkbox-label" key={tag.id}>
+                        <Field
+                          type="checkbox"
+                          name="tagIds"
+                          value={tag.id.toString()}
+                        />
+                        {tag.name}
+                      </CheckboxItem>
+                    ))}
+                <p className="error-message">
+                  <ErrorMessage name="tagIds" />
+                </p>
+              </CheckboxList>
+            </div>
+          ))}
 
-      {/* <div className="inputfield-wrapper">
+        {/* <div className="inputfield-wrapper">
         <Label>Type activiteit</Label>
         <CheckboxList>
           {tags &&
@@ -295,8 +294,8 @@ export function ActivityForm({
         </CheckboxList>
       </div> */}
 
-      <div className="inputfield-wrapper">
-        <label htmlFor="price">Kosten deelname</label>
+        <div className="inputfield-wrapper">
+          <label htmlFor="price">Kosten deelname</label>
           <Field
             id="price"
             name="price"
@@ -306,12 +305,11 @@ export function ActivityForm({
           <p className="error-message">
             <ErrorMessage name="price" />
           </p>
-        
-      </div>
+        </div>
 
-      <div className="inputfield-wrapper">
-        <label htmlFor="attendees">Aantal beschikbare plekken</label>
-          <i className='input-helper'>
+        <div className="inputfield-wrapper">
+          <label htmlFor="attendees">Aantal beschikbare plekken</label>
+          <i className="input-helper">
             Laat het aantal beschikbare plekken op 0 als je niet weet hoeveel
             plekken er beschikbaar zijn.
           </i>
@@ -324,13 +322,13 @@ export function ActivityForm({
           <p className="error-message">
             <ErrorMessage name="attendees" />
           </p>
-        
-      </div>
+        </div>
 
-      <div className="inputfield-wrapper">
-        <label htmlFor="information">Hoe kan je je aanmelden?</label>
-          <i className='input-helper'>
-            Linken naar je eigen website kan door de tekst te selecteren die wilt linken en daarna op keten icoontje te klikken.
+        <div className="inputfield-wrapper">
+          <label htmlFor="information">Hoe kan je je aanmelden?</label>
+          <i className="input-helper">
+            Linken naar je eigen website kan door de tekst te selecteren die
+            wilt linken en daarna op keten icoontje te klikken.
           </i>
           <Field name="information">
             {({ field }: any) => (
@@ -355,7 +353,7 @@ export function ActivityForm({
 
         <div className="inputfield-wrapper">
           <label>Upload foto</label>
-          <ImageUpload 
+          <ImageUpload
             className="file-upload"
             onUpload={image => form.setFieldValue('image', image.url)}
             value={form.values.image}
@@ -368,9 +366,8 @@ export function ActivityForm({
           </p>
         </div>
 
-      
         <button type="submit" disabled={form.isSubmitting}>
-          Voeg toe
+          Opslaan
         </button>
       </div>
     </Form>
