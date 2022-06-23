@@ -3,6 +3,8 @@ const get = require('lodash.get');
 module.exports = {
   extend: 'openstad-widgets',
   label: 'Evenementen overzicht',
+  playerData: ['_id', 'config'],
+  minify: false,
 
   /**
    * @todo: Add useful fields
@@ -30,6 +32,17 @@ module.exports = {
         htmlHelp: `<p>Required when using Mapbox, for example: <code>{username}/{styleId}</code></p>. This is your custom style id`,
       },
       {
+        type: 'string',
+        name: 'base',
+        label: 'Base',
+      },
+      {
+        type: 'string',
+        name: 'providerPageUrl',
+        label: 'Provider page url',
+        htmlHelp: `URL to the page where providers create events`,
+      },
+      {
         type: 'boolean',
         name: 'devDebug',
         label: 'Enable debug',
@@ -40,7 +53,13 @@ module.exports = {
       {
         name: 'map',
         label: 'Map',
-        fields: ['mapTileUrl', 'mapAccessToken', 'mapId'],
+        fields: [
+          'mapTileUrl',
+          'mapAccessToken',
+          'mapId',
+          'base',
+          'providerPageUrl',
+        ],
       },
       {
         name: 'developer',
@@ -57,18 +76,13 @@ module.exports = {
    * @param {*} options
    */
   construct: function (self, options) {
-    const superPushAssets = self.pushAssets;
-    self.pushAssets = function () {
-      superPushAssets();
-    };
-
     const superLoad = self.load;
     self.load = function (req, widgets, next) {
       widgets.forEach((widget) => {
         const containerId = self.apos.utils.generateId();
         widget.containerId = containerId;
         // Create the config for the react component
-        widget.config = JSON.stringify({
+        widget.config = {
           siteId: req.data.global.siteId,
           apiUrl: self.apos.settings.getOption(req, 'apiUrl'),
           imageUrl: req.data.siteUrl + '/image',
@@ -86,7 +100,13 @@ module.exports = {
             tileUrl: widget.mapTileUrl || null,
             id: widget.mapId || null,
           },
-        });
+          themes: req.data.global.themes,
+          areas: req.data.global.areas,
+          base:
+            widget.base ||
+            `${req.sitePrefix ? '/' + req.sitePrefix : ''}${req.url}`,
+          providerPageUrl: widget.providerPageUrl,
+        };
 
         // Check if user can view this widget
         widget.canView =
@@ -107,9 +127,10 @@ module.exports = {
       return superLoad(req, widgets, next);
     };
 
-    const superOutput = self.output;
-    self.output = function (widget, options) {
-      return superOutput(widget, options);
+    var superPushAssets = self.pushAssets;
+    self.pushAssets = function () {
+      superPushAssets();
+      self.pushAsset('script', 'always', { when: 'always' });
     };
   },
 };

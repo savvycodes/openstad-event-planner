@@ -3,11 +3,13 @@ const get = require('lodash.get');
 module.exports = {
   extend: 'openstad-widgets',
   label: 'Evenementen favorieten',
+  playerData: ['_id', 'config'],
+  minify: false,
 
   /**
    * @todo: Add useful fields
    */
-  beforeConstruct: function (self, options) {
+  beforeConstruct: function(self, options) {
     options.addFields = [
       {
         type: 'string',
@@ -15,6 +17,14 @@ module.exports = {
         label: 'URL to page of events (a page with the eventbrowser widget)',
         htmlHelp:
           'This is needed to navigate to the events from your profile page.',
+      },
+      {
+        type: 'string',
+        name: 'activityDetailPageUrl',
+        label:
+          'URL to detail page of an event (a page with the eventbrowser widget)',
+        htmlHelp:
+          'This is needed to navigate to the event detail page from your profile page.',
       },
       {
         type: 'boolean',
@@ -43,20 +53,19 @@ module.exports = {
    * @param {*} self
    * @param {*} options
    */
-  construct: function (self, options) {
+  construct: function(self, options) {
     const superPushAssets = self.pushAssets;
-    self.pushAssets = function () {
+    self.pushAssets = function() {
       superPushAssets();
     };
 
     const superLoad = self.load;
-    self.load = function (req, widgets, next) {
-      widgets.forEach((widget) => {
-        const containerId = self.apos.utils.generateId();
-        widget.containerId = containerId;
+    self.load = function(req, widgets, next) {
+      widgets.forEach(widget => {
         // Create the config for the react component
-        widget.config = JSON.stringify({
+        widget.config = {
           activityPageUrl: widget.activityPageUrl,
+          activityDetailPageUrl: widget.activityDetailPageUrl,
           siteId: req.data.global.siteId,
           apiUrl: self.apos.settings.getOption(req, 'apiUrl'),
           imageUrl: req.data.siteUrl + '/image',
@@ -69,7 +78,7 @@ module.exports = {
               false
             ),
           },
-        });
+        };
 
         // // Check if user can view this widget
         // widget.canView =
@@ -91,7 +100,7 @@ module.exports = {
     };
 
     const superOutput = self.output;
-    self.output = function (widget, options) {
+    self.output = function(widget, options) {
       return superOutput(widget, options);
     };
   },

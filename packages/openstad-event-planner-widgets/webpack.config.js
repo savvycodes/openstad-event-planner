@@ -14,23 +14,33 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        // exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   resolve: {
-    extensions: ['.jsx', '.js'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-  },
+  // externals: {
+  //   react: 'React',
+  //   'react-dom': 'ReactDOM',
+  // },
   output: {
-    filename: 'event-manager.js',
+    filename: 'always.js',
     path: path.resolve(__dirname, 'public/js'),
-    library: 'savvycodes',
-    libraryTarget: 'window',
     environment: {
       arrowFunction: false,
       const: false,
     },
+  },
+  optimization: {
+    minimize: false,
   },
 };
