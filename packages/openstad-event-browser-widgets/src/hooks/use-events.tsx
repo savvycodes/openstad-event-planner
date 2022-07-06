@@ -32,9 +32,9 @@ export function useEvents(filters: any) {
     const apiFilters = {
       ...filters,
       dates:
-        filters?.dates?.map((date: Date) =>
-          date && date.toISOString ? date.toISOString() : null
-        ) ?? null,
+        filters?.dates
+          ?.filter((date: Date) => date.toISOString)
+          .map((date: Date) => date.toISOString()) ?? null,
     };
     delete apiFilters.ageRanges;
 

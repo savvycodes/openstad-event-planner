@@ -7,9 +7,7 @@ import { ErrorBanner } from '../components/error-banner';
 import { FilterSidebar } from '../components/filters';
 import { CardWrapper } from '../components/card/card';
 import { useMediaQuery } from 'react-responsive';
-import {
-  NavigationItem,
-} from '../components/layout/layout';
+import { NavigationItem } from '../components/layout/layout';
 import { EventCalendar } from '../components/events/event-calendar';
 import { EventTiles } from '../components/events/event-tiles';
 import { EventMap } from '../components/events/event-map';
@@ -19,14 +17,30 @@ import { useEvents } from '../hooks/use-events';
 
 import '../styles/events.css';
 
+function restoreFilters() {
+  try {
+    const filterString = sessionStorage.getItem('events.filter');
+    const storedFilters = filterString ? JSON.parse(filterString) : null;
+    console.log('storedFilters', storedFilters);
+    if (storedFilters && storedFilters?.dates) {
+      storedFilters.dates = storedFilters?.dates?.map(
+        (date: any) => new Date(date)
+      );
+    }
+    return storedFilters;
+  } catch (e) {
+    console.error('Could not restore filters', e);
+    return null;
+  }
+}
+
 /**
  * Page that shows events
  *
  * @returns
  */
 export function EventsPage({}: RouteComponentProps) {
-  let storedFilters = sessionStorage.getItem('events.filter');
-  storedFilters = storedFilters ? JSON.parse(storedFilters) : null;
+  let storedFilters = restoreFilters();
 
   // @todo: store filters in query string and restore from there
   const [filters, setFilters] = useState<any>(storedFilters);
@@ -64,9 +78,13 @@ export function EventsPage({}: RouteComponentProps) {
     <main className="event-events__main">
       <nav className="event-events__nav">
         <NavigationItem
-          className={viewType === 'map' ? "event-events__nav-item active" : "event-events__nav-item"}
+          className={
+            viewType === 'map'
+              ? 'event-events__nav-item active'
+              : 'event-events__nav-item'
+          }
           active={viewType === 'map'}
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             setViewType('map');
           }}
@@ -75,20 +93,31 @@ export function EventsPage({}: RouteComponentProps) {
           Kaart
         </NavigationItem>
         <NavigationItem
-          className={viewType === 'calendar' ? "event-events__nav-item active" : "event-events__nav-item"}
+          className={
+            viewType === 'calendar'
+              ? 'event-events__nav-item active'
+              : 'event-events__nav-item'
+          }
           active={viewType === 'calendar'}
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             setViewType('calendar');
           }}
         >
-          <Calendar size={24} stroke={viewType === 'calendar' ? '#fff' : '#004699'} />
+          <Calendar
+            size={24}
+            stroke={viewType === 'calendar' ? '#fff' : '#004699'}
+          />
           Kalender
         </NavigationItem>
         <NavigationItem
-          className={viewType === 'tile' ? "event-events__nav-item active" : "event-events__nav-item"}
+          className={
+            viewType === 'tile'
+              ? 'event-events__nav-item active'
+              : 'event-events__nav-item'
+          }
           active={viewType === 'tile'}
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             setViewType('tile');
           }}
@@ -163,7 +192,9 @@ export function EventsPage({}: RouteComponentProps) {
             marginBottom: 32,
           }}
         >
-          <button className='event-events__fetch-more' onClick={next}>Meer laden</button>
+          <button className="event-events__fetch-more" onClick={next}>
+            Meer laden
+          </button>
         </div>
       ) : null}
     </main>
