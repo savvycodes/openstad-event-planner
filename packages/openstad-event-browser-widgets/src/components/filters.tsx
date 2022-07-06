@@ -172,7 +172,12 @@ export function FilterSidebar({ onChange, ...props }: any) {
 
                         setFilters({
                           ...filters,
-                          tagIds: tagIds.map((x) => (!x ? [] : x)), // .filter((x: any) => x),
+                          tagIds: tagIds.map((x) => {
+                            if (x) {
+                              return x;
+                            }
+                            return [];
+                          }), // .filter((x: any) => x),
                         });
                       }}
                     />

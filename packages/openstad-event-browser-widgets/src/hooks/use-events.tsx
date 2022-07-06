@@ -83,7 +83,7 @@ export function useEvents(filters: any) {
     }
     return (event: any) =>
       filter.tagIds.some((tags: any) =>
-        tags.some((tagId: number) =>
+        tags?.some((tagId: number) =>
           event.tags.map((tag: any) => tag.id).includes(tagId)
         )
       );
@@ -96,7 +96,7 @@ export function useEvents(filters: any) {
 
     return (event: any) => {
       const dates = event.slots.map((slot: any) => new Date(slot.startTime));
-      return dates.some((date: Date) =>
+      return dates?.some((date: Date) =>
         filter.dates.some(
           ($date: Date) => date.toDateString() === $date.toDateString()
         )
