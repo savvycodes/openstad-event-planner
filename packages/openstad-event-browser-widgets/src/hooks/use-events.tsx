@@ -41,7 +41,7 @@ export function useEvents(filters: any) {
     if (apiFilters.tagIds) {
       // filter null values from array
       apiFilters.tagIds = apiFilters.tagIds
-        .filter((x: any[]) => x.length)
+        .filter((x: any[]) => x && x.length)
         .map((tags: any) => JSON.stringify(tags));
     }
 

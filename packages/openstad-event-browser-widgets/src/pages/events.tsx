@@ -21,7 +21,6 @@ function restoreFilters() {
   try {
     const filterString = sessionStorage.getItem('events.filter');
     const storedFilters = filterString ? JSON.parse(filterString) : null;
-    console.log('storedFilters', storedFilters);
     if (storedFilters && storedFilters?.dates) {
       storedFilters.dates = storedFilters?.dates?.map(
         (date: any) => new Date(date)
