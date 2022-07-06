@@ -43,7 +43,6 @@ function Filter({ name, children }: any) {
 
 const initialFilters: any = {
   q: '',
-  ageRanges: [],
   tagIds: [],
   districts: [],
   dates: [],
@@ -144,7 +143,7 @@ export function FilterSidebar({ onChange, ...props }: any) {
             ))}
           </Filter>
           {themes?.map((theme: any, themeIndex: any) => (
-            <Filter name={theme.label || theme.value}>
+            <Filter name={theme.label || theme.value} key={themeIndex}>
               {tags
                 .filter((tag: any) => tag.extraData.theme === theme.value)
                 .map((tag: any) => (

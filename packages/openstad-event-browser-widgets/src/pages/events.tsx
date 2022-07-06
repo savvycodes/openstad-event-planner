@@ -57,7 +57,7 @@ export function EventsPage({}: RouteComponentProps) {
   }, [viewType, hasMoreResults, next]);
 
   useEffect(() => {
-    if (filters && filters.ageRanges.length && hasMoreResults) {
+    if (filters && hasMoreResults) {
       next();
     }
   }, [filters, hasMoreResults, next]);

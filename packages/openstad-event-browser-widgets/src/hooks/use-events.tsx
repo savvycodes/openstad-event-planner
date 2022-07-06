@@ -31,6 +31,7 @@ export function useEvents(filters: any) {
   useEffect(() => {
     const apiFilters = {
       ...filters,
+      districts: filters?.districs?.filter((x: any) => x) ?? null,
       dates:
         filters?.dates
           ?.filter((date: Date) => date.toISOString)
