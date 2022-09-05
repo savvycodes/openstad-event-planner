@@ -26,6 +26,9 @@ export type AppConfig = {
     id?: string;
   };
   base?: string;
+  slug?: string;
+  reqUrl?: string;
+  prefixUrl?: string;
   themes?: any;
   areas?: any;
   providerPageUrl?: string;
@@ -55,7 +58,7 @@ export function App(props: AppProps): JSX.Element {
               isEventProvider: props.config.user?.isEventProvider || false,
             }}
           >
-            <Router base={props.config.base} />
+            <Router base={props.config.base} slug={props.config.slug} reqUrl={props.config.reqUrl} prefixUrl={props.config.prefixUrl}/>
           </UserProvider>
         </ConfigProvider>
       </SWRConfig>

@@ -38,6 +38,11 @@ module.exports = {
       },
       {
         type: 'string',
+        name: 'slug',
+        label: 'Slug',
+      },
+      {
+        type: 'string',
         name: 'providerPageUrl',
         label: 'Provider page url',
         htmlHelp: `URL to the page where providers create events`,
@@ -58,6 +63,7 @@ module.exports = {
           'mapAccessToken',
           'mapId',
           'base',
+          'slug',
           'providerPageUrl',
         ],
       },
@@ -79,7 +85,12 @@ module.exports = {
     const superLoad = self.load;
     self.load = function (req, widgets, next) {
       widgets.forEach((widget) => {
+
         const containerId = self.apos.utils.generateId();
+        const prefixUrl = `${req.sitePrefix ? '/' + req.sitePrefix : ''}`;
+        const baseUrl = (widget.base ? widget.base : '');
+        const slug = widget.slug ? widget.slug : '';
+
         widget.containerId = containerId;
         // Create the config for the react component
         widget.config = {
@@ -102,9 +113,9 @@ module.exports = {
           },
           themes: req.data.global.themes,
           areas: req.data.global.areas,
-          base:
-            widget.base ||
-            `${req.sitePrefix ? '/' + req.sitePrefix : ''}${req.url}`,
+          base: baseUrl,
+          slug: slug,
+          prefixUrl: prefixUrl,
           providerPageUrl: widget.providerPageUrl,
         };
 
