@@ -5,13 +5,13 @@ import { Switch, Route, Redirect, Router as Wouter } from 'wouter';
 import { EventDetailPage } from './pages/event-detail';
 import { EventsPage } from './pages/events';
 
-export function Router({ base }: any): JSX.Element {
+export function Router({ base, slug, prefixUrl }: any): JSX.Element {
   return (
-    <Wouter base={base}>
+    <Wouter>
       <Switch>
-        <Route path="/" component={EventsPage} />
-        <Route path={`/:id`} component={EventDetailPage} />
-        <Redirect to={`/`} />
+        <Route path={`${prefixUrl}${base}`} component={EventsPage} />
+        <Route path={`${prefixUrl}${slug}/:id`} component={EventDetailPage} />
+        <Redirect to={`${prefixUrl}/${base}`} />
       </Switch>
     </Wouter>
   );

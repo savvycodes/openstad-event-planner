@@ -7,13 +7,16 @@ import { ActivityImage, HeartIcon } from '../card/card';
 
 import { useUser } from '../../context/user-context';
 import { useFavorites } from '../../hooks/use-favorites';
+import { useConfig } from '../../context/config-context';
 
 export function EventTiles({ events }: any) {
   const user = useUser();
+  const config = useConfig();
   const { isFavorite, unfavorite, favorite } = useFavorites();
-
+  const slug = config.slug ?? '';
+  const prefixUrl = config.prefixUrl ?? '';
   return events.map((event: any) => (
-    <Link to={`/${event.id}`} key={event.id}>
+    <Link href={`${prefixUrl}${slug}/${event.id}`} key={event.id}>
       <div className="events-activity-card">
         <div
           className="events-icon-button"

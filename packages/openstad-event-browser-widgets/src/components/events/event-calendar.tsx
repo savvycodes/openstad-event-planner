@@ -10,6 +10,7 @@ import uniqBy from 'lodash.uniqby';
 
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { Link } from 'wouter';
+import { useConfig } from '../../context/config-context';
 
 import { CardWrapper } from '../card/card';
 import { EventTiles } from './event-tiles';
@@ -168,6 +169,9 @@ const s = {
 export function EventCalendar({ events, filters }: EventCalendarProps) {
   const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+  const config  = useConfig();
+  const slug = config.slug ?? '';
+  const prefixUrl = config.prefixUrl ?? '';
 
   const [range, setRange] = useState<Date[]>([
     new Date(),
@@ -297,7 +301,7 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
                       if (!slot) return null;
 
                       return (
-                        <Link to={`/${event.id}`}>
+                        <Link href={`${prefixUrl}${slug}/${event.id}`}>
                           <s.CardDiv key={event.id}>
                             <strong className="event-calendar__title">{event.name}</strong>
                             <p className="event-calendar__time">
@@ -329,7 +333,7 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
                       if (!slot) return null;
 
                       return (
-                        <Link to={`/${event.id}`}>
+                        <Link href={`${prefixUrl}${slug}/${event.id}`}>
                           <s.CardDiv key={event.id}>
                             <h3>{event.name}</h3>
                             <Paragraph>

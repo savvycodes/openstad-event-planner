@@ -4,8 +4,13 @@ import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { Link } from 'wouter';
 
 import { Map } from '../map';
+import { useConfig } from '../../context/config-context';
 
 export function EventMap({ events }: any) {
+  const config = useConfig();
+  const slug = config.slug ?? '';
+  const prefixUrl = config.prefixUrl ?? '';
+
   const markerGroup = useMemo(() => {
     return (
       <MarkerClusterGroup showCoverageOnHover={false} key={Date.now()}>
@@ -18,7 +23,7 @@ export function EventMap({ events }: any) {
             ]}
           >
             <Popup>
-              <Link href={`/${event.id}`}>{event.name}</Link>
+              <Link href={`${prefixUrl}${slug}/${event.id}`}>{event.name}</Link>
             </Popup>
           </Marker>
         ))}
