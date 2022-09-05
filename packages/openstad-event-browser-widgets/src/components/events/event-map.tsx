@@ -10,7 +10,7 @@ export function EventMap({ events }: any) {
   const config = useConfig();
   const slug = config.slug ?? '';
   const prefixUrl = config.prefixUrl ?? '';
-  
+
   const markerGroup = useMemo(() => {
     return (
       <MarkerClusterGroup showCoverageOnHover={false} key={Date.now()}>
@@ -23,7 +23,7 @@ export function EventMap({ events }: any) {
             ]}
           >
             <Popup>
-              <Link to={`${prefixUrl}${slug}/${event.id}`}>{event.name}</Link>
+              <Link href={`${prefixUrl}${slug}/${event.id}`}>{event.name}</Link>
             </Popup>
           </Marker>
         ))}

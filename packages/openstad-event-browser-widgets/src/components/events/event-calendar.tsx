@@ -172,7 +172,7 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
   const config  = useConfig();
   const slug = config.slug ?? '';
   const prefixUrl = config.prefixUrl ?? '';
-  
+
   const [range, setRange] = useState<Date[]>([
     new Date(),
     addDays(new Date(), 1),
@@ -301,7 +301,7 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
                       if (!slot) return null;
 
                       return (
-                        <Link to={`${prefixUrl}${slug}/${event.id}`}>
+                        <Link href={`${prefixUrl}${slug}/${event.id}`}>
                           <s.CardDiv key={event.id}>
                             <strong className="event-calendar__title">{event.name}</strong>
                             <p className="event-calendar__time">
@@ -333,7 +333,7 @@ export function EventCalendar({ events, filters }: EventCalendarProps) {
                       if (!slot) return null;
 
                       return (
-                        <Link to={`${prefixUrl}${slug}/${event.id}`}>
+                        <Link href={`${prefixUrl}${slug}/${event.id}`}>
                           <s.CardDiv key={event.id}>
                             <h3>{event.name}</h3>
                             <Paragraph>

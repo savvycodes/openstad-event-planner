@@ -16,7 +16,7 @@ export function EventTiles({ events }: any) {
   const slug = config.slug ?? '';
   const prefixUrl = config.prefixUrl ?? '';
   return events.map((event: any) => (
-    <Link to={`${prefixUrl}${slug}/${event.id}`} key={event.id}>
+    <Link href={`${prefixUrl}${slug}/${event.id}`} key={event.id}>
       <div className="events-activity-card">
         <div
           className="events-icon-button"
