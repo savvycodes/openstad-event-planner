@@ -17,7 +17,7 @@ export function OrganisationSettingsPage() {
 
   const [submitError, setError] = useState<Error | null>(null);
 
-  if (!organisation || loading) {
+  if (loading) {
     return <Spinner />;
   }
 
@@ -25,6 +25,14 @@ export function OrganisationSettingsPage() {
     return (
       <ErrorBanner>
         Oeps! We konden je organisatie niet ophalen ({error.message})
+      </ErrorBanner>
+    );
+  }
+
+  if (!organisation?.id) {
+    return (
+      <ErrorBanner>
+        Er is geen organisatie gekoppeld aan dit account
       </ErrorBanner>
     );
   }

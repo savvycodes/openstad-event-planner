@@ -28,7 +28,7 @@ export function ContactDetailsPage() {
     }
   }
 
-  if (!organisation || loading) {
+  if (loading) {
     return <Spinner />;
   }
 
@@ -36,6 +36,14 @@ export function ContactDetailsPage() {
     return (
       <ErrorBanner>
         Oeps! We konden je organisatie niet ophalen ({error.message})
+      </ErrorBanner>
+    );
+  }
+
+  if (!organisation?.id) {
+    return (
+      <ErrorBanner>
+        Er is geen organisatie gekoppeld aan dit account
       </ErrorBanner>
     );
   }
