@@ -12,7 +12,7 @@ import {
   CheckboxItem,
   CheckboxList,
   Select,
-  StyledInput,
+  // StyledInput,
 } from '../../../components/forms/input';
 import { ImageUpload } from '../../../components/forms/image-upload';
 import { Location } from '../../../components/location';
@@ -47,7 +47,7 @@ interface FormValues {
 }
 
 export function ActivityForm({
-  organisation,
+  // organisation,
   districts,
   tags,
   themes,
@@ -58,10 +58,10 @@ export function ActivityForm({
   return (
     <Form>
       <div className="form-wrapper">
-        <div className="inputfield-wrapper">
+        {/* <div className="inputfield-wrapper">
           <label htmlFor="name">Naam organisatie</label>
           <StyledInput value={organisation.name} disabled />
-        </div>
+        </div> */}
 
         <div className="inputfield-wrapper">
           <label htmlFor="name">Titel activiteit</label>

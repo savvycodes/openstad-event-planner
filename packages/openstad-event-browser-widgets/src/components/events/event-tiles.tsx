@@ -62,9 +62,9 @@ export function EventTiles({ events }: any) {
                   locale: nl,
                 })}
           </p>
-          <p className="events-activity-card__text-organisation">
+          {/* <p className="events-activity-card__text-organisation">
             Aanbieder: {event.organisation.name}
-          </p>
+          </p> */}
           <p className="events-activity-card__text-description">
             {event.description.replace(/(<([^>]+)>)/gi, '').slice(0, 80)}
             {event.description.length > 80 ? '...' : null}

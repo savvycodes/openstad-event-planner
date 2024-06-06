@@ -65,6 +65,12 @@ It's important to also add this declaration in `modules.js` for the apostrophe b
 - 🎉 [event-overview](packages/event-overview) – _React component to view events in the openstad frontend ("activiteiten overzicht")_
 - 🌍 [openstad-event-planner-widgets](packages/openstad-event-planner-widgets) – _Apostrophe CMS module that bundles the React components_
 
+### Linking in development
+You can use your local version of openstad-event-planner/browser-widgets and attach it to your running openstad-frontend instance.
+To do this, first build the package you want to link (cd into packages/openstad-event-planner-widgets) and then use npm link.
+
+In openstad-frontend, first install all dependencies using npm install. Afterwards run 'npm link @savvycodes/openstad-event-planner-widgets'. Rerun the frontend and you should see your local version. Do take note that without a watcher, you will need to rebuild the dependency each time a change to it is made.
+
 ### Publishing
 
 You can use lerna to publish a new version to npm, for now this is done manually

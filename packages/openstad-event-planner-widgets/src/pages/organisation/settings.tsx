@@ -84,7 +84,7 @@ export function OrganisationSettingsPage() {
             return setError(new Error(err.message));
           }
           window.location.reload();
-        } catch (err) {
+        } catch (err:any) {
           return setError(err);
         } finally {
           helpers.setSubmitting(false);

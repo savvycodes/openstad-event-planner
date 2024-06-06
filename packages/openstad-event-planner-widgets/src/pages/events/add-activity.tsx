@@ -94,7 +94,7 @@ export function ProviderAddActivityPage(): JSX.Element {
       await createEvent(config, payload);
 
       navigate('/events');
-    } catch (err) {
+    } catch (err:any) {
       console.error('form submit error', err);
       setSubmitError(err);
     } finally {

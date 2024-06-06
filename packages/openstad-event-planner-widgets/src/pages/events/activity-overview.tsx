@@ -17,6 +17,9 @@ import { ContactDetailsPage } from '../organisation/contact';
 import { OrganisationSettingsPage } from '../organisation/settings';
 
 import '../../styles/activities.css';
+import { useUser } from '../../context/user-context';
+
+
 
 const styles = {
   Header: styled(Header)`
@@ -56,6 +59,8 @@ const styles = {
 export function ProviderActivityOverviewPage(): JSX.Element {
   const [location, navigate] = useHashLocation();
   const { data: organisation } = useApi('/organisation/me');
+  const { role } = useUser();
+  const isAdmin = role === 'admin';
 
   return (
     <main className="component-main">
@@ -82,13 +87,12 @@ export function ProviderActivityOverviewPage(): JSX.Element {
           Contactpersoon
         </NavItem>
       </div>
-
       <Route
         path="/events"
         component={() => (
           <>
-            {organisation && organisation.id ? (
-              <ActivityList organisationId={organisation.id} />
+            {organisation && organisation.id || isAdmin ? (
+              <ActivityList organisationId={organisation?.id} />
             ) : (
               <Spinner />
             )}
@@ -109,9 +113,12 @@ function ActivityList({ organisationId }: ActivityListProps) {
   const [, navigate] = useHashLocation();
   const config = useConfig();
   const [page, setPage] = React.useState(1);
+
+  // Check if admin, remove filter on organisations
   const { data, loading, error, reload } = useApi(
-    `/event?organisationId=${organisationId}&page=${page}`
+    organisationId?`/event?organisationId=${organisationId}&page=${page}`:`/event?page=${page}`
   );
+
   const [deleteError, setDeleteError] = React.useState<Error | any>(null);
   const [events, setEvents] = React.useState([]);
 

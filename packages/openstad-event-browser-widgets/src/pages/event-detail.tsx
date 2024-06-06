@@ -82,9 +82,9 @@ export function EventDetailPage({ params }: RouteComponentProps) {
         <div className="events-event-container__layout">
           <div className="events-event-container__information">
             <h2>{event.name}</h2>
-            <p className="events-activity-card__text-organisation">
+            {/* <p className="events-activity-card__text-organisation">
               Aanbieder: {event.organisation.name}
-            </p>
+            </p> */}
 
             <div className="events-tags-container">
               <p className="events-tag">{event.district}</p>

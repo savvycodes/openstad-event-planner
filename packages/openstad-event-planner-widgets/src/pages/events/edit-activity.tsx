@@ -71,7 +71,7 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
       await updateEvent(config, params.id, payload);
 
       navigate('/events');
-    } catch (err) {
+    } catch (err:any) {
       setSubmitError(err);
     } finally {
       formHelpers.setSubmitting(false);

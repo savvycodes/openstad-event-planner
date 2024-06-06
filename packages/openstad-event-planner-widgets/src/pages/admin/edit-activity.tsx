@@ -65,7 +65,7 @@ export function AdminEditActivityPage({
       } else {
         navigate('/events');
       }
-    } catch (err) {
+    } catch (err:any) {
       setSubmitError(err);
     } finally {
       formHelpers.setSubmitting(false);
