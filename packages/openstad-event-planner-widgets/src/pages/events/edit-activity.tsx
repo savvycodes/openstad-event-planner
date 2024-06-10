@@ -55,6 +55,7 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
         image: values.image,
         tagIds: values.tagIds,
         slots: values.slots,
+        highlighted: values.highlighted
       };
 
       // Find min and max age
@@ -107,6 +108,7 @@ export function EditActivityPage({ params }: RouteComponentProps): JSX.Element {
         startTime: new Date(slot.startTime),
         endTime: new Date(slot.endTime),
       })),
+      highlighted: event.highlighted
     };
   }
 

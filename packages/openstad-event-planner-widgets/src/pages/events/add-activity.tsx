@@ -47,6 +47,7 @@ export const schema = Yup.object().shape({
     .of(Yup.string())
     .min(1, 'U moet minimaal 1 veld selecteren'),
   needToPay: Yup.string(),
+  highlighted: Yup.boolean().default(false)
 });
 
 /**
@@ -89,6 +90,7 @@ export function ProviderAddActivityPage(): JSX.Element {
         image: values.image,
         tagIds: values.tagIds,
         slots: values.slots,
+        highlighted: values.highlighted
       };
 
       await createEvent(config, payload);
@@ -139,6 +141,7 @@ export function ProviderAddActivityPage(): JSX.Element {
               endTime: addHours(addDays(new Date(), 1), 1),
             },
           ],
+          highlighted: false
         }}
         onSubmit={handleSubmit}
         validationSchema={schema}

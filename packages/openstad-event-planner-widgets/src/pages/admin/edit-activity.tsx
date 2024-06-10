@@ -57,6 +57,7 @@ export function AdminEditActivityPage({
         image: values.image,
         tagIds: values.tagIds,
         slots: values.slots,
+        highlighted: values.highlighted
       };
 
       await updateEvent(config, params.id, payload);
@@ -88,6 +89,7 @@ export function AdminEditActivityPage({
         startTime: new Date(slot.startTime),
         endTime: new Date(slot.endTime),
       })),
+      highlighted: event.highlighted
     };
   }
 
