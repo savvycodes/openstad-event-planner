@@ -52,9 +52,13 @@ export function Router(): JSX.Element {
   }
 
   return (
-    <HashRouter>
+    <HashRouter >
       {isAdmin ? (
         <Switch>
+          <Route path="/events/create" component={ProviderAddActivityPage} />
+          <Route path="/events/:id/edit" component={AdminEditActivityPage} />
+          <Route path="/events/:rest*" component={ProviderActivityOverviewPage} />
+          
           <Route
             path="/admin/events/:id/edit"
             component={AdminEditActivityPage}

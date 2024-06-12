@@ -53,6 +53,12 @@ export function UserListPage() {
         <Button onClick={() => navigate('/admin/users/create')}>
           Aanbieder toevoegen
         </Button>
+        <Button onClick={() => navigate('/events/create')}>
+          Activiteit toevoegen
+        </Button>
+        <Button onClick={() => navigate('/events')}>
+          Alle activiteiten
+        </Button>
       </styles.Header>
 
       {providers && providers.length > 0 ? (

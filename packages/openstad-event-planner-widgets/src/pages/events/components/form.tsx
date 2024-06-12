@@ -12,7 +12,7 @@ import {
   CheckboxItem,
   CheckboxList,
   Select,
-  StyledInput,
+  // StyledInput,
 } from '../../../components/forms/input';
 import { ImageUpload } from '../../../components/forms/image-upload';
 import { Location } from '../../../components/location';
@@ -44,10 +44,11 @@ interface FormValues {
   image: string;
   slots: any[];
   needToPay: string;
+  highlighted: boolean;
 }
 
 export function ActivityForm({
-  organisation,
+  // organisation,
   districts,
   tags,
   themes,
@@ -58,10 +59,10 @@ export function ActivityForm({
   return (
     <Form>
       <div className="form-wrapper">
-        <div className="inputfield-wrapper">
+        {/* <div className="inputfield-wrapper">
           <label htmlFor="name">Naam organisatie</label>
           <StyledInput value={organisation.name} disabled />
-        </div>
+        </div> */}
 
         <div className="inputfield-wrapper">
           <label htmlFor="name">Titel activiteit</label>
@@ -180,75 +181,6 @@ export function ActivityForm({
           </FieldArray>
         </div>
 
-        {/* <div className="inputfield-wrapper">
-        <Label>Leeftijd</Label>
-        <CheckboxList>
-          <CheckboxItem>
-            <Field
-              type="checkbox"
-              id="age04"
-              name="ages"
-              value="0-4"
-              tabIndex={7}
-            />
-            <ListLabel htmlFor="age04">0 - 4 jaar</ListLabel>
-          </CheckboxItem>
-          <CheckboxItem>
-            <Field
-              type="checkbox"
-              id="age48"
-              name="ages"
-              value="4-8"
-              tabIndex={8}
-            />
-            <ListLabel htmlFor="age48">4 - 8 jaar</ListLabel>
-          </CheckboxItem>
-          <CheckboxItem>
-            <Field
-              type="checkbox"
-              id="age812"
-              name="ages"
-              value="8-12"
-              tabIndex={9}
-            />
-            <ListLabel htmlFor="age812">8 - 12 jaar</ListLabel>
-          </CheckboxItem>
-          <CheckboxItem>
-            <Field
-              type="checkbox"
-              id="age1216"
-              name="ages"
-              value="12-16"
-              tabIndex={10}
-            />
-            <ListLabel htmlFor="age1216">12 - 16 jaar</ListLabel>
-          </CheckboxItem>
-          <CheckboxItem>
-            <Field
-              type="checkbox"
-              id="age1618"
-              name="ages"
-              value="16-18"
-              tabIndex={11}
-            />
-            <ListLabel htmlFor="age1618">16 - 18 jaar</ListLabel>
-          </CheckboxItem>
-          <CheckboxItem>
-            <Field
-              type="checkbox"
-              id="age18"
-              name="ages"
-              value="18-99"
-              tabIndex={12}
-            />
-            <ListLabel htmlFor="age18">18 jaar en ouder</ListLabel>
-          </CheckboxItem>
-          <Paragraph>
-            <ErrorMessage name="ages" />
-          </Paragraph>
-        </CheckboxList>
-      </div> */}
-
         {themes &&
           themes.map((theme: any) => (
             <div className="inputfield-wrapper" key={theme.id}>
@@ -366,6 +298,20 @@ export function ActivityForm({
           </p>
         </div>
 
+        <div className="inputfield-wrapper">
+          <label htmlFor="highlighted">Highlight dit event</label>
+          <CheckboxItem className="checkbox-label">
+            <Field
+              type="checkbox"
+              name="highlighted"
+              value={form.values.highlighted}
+              checked={form.values.highlighted}
+              onChange={(e: any) =>
+                form.setFieldValue('highlighted', e.target.checked)
+              }
+            />
+          </CheckboxItem>
+        </div>
         <button type="submit" disabled={form.isSubmitting}>
           Opslaan
         </button>
