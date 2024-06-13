@@ -72,7 +72,7 @@ export function ProviderActivityOverviewPage(): JSX.Element {
         >
           Activiteiten
         </NavItem>
-        <NavItem
+        {/* <NavItem
           className="tab-nav__item"
           onClick={() => navigate('/events/settings')}
           active={location === '/events/settings'}
@@ -85,7 +85,7 @@ export function ProviderActivityOverviewPage(): JSX.Element {
           active={location === '/events/contact'}
         >
           Contactpersoon
-        </NavItem>
+        </NavItem> */}
       </div>
       <Route
         path="/events"
@@ -170,6 +170,7 @@ function ActivityList({ organisationId }: ActivityListProps) {
             key={event.id}
             src={event.image}
             title={event.name}
+            isHighlighted={event.highlighted}
             description={event.description}
             onDelete={() => handleDelete(event.id)}
             onEdit={() => navigate(`/events/${event.id}/edit`)}

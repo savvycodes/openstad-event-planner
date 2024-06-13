@@ -8,6 +8,18 @@ import { ActivityImage, HeartIcon } from '../card/card';
 import { useUser } from '../../context/user-context';
 import { useFavorites } from '../../hooks/use-favorites';
 import { useConfig } from '../../context/config-context';
+import { styled } from 'goober';
+import { Sun } from 'react-feather';
+
+export const ActivityCardPinContainer = styled('div')`
+  min-width: 1rem;
+  min-height: 1rem;
+  padding: 0.5rem;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  position: absolute;
+`;
 
 export function EventTiles({ events }: any) {
   const user = useUser();
@@ -18,6 +30,12 @@ export function EventTiles({ events }: any) {
   return events.map((event: any) => (
     <Link href={`${prefixUrl}${slug}/${event.id}`} key={event.id}>
       <div className="events-activity-card">
+        {event.highlighted ? (
+          <ActivityCardPinContainer>
+            <Sun size={24} stroke={'#F39200'} />
+          </ActivityCardPinContainer>
+        ) : null}
+
         <div
           className="events-icon-button"
           onClick={(e) => {
@@ -37,6 +55,7 @@ export function EventTiles({ events }: any) {
             <HeartIcon size={24} active={isFavorite(event.id)} />
           </div>
         </div>
+
         <div className="events-activity-card__image-wrapper">
           <ActivityImage
             className="events-activity-card__image"
