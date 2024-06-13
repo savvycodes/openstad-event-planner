@@ -9,14 +9,13 @@ import { useUser } from '../../context/user-context';
 import { useFavorites } from '../../hooks/use-favorites';
 import { useConfig } from '../../context/config-context';
 import { styled } from 'goober';
-import { Sun } from 'react-feather';
+import { Pin } from './pin';
 
 export const ActivityCardPinContainer = styled('div')`
   min-width: 1rem;
   min-height: 1rem;
-  padding: 0.5rem;
-  top: 0;
-  left: 0;
+  top: -0.5rem;
+  left: -0.5rem;
   z-index: 1;
   position: absolute;
 `;
@@ -30,9 +29,10 @@ export function EventTiles({ events }: any) {
   return events.map((event: any) => (
     <Link href={`${prefixUrl}${slug}/${event.id}`} key={event.id}>
       <div className="events-activity-card">
+        
         {event.highlighted ? (
           <ActivityCardPinContainer>
-            <Sun size={24} stroke={'#F39200'} />
+            <Pin/>
           </ActivityCardPinContainer>
         ) : null}
 

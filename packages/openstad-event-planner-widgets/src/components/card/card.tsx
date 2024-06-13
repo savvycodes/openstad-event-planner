@@ -1,6 +1,7 @@
 import { styled } from 'goober';
 import React, { MouseEventHandler } from 'react';
-import { Edit3, Trash2, Sun } from 'react-feather';
+import { Edit3, Trash2 } from 'react-feather';
+import { Pin } from './pin';
 
 /**
  * Card helpers
@@ -49,9 +50,8 @@ export const NewActivityCardTextContainer = styled('div')`
 export const ActivityCardPinContainer = styled('div')`
   min-width: 1rem;
   min-height: 1rem;
-  padding: 0.5rem;
-  top: 0;
-  left: 0;
+  top: -0.5rem;
+  left: -0.5rem;
   position: absolute;
 `;
 
@@ -102,7 +102,7 @@ export function ActivityCards({
     <ActivityCard className="activity-card">
       {isHighlighted ? (
         <ActivityCardPinContainer>
-          <Sun size={24} stroke={'#F39200'} />
+          <Pin/>
         </ActivityCardPinContainer>
       ) : null}
 
