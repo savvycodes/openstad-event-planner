@@ -19,8 +19,6 @@ import { OrganisationSettingsPage } from '../organisation/settings';
 import '../../styles/activities.css';
 import { useUser } from '../../context/user-context';
 
-
-
 const styles = {
   Header: styled(Header)`
     display: flex;
@@ -57,22 +55,22 @@ const styles = {
  * @returns
  */
 export function ProviderActivityOverviewPage(): JSX.Element {
-  const [location, navigate] = useHashLocation();
+  // const [location, navigate] = useHashLocation();
   const { data: organisation } = useApi('/organisation/me');
   const { role } = useUser();
   const isAdmin = role === 'admin';
 
   return (
     <main className="component-main">
-      <div className="tab-nav">
-        <NavItem
+      {/* <div className="tab-nav"> */}
+        {/* <NavItem
           className="tab-nav__item"
           onClick={() => navigate('/events')}
           active={location === '/events'}
         >
           Activiteiten
-        </NavItem>
-        <NavItem
+        </NavItem> */}
+        {/* <NavItem
           className="tab-nav__item"
           onClick={() => navigate('/events/settings')}
           active={location === '/events/settings'}
@@ -85,13 +83,13 @@ export function ProviderActivityOverviewPage(): JSX.Element {
           active={location === '/events/contact'}
         >
           Contactpersoon
-        </NavItem>
-      </div>
+        </NavItem> */}
+      {/* </div> */}
       <Route
         path="/events"
         component={() => (
           <>
-            {organisation && organisation.id || isAdmin ? (
+            {(organisation && organisation.id) || isAdmin ? (
               <ActivityList organisationId={organisation?.id} />
             ) : (
               <Spinner />
@@ -116,7 +114,9 @@ function ActivityList({ organisationId }: ActivityListProps) {
 
   // Check if admin, remove filter on organisations
   const { data, loading, error, reload } = useApi(
-    organisationId?`/event?organisationId=${organisationId}&page=${page}`:`/event?page=${page}`
+    organisationId
+      ? `/event?organisationId=${organisationId}&page=${page}`
+      : `/event?page=${page}`
   );
 
   const [deleteError, setDeleteError] = React.useState<Error | any>(null);
@@ -163,24 +163,29 @@ function ActivityList({ organisationId }: ActivityListProps) {
 
   return (
     <>
-      <h3>Activiteiten</h3>
-      <CardWrapper>
-        {events.map((event: any) => (
-          <ActivityCards
-            key={event.id}
-            src={event.image}
-            title={event.name}
-            description={event.description}
-            onDelete={() => handleDelete(event.id)}
-            onEdit={() => navigate(`/events/${event.id}/edit`)}
-          />
-        ))}
+      <div className="activities-title-with-create-bar">
+        <h3>Activiteiten</h3>
         <button
           className="add-activity-button"
           onClick={() => navigate('/events/create')}
         >
           Activiteit toevoegen
         </button>
+      </div>
+
+      <CardWrapper>
+        {events.map((event: any) => (
+          <ActivityCards
+            key={event.id}
+            src={event.image}
+            title={event.name}
+            isHighlighted={event.highlighted}
+            description={event.description}
+            onDelete={() => handleDelete(event.id)}
+            onEdit={() => navigate(`/events/${event.id}/edit`)}
+          />
+        ))}
+
         {data?.metadata?.pageCount > page ? (
           <styles.ButtonRow>
             <Button onClick={nextPage}>Meer laden</Button>

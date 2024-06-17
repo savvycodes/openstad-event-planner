@@ -21,6 +21,12 @@
   align-self: center;
 }
 
+.activities-title-with-create-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .activity-card__content {
   padding: 1rem;
 }

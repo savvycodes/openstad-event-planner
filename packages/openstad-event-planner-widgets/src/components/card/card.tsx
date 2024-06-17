@@ -1,6 +1,7 @@
 import { styled } from 'goober';
 import React, { MouseEventHandler } from 'react';
 import { Edit3, Trash2 } from 'react-feather';
+import { Pin } from './pin';
 
 /**
  * Card helpers
@@ -46,6 +47,14 @@ export const NewActivityCardTextContainer = styled('div')`
   justify-content: center;
 `;
 
+export const ActivityCardPinContainer = styled('div')`
+  min-width: 1rem;
+  min-height: 1rem;
+  top: -0.5rem;
+  left: -0.5rem;
+  position: absolute;
+`;
+
 export const ActivityImage = styled('img')`
   object-fit: cover;
 `;
@@ -76,6 +85,7 @@ type ActivityCardsProps = {
   src: string;
   title: string;
   description: string;
+  isHighlighted?: boolean;
   onDelete?: MouseEventHandler;
   onEdit?: MouseEventHandler;
 };
@@ -84,26 +94,25 @@ export function ActivityCards({
   src,
   title,
   description,
+  isHighlighted = false,
   onDelete = () => null,
   onEdit = () => null,
 }: ActivityCardsProps) {
   return (
     <ActivityCard className="activity-card">
-      <img className='activity-card__image' src={src + '/:/rs=w:550px'} />
+      {isHighlighted ? (
+        <ActivityCardPinContainer>
+          <Pin/>
+        </ActivityCardPinContainer>
+      ) : null}
+
+      <img className="activity-card__image" src={src + '/:/rs=w:550px'} />
       <div className="activity-card__content">
-        <h3>{title.slice(0, 20)+'...'}</h3>
-        <p>{description.replace(/<[^>]+>/g, '').slice(0, 100)+'...'}</p>
+        <h3>{title.slice(0, 20) + '...'}</h3>
+        <p>{description.replace(/<[^>]+>/g, '').slice(0, 100) + '...'}</p>
         <div className="activity-card__actions">
-          <Trash2
-            size={24}
-            stroke={'#000'}
-            onClick={onDelete}
-          />
-          <Edit3
-            stroke={'#000'}
-            size={24}
-            onClick={onEdit}
-          />
+          <Trash2 size={24} stroke={'#000'} onClick={onDelete} />
+          <Edit3 stroke={'#000'} size={24} onClick={onEdit} />
         </div>
       </div>
     </ActivityCard>

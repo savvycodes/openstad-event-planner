@@ -65,7 +65,7 @@ export function Router(): JSX.Element {
           />
           <Route path="/admin/users" component={UserListPage} />
           <Route path="/admin/users/create" component={CreateUserPage} />
-          <Redirect to="/admin/users" />
+          <Redirect to="/events" />
         </Switch>
       ) : (
         <Switch>
